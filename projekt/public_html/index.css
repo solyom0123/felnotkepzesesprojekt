@@ -1,0 +1,272 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.24., 19:31:38
+    Author     : user
+*/
+body{
+
+    height: 600px;
+    background-color: whitesmoke;
+    margin: auto;
+}
+.logo{
+    width: 20px;
+    height: 20px;
+}
+.menu{
+    float: left;
+    height: 100%;
+    width: 250px;
+    background-color: #8c92ac;
+}
+.tartalom{
+    float: right;
+    height: 100%;
+    width: 1000px;
+    overflow: auto;
+    background-color: whitesmoke;
+}
+.tartalom-wrapper{
+    float: left;
+    height: 2000px;
+    width: 100%;
+    background-color: whitesmoke;
+    text-align:center;
+}
+.h2-default{
+    text-align: left;
+    margin-left: 100px;
+    padding: 5px;
+    width: 700px;
+    height: 50px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    background-color: #8c92ac;
+    color: wheat;
+}
+.lapozo-button{
+    float: left;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button:hover{
+    float: left;
+    border: 5px wheat dashed;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button-active{
+    float: left;
+    border: 5px #8c92ac dashed;
+    background-color: wheat;
+    color: #8c92ac;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.menu-wrapper{
+    margin-left: 20px;
+    padding: 5px;
+    width: 210px;
+    height: 80%;
+    margin-top: 50px;
+    overflow: auto;
+    margin-bottom: 50px;
+    
+}
+.option-button-wrapper{
+    margin-left: 100px;
+    padding: 10px;
+    width: 700px;
+    height: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+
+.option-button{
+    float: left;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.option-button:hover{
+    float: left;
+    background-color: #8c92ac;
+    border: 5px wheat dashed;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.menu-button{
+    background-color: #8c92ac;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.menu-button:hover{
+    background-color: #8c92ac;
+    border: 5px wheat dashed;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.menu-button-active{
+   
+    border: 5px #8c92ac dashed;
+    background-color: wheat;
+    color: #8c92ac;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.lapozo-whapper{
+    margin-left: 100px;
+    padding: 5px;
+    width: 700px;
+    height: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+main{
+    float: left;
+
+    height: 720px;
+    
+}
+.wd-1250{
+    width: 1250px;
+}
+.pd-r-100{
+    padding-right: 100px;
+}
+.pd-t-20{
+    padding-top: 20px;
+}
+.span-half-corner {
+     position: absolute;
+    margin-top: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #8c92ac;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 50px; 
+    opacity: 0.0;
+   color: wheat;
+   
+   
+}
+.span-half-corner:hover {
+     position: absolute;
+    margin-top: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #8c92ac;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 50px; 
+    opacity: 0.8;
+   color: wheat;
+   
+   
+}
+.table-default{
+    border: 0px none;
+    
+
+}
+.setting-list li{
+    list-style-type: none;
+}
+.table-default td{
+    padding: 5px;
+}
+.szuro-wrapper{
+    float: right;
+    width: 60px;
+    margin-top: 0px;
+    margin-right: 130px;
+    padding: 10px;
+}
+
+.table-wrapper{
+    margin: 0px 10px 100px 100px;
+    height: 400px;
+    width: 700px;
+    overflow: auto;
+}
+.span-half-corner-wrapper {
+    position: relative;
+    text-align: center;
+    width: 100px;
+    height: 100px; 
+    
+    
+}
+.img-circle-zindex-0{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    
+}
+
+.img-circle-zindex-0_clicked{
+    border: 5px black dashed;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    
+}

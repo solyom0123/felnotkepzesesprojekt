@@ -1,0 +1,102 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.25., 20:41:24
+    Author     : user
+*/
+
+   .tooltip-wrapper{
+    width: 20px;
+    height: auto;
+    padding: 2px;
+    float:left;
+    margin: 10px;
+}
+.span-half-corner-wrapper {
+    position: relative;
+    text-align: center;
+    width: 100px;
+    height: 100px; 
+
+
+}
+.date-table-wrapper{
+    margin: 0px 10px 10px 100px;
+    height: auto;
+    width: 800px;
+    overflow: auto;
+}
+.table-wrapper{
+    margin: 0px 10px 10px 100px;
+    height: 400px;
+    width: 800px;
+    overflow: auto;
+}
+.form-wrapper{
+    float: left;
+    width: 700px;
+    height: auto;
+    margin-left: 100px;
+    margin-top: 0px;
+    padding: 10px;
+
+}
+.felirat-wrapper{
+    float: left;
+    width: auto;
+    margin-top: 0px;
+    padding: 10px;
+    background-color: #8c92ac;
+
+}
+.szuro-wrapper{
+    float: right;
+    width: 60px;
+    margin-top: 0px;
+    margin-right: 50px;
+    padding: 10px;
+}
+.input-wrapper{
+    float: left;
+    width: 400px;
+    margin-top: 0px;
+    padding: 10px;
+}
+.lapozo-whapper{
+    margin-left: 100px;
+    padding: 5px;
+    width: 700px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.menu-wrapper{
+    margin-left: 20px;
+    padding: 5px;
+    width: 210px;
+    height: autp;
+    margin-top: 50px;
+    overflow: auto;
+    margin-bottom: 50px;
+
+}
+.option-button-wrapper{
+    margin-left: 100px;
+    padding: 10px;
+    width: 700px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.tartalom-wrapper{
+    float: left;
+    height: auto;
+    width: 100%;
+    background-color: whitesmoke;
+    text-align:center;
+}

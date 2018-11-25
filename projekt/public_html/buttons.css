@@ -1,0 +1,252 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.25., 20:42:09
+    Author     : user
+*/
+
+.tooltip-s {
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: #8c92ac;
+    height: 50px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #8c92ac;
+}
+.tooltip-s .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-s .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-s:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.logo{
+    width: 20px;
+    height: 20px;
+}
+
+.h2-default{
+    text-align: left;
+    margin-left: 100px;
+    padding: 5px;
+    width: 800px;
+    height: 50px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    background-color: #8c92ac;
+    color: wheat;
+}
+.lapozo-button{
+    float: left;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button:hover{
+    float: left;
+    border: 5px wheat dashed;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button-active{
+    float: left;
+    border: 5px #8c92ac dashed;
+    background-color: wheat;
+    color: #8c92ac;
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.option-button{
+    float: left;
+    background-color: #8c92ac;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.option-button:hover{
+    float: left;
+    background-color: #8c92ac;
+    border: 5px wheat dashed;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.menu-button{
+    background-color: #8c92ac;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.menu-button:hover{
+    background-color: #8c92ac;
+    border: 5px wheat dashed;
+    color: wheat;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.menu-button-active{
+
+    border: 5px #8c92ac dashed;
+    background-color: wheat;
+    color: #8c92ac;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+}
+.span-half-corner {
+    position: absolute;
+    margin-top: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #8c92ac;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 50px; 
+    opacity: 0.0;
+    color: wheat;
+
+
+}
+.span-half-corner:hover {
+    position: absolute;
+    margin-top: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #8c92ac;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 50px; 
+    opacity: 0.8;
+    color: wheat;
+
+
+}
+.table-default{
+    border: 0px none;
+}
+.setting-list li{
+    list-style-type: none;
+}
+.table-default td{
+    padding: 5px;
+}
+
+.input-default{
+    font-size: 20px;
+    color: #8c92ac;
+    border: none;
+    border-bottom: 2px #8c92ac solid;
+    float: left;
+    width: 300px;
+    height: 50px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.label-default-s{
+    font-size: 20px;
+    color: wheat;
+    margin-top: 10px;
+    height: 50px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+
+.img-circle-zindex-0{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+}
+
+.date-circle{
+    width: 100px;
+    height: 100px;
+    padding: 40px;
+    color: black;
+}
+.img-circle-zindex-0_clicked{
+    border: 5px black dashed;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+}

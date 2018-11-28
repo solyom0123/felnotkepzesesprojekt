@@ -38,8 +38,8 @@ and open the template in the editor.
                         </ul>
                     </li>
 
-                    <li class=""><a href="profil.html">Felhnev</a></li>
-                    <li class=""><a href="bejel.html"><img class="logo" src="img/logout.png"></a></li>
+                    <li class=""><a href="#">Felhnev</a></li>
+                    <li class=""><a href="#"><img class="logo" src="img/logout.png"></a></li>
                 </ul>
             </div>
         </nav>
@@ -47,7 +47,7 @@ and open the template in the editor.
             <div class="menu ">
                 <div class="menu-wrapper">
                          <a href="egyedeklap.html"><div class="menu-button-active">Aláírás</div></a>
-                    <a href="kepzeseekkapcsolo.html"><div class="menu-button">Képzések</div></a>
+                    <a href="kepzeseekkapcsolo.html"><div class="menu-button-active">Képzések</div></a>
                     <a href="modulokkapcsol.html"><div class="menu-button">Modulok</div></a>
                     <a href="diakokkapcsol.html"><div class="menu-button">Diákok</div></a>
                     <a href="tantargykapcsol.html"><div class="menu-button">Tantárgyak</div></a>
@@ -62,20 +62,43 @@ and open the template in the editor.
 
             <div class="tartalom pd-t-20">
                 <div class="tartalom-wrapper">
-                    <h2 class="h2-default">Aláírás</h2>
+                    <h2 class="h2-default">Modul adatlap</h2>
                     <div class="form-wrapper">
                         <div class="felirat-wrapper">
-                            <div class="label-default-s">Dátum:</div>
-                            <div class="label-default-s">Aláíró neve:</div>
-                            <div class="label-default-s">Aláírás helye:</div>
-                            
+                            <div class="label-default-s">Neve:</div>
+                            <div class="label-default-s">Leírás:</div>
+                            <div class="label-default-s">Azonosito:</div>
+                            <div class="label-default-s">Tananyagok:</div>
+                            <div class="label-default-s-table">Tananyagok:</div>
+                            <div class="label-default-s">Gyakorlat aránya:</div>
+                          
                         </div>
 
                         <div class="input-wrapper">
-                            <input class="input-default" type="text" disabled value="2018.feb.24">
-                            <input class="input-default" type="text" disabled value="Kovács Petér">
-                            <canvas class="input-default"></canvas>
-                            </div>
+                            <input class="input-default" type="text" value="Nyelvi modul">
+                            <input class="input-default" type="text" value="Angol nyelv">
+                            <input class="input-default" type="text" value="XYZ67899">
+                            <a href="tantargykapcsolo.html"><input class="input-default" type="button" value="Tantárgyak"></a>
+                            <table class="table-default input-table">
+                                <tr>
+                                    <td>
+                                        Neve
+                                    </td>
+                                    <td>
+                                        Tanar
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="tantargyinput.html"> Angol</a>
+                                    </td>
+                                    <td>
+                                        Kovács Béla, Devecsér Adrien
+                                    </td>
+                                </tr>
+                            </table>
+                            <input class="input-default" type="text" value="40%">
+                          </div>
                         <div class="tooltip-wrapper">
                             <div class="tooltip-s">?
                                 <span class="tooltiptext">Segédlet</span>
@@ -86,14 +109,25 @@ and open the template in the editor.
                             <div class="tooltip-s">?
                                 <span class="tooltiptext">Segédlet</span>
                             </div>
-                            
+                            <div class="tooltip-s">?
+                                <span class="tooltiptext">Segédlet</span>
+                            </div>
+                            <div class="tooltip-s">?
+                                <span class="tooltiptext">Segédlet</span>
+                            </div>
+                            <div class="tooltip-s">?
+                                <span class="tooltiptext">Segédlet</span>
+                            </div>
+                            <div class="tooltip-s">?
+                                <span class="tooltiptext">Segédlet</span>
+                            </div>
 
                         </div>    
 
                     </div>
                     <div class="option-button-wrapper">
-                        <a href="egyedeklap.html"><div class="option-button">Aláír</div></a>
-                        <a href="datum.html"><div class="option-button">Dátum módosítás</div></a>
+                        <div class="option-button">Felvitel</div>
+                        <a href="modulkapcsolo.html"><div class="option-button">mégse</div></a>
 
 
                     </div>

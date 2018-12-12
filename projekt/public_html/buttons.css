@@ -8,6 +8,19 @@ and open the template in the editor.
     Author     : user
 */
 
+html{
+    -webkit-font-smoothing: antialiased;
+}
+
+
+body{
+    
+        background-color: #3C4858;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
+    
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
 .tooltip-s {
     font-size: 30px;
     position: relative;
@@ -69,7 +82,7 @@ and open the template in the editor.
 .lapozo-button{
     float: left;
     background-color: #8c92ac;
-    color: wheat;
+    color: #df8807;
     width: 35px;
     height: 35px;
     margin: 5px;
@@ -79,9 +92,9 @@ and open the template in the editor.
 }
 .lapozo-button:hover{
     float: left;
-    border: 5px wheat dashed;
-    background-color: #8c92ac;
-    color: wheat;
+    border: 5px #df8807;
+    background-color: #7c4c04;
+    color: #df8807;
     width: 35px;
     height: 35px;
     margin: 5px;
@@ -92,19 +105,19 @@ and open the template in the editor.
 .lapozo-button-active{
     float: left;
     border: 5px #8c92ac dashed;
-    background-color: wheat;
+    background-color: #df8807;
     color: #8c92ac;
     width: 35px;
     height: 35px;
     margin: 5px;
     text-align: center;
     padding: 5px;
-    border-radius: 50px;
+    border-radius: 5px; /*50px volt*/
 }
 .option-button{
     float: left;
     background-color: #8c92ac;
-    color: wheat;
+    color: #df8807;
     width: 180px;
     height: 50px;
     margin-top: 10px;
@@ -112,50 +125,54 @@ and open the template in the editor.
     margin-bottom: 10px;
     text-align: center;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px;  /*25px volt*/
 }
 .option-button:hover{
     float: left;
-    background-color: #8c92ac;
-    border: 5px wheat dashed;
-    color: wheat;
+    background-color: #7c4c04;
+    border: 5px #df8807;
+    color: #df8807;
     width: 180px;
     height: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 .menu-button{
-    background-color: #8c92ac;
-    color: wheat;
+    /*ez mar a corvinos css-bol van atemelve a stilushoz*/
+    background-color: #feeacb;
+    border-color: #feeacb;
+    color: #503D36;
     width: 180px;
     height: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px; /*25 volt minden btn-nél*/
+    box-shadow: 0 2px 2px 0 rgba(254, 234, 203, 0.14), 0 3px 1px -2px rgba(254, 234, 203, 0.2), 0 1px 5px 0 rgba(254, 234, 203, 0.12);
 }
 .menu-button:hover{
-    background-color: #8c92ac;
-    border: 5px wheat dashed;
-    color: wheat;
+    background-color: #7c4c04;
+    border: 2px #df8807;
+    color: #df8807;
     width: 180px;
     height: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(254, 234, 203, 0.14), 0 3px 1px -2px rgba(254, 234, 203, 0.2), 0 1px 5px 0 rgba(254, 234, 203, 0.12);
 }
 
 .menu-button-active{
 
-    border: 5px #8c92ac dashed;
-    background-color: wheat;
+    border: 5px #c87a04;
+    background-color: #df8807;
     color: #8c92ac;
     width: 180px;
     height: 50px;
@@ -163,7 +180,8 @@ and open the template in the editor.
     margin-bottom: 10px;
     text-align: center;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(254, 234, 203, 0.14), 0 3px 1px -2px rgba(254, 234, 203, 0.2), 0 1px 5px 0 rgba(254, 234, 203, 0.12);
 }
 .span-half-corner {
     position: absolute;
@@ -176,7 +194,7 @@ and open the template in the editor.
     top: 0px;
     width: 100px;
     height: 50px; 
-    opacity: 0.0;
+    opacity: 0.8;
     color: wheat;
 
 
@@ -192,8 +210,8 @@ and open the template in the editor.
     top: 0px;
     width: 100px;
     height: 50px; 
-    opacity: 0.8;
-    color: wheat;
+    opacity: 0.9;
+    color: #df8807;
 
 
 }
@@ -221,7 +239,7 @@ and open the template in the editor.
 }
 .label-default-s{
     font-size: 20px;
-    color: wheat;
+    color: #df8807;
     margin-top: 10px;
     height: 50px;
     width: auto;
@@ -264,7 +282,7 @@ and open the template in the editor.
 }
 .label-default-s-table{
     font-size: 20px;
-    color: wheat;
+    color: #df8807;
     margin-top: 10px;
     height: 100px;
     width: auto;

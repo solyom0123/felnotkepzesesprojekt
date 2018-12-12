@@ -11,7 +11,7 @@ and open the template in the editor.
 
 body{
 
-    height: 600px;
+    height: 800px;
     background-color: whitesmoke;
     margin: auto;
 }
@@ -30,7 +30,8 @@ body{
 }
 main{
     float: left;
-    height: 720px;
+    height: 800px;
+    margin: 0px auto;
 
 }
 footer{
@@ -40,4 +41,10 @@ footer{
     text-align: center;
     color: #8c92ac;
     float: left;
+}
+
+.wd-1250{
+    background-color: #ecd9c6;
+    float: none;
+    
 }

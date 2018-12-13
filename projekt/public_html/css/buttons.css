@@ -30,6 +30,25 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     margin-bottom: 10px;
     border-bottom: 1px dotted #8c92ac;
 }
+.tooltip-l {
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: #8c92ac;
+    height: 100px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #8c92ac;
+}
+.tooltip-xl {
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: #8c92ac;
+    height: 150px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #8c92ac;
+}
+
 .tooltip-s .tooltiptext {
     font-size: 20px;
     visibility: hidden;
@@ -47,8 +66,61 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     opacity: 0;
     transition: opacity 0.3s;
 }
-
+.tooltip-l .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip-xl .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
 .tooltip-s .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.tooltip-l .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.tooltip-xl .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -60,6 +132,14 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
 }
 
 .tooltip-s:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-l:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-xl:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
@@ -215,6 +295,14 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
 
 
 }
+.order-list-arrow{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    display: inline;
+    margin-right:  5px;
+}
 .table-default{
     border: 0px none;
 }
@@ -226,6 +314,7 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
 }
 
 .input-default{
+  
     font-size: 20px;
     color: #8c92ac;
     border: none;
@@ -233,10 +322,65 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     float: left;
     width: 300px;
     height: 50px;
+   
     background-color: whitesmoke;
     margin-left: 10px;
     margin-bottom: 10px;
 }
+
+.input-default-s{
+  
+    font-size: 20px;
+    color: #8c92ac;
+    border: none;
+    border-bottom: 2px #8c92ac solid;
+    float: left;
+    width: 50px;
+    height: 50px;
+   
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-m{
+  
+    font-size: 20px;
+    color: #8c92ac;
+    border: none;
+    border-bottom: 2px #8c92ac solid;
+    float: left;
+    width: 200px;
+    height: 50px;
+   
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-l{
+    font-size: 20px;
+    color: #8c92ac;
+    border: none;
+    border-bottom: 2px #8c92ac solid;
+    float: left;
+    width: 300px;
+    height: 100px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-xl{
+    font-size: 20px;
+    color: #8c92ac;
+    border: none;
+    border-bottom: 2px #8c92ac solid;
+    float: left;
+    width: 300px;
+    height: 150px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 .label-default-s{
     font-size: 20px;
     color: #df8807;
@@ -247,7 +391,24 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     margin-bottom: 10px;
 }
 
-
+.label-default-l{
+    font-size: 20px;
+    color: #df8807;
+    margin-top: 10px;
+    height: 100px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.label-default-xl{
+    font-size: 20px;
+    color: #df8807;
+    margin-top: 10px;
+    height: 150px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 .img-circle-zindex-0{
     position: absolute;
     left: 0px;

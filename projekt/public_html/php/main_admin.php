@@ -1,76 +1,13 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head lang="hu">
-        <title>CORVIN KÖZ OKTATÁSI KÖZPONT</title>
-        
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        <meta property="og:title" content="Kozmetikus, fodrász tanfolyam | Corvin köz Oktatási Központ" />
-        <meta property="og:url" content="https://corvinkoz.hu/" />
-        <meta property="og:image" content="https://corvinkoz.hu/assets/images/default_facebook.jpg" />
-        
-        <link rel="icon" type="image/png" href="img/favicon-16x16.ico" sizes="16x16">
-        <link rel="icon" type="image/png" href="img/favicon-32x32.ico" sizes="32x32">
-        <link rel="icon" type="image/png" href="img/favicon-96x96.ico" sizes="96x96">
-        <link rel="stylesheet" href="index.css">
-        <link rel="stylesheet" href="buttons.css">
-        <link rel="stylesheet" href="usefull.css">
-        <link rel="stylesheet" href="wrappers.css">
-        <link rel="stylesheet" href="bootstrap.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body class="wd-1250">
-        <nav class="navbar navbar-fixed-top navbar-inverse wd-1250">
+<?php
 
-            <div class="navbar-header">
-                <a class="navbar-brand" href="main_menu.html"><img src="img/logo_100x50.PNG"></a>
-                <a class="navbar-brand" href="#">WebSiteName</a>
-            </div>
-
-            <div class="navbar-right pd-r-100">
-                <ul class="nav  navbar-nav ">
-
-                    <li class="dropdown  ">
-                        <a class="dropdown-toggle" data-toggle="dropdown" ><img class="logo" src="img/bell.png">
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Értesítés1</a></li>
-                            <li><a href="#">Értesítés2</a></li>
-                            <li><a href="#">értesítés3</a></li>
-                        </ul>
-                    </li>
-
-                    <li class=""><a href="#">Felhnev</a></li>
-                    <li class=""><a href="#"><img class="logo" src="img/logout.png"></a></li>
-                </ul>
-            </div>
-        </nav>
-        <main class="wd-1250">
-            <div class="menu ">
-                <div class="menu-wrapper">
-                    
-                    <a href="alapadatok.html"><div class="menu-button">Alapadatok kezelése</div></a>
-                    <a href="kepzes_indit.html"><div class="menu-button">Képzés indítása</div></a>
-                    <a href="aktualis_kepzes.html"><div class="menu-button">Aktuális képzések</div></a>
-                    <a href="ellenorzesek.html"><div class="menu-button">Ellenőrzések</div></a>
-                    <a href="logout.html"><div class="menu-button">Kijelentkezés</div></a>
-                    
-                  
-                 </div>   
-            </div>
-            
-            <div class="tartalom pd-t-20">
-                <div class="tartalom-wrapper">
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
                     <h2 class="h2-default">Irányítópult</h2>
-                    <div class="szuro-wrapper">
+<!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
                     <li class="dropdown  ">
@@ -87,46 +24,46 @@ and open the template in the editor.
                 </ul>
                         
                     </div>
-                    
+                    -->
                     <div class="table-wrapper">
                         
                         <table class="table-default">
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="kepzes_alapadat.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=course_base_data"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Képzés alapadatok</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="tanulok_alapadat.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=students"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Tanulók</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="oktatok_alapadat.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Oktatók</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="modulok_alapadat.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=modul_treat"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Modulok kezelése</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="kepzes_indit.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=course_start"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Képzések indítása</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="ellenorzesek.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=administrativ"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
-                                                <span>Ellenőrzések</span>
+                                                <span>Adminisztratív feladatok</span>
                                             </div></a>
                                         </div></td>
                                 </tr>
@@ -374,18 +311,9 @@ and open the template in the editor.
                         <div class="lapozo-button">9</div>
                         <div class="lapozo-button">10</div>
                     </div>-->
-                     <div class="option-button-wrapper">
+<!--                     <div class="option-button-wrapper">
                 <div class="option-button">Funkcio1</div>
                 <div class="option-button">Funkcio2</div>
                         
                 
-                 </div>
-                </div>
-
-            </div>
-        </main>
-        <footer>
-            Made by Készítő neve.<br>2018
-        </footer>
-    </body>
-</html>
+                 </div>-->

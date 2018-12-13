@@ -48,7 +48,7 @@ if(!isset($_SESSION["uid"])){
                     </li>
 
                     <li class=""><a href="#"><?=$_SESSION["uname"]?></a></li>
-                    <li class=""><a href="#"><img class="logo" src="img/logout.png"></a></li>
+                    <li class=""> <a href="./php/logout.php"><img class="logo" src="img/logout.png"></a></li>
                 </ul>
             </div>
 <?php } ?>

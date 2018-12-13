@@ -17,7 +17,7 @@ for ($index = 0; $index < count($menu); $index++) {
      <a href="index.php?page=basic_datas"><div class="menu-button<?php if($active_menu==1){echo '-active';}?>"> Alapadatok kezelése</div></a>
                     <a href="index.php?page=course_start"><div class="menu-button<?php if($active_menu==2){echo '-active';}?>" >Képzés indítása</div></a>
                     <a href="index.php?page=actually_course"><div class="menu-button<?php if($active_menu==3){echo '-active';}?>" >Aktuális képzések</div></a>
-                    <a href="index.php?page=administrativ"><div class="menu-button<?php if($active_menu==4){echo '-active';}?>" >Adminisztratv feladatok</div></a>
+                    <a href="index.php?page=administrativ"><div class="menu-button<?php if($active_menu==4){echo '-active';}?>" >Adminisztratív feladatok</div></a>
                     <a href="./php/logout.php"><div class="menu-button" >Kijelentkezés</div></a>
                     
                    <!--<a href="kepzeseekkapcsolo.html"><div class="menu-button">Képzések</div></a>

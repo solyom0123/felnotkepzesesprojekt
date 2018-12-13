@@ -37,19 +37,19 @@
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=students"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=student_r_list_set"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Tanulók</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=teacher_r_list_set"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Oktatók</span>
                                             </div></a>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=modul_treat"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <a href="index.php?page=modul_r_list_set"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>Modulok kezelése</span>
                                             </div></a>

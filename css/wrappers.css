@@ -1,0 +1,107 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.25., 20:41:24
+    Author     : user
+*/
+
+.tooltip-wrapper{
+   }
+.span-half-corner-wrapper {
+    position: relative;
+    text-align: center;
+    width: 100px;
+    height: 100px; 
+    
+
+}
+.order-list-wrapper{
+    
+    overflow: auto;
+}
+.date-table-wrapper{
+    margin: 0px 10px 10px 100px;
+    height: auto;
+    width: 800px;
+    overflow: auto;
+}
+.table-wrapper{
+    overflow: auto;
+}
+.order-list-form-wrapper{
+    
+
+}
+.form-wrapper{
+
+}
+.felirat-wrapper{
+    /*background-color: #8c92ac;*/
+
+}
+.order-list-felirat-wrapper{
+    background-color: #8c92ac;
+
+}
+.list-wrapper{
+    background-color: #c09292;
+
+}
+.list-wrapper-s{
+    background-color: #c09292;
+
+}
+.order-list-wrapper ul{
+    text-align: left;
+    text-decoration: none;
+    background-color: #c09292;
+list-style-type: none;
+}
+.order-list-wrapper li{
+    text-align: left;
+    text-decoration: none;
+    background-color: #c09292;
+list-style-type: none;
+}
+.order-list-wrapper p{
+    display: inline;
+}
+.list-wrapper ul{
+    text-align: left;
+    text-decoration: none;
+    background-color: #c09292;
+list-style-type: none;
+}
+.list-wrapper p{
+}
+.szuro-wrapper{
+}
+.input-wrapper{
+}
+.order-list-input-wrapper{
+}
+
+.lapozo-whapper{
+
+}
+.menu-wrapper{
+    background-color: #c5abab;
+}
+.order-list-option-button-wrapper{
+
+}
+.option-button-wrapper{
+
+}
+.option-button-wrapper-l{
+
+}
+.tartalom-wrapper{
+    /*height: auto;*/
+	
+    background-color: #c09292;
+    text-align:center;
+}

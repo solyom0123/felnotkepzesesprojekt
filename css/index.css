@@ -1,0 +1,46 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.24., 19:31:38
+    Author     : user
+*/
+/* site main elements*/
+
+.body-set{
+ background-color: #eecccc;
+	color: #a90550;   /*ez legyen a feliratoik szine mindenhol, ami nem gomb*/
+}
+
+
+.menu{
+       background-color: #c5abab;
+
+}
+.tartalom{
+    background-color: #eecccc;
+
+}
+
+.navbar-inverse{
+	background-color: #835555;
+	
+}
+main{
+    background-color: #eecccc;
+}
+footer{
+    background-color: #835555;
+   /* width: 1400px;*/
+    text-align: center;
+    color: #8c92ac;
+}
+td{
+}
+.wd-1250{
+    background-color: #eecccc;
+	color: #a90550;   /*ez legyen a feliratoik szine mindenhol, ami nem gomb*/
+    
+}

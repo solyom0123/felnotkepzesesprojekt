@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 ?>
-                    <h2 class="h2-default">Aktuális képzések: 2018</h2>
+                    <h2 class="h2-default">xy aktuális képzés menuje</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -31,29 +31,14 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=user_con_form"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>1. aktuális</span>
-                                            </div></a>
-                                        </div></td>
+                                            <a href="index.php?page=user_con_form"><img src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           </a>
+                                        </div><span>diák hozzárendelés</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>2. aktuális</span>
-                                            </div></a>
-                                        </div></td>
-                                         <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>3. aktuális</span>
-                                            </div></a>
-                                        </div></td>
-                                         <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>4. aktuális</span>
-                                            </div></a>
-                                        </div></td>
+                                            <a href="index.php?page=utemterv_in_form"><img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </a>
+                                        </div><span>ütemterv módosítás(újra generálás gomb nelkül)</span></td>
+                                         
 <!--                                    <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">

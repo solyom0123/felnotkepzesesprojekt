@@ -35,6 +35,14 @@
                                            </a>
                                         </div>   <span>Képzések</span></td>
                                     <td><div class="span-half-corner-wrapper">
+                                            <a href="index.php?page=modul_r_list"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </a></div><span>Modulok</span>
+                                        </td>
+                                        <td><div class="span-half-corner-wrapper">
+                                            <a href="index.php?page=cur_unit_list"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </a></div><span>tananyagegysegek</span>
+                                        </td>
+                                    <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=person_cathegory_page"><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </a></div><span>Személyes adatok</span>
                                         </td>

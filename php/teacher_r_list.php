@@ -20,8 +20,8 @@
 
     </div>
     <div class="col-md-12 list-wrapper ">
-        <a href="index.php?page=user_in_form"><div class="col-md-4 option-button">Kiválasztás</div></a>
-        <a href="index.php?page=user_in_form"><div class="col-md-4 option-button">Új hozzáadása</div></a>
+        <a href="index.php?page=teacher_in_form"><div class="col-md-4 option-button">Kiválasztás</div></a>
+        <a href="index.php?page=teacher_in_form"><div class="col-md-4 option-button">Új hozzáadása</div></a>
         
         <a href="index.php?page=basic_datas"><div class="col-md-4 option-button">Mégse</div></a>
 

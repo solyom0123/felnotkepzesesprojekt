@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Modul lista</h2>
+<h2 class="h2-default">Tananyagegyseg lista</h2>
 <form >
     <div class="row col-md-12 list-wrapper">
         <ul>

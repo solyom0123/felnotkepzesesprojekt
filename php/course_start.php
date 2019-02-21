@@ -48,7 +48,7 @@
         </div>                            
     </div>
     <div class="form-group row">
-        <label for="form-row-name" class="col-md-4 col-form-label">Befejezés:</label>
+        <label for="form-row-name" class="col-md-4 col-form-label">Vizsga jelentkezes hatarido:</label>
         <div class="col-md-4">
             <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
         </div> 
@@ -57,7 +57,18 @@
             <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
-    <div class="form-group row">
+ 
+       <div class="form-group row">
+        <label for="form-row-name" class="col-md-4 col-form-label">Vizsga idopontja:</label>
+        <div class="col-md-4">
+            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+        </div> 
+
+        <div class="col-md-4 ">
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
+ <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Gépi kalkulált befejezés:</label>
         <div class="col-md-4">
             <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">

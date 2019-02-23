@@ -9,7 +9,7 @@ if (isset($_POST["log-form"])) {
     session_start();
     $_SESSION['uid'] = 1;
     $_SESSION['uname'] = $_POST["log-form-email"];
-    header("Location: ../index.php?page=main_admin");
+    header("Location: ../index.php");
 } else {
     ?>
 <div class="row "><h2 class="col-md-9 h2-default">Bejelentkezés</h2>

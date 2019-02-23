@@ -31,12 +31,12 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=teacher_print_from"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('teacher_print_from')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Oktató</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=student_print_form"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('student_print_form')"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Hallgató</span></td>
                                          
                                    </tr>

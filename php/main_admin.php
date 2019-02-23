@@ -17,28 +17,28 @@
 								
 								
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=course_basic_datas"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('course_basic_datas')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Képzés alapadatok</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=student_r_list"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('student_r_list')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div> <span>Tanulók</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=teacher_r_list"><img src="img/szemely.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('teacher_r_list')"><img src="img/szemely.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Oktatók</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=modul_r_list"><img src="img/modul.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('modul_r_list')" ><img src="img/modul.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           </div>
                                         </div><span>Modulok kezelése</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=course_start"><img src="img/uj.jpg" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                         </a>
+                                            <div onclick="link('course_start')" ><img src="img/uj.jpg" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                         </div>
                                         </div><span>Tanfolyamok indítása</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=administrativ"><img src="img/adminisztracio.jpg" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('administrativ')" ><img src="img/adminisztracio.jpg" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           </div>
                                         </div><span>Adminisztratív feladatok</span>
                                             </td>
                                 </tr>

@@ -31,12 +31,12 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=show_page"><img src="img/catalog.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('show_page')" ><img src="img/catalog.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Jelenléti ív</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=student_list_print_license"><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('student_list_print_license')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Képzési szerződés</span></td>
                                          
 <!--                                    <td><div class="span-half-corner-wrapper">

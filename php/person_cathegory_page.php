@@ -33,17 +33,17 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=student_r_list"><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('student_r_list')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                           </div>
                                         </div><span>Tanulók</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=teacher_r_list"><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('teacher_r_list')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           </div>
                                         </div><span>Oktatók</span></td>
                                     
                                         <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=teacher_connect_in_form"><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a></div><span>Oktatóhoz tananyag rendelés</span>
+                                            <div onclick="link('teacher_connect_in_form')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div></div><span>Oktatóhoz tananyag rendelés</span>
                                         </td>
 <!--                                    <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">

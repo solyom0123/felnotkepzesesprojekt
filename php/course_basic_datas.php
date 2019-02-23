@@ -15,20 +15,20 @@
                             <tbody>
 							<tr>
 								<td><div class="span-half-corner-wrapper">
-                                            <a href="#"><img src="img/fodrasz1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('course_in_form')"><img src="img/fodrasz1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Fodrász képzés</span></td>
 										
 								<td><div class="span-half-corner-wrapper">
-                                            <a href="#"><img src="img/kozmetikus1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('course_in_form')" ><img src="img/kozmetikus1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Kozmetikus képzés</span></td>
 							
 							</tr>
                                 <tr>
 									<td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=course_in_form"><img src="img/plusz1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('course_in_form')"><img src="img/plusz1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div> <span>Új képzés hozzáadása </span></td>
 								
 								

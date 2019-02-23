@@ -31,12 +31,12 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=user_con_form"><img src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                           </a>
+                                            <img onclick="link('user_con_form')" src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           
                                         </div><span>diák hozzárendelés</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=utemterv_in_form"><img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <img onclick="link('utemterv_in_form')" src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            
                                         </div><span>ütemterv módosítás(újra generálás gomb nelkül)</span></td>
                                          
 <!--                                    <td><div class="span-half-corner-wrapper">

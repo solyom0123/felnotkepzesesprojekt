@@ -18,7 +18,13 @@ class Nap_Model {
     //engedett_elmeleti_ora: az adatbazisban megadott a napra megengedett oraszamok elmeletbol
     //engedett_gyakorlati_ora: az adatbazisban megadott a napra megengedett oraszamok gyakorlatbol
     
-    
+    /**
+     * 
+     * @param {type} sorszam
+     * @param {type} engedett_elmeleti_ora
+     * @param {type} engedett_gyakorlati_ora
+     * @returns {Nap_Model}
+     */
     constructor(sorszam,
     engedett_elmeleti_ora,
     engedett_gyakorlati_ora

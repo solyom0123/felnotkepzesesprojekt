@@ -25,12 +25,18 @@ class Vizsga_Model {
     //szamitott_oraszam: az adatbazisban megadott a napra megengedett oraszamok elmeletbol
     //engedett_gyakorlati_ora: az adatbazisban megadott a napra megengedett oraszamok gyakorlatbol
     
-    
+    /**
+     * 
+     * @param {type} tipus
+     * @param {type} szamitott_oraszam
+     * @returns {Vizsga_Model}
+     */
     constructor(tipus,
     szamitott_oraszam,
     ){
     this.tipus=tipus; 
     this.szamitott_oraszam=szamitott_oraszam ;
+    this.felhasznalt=false;
     }
     
     getTipus(){
@@ -40,5 +46,10 @@ class Vizsga_Model {
     getSzamitott_oraszam(){
         return this.szamitott_oraszam;
     }
-    
+    getFelhasznalt(){
+        return this.felhasznalt;
+    }
+    setFelhasznalt(fel){
+        this.felhasznalt=fel;
+    }
 }

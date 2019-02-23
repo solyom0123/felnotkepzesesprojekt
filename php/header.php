@@ -9,8 +9,8 @@ if(!isset($_SESSION["uid"])){
 ?>
 
 <div class="navbar-header" style="height: auto">
-                <a class="navbar-brand" href="index.php?page=main_admin"><img width="100" src="img/logo_100x50.PNG" alt="COrvin Köz OKtatási Központ"></a>
-                <a class="navbar-brand" href="index.php?page=main_admin">WebSiteName</a>
+                <div onclick="link('login')" class="navbar-brand" ><img width="100" src="img/logo_100x50.PNG" alt="COrvin Köz OKtatási Központ"></div>
+                <div onclick="link('login')" class="navbar-brand" >WebSiteName</div>>
             </div>
 
             <div class="navbar-right pd-r-100">
@@ -30,8 +30,8 @@ if(!isset($_SESSION["uid"])){
             </div>
 <?php }else{ ?>
    <div class="navbar-header">
-                <a class="navbar-brand" href="index.php?page=main_admin"><img src="img/logo_100x50.PNG"></a>
-                <a class="navbar-brand" href="index.php?page=main_admin">WebSiteName</a>
+                <div onclick="link('main_admin')" class="navbar-brand" ><img src="img/logo_100x50.PNG"></div>
+                <div onclick="link('main_admin')" class="navbar-brand" >WebSiteName</div>
             </div>
 
             <div class="navbar-right pd-r-100">
@@ -48,7 +48,7 @@ if(!isset($_SESSION["uid"])){
                     </li>
 
                     <li class=""><a href="#"><?=$_SESSION["uname"]?></a></li>
-                    <li class=""> <a href="./php/logout.php"><img class="logo" src="img/logout.png"></a></li>
+                    <li class=""> <div onclick="pagecall('logout')"><img class="logo" src="img/logout.png"></div></li>
                 </ul>
             </div>
 <?php } ?>

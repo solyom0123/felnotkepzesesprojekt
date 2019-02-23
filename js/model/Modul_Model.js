@@ -15,10 +15,20 @@ class Modul_Model {
     //gyakorlati_oraszam: az adatbazisban megadott adatok;
     //vizsgak : a modulhoz tartozo vizsgak;
     // sorrend: hanyadik a modul a tervezesi sorrendben
+    /**
+     * 
+     * @param {type} id
+     * @param {type} modul_neve
+     * @param {type} elmeleti_oraszam
+     * @param {type} gyakorlati_oraszam
+     * @param {type} sorrend
+     * @returns {Modul_Model}
+     */
     constructor(id,
     modul_neve,
     elmeleti_oraszam,
-    gyakorlati_oraszam
+    gyakorlati_oraszam,
+    sorrend        
     ){
     this.id=id; 
     this.modul_neve=modul_neve;
@@ -26,7 +36,7 @@ class Modul_Model {
     this.elmeleti_oraszam =elmeleti_oraszam;
     this.gyakorlati_oraszam = gyakorlati_oraszam;
     this.vizsgak =new Array();
-    this.sorrend ;
+    this.sorrend = sorrend;
     }
     getModul_neve(){
         return this.modul_neve;
@@ -52,4 +62,7 @@ class Modul_Model {
         return this.id;
     }
     
+    getSorrend(){
+        return this.sorrend;
+    }
 }

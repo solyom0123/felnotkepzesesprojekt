@@ -31,12 +31,12 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=administrativ_course"><img src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('administrativ_course')" ><img src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                           </div>
                                         </div><span>Képzéssel kapcsolatos</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=student_list_admin_show_dairy"><img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a>
+                                            <div onclick="link('student_list_admin_show_dairy')" ><img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
                                         </div><span>Hallgatói igazolás</span></td>
                                          
 <!--                                    <td><div class="span-half-corner-wrapper">

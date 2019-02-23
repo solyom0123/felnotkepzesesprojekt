@@ -7,42 +7,67 @@
 
 class Elkeszult_Nap_Model {
     //osztalyvaltozok:
-    //het_napja: hanyadik nap a heten
-    //sorszam: a rendezesbe a sorszam
+    //het_napja:  nap  object
+    
 //    datum: naptari_datum
 //    tartaleknap: tartaleknapnak hasznalhato vagy sem
-//    osszesenengedett_elmelet: mennyi elmeleti ora tarthato rajta
-//    osszesenengedett_gyakorlat: mennyi gyakorlati ora tarthato rajta
 //    felhasznalt_elmelet: mar hozzarendelt tananyagegysegek oraszama osszesen elmeletbol
 //    felhasznalt_gyakorlat: mar hozzarendelt tananyagegysegek oraszama osszesen gyakorlatbol
 //    hozzarendeltek: a mar hozzarendelt modul es tananyagegyseg adata;    
-    constructor(hetnapja,sorszam,
+    /**
+     * 
+     * @param {type} hetnapja
+     * @param {type} datum
+     * @param {type} tartaleknap
+     * @returns {Elkeszult_Nap_Model}
+     */
+    constructor(hetnapja,
     datum,
     tartaleknap,
-    osszesenengedett_elmelet,
-    osszesenengedett_gyakorlat,
-    felhasznalt_elmelet,
-    felhasznalt_gyakorlat
+   
             
     ){
 
     this.hetnapja = hetnapja;
-    this.sorszam = sorszam;
     this.datum = datum;
     this.tartaleknap= tartaleknap;
-    this.osszesenengedett_elmelet =osszesenengedett_elmelet;
-    this.osszesenengedett_gyakorlat =osszesenengedett_gyakorlat;
-    this.felhasznalt_elmelet =felhasznalt_elmelet;
-    this.felhasznalt_gyakorlat=felhasznalt_gyakorlat;
+    this.felhasznalt_elmelet =0;
+    this.felhasznalt_gyakorlat=0;
     this.hozzarendeltek = new Array();
     }
     
-    getTipus(){
-        return this.tipus;
+    getFelhasznalt_elmelet(){
+        return this.felhasznalt_elmelet;
     }
     
-    getSzamitott_oraszam(){
-        return this.szamitott_oraszam;
+    getFelhasznalt_gyakorlat(){
+        return this.felhasznalt_gyakorlat;
+    }
+    setFelhasznalt_elmelet(felhasz){
+        this.felhasznalt_elmelet=felhasz;
+    }
+    
+    setFelhasznalt_gyakorlat(felhasz){
+        this.felhasznalt_gyakorlat=felhasz;
+    }
+    
+    getdatum(){
+        return this.datum;
+    }
+    
+    getNap(){
+        return this.hetnapja;
+    }
+    gettartaleknap(){
+        return this.tartaleknap;
+    }
+    
+    settartaleknap(tartalek){
+        this.tartaleknap=tartalek;
+    }
+    
+    gethozzarendeltek(){
+        return this.hozzarendeltek;
     }
     
 }

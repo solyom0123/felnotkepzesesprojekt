@@ -31,12 +31,12 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=basic_datas_course_items"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
-                                           </a>
+                                            <div onclick="link('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                           </div>
                                         </div>   <span>Képzések</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=person_cathegory_page"><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </a></div><span>Személyes adatok</span>
+                                            <div onclick="link('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div></div><span>Személyes adatok</span>
                                         </td>
 <!--                                    <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">

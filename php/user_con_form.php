@@ -20,9 +20,9 @@
 
     <form >
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Képzés neve:</label>
+            <label for="form-row-cname" class="col-md-4 col-form-label">Képzés neve:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-cname" id="form-row-cname" type="text"  placeholder="Név">
             </div> 
 
             <div class="col-md-4 ">
@@ -30,9 +30,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Képzés belső azonosító:</label>
+            <label for="form-row-cid" class="col-md-4 col-form-label">Képzés belső azonosító:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-cid" type="text"  placeholder="Név">
             </div> 
 
             <div class="col-md-4 ">
@@ -40,9 +40,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Diákok:</label>
+            <label for="form-row-student" class="col-md-4 col-form-label">Diákok:</label>
             <div class="col-md-2">
-                <select multiple class="form-control" id="sel1">
+                <select multiple class="form-control" id="form-row-student">
                     <option>Diákok 1</option>
                     <option>Diákok 2</option>
                     <option>Diákok 3</option>
@@ -61,7 +61,7 @@
        
          <div class="form-group row">
         
-             <a href="index.php?page=actually_course"><input type="submit" name="log-form" class="btn col-md-5 btn option-button" value="Módosítás"></a>
+             <a href="index.php?page=actually_course"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Módosítás"></a>
         <div class="col-md-2"> </div>
         <a href="index.php?page=actually_course"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
 

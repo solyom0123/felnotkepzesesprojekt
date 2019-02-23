@@ -31,28 +31,28 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=user_con_form"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>1. aktuális</span>
-                                            </div></a>
+                                            </div></div>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>2. aktuális</span>
-                                            </div></a>
+                                            </div></div>
                                         </div></td>
                                          <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>3. aktuális</span>
-                                            </div></a>
+                                            </div></div>
                                         </div></td>
                                          <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=act-course-page"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>4. aktuális</span>
-                                            </div></a>
+                                            </div></div>
                                         </div></td>
 <!--                                    <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">

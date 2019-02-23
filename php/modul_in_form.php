@@ -23,9 +23,9 @@
         </div>
        
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Modul száma:</label>
+            <label for="form-row-number" class="col-md-4 col-form-label">Modul száma:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-number" type="text"  placeholder="Modul szám">
             </div> 
 
             <div class="col-md-4 ">
@@ -33,9 +33,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Képzések:</label>
+            <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzések:</label>
             <div class="col-md-2">
-                <select class="form-control" id="sel1">
+                <select class="form-control" id="form-row-kepzes">
                     <option>Képzés 1</option>
                     <option>Képzés 2</option>
                     <option>Képzés 3</option>
@@ -52,9 +52,9 @@
         </div>
         
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Elméleti óraszám:</label>
+            <label for="form-row-elm" class="col-md-4 col-form-label">Elméleti óraszám:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-elm" id="form-row-elm" type="text"  placeholder="elméleti óraszám">
             </div> 
 
             <div class="col-md-4 ">
@@ -62,9 +62,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Gyakorlati óraszám:</label>
+            <label for="form-row-gyak" class="col-md-4 col-form-label">Gyakorlati óraszám:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-gyakorlati" id="form-row-gyak" type="text"  placeholder="gyakorlati óraszám">
             </div> 
 
             <div class="col-md-4 ">
@@ -72,9 +72,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Írásbeli:</label>
+            <label for="form-row-irasbeli" class="col-md-4 col-form-label">Írásbeli:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="checkbox"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-irasbeli" type="checkbox"  >
             </div> 
 
             <div class="col-md-4 ">
@@ -82,9 +82,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Szóbeli:</label>
+            <label for="form-row-szobeli" class="col-md-4 col-form-label">Szóbeli:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="checkbox"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-szobeli" type="checkbox"  >
             </div> 
 
             <div class="col-md-4 ">
@@ -92,9 +92,9 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Gyakorlati:</label>
+            <label for="form-row-gyakorlati" class="col-md-4 col-form-label">Gyakorlati:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="checkbox"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-gyakorlati" id="form-row-gyakorlati" type="checkbox"  >
             </div> 
 
             <div class="col-md-4 ">
@@ -105,7 +105,7 @@
        
          <div class="form-group row">
         
-             <a href="index.php?page=course_start"><input type="submit" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></a>
+             <a href="index.php?page=course_start"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></a>
         <div class="col-md-2"> </div>
         <a href="index.php?page=course_start"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
 

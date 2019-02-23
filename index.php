@@ -1,8 +1,8 @@
 <?php
 session_start();
- $_SESSION['page']=$_GET["page"];
+ //$_SESSION['page']= isset()$_GET["page"];
    
-$page= $_SESSION['page'];
+//$page= $_SESSION['page'];
 ?>
 <!DOCTYPE html>
 <!--
@@ -27,6 +27,35 @@ and open the template in the editor.
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
 });
+function megsem(){
+    
+     $.post("/php/elozmeny.php",{
+         ker:1
+     }, function(data, status){
+         link(data);
+        
+        });
+}
+function setElozo(elozo){
+    
+     $.post("/php/elozmeny.php",{
+         prev: elozo
+     }, function(data, status){
+      });
+}
+function link(link){
+    var slink ='./php/'+link+'.php';
+    
+        $.get(slink, function(data, status){
+    document.getElementsByClassName('tartalom-wrapper')[0].innerHTML=data;
+  });
+}
+function pagecall(link){
+    var slink ='./php/'+link+'.php';
+        $.get(slink, function(data, status){
+    document.write(data);
+  });
+}
 </script>
     </head>
     <body class=" body-set col-md-12">
@@ -46,9 +75,11 @@ $(document).ready(function(){
 
             <div class="col-md-10 ">
                 <div class="tartalom-wrapper">
+                    
                     <?php
                     if (isset($_SESSION['uid'])) {
-                        include './php/'. $page.".php";
+                        ?><script>link("main_admin")</script>
+                          <?php // include './php/'. $page.".php";
                     } else {
                         include './php/login.php';
                         

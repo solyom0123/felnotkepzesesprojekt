@@ -20,10 +20,10 @@
 
     </div>
     <div class="col-md-12 list-wrapper ">
-        <a href="index.php?page=teacher_in_form"><div class="col-md-4 option-button">Kiválasztás</div></a>
-        <a href="index.php?page=teacher_in_form"><div class="col-md-4 option-button">Új hozzáadása</div></a>
+        <div onclick="link('teacher_in_form');setElozo('teacher_r_list')"><div class="col-md-4 option-button">Kiválasztás</div></div>
+        <div onclick="link('teacher_in_form');setElozo('teacher_r_list')"><div class="col-md-4 option-button">Új hozzáadása</div></div>
         
-        <a href="index.php?page=basic_datas"><div class="col-md-4 option-button">Mégse</div></a>
+        <div onclick="megsem()" ><div class="col-md-4 option-button">Mégse</div></div>
 
 
     </div>

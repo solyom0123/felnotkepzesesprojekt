@@ -50,7 +50,7 @@
                 </select>
             </div> 
             <div class="col-md-2">
-            <a href="index.php?page=modul_in_form" class="option-button">Új modul</a>
+                <div onclick="link('modul_in_form');setElozo('cur_unit_in_form')" class="option-button">Új modul</div>
                 
             </div>
             <div class="col-md-4 ">
@@ -81,9 +81,9 @@
        
          <div class="form-group row">
         
-             <a href="index.php?page=modul_in_form"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></a>
+             <div onclick="link('modul_in_form')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=modul_in_form"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
 

@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 ?>
+<script>;setElozo('actually_course')</script>
+
                     <h2 class="h2-default">Aktuális képzések: 2018</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
@@ -31,25 +33,25 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page');setElozo('actually_course')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>1. aktuális</span>
                                             </div></div>
                                         </div></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page');setElozo('actually_course')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>2. aktuális</span>
                                             </div></div>
                                         </div></td>
                                          <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page');setElozo('actually_course')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>3. aktuális</span>
                                             </div></div>
                                         </div></td>
                                          <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('act-course-page')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('act-course-page');setElozo('actually_course')"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">
                                                 <span>4. aktuális</span>
                                             </div></div>

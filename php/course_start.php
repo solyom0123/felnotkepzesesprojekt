@@ -6,6 +6,7 @@
  */
 ?>
 
+<script>setElozo('course_start')</script>
 <div class="row "><h2 class="col-md-12 h2-default">Tanfolyam indítása</h2></div>
 
 <form >
@@ -30,7 +31,7 @@
             </select>
         </div> 
         <div class="col-md-2">
-            <a href="index.php?page=course_in_form" class="option-button">Új képzés</a>
+            <div onclick="link('course_in_form');setElozo('course_start')" class="option-button">Új képzés</div>
 
         </div>
         <div class="col-md-4 ">
@@ -332,7 +333,7 @@
     <div class="form-group row">
 
         <div class="col-md-2"></div>   
-        <a href="index.php?page=utemterv_in_form"><input type="button" name="log-form" class="btn col-md-8 btn option-button" value="Tanfolyam ütemezés előzetes tervezése"></a>
+        <div onclick="link('utemterv_in_form');setElozo('course_start')" ><input type="button" name="log-form" class="btn col-md-8 btn option-button" value="Tanfolyam ütemezés előzetes tervezése"></div>
 
 
 

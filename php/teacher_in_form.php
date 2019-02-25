@@ -191,7 +191,7 @@
             </select>
         </div> 
         <div class="col-md-2">
-            <a href="index.php?page=teacher_connect_in_form" class="option-button">Hozzáadás</a>
+            <div onclick="link('teacher_connect_in_form');setElozo('teacher_in_form')"  class="option-button">Hozzáadás</div>
             <a href="" class="option-button">törlés</a>
 
         </div>
@@ -203,9 +203,9 @@
     <div class="option-button-wrapper form-group row">
 
 
-        <a href="index.php?page=basic_datas"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></a>
+        <div onclick="link('basic_datas')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=basic_datas"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>

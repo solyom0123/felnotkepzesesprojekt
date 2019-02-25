@@ -31,22 +31,22 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('course_basic_datas')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                            <div onclick="link('course_basic_datas');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
                                            </div>
                                         </div>   <span>Képzések</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('modul_r_list')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('modul_r_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Modulok</span>
                                         </td>
                                         <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('cur_unit_list')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('cur_unit_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>tananyagegysegek</span>
                                         </td>
                                            <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('date_in_form')"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('date_in_form');setElozo('basic_datas_course_items')"><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span >Ünnep napok,<br> munkaszüneti napok</span>
                                         </td>
-                               0
+                               
                                    <!---     <td><div class="span-half-corner-wrapper">
                                             <a href="index.php?page=teachers"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             <div class="span-half-corner">

@@ -20,7 +20,7 @@
                 </select>
             </div> 
             <div class="col-md-2">
-            <a href="index.php?page=cur_unit_in_form" class="option-button">Új Tananyagegység</a>
+            <div onclick="link('cur_unit_in_form')" class="option-button">Új Tananyagegység</div>
                 
             </div>
             <div class="col-md-4 ">
@@ -39,7 +39,7 @@
                 </select>
             </div> 
             <div class="col-md-2">
-            <a href="index.php?page=teacher_in_form" class="option-button">Új Oktató</a>
+            <div onclick="link('teacher_in_form')"  class="option-button">Új Oktató</div>
                 
             </div>
             <div class="col-md-4 ">
@@ -60,9 +60,9 @@
     <div class="option-button-wrapper form-group row">
 
 
-        <a href="index.php?page=basic_datas"><input type="submit" name="log-form" class="btn col-md-5 btn option-button" value="Rögzít!"></a>
+        <div onclick="link('basic_datas')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Rögzít!"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=person_cathegory_page"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>

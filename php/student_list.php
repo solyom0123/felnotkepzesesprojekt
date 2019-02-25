@@ -36,8 +36,8 @@
                                 
                             </div>    -->
     <div class="option-button-wrapper">
-        <a href="index.php?page=user_con_form"><div class="option-button">Összecsatolás</div></a>
-        <a href="index.php?page=user_con_form"><div class="option-button">Mégse</div></a>
+        <div onclick="link('user_con_form')" ><div class="option-button">Összecsatolás</div></div>
+        <div onclick="megsem()"><div class="option-button">Mégse</div></div>
 
 
     </div>

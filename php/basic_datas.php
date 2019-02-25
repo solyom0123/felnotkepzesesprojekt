@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 ?>
+
+<script>setElozo('basic_datas')</script>
                     <h2 class="h2-default">Alapadatok</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
@@ -31,11 +33,11 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                            <div onclick="link('basic_datas_course_items');setElozo('basic_datas')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
                                            </div>
                                         </div>   <span>Képzések</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('person_cathegory_page');setElozo('basic_datas')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Személyes adatok</span>
                                         </td>
 <!--                                    <td><div class="span-half-corner-wrapper">

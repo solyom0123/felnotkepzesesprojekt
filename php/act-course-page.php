@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 ?>
+<script>setElozo('act-course-page')</script>
                     <h2 class="h2-default">xy aktuális képzés menuje</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
@@ -31,11 +32,11 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <img onclick="link('user_con_form')" src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <img onclick="link('user_con_form');setElozo('act-course-page')" src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            
                                         </div><span>diák hozzárendelés</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <img onclick="link('utemterv_in_form')" src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <img onclick="link('utemterv_in_form');setElozo('act-course-page')" src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             
                                         </div><span>ütemterv módosítás(újra generálás gomb nelkül)</span></td>
                                          

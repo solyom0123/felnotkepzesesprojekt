@@ -8,6 +8,7 @@
 ?>
 
 
+
 <div class="row "><h2 class="col-md-12 h2-default">Modul felvitele</h2></div>
 
     <form >
@@ -36,14 +37,14 @@
             <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzések:</label>
             <div class="col-md-2">
                 <select class="form-control" id="form-row-kepzes">
-                    <option>Képzés 1</option>
-                    <option>Képzés 2</option>
-                    <option>Képzés 3</option>
-                    <option>Képzés 4</option>
+                    <option value="1">Képzés 1</option>
+                    <option value="2">Képzés 2</option>
+                    <option value="4">Képzés 3</option>
+                    <option value="5">Képzés 4</option>
                 </select>
             </div> 
             <div class="col-md-2">
-            <a href="index.php?page=course_in_form" class="option-button">Új képzés</a>
+            <div onclick="link('course_in_form');setElozo('modul_in_form')"  class="option-button">Új képzés</div>
                 
             </div>
             <div class="col-md-4 ">
@@ -105,9 +106,9 @@
        
          <div class="form-group row">
         
-             <a href="index.php?page=course_start"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></a>
+             <div onclick="elkuldmodul()" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=course_start"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
 

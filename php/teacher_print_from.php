@@ -27,9 +27,9 @@
        
          <div class="form-group row">
         
-             <a href="index.php?page=actually_course"><input type="submit" name="log-form" class="btn col-md-5 btn option-button" value="Adatalpok nyomtatása"></a>
+             <div onclick="link('actually_course')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Adatalpok nyomtatása"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=actually_course"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
 

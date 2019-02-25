@@ -61,11 +61,11 @@
 
     <div class="form-group row">
 
-        <a href="index.php?page=course_start"><input type="submit" name="log-form" class="btn col-md-3 btn option-button" value="Elfogad"></a>
+        <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-3 btn option-button" value="Elfogad"></div>
         <div class="col-md-1"></div>
-        <a href="index.php?page=course_start"><input type="submit" name="log-form" class="btn col-md-3 btn option-button" value="Újra generál"></a>
+        <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-3 btn option-button" value="Újra generál"></div>
         <div class="col-md-1"></div>
-        <a href="index.php?page=course_start"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></a>
+        <div onclick="megsem()"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></div>
 
 
 

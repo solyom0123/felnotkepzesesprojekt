@@ -6,6 +6,10 @@
  * and open the template in the editor.
  */
 ?>
+
+<script>
+    console.log('alma');setElozo('show_page');
+</script>
                     <h2 class="h2-default">Adminisztrációs feladatok: Kurzusokkal kapcsolatos</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
@@ -31,11 +35,11 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('teacher_print_from')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('teacher_print_from');setElozo('show_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Oktató</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('student_print_form')"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('student_print_form');setElozo('show_page')"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Hallgató</span></td>
                                          

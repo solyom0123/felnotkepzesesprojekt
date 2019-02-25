@@ -27,9 +27,9 @@
 
     </div>
     <div class="row col-md-12 list-wrapper ">
-        <a href="index.php?page=administrativ_course"><div class="col-md-4 option-button">Hallgató szerződés nyomtatása nyomtatása</div></a>
+        <div onclick="link('administrativ_course')" ><div class="col-md-4 option-button">Hallgató szerződés nyomtatása nyomtatása</div></div>
         <div class="col-md-2"></div>
-        <a href="index.php?page=administrativ_course"><div class="col-md-4 option-button">Mégse</div></a>
+        <div onclick="megsem()"><div class="col-md-4 option-button">Mégse</div></div>
 
 
     </div>

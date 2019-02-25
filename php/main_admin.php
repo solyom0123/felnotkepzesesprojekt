@@ -17,9 +17,9 @@
 								
 								
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('course_basic_datas')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Képzés alapadatok</span></td>
+                                        </div><span>Képzés adatok</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('student_r_list')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

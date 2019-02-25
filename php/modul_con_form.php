@@ -86,7 +86,7 @@
 
                     <div onclick="link('course_start')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Hozzáadás"></div>
                     <div class="col-md-2"> </div>
-                    <div onclick="link('course_start')" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+                    <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
 

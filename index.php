@@ -23,30 +23,36 @@ and open the template in the editor.
         <link rel="stylesheet" href="./css/bootstrap.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="./js/controller/felvitel.js"></script>
+        
+     
         <script>
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
 });
 function megsem(){
-    
-     $.post("/php/elozmeny.php",{
+   
+     $.post("./php/elozmeny.php",{
          ker:1
      }, function(data, status){
-         link(data);
+    console.log(data);
+    link(data);
         
         });
 }
 function setElozo(elozo){
-    
-     $.post("/php/elozmeny.php",{
-         prev: elozo
+    console.log(elozo);
+     $.post("./php/elozmeny.php",{
+         preva: elozo
      }, function(data, status){
+    //  console.log(data);
       });
 }
 function link(link){
     var slink ='./php/'+link+'.php';
     
         $.get(slink, function(data, status){
+           
     document.getElementsByClassName('tartalom-wrapper')[0].innerHTML=data;
   });
 }
@@ -55,6 +61,30 @@ function pagecall(link){
         $.get(slink, function(data, status){
     document.write(data);
   });
+}
+function linka(linkfr,value,muv){
+     console.log(value);
+     $.post("./server.php",{
+         muv: muv,
+         param : value
+        
+     }, function(data, status){
+    //  console.log(data);
+    linkv(linkfr,data,"answer");
+      });
+}
+
+function linkv(link,value,muv){
+     console.log(value);
+     var slink ='./php/'+link+'.php';
+     $.post(slink,{
+         muv: muv,
+         param : value
+        
+     }, function(data, status){
+    //  console.log(data);
+      document.getElementsByClassName('tartalom-wrapper')[0].innerHTML=data;
+      });
 }
 </script>
     </head>

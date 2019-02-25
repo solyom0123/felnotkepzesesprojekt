@@ -5,6 +5,8 @@
  * and open the template in the editor.
  */
 ?>
+
+
 <div class="row "><h2 class="col-md-12 h2-default">Új akkreditált képzés adatai: </h2>
 
 
@@ -53,9 +55,9 @@
     <div class="option-button-wrapper form-group row">
 
 
-        <a href="index.php?page=basic_datas"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Rögzít!"></a>
+        <div onclick="link('basic_datas')"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Rögzít!"></div>
         <div class="col-md-2"> </div>
-        <a href="index.php?page=basic_datas"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></a>
+        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>

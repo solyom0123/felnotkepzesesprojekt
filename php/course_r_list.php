@@ -30,8 +30,8 @@
                                 
                             </div>    -->
     <div class="option-button-wrapper">
-        <a href="index.php?page=course_start"><div class="option-button">Kiválaszt!</div></a>
-        <a href="index.php?page=course_start"><div class="option-button">Mégsem</div></a>
+        <div onclick="link('course_start');setElozo('course_r_list')" ><div class="option-button">Kiválaszt!</div></div>
+        <div onclick="megsem()" ><div class="option-button">Mégsem</div></div>
 
 
     </div>

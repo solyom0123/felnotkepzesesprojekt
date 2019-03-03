@@ -8,6 +8,8 @@ and open the template in the editor.
     Author     : user
 */
 
+
+
 .tooltip-wrapper{
    }
 .span-half-corner-wrapper {
@@ -39,31 +41,31 @@ and open the template in the editor.
 
 }
 .felirat-wrapper{
-    /*background-color: #8c92ac;*/
+    /*background-color:var(--ren_lis_back);*/
 
 }
 .order-list-felirat-wrapper{
-    background-color: #8c92ac;
+    background-color:var(--ren_lis_back);
 
 }
 .list-wrapper{
-    background-color: #c09292;
+    background-color:var(--valami);
 
 }
 .list-wrapper-s{
-    background-color: #c09292;
+    background-color:var(--valami);
 
 }
 .order-list-wrapper ul{
     text-align: left;
     text-decoration: none;
-    background-color: #c09292;
+    background-color:var(--valami);
 list-style-type: none;
 }
 .order-list-wrapper li{
     text-align: left;
     text-decoration: none;
-    background-color: #c09292;
+    background-color:var(--valami);
 list-style-type: none;
 }
 .order-list-wrapper p{
@@ -72,7 +74,7 @@ list-style-type: none;
 .list-wrapper ul{
     text-align: left;
     text-decoration: none;
-    background-color: #c09292;
+    background-color:var(--valami);
 list-style-type: none;
 }
 .list-wrapper p{
@@ -88,7 +90,7 @@ list-style-type: none;
 
 }
 .menu-wrapper{
-    background-color: #c5abab;
+    background-color: var(--menu);
 }
 .order-list-option-button-wrapper{
 
@@ -102,6 +104,6 @@ list-style-type: none;
 .tartalom-wrapper{
     /*height: auto;*/
 	
-    background-color: #c09292;
+    background-color:var(--valami);
     text-align:center;
 }

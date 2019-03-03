@@ -16,6 +16,8 @@ and open the template in the editor.
         <title>DEMO ISKOLAKEZELŐ RENDSZER</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/szin.css">
+
         <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="./css/buttons.css">
         <link rel="stylesheet" href="./css/usefull.css">
@@ -64,7 +66,7 @@ function pagecall(link){
 }
 function linka(linkfr,value,muv){
      console.log(value);
-     $.post("./server.php",{
+     $.post("199.86.83839.55",{
          muv: muv,
          param : value
         

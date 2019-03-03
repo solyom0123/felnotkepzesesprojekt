@@ -303,6 +303,17 @@
                         </table>
                         
                     </div>
+                    
+                        <div class="form-group row">
+
+        <div class="col-md-1"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+
+        <div class="col-md-1"></div>
+       
+
+
+    </div>
                    <!-- <div class="lapozo-whapper container-fluid">
                         <div class="lapozo-button-active">1</div>
                         <div class="lapozo-button">2</div>

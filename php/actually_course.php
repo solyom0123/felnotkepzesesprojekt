@@ -313,6 +313,7 @@
                         </table>
                         
                     </div>
+                    
                    <!-- <div class="lapozo-whapper container-fluid">
                         <div class="lapozo-button-active">1</div>
                         <div class="lapozo-button">2</div>

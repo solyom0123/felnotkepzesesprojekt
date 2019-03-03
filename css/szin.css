@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2019.03.03., 7:03:05
+    Author     : solyo
+*/
+
+:root{
+--red: #c09292;
+--black: #4E4F4A;
+--cream: #F6E9DC;
+--thin-border: 2px solid var(--red);
+--rozsaszin: #eecccc;
+--bordo:#a90550;
+--sotetvalami:#835555;
+--szurke:#8c92ac;
+--menu: #c5abab;
+--tooltipback: #555;
+--tooltipcolor: #fff;
+--narancs:#df8807;
+--lightnarancs: #f3956b;
+--piros: #f8570f;
+--borszin: #feeacb;
+--sotetvalami2: #503D36;
+--bordo2:#7c4c04;
+--darknarancs: #c87a04;
+--lila: #8e64a1;
+--arnyek1: rgba(254, 234, 203, 0.14);
+--arnyek2: rgba(254, 234, 203, 0.2);
+--arnyek3: rgba(254, 234, 203, 0.12);
+--ren_lis_back:  #8c92ac;
+--valami: #c09292;
+}

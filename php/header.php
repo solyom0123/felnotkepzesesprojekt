@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,6 +28,7 @@ if(!isset($_SESSION["uid"])){
 
                     </ul>
             </div>
+
 <?php }else{ ?>
    <div class="navbar-header">
                 <div onclick="link('main_admin')" class="navbar-brand" ><img src="img/logo_100x50.PNG"></div>
@@ -47,8 +48,8 @@ if(!isset($_SESSION["uid"])){
                         </ul>
                     </li>
 
-                    <li class=""><a href="#"><?=$_SESSION["uname"]?></a></li>
-                    <li class=""> <div onclick="pagecall('logout')"><img class="logo" src="img/logout.png"></div></li>
+                    <li class=""><div class="user_name"></div></li>
+                    <li class=""> <div onclick="pagecall('logout');linkside('')"><img class="logo" src="img/logout.png"></div></li>
                 </ul>
             </div>
 <?php } ?>

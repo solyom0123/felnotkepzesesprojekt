@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,13 +11,25 @@ $value = isset($_POST['param'])?$_POST['param']:null;
 $muv = isset($_POST['muv'])?$_POST['muv']:null;
 if($muv=="new_modul"){
     lekapcsolodas(felvitelmodul(kapcsolodas()));
+}else if($muv=="login"){
+     lekapcsolodas(login(kapcsolodas()));
+    
+}else if($muv=="logged"){
+     $_SESSION["uid"] = $value[0];  
+}else if($muv=="session"){
+    lookUpSession();  
+}else if($muv=="user_name"){
+     lekapcsolodas(user_name(kapcsolodas()));
+      
 }
 
+
+
 function kapcsolodas() {
-	$szerverneve = "localhost";
-	$felhasznalonev = "root"; 
-	$password = '';
-	$dbname = 'szakdogaterv';
+	$szerverneve = "mysql.nethely.hu";
+	$felhasznalonev = "oktat"; 
+	$password = 'corvin2019';
+	$dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
    
 	    mysqli_query($conn,"SET NAMES 'UTF8'");
@@ -25,31 +39,49 @@ function kapcsolodas() {
     }
     return $conn;
 }
-function felvitelmodul($conn){
-    global $value;
-    $sql = "INSERT INTO `modul`( `nev`, `kepzes_id`, `azon_kod`, `elmeleti_ora`, `gyakorlati_ora`) VALUES ('".$value[0]."','".$value[2]."','".$value[1]."','".$value[3]."','".$value[4]."') ;";
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-    
-    return $conn;
-}
-function felvitelvizsga($conn){
-    global $value;
-    $sql = "INSERT INTO `vizsga`( `nev`, `kepzes_id`, `azon_kod`, `elmeleti_ora`, `gyakorlati_ora`) VALUES ('".$value[0]."','".$value[2]."','".$value[1]."','".$value[3]."','".$value[4]."') ;";
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-    
-    return $conn;
-}
 
 function lekapcsolodas($conn) {
     $conn->close();
+}
+function lookUpSession(){
+    var_dump($_SESSION);
+}
+function login($conn){
+    global $value;
+    $sql = "select user_id as id, password as pw  from `user` where user_name='".$value[0]."'  ";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+       if(password_verify($value[1], $row["pw"])){
+           echo 'true;'.$row["id"];
+       }else{
+           echo 'false;';
+       }
+       
+       
+    }
+} else {
+    echo "false;";
+}    
+    return $conn;
+}
+function user_name($conn){
+    global $value; 
+    $sql = "select user_name as name  from `user` where user_id='".$value."'  ";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+           echo $row["name"];
+       
+       
+       
+    }
+} else {
+    echo "none;";
+}    
+    return $conn;
 }

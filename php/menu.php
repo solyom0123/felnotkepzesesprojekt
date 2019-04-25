@@ -57,7 +57,7 @@ $active_menu = 0;
                      }
                      ?>" >GYORSMENÜ</div>             </li>
             <li class="nav-item">
-                <div onclick="pagecall('logout')" class="menu-button" >Kijelentkezés</div>
+                <div onclick="pagecall('logout');linkside('')" class="menu-button" >Kijelentkezés</div>
             </li>
         </ul>
     </div>

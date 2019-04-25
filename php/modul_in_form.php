@@ -35,7 +35,7 @@
         </div>
         <div class="form-group row">
             <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzések:</label>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <select class="form-control" id="form-row-kepzes">
                     <option value="1">Képzés 1</option>
                     <option value="2">Képzés 2</option>
@@ -43,10 +43,6 @@
                     <option value="5">Képzés 4</option>
                 </select>
             </div> 
-            <div class="col-md-2">
-            <div onclick="link('course_in_form');setElozo('modul_in_form')"  class="option-button">Új képzés</div>
-                
-            </div>
             <div class="col-md-4 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            

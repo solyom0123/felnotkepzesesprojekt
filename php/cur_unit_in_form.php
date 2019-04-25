@@ -6,14 +6,6 @@
  * and open the template in the editor.
  */
 ?>
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 
 
 <div class="row "><h2 class="col-md-12 h2-default">Tananyagegység felvitele</h2></div>
@@ -41,7 +33,7 @@
         </div>
          <div class="form-group row">
             <label for="form-row-mod" class="col-md-4 col-form-label">Modul:</label>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <select class="form-control" id="form-row-mod">
                     <option>Modul 1</option>
                     <option>Modul 2</option>
@@ -49,10 +41,6 @@
                     <option>Modul 4</option>
                 </select>
             </div> 
-            <div class="col-md-2">
-                <div onclick="link('modul_in_form');setElozo('cur_unit_in_form')" class="option-button">Új modul</div>
-                
-            </div>
             <div class="col-md-4 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            

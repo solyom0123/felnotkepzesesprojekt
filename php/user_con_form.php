@@ -49,10 +49,6 @@
                     <option>Diákok 4</option>
                 </select>
             </div> 
-            <div class="col-md-2">
-            <a href="index.php?page=user_in_form" class="option-button">Új diák</a>
-                
-            </div>
             <div class="col-md-4 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            

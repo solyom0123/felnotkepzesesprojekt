@@ -21,7 +21,7 @@
                                             </div>
                                         </div><span>Képzés adatok</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('student_r_list')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="studentList();link('student_r_list')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div> <span>Tanulók</span></td>
                                     <td><div class="span-half-corner-wrapper">

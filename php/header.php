@@ -49,7 +49,7 @@ if(!isset($_SESSION["uid"])){
                     </li>
 
                     <li class=""><div class="user_name"></div></li>
-                    <li class=""> <div onclick="pagecall('logout');linkside('')"><img class="logo" src="img/logout.png"></div></li>
+                    <li class=""> <div onclick="link('logout');linkhead();link('login');linkside('')"><img class="logo" src="img/logout.png"></div></li>
                 </ul>
             </div>
 <?php } ?>

@@ -1,12 +1,13 @@
-<?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+
 <div class="row "><h2 class="col-md-12 h2-default">Új személy felvitele</h2>
 </div>
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="load"){
+    echo $_POST['param'];
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+    echo $_POST['param'][0];
+}
+?>
 <form  >
     <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Név:</label>
@@ -180,10 +181,24 @@
     </div>
     <div class="option-button-wrapper form-group row">
 
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="edit"){
+?>
+     <div onclick="studentEdit(<?=$_POST['param']?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+?>
+     <div onclick="studentEdit(<?=$_POST['param'][1]?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else{
+?>
+     <div onclick="studentSend()" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}
+?>
 
-        <div onclick="link('basic_datas')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
-        <div class="col-md-2"> </div>
-        <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+     <div class="col-md-2"> </div>
+        <div onclick="megsem();studentList();" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>

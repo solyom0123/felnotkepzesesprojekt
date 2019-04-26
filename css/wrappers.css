@@ -16,7 +16,8 @@ and open the template in the editor.
     position: relative;
     text-align: center;
     width: 100px;
-    height: 100px; 
+    height: 100px;
+    cursor: pointer;
     
 
 }

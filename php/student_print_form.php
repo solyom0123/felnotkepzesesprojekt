@@ -14,21 +14,21 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Diák adatlapok nyomtatása</h2></div>
+<div class="row "><h2 class="col-md-12 h2-default">Tanulói adatlap</h2></div>
 
     <form >
         <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Diákok:</label>
+            <label for="form-row-name" class="col-md-4 col-form-label">Tanulók:</label>
             <div class="col-md-2">
                 <select multiple class="form-control" id="sel1">
-                    <option>Diák 1</option>
-                    <option>Diák 2</option>
-                    <option>Diák 3</option>
-                    <option>Diák 4</option>
+                    <option>TANULÓ 1</option>
+                    <option>TANULÓ 2</option>
+                    <option>TANULÓ 3</option>
+                    <option>TANULÓ 4</option>
                 </select>
             </div> 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Válassza ki a tanulót!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         

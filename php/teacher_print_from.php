@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Oktató adatlapok nyomtatása</h2></div>
+<div class="row "><h2 class="col-md-12 h2-default">Oktatói adatlapok nyomtatása</h2></div>
 
     <form >
         <div class="form-group row">

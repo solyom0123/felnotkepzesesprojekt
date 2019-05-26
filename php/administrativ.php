@@ -35,7 +35,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('administrativ_course');setElozo('administrativ')" ><img src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            </div>
-                                        </div><span>Képzéssel kapcsolatos</span></td>
+                                        </div><span>Képzéssel kapcsolatos </span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('student_list_admin_show_dairy');setElozo('administrativ')" ><img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

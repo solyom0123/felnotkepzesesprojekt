@@ -44,7 +44,7 @@
         
             
             <div onclick="login('login')" name="log-form" class="btn col-md-4 btn option-button" >Belépés</div>
-            <div class="col-md-1"> </div><input type="button" class="btn col-md-4 option-button" value="Elfelejtettem jelszavam">
+            <div class="col-md-1"> </div><input type="button" class="btn col-md-4 option-button" value="Elfelejtettem a jelszavam">
 
 
         </div>

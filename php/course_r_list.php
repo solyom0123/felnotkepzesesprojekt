@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Képzés lista</h2>
+<h2 class="h2-default">Képzések listája (ez a lsita adatbázisból lesz a későbbiekben létrehozva)</h2>
 <form class="form-wrapper">
     <div class="list-wrapper">
         <ul>

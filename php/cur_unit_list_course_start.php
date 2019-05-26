@@ -5,11 +5,11 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Tananyagegységek lista</h2>
+<h2 class="h2-default">Tananyagegységek listája</h2>
 <form class="form-wrapper">
     <div class="list-wrapper">
         <ul>
-            <li><div class="label-default-s"><input  type="checkbox"><p> MINDEGYIK</p></div></li>
+            <li><div class="label-default-s"><input  type="checkbox"><p> Mindent listáz</p></div></li>
             <li> <div class="label-default-s"><input type="checkbox"><p>1. tananyagegység</p></div></li>
             <li> <div class="label-default-s"><input  type="checkbox"><p>2. tananyagegység</p></div></li>
             <li> <div class="label-default-s"><input  type="checkbox"><p>3. tananyagegység</p></div></li>

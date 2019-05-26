@@ -134,8 +134,9 @@ tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
   }
 }
 .body-set{
- background-color: var(--rozsaszin);
+	background-color: var(--rozsaszin);
 	color: var(--bordo);   /*ez legyen a feliratoik szine mindenhol, ami nem gomb*/
+
 }
 
 
@@ -146,6 +147,11 @@ tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
 .tartalom{
     background-color: var(--rozsaszin);
 
+}
+
+.navbar{
+	
+	background-color: var(--sotétvalami);
 }
 
 .navbar-inverse{

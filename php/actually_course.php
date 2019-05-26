@@ -8,7 +8,7 @@
 ?>
 <script>;setElozo('actually_course')</script>
 
-                    <h2 class="h2-default">Aktuális képzések: 2018</h2>
+                    <h2 class="h2-default">Aktuális képzések</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 

@@ -16,16 +16,7 @@
                         <table class="table-default">
                             <tbody>
 							<tr>
-								<td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('course_in_form');setElozo('course_basic_datas')"><img src="img/fodrasz1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </div>
-                                        </div><span>Fodrász képzés</span></td>
-										
-								<td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('course_in_form');setElozo('course_basic_datas')" ><img src="img/kozmetikus1.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </div>
-                                        </div><span>Kozmetikus képzés</span></td>
-							
+					   <?php echo $_POST['param'];?>
 							</tr>
                                 <tr>
 									<td><div class="span-half-corner-wrapper">

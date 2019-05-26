@@ -27,7 +27,7 @@
                                     
                                         <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('teacher_connect_in_form');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </div></div><span>Oktatóhoz tananyag rendelés</span>
+                                            </div></div><span>Tananyagegység oktatóhoz rendelése</span>
                                         </td>
                                 </tr>
                             </tbody>
@@ -37,8 +37,8 @@
                     
                         <div class="form-group row">
 
-        <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+        <div class="col-md-6"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></div>
 
         <div class="col-md-1"></div>
        

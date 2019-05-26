@@ -12,11 +12,12 @@
 <form >
     <div class="form-group row">
         <label for="form-row-name" class="col-md-2 col-form-label">Dátum:</label>
-        <label for="form-row-name" class="col-md-2 col-form-label">modul elméleti óraszám:</label>
-        <label for="form-row-name" class="col-md-2 col-form-label">modul gyakorlati óraszám:</label>
-        <label for="form-row-name" class="col-md-2 col-form-label">modul :</label>
-        <label for="form-row-name" class="col-md-2 col-form-label"> tananyag- egység:</label>
-        <label for="form-row-name" class="col-md-2 col-form-label">oktató:</label>
+        <label for="form-row-name" class="col-md-1 col-form-label">Elmélet óraszáma:</label>
+        <label for="form-row-name" class="col-md-1 col-form-label">E-learning óraszáma:</label>
+		<label for="form-row-name" class="col-md-1 col-form-label">Gyakorlat óraszáma:</label>
+        <label for="form-row-name" class="col-md-2 col-form-label">Modul :</label>
+        <label for="form-row-name" class="col-md-3 col-form-label">Tananyagegység:</label>
+        <label for="form-row-name" class="col-md-2 col-form-label">Oktató:</label>
 
     </div>
     <?php for ($index = 0; $index < 40; $index++) {
@@ -26,16 +27,19 @@
         <div class="col-md-2">
             <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Dátum">
         </div> 
-        <div class="col-md-2">
-            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Elméleti óraszám">
+        <div class="col-md-1">
+            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Elmélet  óraszám">
         </div> 
-        <div class="col-md-2">
-            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Gyakorlati">
+		<div class="col-md-1">
+            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="E-learning óraszám">
+        </div>
+        <div class="col-md-1">
+            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Gyakorlat óraszám">
         </div> 
         <div class="col-md-2">
             <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="modul">
         </div> 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="tananyagegység">
         </div> 
 

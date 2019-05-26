@@ -1,13 +1,13 @@
-<?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 
 
 <div class="row "><h2 class="col-md-12 h2-default">Új akkreditált képzés adatai: </h2>
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="load"){
+    echo $_POST['param'];
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+    echo $_POST['param'][0];
+}
+?>
 
 
     <form >
@@ -18,7 +18,7 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Képzés megnevezésének megadása"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="form-group row">
@@ -28,7 +28,7 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="OKJ azonosító megadása"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="form-group row">
@@ -38,7 +38,7 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Nyilvántartási szám megadása"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="form-group row">
@@ -48,16 +48,38 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Alkalmassági vizsgahelyszin dokumentumának betallózása a számítógépről"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
+         <div class="form-group row">
+            <label for="form-row-kep" class="col-md-4 col-form-label">Hozzárendelt kép:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-kep" id="form-row-kep" type="file"  >
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="A kép a képzéshez."><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
 
         <div class="option-button-wrapper form-group row">
 
-
-            <div onclick="link('basic_datas')"><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Rögzít!"></div>
-            <div class="col-md-2"> </div>
-            <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="edit"){
+?>
+     <div onclick="courseEdit(<?=$_POST['param']?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+?>
+     <div onclick="courseEdit(<?=$_POST['param'][1]?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else{
+?>
+     <div onclick="courseSend()" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}
+?>            <div class="col-md-2"> </div>
+<div onclick="megsem(),courseList()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
         </div>

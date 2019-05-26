@@ -23,11 +23,11 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="studentList();link('student_r_list')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div> <span>Tanulók</span></td>
+                                        </div> <span>Tanulók kezelése</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('teacher_r_list')"><img src="img/szemely.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Oktatók</span></td>
+                                        </div><span>Oktatók kezelése</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('modul_r_list')" ><img src="img/modul.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            </div>

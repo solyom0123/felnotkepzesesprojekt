@@ -8,7 +8,7 @@
 ?>
 
 
-<div class="row "><h2 class="col-md-12 h2-default">Tananyagegység felvitele</h2></div>
+<div class="row "><h2 class="col-md-12 h2-default">Tananyagegység rögzítése</h2></div>
 
     <form >
         <div class="form-group row">
@@ -18,17 +18,17 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Tananyagegység megnevezése"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-con" class="col-md-4 col-form-label">Tartalom:</label>
+            <label for="form-row-con" class="col-md-4 col-form-label">Tartalom/témakör:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-con" type="text"  placeholder="Tartalom">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-con" type="text"  placeholder="Tartalom/témakör">
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Tananyagegység témaköre"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
          <div class="form-group row">
@@ -42,18 +42,29 @@
                 </select>
             </div> 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Adja meg, melyik modulhozctartozik!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         
         <div class="form-group row">
-            <label for="form-row-elm" class="col-md-4 col-form-label">Elméleti óraszám:</label>
+            <label for="form-row-elm" class="col-md-4 col-form-label">Elméleti óraszáma:</label>
             <div class="col-md-4">
                 <input class="form-control-plaintext" name="form-row-name" id="form-row-elm" type="text"  placeholder="Elméleti óraszám">
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Tananyagegység elméleti óraszáma"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
+		
+		<div class="form-group row">
+            <label for="form-row-elm" class="col-md-4 col-form-label">E-learning óraszáma:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-elm" type="text"  placeholder="Elméleti óraszám">
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Tananyagegység e-learning óraszáma (opcionális)"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="form-group row">
@@ -63,13 +74,13 @@
             </div> 
 
             <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                <a href="#" data-toggle="tooltip" title="Tananyagegység gyakorlati óraszáma"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
        
          <div class="form-group row">
         
-             <div onclick="link('modul_in_form')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
+             <div onclick="link('modul_in_form')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Rögzítés!"></div>
         <div class="col-md-2"> </div>
         <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 

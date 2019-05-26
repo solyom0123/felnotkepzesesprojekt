@@ -5,8 +5,17 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Új személy felvitele</h2>
+
+<div class="row "><h2 class="col-md-12 h2-default">Új oktató adatainak rögzítése</h2>
 </div>
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="load"){
+    echo $_POST['param'];
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+    echo $_POST['param'][0];
+}
+?>
+
 <form  >
     <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Név:</label>
@@ -181,7 +190,7 @@
     
 
     <div class="form-group row">
-        <label for="form-row-anyag" class="col-md-4 col-form-label">Tanítható tananyagegységek:</label>
+        <label for="form-row-anyag" class="col-md-4 col-form-label">OKtatható tananyagegységek:</label>
         <div class="col-md-2">
             <select class="form-control" id="form-row-anyag" name="form-row-anyag">
                 <option>tananyagegység 1</option>
@@ -202,8 +211,21 @@
 
     <div class="option-button-wrapper form-group row">
 
-
-        <div onclick="link('basic_datas')" ><input type="button" name="log-form" class="btn col-md-5 btn option-button" value="Felvitel"></div>
+<?php
+if(isset($_POST['param'])&&$_POST['muv']=="edit"){
+?>
+     <div onclick="studentEdit(<?=$_POST['param']?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
+?>
+     <div onclick="studentEdit(<?=$_POST['param'][1]?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}else{
+?>
+     <div onclick="courseSend()" class="btn col-md-5 btn option-button">Felvitel</div>
+  <?php     
+}
+?>
         <div class="col-md-2"> </div>
         <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 

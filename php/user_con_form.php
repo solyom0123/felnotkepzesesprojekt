@@ -16,7 +16,7 @@
 ?>
 
 
-<div class="row "><h2 class="col-md-12 h2-default">Diák hozzáadása</h2></div>
+<div class="row "><h2 class="col-md-12 h2-default">Tanuló hozzáadása</h2></div>
 
     <form >
         <div class="form-group row">
@@ -40,7 +40,7 @@
             </div>                            
         </div>
         <div class="form-group row">
-            <label for="form-row-student" class="col-md-4 col-form-label">Diákok:</label>
+            <label for="form-row-student" class="col-md-4 col-form-label">Tanulók:</label>
             <div class="col-md-2">
                 <select multiple class="form-control" id="form-row-student">
                     <option>Diákok 1</option>

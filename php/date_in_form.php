@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Új datum felvitele</h2>
+<div class="row "><h2 class="col-md-12 h2-default">Új dátum felvitele</h2>
 </div>
 <form >
     <div class="form-group row">
@@ -15,7 +15,7 @@
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a dátumot!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     

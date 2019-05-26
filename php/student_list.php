@@ -5,18 +5,18 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Diák lista</h2>
+<h2 class="h2-default">Tanulók listája</h2>
 <form class="form-wrapper">
     <div class="list-wrapper">
         <ul>
-            <li><div class="label-default-s"><input  type="checkbox"><p> MINDEGYIK</p></div></li>
-            <li> <div class="label-default-s"><input type="checkbox"><p>1. diák</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>2. diák</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>3. diák</p></div></li>
-            <li><div class="label-default-s"> <input  type="checkbox"><p>4. diák</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>5. diák</p></div></li>
-            <li><div class="label-default-s"> <input  type="checkbox"><p>6. diák</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>7. diák</p></div></li>
+            <li><div class="label-default-s"><input  type="checkbox"><p> MINDEN TANULÓ</p></div></li>
+            <li> <div class="label-default-s"><input type="checkbox"><p>1. TANULÓ</p></div></li>
+            <li> <div class="label-default-s"><input  type="checkbox"><p>2. TANULÓ</p></div></li>
+            <li> <div class="label-default-s"><input  type="checkbox"><p>3. TANULÓ</p></div></li>
+            <li><div class="label-default-s"> <input  type="checkbox"><p>4. TANULÓ</p></div></li>
+            <li> <div class="label-default-s"><input  type="checkbox"><p>5. TANULÓ</p></div></li>
+            <li><div class="label-default-s"> <input  type="checkbox"><p>6. TANULÓ</p></div></li>
+            <li> <div class="label-default-s"><input  type="checkbox"><p>7. TANULÓ</p></div></li>
         </ul>
 
 
@@ -36,7 +36,7 @@
                                 
                             </div>    -->
     <div class="option-button-wrapper">
-        <div onclick="link('user_con_form')" ><div class="option-button">Összecsatolás</div></div>
+        <div onclick="link('user_con_form')" ><div class="option-button">Összerendelés</div></div>
         <div onclick="megsem()"><div class="option-button">Mégse</div></div>
 
 

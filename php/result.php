@@ -11,7 +11,7 @@
 <h1>Generálás eredménye</h1>
 
  <div class="option-button-wrapper">
-        <a href="index.php?page=course_start"><div class="option-button">Elfogadás</div></a>
+        <a href="index.php?page=course_start"><div class="option-button">Elfogad!</div></a>
         <a href="index.php?page=course_start"><div class="option-button">Módosít</div></a>
 
 

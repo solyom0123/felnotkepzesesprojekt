@@ -1,5 +1,5 @@
 
-<div class="row "><h2 class="col-md-12 h2-default">Új személy felvitele</h2>
+<div class="row "><h2 class="col-md-12 h2-default">Új személy adatainak rögzítése</h2>
 </div>
 <?php
 if(isset($_POST['param'])&&$_POST['muv']=="load"){

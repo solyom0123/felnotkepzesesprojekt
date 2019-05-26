@@ -28,7 +28,23 @@ if ($muv == "new_modul") {
     lekapcsolodas(getStudent(kapcsolodas()));
 } else if ($muv == "studentEdit") {
     lekapcsolodas(editStudent(kapcsolodas()));
-}
+} else if ($muv == "courseSend") {
+    lekapcsolodas(insertCourse(kapcsolodas()));
+} else if ($muv == "courseget") {
+    lekapcsolodas(getCourse(kapcsolodas()));
+} else if ($muv == "courseEdit") {
+    lekapcsolodas(editCourse(kapcsolodas()));
+} else if ($muv == "list_course") {
+    lekapcsolodas(list_course(kapcsolodas()));
+} else if ($muv == "modulSend") {
+    lekapcsolodas(insertModul(kapcsolodas()));
+} else if ($muv == "list_modul") {
+    lekapcsolodas(list_modul(kapcsolodas()));
+} else if ($muv == "modulEdit") {
+    lekapcsolodas(editModul(kapcsolodas()));
+}else if ($muv == "modulget") {
+    lekapcsolodas(getModul(kapcsolodas()));
+} 
 
 function kapcsolodas() {
     $szerverneve = "mysql.nethely.hu";
@@ -143,6 +159,120 @@ function editStudent($conn) {
         echo 'ok';
     } else {
         echo 'error';
+    }
+
+    return $conn;
+}
+
+function insertCourse($conn) {
+    global $value;
+    $sql = "INSERT INTO education (education_name,okj_number,education_inhouse_id)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error';
+    }
+
+    return $conn;
+}
+
+function getCourse($conn) {
+    global $value;
+
+    $sql = "select education_name as nev,okj_number as okj,education_inhouse_id as id from education where education_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/ ";
+        }
+    } else {
+        echo "none/;/";
+    }
+
+    return $conn;
+}
+function editCourse($conn) {
+    global $value;
+    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' where education_id=".$value[3];
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error';
+    }
+
+    return $conn;
+}
+
+function list_course($conn) {
+    $sql = "select education_id as id, education_name as name,image as image  from education ;  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['image'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
+}
+
+function insertModul($conn) {
+    global $value;
+    $sql = "INSERT INTO modul (modul_name,modul_number,education_id,doctrine,exercise,writting_test,verbal_test,practical_test)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."','" . $value[5] ."','" . $value[6] ."','" . $value[7] ."')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error';
+    }
+
+    return $conn;
+}
+function list_modul($conn) {
+    $sql = "select modul_id as id, modul_name as name, education_id as eid"
+            . " from modul;  ";
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
+}
+function editModul($conn) {
+    global $value;
+    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "' where modul_id=".$value[3];
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error'.$conn->error;
+    }
+
+    return $conn;
+}
+function getModul($conn) {
+    global $value;
+
+    $sql = "select modul_name as nev,modul_number as okj,education_id as id,doctrine as d, exercise as e, writting_test as w,verbal_test as v, practical_test as  p from modul where modul_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/" . $row['d'] ."/;/" . $row["e"] ."/;/" . $row['w'] ."/;/" . $row['v'] ."/;/" . $row['p'] .     "/;/ ";
+        }
+    } else {
+        echo "none/;/";
     }
 
     return $conn;

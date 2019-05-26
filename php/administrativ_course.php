@@ -8,7 +8,7 @@
 ?>
 
 <script>setElozo('administraiv_course')</script>
-                    <h2 class="h2-default">Adminisztrációs feladatok: Kurzusokkal kapcsolatos</h2>
+                    <h2 class="h2-default">Képzésekhez kapcsolódó adminisztráció</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 

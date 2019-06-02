@@ -8,6 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 $value = isset($_POST['param']) ? $_POST['param'] : null;
 $muv = isset($_POST['muv']) ? $_POST['muv'] : null;
 if ($muv == "new_modul") {
@@ -44,7 +45,23 @@ if ($muv == "new_modul") {
     lekapcsolodas(editModul(kapcsolodas()));
 }else if ($muv == "modulget") {
     lekapcsolodas(getModul(kapcsolodas()));
-} 
+} else if ($muv == "upload_kep") {
+    uploadImage();
+    echo "<script>window.close();</script>";
+} else if ($muv == "upload_file") {
+    uploadFile();
+    echo "<script>window.close();</script>";
+}else if ($muv == "list_modul_filter") {
+    lekapcsolodas(list_modul_filter(kapcsolodas()));
+} else if ($muv == "curunitSend") {
+    lekapcsolodas(insertCurUnit(kapcsolodas()));
+} else if ($muv == "curunitEdit") {
+    lekapcsolodas(editCurUnit(kapcsolodas()));
+} else if ($muv == "curunitget") {
+    lekapcsolodas(getCurUnit(kapcsolodas()));
+} else if ($muv == "list_cur_unit_filter") {
+    lekapcsolodas(list_cur_unit_filter(kapcsolodas()));
+}
 
 function kapcsolodas() {
     $szerverneve = "mysql.nethely.hu";
@@ -166,8 +183,8 @@ function editStudent($conn) {
 
 function insertCourse($conn) {
     global $value;
-    $sql = "INSERT INTO education (education_name,okj_number,education_inhouse_id)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."')";
+    $sql = "INSERT INTO education (education_name,okj_number,education_inhouse_id,image,education_center)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -181,12 +198,12 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."')";
 function getCourse($conn) {
     global $value;
 
-    $sql = "select education_name as nev,okj_number as okj,education_inhouse_id as id from education where education_id=" . $value . ";  ";
+    $sql = "select education_name as nev,okj_number as okj,education_inhouse_id as id,education_center as center,image from education where education_id=" . $value . ";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/ ";
+            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/ " . $row['center'] . "/;/". $row['image'] . "/;/" ;
         }
     } else {
         echo "none/;/";
@@ -196,7 +213,7 @@ function getCourse($conn) {
 }
 function editCourse($conn) {
     global $value;
-    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' where education_id=".$value[3];
+    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' , education_center ='" . $value[4] . "',  image ='" . $value[5] . "' where education_id=".$value[3];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -249,9 +266,25 @@ function list_modul($conn) {
     }
     return $conn;
 }
+function list_modul_filter($conn) {
+    global $value;
+    $sql = "select modul_id as id, modul_name as name, education_id as eid"
+            . " from modul where education_id=".$value." ;  ";
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
+}
 function editModul($conn) {
     global $value;
-    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "' where modul_id=".$value[3];
+    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "' where modul_id=".$value[8];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -275,5 +308,113 @@ function getModul($conn) {
         echo "none/;/";
     }
 
+    return $conn;
+}
+function uploadImage(){
+    $target_dir = "img/";
+$target_file = $target_dir . basename($_FILES["form-row-kep"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+if(isset($_POST["form-row-kep"])) {
+    $check = getimagesize($_FILES["form-row-kep"]["tmp_name"]);
+    if($check !== false) {
+       $uploadOk = 1;
+    } else {
+        $uploadOk = 0;
+    }
+}
+if ($uploadOk == 0) {
+  //  echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["form-row-kep"]["tmp_name"], $target_file)) {
+   //  echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+    //    echo "Sorry, there was an error uploading your file.";
+    }
+}
+
+}
+function uploadFile(){
+    $target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["form-row-alk"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+if(isset($_POST["form-row-alk"])) {
+    $check = getimagesize($_FILES["form-row-alk"]["tmp_name"]);
+    if($check !== false) {
+       $uploadOk = 1;
+    } else {
+        $uploadOk = 0;
+    }
+}
+if ($uploadOk == 0) {
+  //  echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["form-row-alk"]["tmp_name"], $target_file)) {
+   //  echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+    //    echo "Sorry, there was an error uploading your file.";
+    }
+}
+
+}
+function insertCurUnit($conn) {
+    global $value;
+    $sql = "INSERT INTO studymaterials (study_materials_name,description,modul_id, doctrine,exercise, elearn)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."','" . $value[5] ."')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error';
+    }
+
+    return $conn;
+}
+function editCurUnit($conn) {
+    global $value;
+    $sql = "UPDATE studymaterials SET study_materials_name='" . $value[0] . "', description='" . $value[1] . "', modul_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',elearn='" . $value[5] . "' where studymaterials_id=".$value[6];
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error'.$conn->error;
+    }
+
+    return $conn;
+}
+function getCurUnit($conn) {
+    global $value;
+
+    $sql = "select study_materials_name as nev,description as con,modul_id as id,doctrine as d, exercise as e, elearn as el from studymaterials where studymaterials_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["nev"] . "/;/" . $row['con'] . "/;/" . $row['id'] . "/;/" . $row['d'] ."/;/" . $row["e"] ."/;/" . $row['el'] .   "/;/ ";
+        }
+    } else {
+        echo "none/;/";
+    }
+
+    return $conn;
+}
+
+function list_cur_unit_filter($conn) {
+    global $value;
+    $sql = "select studymaterials_id as id, study_materials_name as name, modul_id as eid"
+            . " from studymaterials where modul_id=".$value." ;  ";
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
     return $conn;
 }

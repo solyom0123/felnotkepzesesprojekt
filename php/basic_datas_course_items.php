@@ -5,15 +5,15 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="courseList();setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                            <div onclick="link('course_basic_datas');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
                                            </div>
                                         </div>   <span>Képzések</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="modulList();setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="modulList('modul_r_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Modulok</span>
                                         </td>
                                         <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('cur_unit_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                                <div onclick="modulList('cur_unit_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Tananyagegysegek</span>
                                         </td>
                                            <td><div class="span-half-corner-wrapper">

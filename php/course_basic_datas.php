@@ -8,15 +8,15 @@
  */
 ?>
 
-<script>setElozo('course_basic_datas')</script>
+
                     <h2 class="h2-default">Képzések alapadatai</h2>
 
                     <div class="table-wrapper">
                         
                         <table class="table-default">
                             <tbody>
-							<tr>
-					   <?php echo $_POST['param'];?>
+							<tr id="courselist">
+					
 							</tr>
                                 <tr>
 									<td><div class="span-half-corner-wrapper">

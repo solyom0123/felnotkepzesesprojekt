@@ -34,7 +34,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy születési nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
 
@@ -45,7 +45,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy anyja nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -55,7 +55,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy születési helyét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
             <div class="form-group row">
@@ -65,7 +65,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nemét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -75,27 +75,27 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy állampolgárságát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
        <div class="form-group row">
         <label for="form-row-phone" class="col-md-4 col-form-label">Telefonszám:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-phone" id="form-row-phone" type="text"  placeholder="Telefonszám">
+            <input class="form-control-plaintext" name="form-row-phone" id="form-row-phone" type="number"  placeholder="Telefonszám">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy telefonszámát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
         <label for="form-row-taj" class="col-md-4 col-form-label">TAJ szám:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-taj" id="form-row-taj" type="text"  placeholder="TAJ szám">
+            <input class="form-control-plaintext" name="form-row-taj" id="form-row-taj" type="number"  placeholder="TAJ szám">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy taj számát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
 
@@ -105,31 +105,31 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         <div class="form-group row">
         <label for="form-row-szulev" class="col-md-4 col-form-label">Év:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-szulev" id="form-row-szulev" type="text"  placeholder="Év">
+            <input class="form-control-plaintext" name="form-row-szulev" id="form-row-szulev" type="number" min="1900"  placeholder="Év">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy születési évét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
         <div class="form-group row">
         <label for="form-row-szulho" class="col-md-4 col-form-label">Hónap:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-szulho" id="form-row-szulho" type="text"  placeholder="Hónap">
+            <input class="form-control-plaintext" name="form-row-szulho" id="form-row-szulho" type="number" min="1" max="12"  placeholder="Hónap">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő születési dátumának hónap adattagját!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
         <label for="form-row-szulnap" class="col-md-4 col-form-label">Nap:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-szulnap" id="form-row-szulnap" type="text"  placeholder="Nap">
+            <input class="form-control-plaintext" name="form-row-szulnap" id="form-row-szulnap" type="number" min="1" max="31" placeholder="Nap">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő sszületési dátumának nap adattagját!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
 
@@ -140,11 +140,11 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
         <label for="form-row-lakir" class="col-md-4 col-form-label">Irányító szám:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-lakir" id="form-row-lakir" type="text"  placeholder="Irányító szám">
+            <input class="form-control-plaintext" name="form-row-lakir" id="form-row-lakir" type="number" min="0001"  placeholder="Irányító szám">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy címánek írányítószámát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -154,7 +154,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy címének város nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -164,17 +164,17 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy címének utca nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
         <label for="form-row-lakhs" class="col-md-4 col-form-label">Házszám:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-lakhs" id="form-row-lakhs" type="text"  placeholder="házszám">
+            <input class="form-control-plaintext" name="form-row-lakhs" id="form-row-lakhs" type="number"  placeholder="házszám">
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő címének házszám részét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -184,7 +184,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy címének lépcső ház adatát !"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     
@@ -192,20 +192,16 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
         <label for="form-row-anyag" class="col-md-4 col-form-label">OKtatható tananyagegységek:</label>
         <div class="col-md-2">
-            <select class="form-control" id="form-row-anyag" name="form-row-anyag">
-                <option>tananyagegység 1</option>
-                <option>tananyagegység 2</option>
-                <option>tananyagegység 3</option>
-                <option>tananyagegység 4</option>
+            <select  class="form-control" id="form-row-anyag" name="form-row-anyag">
+         
             </select>
         </div> 
         <div class="col-md-2">
             <div onclick="link('teacher_connect_in_form');setElozo('teacher_in_form')"  class="option-button">Hozzáadás</div>
-            <a href="" class="option-button">törlés</a>
-
+           
         </div>
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Itt láthatja a személyhez rendelt oktatható tanegységek listáját. A hozzáadás gombbal adhat hozzá!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
 
@@ -213,21 +209,22 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 
 <?php
 if(isset($_POST['param'])&&$_POST['muv']=="edit"){
+    
 ?>
-     <div onclick="studentEdit(<?=$_POST['param']?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+     <div onclick="teacherEdit(<?=$_POST['param']?>)" class="btn col-md-5 btn option-button">Felvitel</div>
   <?php     
 }else if(isset($_POST['param'])&&$_POST['muv']=="editafter"){
 ?>
-     <div onclick="studentEdit(<?=$_POST['param'][1]?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+     <div onclick="teacherEdit(<?=$_POST['param'][1]?>)" class="btn col-md-5 btn option-button">Felvitel</div>
   <?php     
 }else{
 ?>
-     <div onclick="courseSend()" class="btn col-md-5 btn option-button">Felvitel</div>
+     <div onclick="teacherSend()" class="btn col-md-5 btn option-button">Felvitel</div>
   <?php     
 }
 ?>
         <div class="col-md-2"> </div>
-        <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+        <div onclick="megsem();teacherList()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>

@@ -5,18 +5,11 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Oktatók névsora</h2>
-<form class="form-wrapper">
-    <div class="list-wrapper">
+<<h2 class="h2-default">Oktatók névsora</h2>
+<form >
+    <div class="row col-md-12 list-wrapper">
         <ul>
-            <li><div class="label-default-s"><input  type="checkbox"><p> MINDEGYIK</p></div></li>
-            <li> <div class="label-default-s"><input type="checkbox"><p>1. oktató</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>2. oktató</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>3. oktató</p></div></li>
-            <li><div class="label-default-s"> <input  type="checkbox"><p>4. oktató</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>5. oktató</p></div></li>
-            <li><div class="label-default-s"> <input  type="checkbox"><p>6. oktató</p></div></li>
-            <li> <div class="label-default-s"><input  type="checkbox"><p>7. oktató</p></div></li>
+           <?php echo $_POST['param'];?>
         </ul>
 
 
@@ -26,18 +19,11 @@
 
     </div>
 
-    <!--                        <div class="input-wrapper">
-                                
-                              
-                            
-                            </div>
-                            <div class="tooltip-wrapper">
-                               
-                                
-                            </div>    -->
-    <div class="option-button-wrapper">
-        <a href="index.php?page=modul_con_form"><div class="option-button">Összecsatolás</div></a>
-        <a href="index.php?page=modul_con_form"><div class="option-button">Mégse</div></a>
+    <div class="col-md-12 list-wrapper ">
+        <div onclick="teacherGet();" ><div class="col-md-4 option-button">Kiválasztás</div></div>
+        <div onclick="link('teacher_in_form');setElozo('teacher_list');teacher_cur_unit_List(-1)" ><div class="col-md-4 option-button">Új hozzáadása</div></div>
+        
+        <div onclick="megsem()" ><div class="col-md-4 option-button">Mégsem</div></div>
 
 
     </div>

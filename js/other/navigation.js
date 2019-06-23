@@ -37,6 +37,15 @@ function loadingModuls(linkfr) {
         teacherListOption();
         coursefilemodal();
     }
+     if (linkfr == "date_in_form") {
+        var date = new Date();
+        var stringDate = date.getFullYear()+"-"+(date.getMonth()+1)+"-01";
+        console.log(stringDate);
+        monthGet(stringDate);
+        
+        
+    }
+
 
 }
 /**

@@ -7,6 +7,7 @@ include_once './php/servermethods/cur_unit.php';
 include_once './php/servermethods/student.php';
 include_once './php/servermethods/modul.php';
 include_once './php/servermethods/teacher.php';
+include_once './php/servermethods/date.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -85,7 +86,12 @@ if ($muv == "new_modul") {
     lekapcsolodas(editConnection(kapcsolodas()));
 }else if ($muv == "delete_cur_unit_teacher") {
     lekapcsolodas(deleteConnection(kapcsolodas()));
+}else if ($muv == "monthGet") {
+    lekapcsolodas(getDates(kapcsolodas()));
+}else if ($muv == "dateEdit") {
+    lekapcsolodas(dateEdit(kapcsolodas()));
 }
+
 
 function kapcsolodas() {
     $szerverneve = "mysql.nethely.hu";

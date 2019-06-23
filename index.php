@@ -31,7 +31,7 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/modul.js"></script>
         <script type="text/javascript" src="./js/other/student.js"></script>
         <script type="text/javascript" src="./js/other/teacher.js"></script>
-
+   <script type="text/javascript" src="./js/other/date.js"></script>
 
         <script>
            $(document).ready(function () {

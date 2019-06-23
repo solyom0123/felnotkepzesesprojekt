@@ -116,7 +116,7 @@ tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
 
 .calendar__day__cell[data-bank-holiday] {
   background-color: var(--black);
-  border-color: var(--black);
+  border-color: var(--red);
   
   border-bottom: none;
   color: var(--cream);

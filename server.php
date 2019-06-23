@@ -83,6 +83,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(getConnection(kapcsolodas()));
 } else if ($muv == "connectionEdit") {
     lekapcsolodas(editConnection(kapcsolodas()));
+}else if ($muv == "delete_cur_unit_teacher") {
+    lekapcsolodas(deleteConnection(kapcsolodas()));
 }
 
 function kapcsolodas() {

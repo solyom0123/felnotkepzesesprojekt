@@ -33,7 +33,7 @@
     <div class="form-group row">
             <label for="form-row-name" class="col-md-4 col-form-label">Hozzárendelt tananyagegységek:</label>
             <div class="col-md-2">
-                <select class="form-control" id="form-row-anyag">
+                <select onclick="connectionGetWithTwoParameter(-1)" class="form-control" id="form-row-anyag">
                 </select>
             </div> 
             <div class="col-md-2">
@@ -74,22 +74,13 @@
 
     <div class="option-button-wrapper form-group row">
 
-       <?php
-            if (isset($_POST['param']) && $_POST['muv'] == "edit") {
-                ?>
-                <div onclick="connectionEdit(<?= $_POST['param'] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
-            } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
-                ?>
-                <div onclick="connectionEdit(<?= $_POST['param'][1] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
-            } else {
-                ?>
-                <div onclick="connectionSend()" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
-            }
-            ?>            <div class="col-md-2"> </div>
-            <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+     
+                <div onclick="connectionSend()" class="btn col-md-3 btn option-button">Felvitel</div>
+                <div class="col-md-1"> </div>
+               
+                <div onclick="connectionEdit()" class="btn col-md-3 btn option-button">Szerkesztés</div>
+                  <div class="col-md-1"> </div>
+            <div  onclick="megsem()"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></div>
 
 
 

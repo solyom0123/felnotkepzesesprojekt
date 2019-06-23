@@ -1,6 +1,5 @@
 <?php
 
-
 function list_student($conn) {
     $sql = "select student_id as id, student_full_name as name  from students ;  ";
     $result = $conn->query($sql);
@@ -45,9 +44,10 @@ function getStudent($conn) {
 
     return $conn;
 }
+
 function editStudent($conn) {
     global $value;
-    $sql = "UPDATE students SET student_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "' where student_id=".$value[16];
+    $sql = "UPDATE students SET student_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "' where student_id=" . $value[16];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';

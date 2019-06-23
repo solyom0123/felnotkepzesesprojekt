@@ -1,11 +1,10 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 
 function list_teacher($conn) {
     $sql = "select teacher_id as id, teacher_full_name as name  from teachers ;  ";
@@ -51,9 +50,10 @@ function getTeacher($conn) {
 
     return $conn;
 }
+
 function editTeacher($conn) {
     global $value;
-    $sql = "UPDATE teachers SET teacher_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "' where teacher_id=".$value[16];
+    $sql = "UPDATE teachers SET teacher_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "' where teacher_id=" . $value[16];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -63,24 +63,11 @@ function editTeacher($conn) {
 
     return $conn;
 }
-function list_teacher_cur_unit($conn){
+
+function list_teacher_cur_unit($conn) {
     global $value;
 
-     $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=".$value.") ;  ";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['id'] . "//";
-        }
-    } else {
-        echo "none;//";
-    }
-    return $conn;
-}function list_teacher_cur_without_unit($conn){
-    global $value;
-
-     $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id not in (select studymaterials from studymaterials_teacher where teacher=".$value.") ;  ";
+    $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=" . $value . ") ;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -92,6 +79,23 @@ function list_teacher_cur_unit($conn){
     }
     return $conn;
 }
+
+function list_teacher_cur_without_unit($conn) {
+    global $value;
+
+    $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id not in (select studymaterials from studymaterials_teacher where teacher=" . $value . ") ;  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
+}
+
 function insertConnection($conn) {
     global $value;
     $sql = "INSERT INTO studymaterials_teacher(teacher, studymaterials,file)
@@ -108,13 +112,18 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "')";
 
 function getConnection($conn) {
     global $value;
-
-    $sql = "select studymaterials as st,teacher as id, file   from studymaterials_teacher where teacher_id=" . $value . ";  ";
+    if(is_array ( $value )){
+    $sql = "select studymaterials as st,teacher as id, file   from studymaterials_teacher where teacher=" . $value[0] . " and studymaterials= ".$value[1].";  ";
+        
+    }else{
+    $sql = "select studymaterials as st,teacher as id, file   from studymaterials_teacher where teacher=" . $value . ";  ";
+    }
     $result = $conn->query($sql);
+    
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["id"] . "/;/" . $row['st'] . "/;/" . $row['file'] . "/;/" ;
+            echo $row["id"] . "/;/" . $row['st'] . "/;/" . $row['file'] . "/;/";
         }
     } else {
         echo "none/;/";
@@ -122,14 +131,29 @@ function getConnection($conn) {
 
     return $conn;
 }
+
 function editConnection($conn) {
     global $value;
-    $sql = "UPDATE studymaterials_teacher SET teacher='" . $value[0] . "', studymaterials='" . $value[1] . "', `file` ='" . $value[2] . " where teacher='".$value[0]."' and  studymaterials='".$value[1]."'";
+  
+    $sql = "UPDATE studymaterials_teacher SET file ='" . $value[2] . "' where teacher='" . $value[0] . "' and  studymaterials='" . $value[1] . "'";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
     } else {
-        echo 'error';
+        echo 'error'.$conn->error;
+    }
+
+    return $conn;
+}
+function deleteConnection($conn) {
+    global $value;
+  
+    $sql = "DELETE from studymaterials_teacher  where teacher='" . $value[0] . "' and  studymaterials='" . $value[1] . "'";
+
+    if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error'.$conn->error;
     }
 
     return $conn;

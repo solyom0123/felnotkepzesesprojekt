@@ -25,7 +25,7 @@ function teacherList() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
@@ -72,7 +72,7 @@ function teacherSend() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var value;
         if (data != "error") {
             value = '<div class="alert alert-success">Sikeres felvitel!</div>';
@@ -100,7 +100,7 @@ function teacherGet() {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             if (data != "none/;/") {
                 var spData = data.split("/;/");
                 document.getElementById("form-row-name").value = spData[0];
@@ -141,7 +141,7 @@ function teacherGetWithParam(value) {
         param: value[1]
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -196,7 +196,7 @@ function teacherEdit(id) {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -230,7 +230,7 @@ function teacher_cur_unit_List(value) {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (value != -1) {
             var value = '';
             if (data != "none;//") {
@@ -269,7 +269,7 @@ function teacherListOption() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
@@ -302,7 +302,7 @@ function deleteConnectteacherAndCurUnit() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
 
         if (data != "error") {
             text= '<div class="alert alert-success">Sikeres törlés!</div>';
@@ -328,7 +328,7 @@ function connectionSend() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres felvitel!</div>';
@@ -356,7 +356,7 @@ function connectionEdit() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -373,7 +373,7 @@ function connectionEdit() {
 function connectionGetWithTwoParameter(value) {
     var loadFileName= false
     if (!Array.isArray(value)) {
-        console.log("alma");
+        //console.log("alma");
         var oktato = document.getElementById("form-row-oktato").value;
         var anyag = document.getElementById("form-row-anyag").value;
 
@@ -387,18 +387,18 @@ function connectionGetWithTwoParameter(value) {
     teacher_cur_unit_List(-2);
     teacher_cur_unit_List(-3);
     }
-    console.log(value);
-    console.log("________________");
+    //console.log(value);
+    //console.log("________________");
     var slink = 'server.php';
     
     value = new Array(value[1], value[2]);
-    console.log(value);
+    //console.log(value);
         $.post(slink, {
         muv: "connectionget",
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var spData = data.split("/;/");
         document.getElementById("form-row-oktato").value = spData[0];
         document.getElementById("form-row-anyag").value = spData[1];

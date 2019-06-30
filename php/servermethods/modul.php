@@ -79,3 +79,28 @@ function getModul($conn) {
 
     return $conn;
 }
+function list_modul_for_course_with_piece($conn) {
+    global $value;
+    $sql = "select count(*) as darab from modul where education_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["darab"] . "//";
+        }
+    }else{
+        echo '0//'.$conn->error;
+    }
+    $sql = "select modul_id as id from modul where education_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["id"] . "//" ;
+        }
+    } else {
+        echo $conn->error;
+    }
+
+    return $conn;
+}

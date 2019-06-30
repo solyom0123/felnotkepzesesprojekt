@@ -31,7 +31,7 @@
                     param: value
 
                 }, function (data, status) {
-                    console.log(data);
+                    //console.log(data);
                     var value;
                     if (data != "error") {
 
@@ -61,7 +61,7 @@
                     param: value
 
                 }, function (data, status) {
-                    console.log(data);
+                  //  //console.log(data);
                     if (data != "none/;/") {
                         var spData = data.split("/;/");
                         document.getElementById("form-row-name").value = spData[0];
@@ -104,7 +104,7 @@
                     param: value[1]
 
                 }, function (data, status) {
-                    console.log(data);
+                   // //console.log(data);
                     if (data != "none/;/") {
                         var spData = data.split("/;/");
                         document.getElementById("form-row-name").value = spData[0];
@@ -159,7 +159,7 @@
                     param: value
 
                 }, function (data, status) {
-                    console.log(data);
+                  //  //console.log(data);
                     var text;
                     if (data != "error") {
                         text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -183,7 +183,7 @@
                     param: "value"
 
                 }, function (data, status) {
-                    console.log(data);
+                    //console.log(data);
                     var value = '<option value="-1">Nincs képzéshez rendelve</option>';
                     if (data != "none;//") {
                         var spStudents = data.split("//");
@@ -208,7 +208,7 @@
 
                 });
             }
-            function modulEducation() {
+            function modulEducation(lista) {
 
                 var slink = 'server.php';
                 $.post(slink, {
@@ -216,9 +216,13 @@
                     param: "value"
 
                 }, function (data, status) {
-                    console.log(data);
-                    var value = '<option value="-1">Nincs képzéshez rendelve</option>';
-                    if (data != "none;//") {
+                    //console.log(data);
+                var value= '<option value="-1">Kérem válasszon a listából!</option>';
+                if(lista){
+                     value = '<option value="-1">Nincs képzéshez rendelve</option>';
+                }
+                
+                if (data != "none;//") {
                         var spStudents = data.split("//");
                         for (var i = 0; i < spStudents.length; i++) {
                             if (spStudents[i] != "") {
@@ -246,7 +250,7 @@
                     param: id
 
                 }, function (data, status) {
-                    console.log(data);
+                    //console.log(data);
                     if(id!=-1){
                     var value = "";
                 }else{
@@ -266,4 +270,56 @@
                     });
 
                  }
-           
+            function modulfrissitParameterrel(id,hova,tiltott, hely){
+                 var slink = 'server.php';
+                 var sphova = hova.split("-");
+                 var atadotthely = sphova[sphova.length-1];
+                 if(id!=-2){
+                     id=document.getElementById("form-row-kepzes").value;
+                 }else{
+                     id=-1;
+                 }
+                $.post(slink, {
+                    muv: "list_modul_filter",
+                    param: id
+
+                }, function (data, status) {
+                   // //console.log(data);
+                    if(id!=-1){
+                    var value = '<option value="-1">Kérem válaszon modult!</option>';
+                }else{
+                    var value = '<option value="-1">Nincs modulhoz rendelve</option>';
+                }
+                        var spStudents = data.split("//");
+                        for (var i = 0; i < spStudents.length; i++) {
+                            if (spStudents[i] != "") {
+                               // //console.log("i:"+i);
+                                ////console.log(tiltott);
+                                var spStudent = spStudents[i].split(";");
+                                var egyezik=false;
+                                ////console.log(tiltott.length);
+                                for (var j = 0, max1 = hely.length; j < max1; j++) {
+                                    if(hely[j]!=atadotthely){
+                                  //  //console.log("tiltoot: "+tiltott[j]);
+                                   // //console.log("jelenlegi: "+spStudent[2]);
+                                    if(tiltott[j]==spStudent[2]){
+                                         egyezik=true;
+                                     }
+                                    }
+                                }
+                                ////console.log(egyezik);
+                                if(!egyezik){
+                                value += '<option value="' + spStudent[2] + '">' + spStudent[0] +'</option>';
+                                }
+                            }
+                        }
+                             document.getElementById(hova).innerHTML = "";
+                          document.getElementById(hova).innerHTML = value;
+                          for (var i = 0, max = hely.length; i < max; i++) {
+                              if(hely[i]==atadotthely){
+                                  document.getElementById(hova).value = tiltott[i];
+                              }
+                            }
+                    });
+
+                 }

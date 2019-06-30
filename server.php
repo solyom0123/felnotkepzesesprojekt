@@ -90,6 +90,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(getDates(kapcsolodas()));
 }else if ($muv == "dateEdit") {
     lekapcsolodas(dateEdit(kapcsolodas()));
+}else if ($muv == "list_modul_selector_piece") {
+    lekapcsolodas(list_modul_for_course_with_piece(kapcsolodas()));
 }
 
 

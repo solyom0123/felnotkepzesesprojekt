@@ -14,15 +14,17 @@ function megsem() {
     $.post("./php/elozmeny.php", {
         ker: 1
     }, function (data, status) {
-        //  console.log(data);
-        console.log("visszalépésadat: " + data);
+        //  //console.log(data);
+        //console.log("visszalépésadat: " + data);
         link(data);
         loadingModuls(data);
     });
 }
 function loadingModuls(linkfr) {
-    if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list") {
-        modulEducation();
+    if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list"  ) {
+        modulEducation(true);
+    }else if(linkfr == "course_start"){
+        modulEducation(false)
     }
     if (linkfr == "course_in_form") {
         coursekepmodal();
@@ -40,7 +42,7 @@ function loadingModuls(linkfr) {
      if (linkfr == "date_in_form") {
         var date = new Date();
         var stringDate = date.getFullYear()+"-"+(date.getMonth()+1)+"-01";
-        console.log(stringDate);
+        //console.log(stringDate);
         monthGet(stringDate);
         
         
@@ -54,11 +56,11 @@ function loadingModuls(linkfr) {
  * @returns {undefined}
  */
 function setElozo(elozo) {
-    console.log("elozo: " + elozo);
+    //console.log("elozo: " + elozo);
     $.post("./php/elozmeny.php", {
         preva: elozo
     }, function (data, status) {
-        //  console.log(data);
+        //  //console.log(data);
     });
 }
 /**
@@ -86,14 +88,14 @@ function link(link) {
  * @returns {undefined}
  */
 function serverdata(linkfr, value, muv, target) {
-    //console.log(value);
-    //console.log(target);
+    ////console.log(value);
+    ////console.log(target);
     $.post("server.php", {
         muv: muv,
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (target != "") {
             document.getElementsByClassName(target)[0].innerHTML = data;
         }
@@ -108,14 +110,14 @@ function serverdata(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkWithData(linkfr, value, muv, target) {
-    //console.log(value);
-    //console.log(target);
+    ////console.log(value);
+    ////console.log(target);
     $.post("./php/" + linkfr + ".php", {
         muv: muv,
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (target != "") {
             document.getElementsByClassName(target)[0].innerHTML = data;
         }
@@ -130,7 +132,7 @@ function linkWithData(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkside(link) {
-    // console.log(value);
+    // //console.log(value);
     var slink = './php/' + link + '.php';
     if (!link == "") {
         $.get(slink, function (data, status) {
@@ -146,11 +148,11 @@ function linkside(link) {
  * @returns {undefined}
  */
 function linkhead() {
-    // console.log(value);
+    // //console.log(value);
     var slink = './php/header.php';
 
     $.get(slink, function (data, status) {
-        console.log(data);
+        //console.log(data);
         document.getElementsByClassName('header-wrapper')[0].innerHTML = data;
     });
 }
@@ -165,14 +167,14 @@ function login(muv) {
     var name = document.getElementById("name").value;
     var pass = document.getElementById("pass").value;
     var value = new Array(name, pass);
-    //console.log(muv + "," + name + "," + pass);
+    ////console.log(muv + "," + name + "," + pass);
     var slink = 'server.php';
     $.post(slink, {
         muv: muv,
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var splited = data.split(";");
         if (splited[0] == "true") {
 
@@ -201,7 +203,7 @@ function loggedIn() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data == "true") {
 
             link("main_admin");

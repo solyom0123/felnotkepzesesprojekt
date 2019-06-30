@@ -16,7 +16,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/szin.css">
-
+        
         <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="./css/buttons.css">
         <link rel="stylesheet" href="./css/usefull.css">
@@ -31,6 +31,7 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/modul.js"></script>
         <script type="text/javascript" src="./js/other/student.js"></script>
         <script type="text/javascript" src="./js/other/teacher.js"></script>
+        <script type="text/javascript" src="./js/other/curseStart.js"></script>
    <script type="text/javascript" src="./js/other/date.js"></script>
 
         <script>

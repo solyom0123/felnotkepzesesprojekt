@@ -92,6 +92,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(dateEdit(kapcsolodas()));
 }else if ($muv == "list_modul_selector_piece") {
     lekapcsolodas(list_modul_for_course_with_piece(kapcsolodas()));
+}else if ($muv == "enough_day") {
+    lekapcsolodas(enough_day(kapcsolodas()));
 }
 
 

@@ -104,3 +104,124 @@ function list_modul_for_course_with_piece($conn) {
 
     return $conn;
 }
+function enough_day($conn) {
+    global $value;
+    //echo $value;
+    $spValue= preg_split("(\/\/)", $value);
+    $moduls_needed_plan_dec=0;
+    $moduls_needed_plan_exec=0;
+    $startweek=0;
+    $endweek=0;
+    $allweek =0;
+    $sql = "select SUM(doctrine) as doci from modul  where education_id=" . $spValue[4] . ";  ";
+    //echo $sql;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $moduls_needed_plan_dec+=$row["doci"];
+        }
+    }else{
+        $moduls_needed_plan_dec="0";
+        echo $conn->error;
+    }
+    $sql = "select SUM(exercise) as exec from modul where education_id=" . $spValue[4] . ";  ";
+    //echo $sql;
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $moduls_needed_plan_exec+=$row["exec"];
+            
+        }
+    }else{
+        $moduls_needed_plan_dec="0";
+        echo $conn->error;
+    }
+    
+    $sql = "select SUM(writting_test) as exam from modul where education_id=" . $spValue[4] . ";  ";
+    //echo $sql;
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $moduls_needed_plan_dec+=$row["exam"];
+            
+        }
+    }else{
+        $moduls_needed_plan_dec+="0";
+        echo $conn->error;
+    }
+    
+    $sql = "select SUM(verbal_test) as exam from modul where education_id=" . $spValue[4] . ";  ";
+    //echo $sql;
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $moduls_needed_plan_dec+=$row["exam"];
+            
+        }
+    }else{
+        $moduls_needed_plan_dec+="0";
+        echo $conn->error;
+    }
+    
+    $sql = "select SUM(practical_test) as exam from modul  where education_id=" . $spValue[4] . ";  ";
+    //echo $sql;
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $moduls_needed_plan_exec+=$row["exam"];
+            
+        }
+    }else{
+        $moduls_needed_plan_exec+="0";
+        echo $conn->error;
+    }
+    $sql = "select WEEK('".$spValue[2]."') as sweek, WEEK('".$spValue[3]."') as eweek    ";
+    //echo $sql;
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $endweek = $row["eweek"];
+            $startweek = $row["sweek"];
+            
+        }
+    } else {
+        echo $conn->error;
+    }
+    //echo $startweek." alma ".$endweek;
+     if($startweek>$endweek){
+         $allweek = (52-$startweek)+$endweek;
+         
+     }else if($startweek<$endweek){
+         $allweek = $endweek-$startweek;
+         
+     }else if(($startweek==$endweek)&&($spValue[2]==$spValue[3])){
+         $allweek = 0;
+         
+     } else if(($startweek==$endweek)&&($spValue[2]!=$spValue[3])){
+         $allweek = 52;
+         
+     }
+     //echo $allweek;
+     if(($allweek*$spValue[0])!=$moduls_needed_plan_dec){
+         echo (($allweek*$spValue[0])-$moduls_needed_plan_dec)."//";
+     }else{
+         echo 'ok//';
+     }
+     if(($allweek*$spValue[1])!=$moduls_needed_plan_exec){
+         echo (($allweek*$spValue[1])-$moduls_needed_plan_exec)."//";
+     }else{
+         echo 'ok//';
+     }        
+    return $conn;
+}

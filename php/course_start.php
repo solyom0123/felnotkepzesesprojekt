@@ -6,6 +6,9 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     echo $_POST['param'][0];
 }
 ?>
+<div id="error_place">
+    
+</div>
 <script>setElozo('course_start')</script>
 <div class="row "><h2 class="col-md-12 h2-default">Képzés(tanfolyam) indítása</h2></div>
 
@@ -23,7 +26,8 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
         <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzés kiválasztása:</label>
         <div class="col-md-4">
-            <select onclick="modulSelectorsMake()" class="form-control" id="form-row-kepzes">
+            <select onchange="modulSelectorsMake()" class="form-control" id="form-row-kepzes">
+            
             </select>
         </div> 
         <input id="modul_length_of_course" type="hidden" >
@@ -34,7 +38,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
         <label for="form-row-start" class="col-md-4 col-form-label">Kezdés dátuma:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-start" id="form-row-start" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+            <input class="form-control-plaintext" name="form-row-start" id="form-row-start"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
 
         <div class="col-md-4 ">
@@ -44,7 +48,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
         <label for="form-row-sign-date" class="col-md-4 col-form-label">Vizsga jelentkezés hatarideje:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+            <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
 
         <div class="col-md-4 ">
@@ -55,15 +59,15 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
        <div class="form-group row">
         <label for="form-row-exam-date" class="col-md-4 col-form-label">Vizsga időpontja:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+            <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
 
         <div class="col-md-4 ">
             <a href="#" data-toggle="tooltip" title="Adja meg a vizsga időpontját"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
- <div class="form-group row">
-        <label for="form-row-machine" onclass="col-md-4 col-form-label">Tervezett befejezés (gépi kalkuláció):</label>
+ <!--<div class="form-group row">
+        <label for="form-row-machine" class="col-md-4 col-form-label">Tervezett befejezés (gépi kalkuláció):</label>
         <div class="col-md-4">
             <input class="form-control-plaintext" name="form-row-machine" id="form-row-machine" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
@@ -72,27 +76,18 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             <a href="#" data-toggle="tooltip" title=""><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
-    <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
-        
-        <div class="col-md-8 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
-    </div>
-    <div id="modul-order-place" >
-        
-    </div>
+  
     <div class="form-group row">
         <label for="form-row-help-day" class="col-md-4 col-form-label">Képzésbe bevonható tartalék napok száma:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-help-day" id="form-row-help-day" type="number"  >
+            <input class="form-control-plaintext" name="form-row-help-day" id="form-row-help-day" type="number" min="0" >
         </div> 
 
         <div class="col-md-4 ">
             <a href="#" data-toggle="tooltip" title="Adja meg a képzéshez hozzárendelhető tartalék napok számát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
-
+-->
     <div class="form-group row">
         <label  class="col-md-4 col-form-label">Elméleti órák beosztása:</label>
         <div class="co-md-5"></div>
@@ -123,13 +118,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Hétfő
                     </td>
                     <td>
-                        <input id="mon_plan_dec" class="" type="number">
+                        <input id="mon_plan_dec" onchange="checkEnoughDay()" class="" type="number" min="0">
                     </td>
 					<td>
-                        <input id="mon_el_dec" class="" type="number">
+                        <input id="mon_el_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
                     <td>
-                        <input  id="mon_plan_exe" class="" type="number">
+                        <input  id="mon_plan_exe" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
 
                 </tr>
@@ -138,13 +133,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Kedd
                     </td>
                     <td>
-                        <input id="tue_plan_dec" class="" type="number">
+                        <input id="tue_plan_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
 					<td>
-                        <input id="tue_el_dec" class="" type="number">
+                        <input id="tue_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id=tue_plan_exe"  class="" type="number">
+                        <input id="tue_plan_exe"  class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -152,13 +147,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szerda
                     </td>
                   <td>
-                        <input id="wed_plan_dec" class="" type="number">
+                        <input id="wed_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
-                        <input id="wed_el_dec" class="" type="number">
+                        <input id="wed_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="wed_plan_exe" class="" type="number">
+                        <input id="wed_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -166,13 +161,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Csütörtök
                     </td>
                   <td>
-                        <input id="thu_plan_dec" class="" type="number">
+                        <input id="thu_plan_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
 					<td>
-                        <input id="thu_el_dec" class="" type="number">
+                        <input id="thu_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="thu_plan_exe" class="" type="number">
+                        <input id="thu_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -181,13 +176,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Péntek
                     </td>
                     <td>
-                        <input id="fri_plan_dec" class="" type="number">
+                        <input id="fri_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
-                        <input id="fri_el_dec" class="" type="number">
+                        <input id="fri_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                      <td>
-                        <input id="fri_plan_exe" class="" type="number">
+                        <input id="fri_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -196,13 +191,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szombat
                     </td>
                     <td>
-                        <input id="sat_plan_dec" class="" type="number">
+                        <input id="sat_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
-                        <input id="sat_el_dec" class="" type="number">
+                        <input id="sat_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                         <td>
-                        <input id="sat_plan_exe" class="" type="number">
+                        <input id="sat_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -211,13 +206,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Vasárnap
                     </td>
                     <td>
-                        <input id="sun_plan_dec" class="" type="number">
+                        <input id="sun_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
-                        <input id="sun_el_dec" class="" type="number">
+                        <input id="sun_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="sun_plan_exe" class="" type="number">
+                        <input id="sun_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -226,7 +221,16 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             </table>
         </div> 
 
-  
+    <div class="form-group row">
+        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
+        
+        <div class="col-md-8 ">
+            <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
+    <div id="modul-order-place" >
+        
+    </div>
     <div class="form-group row">
 
         <div class="col-md-2"></div>   

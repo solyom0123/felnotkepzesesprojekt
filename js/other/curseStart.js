@@ -18,7 +18,7 @@
  </div>
  */
 var tiltotta = new Array();
-var hasznalt = new Array(); 
+var hasznalt = new Array();
 function modulSelectorsMake() {
 
     var slink = 'server.php';
@@ -32,26 +32,40 @@ function modulSelectorsMake() {
             //console.log(data);
             var value = "";
             var spStudents = data.split("//");
+            var emptyModulList = false;
             document.getElementById("modul_length_of_course").value = spStudents[0];
-
+                   lockAll("_plan_dec",false);//;
+                lockAll("_plan_exe",false);
+                lockAll("_el_dec",false);
             for (var i = 1; i < spStudents.length; i++) {
-                if(spStudents[i]!=""){
-            value += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
-                        '<div class="col-md-4"><select  class="form-control" id="form-row-modul-' + i + '" onclick="modulChange(1)">' +
-                        '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. modult modult!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
-                        ' </div></div>';
+                if (spStudents[i] != "") {
+                    value += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
+                            '<div class="col-md-4"><select  class="form-control" id="form-row-modul-' + i + '" onchange="modulChange()">' +
+                            '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. modult modult!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
+                            ' </div></div>';
                 }
             }
             document.getElementById("modul-order-place").innerHTML = value;
             for (var i = 1; i < spStudents.length; i++) {
-           if(spStudents[i]!=""){
-                let atadandotiltott =  Object.assign(new Array(), tiltotta);
-                let atadandohely= Object.assign(new Array(), hasznalt);
-                modulfrissitParameterrel(id, "form-row-modul-" + i, atadandotiltott, atadandohely);
-                //tiltotta[tiltotta.length] = spStudents[i];
+                if (spStudents[i] != "") {
+                    let atadandotiltott = Object.assign(new Array(), tiltotta);
+                    let atadandohely = Object.assign(new Array(), hasznalt);
+                    modulfrissitParameterrel(id, "form-row-modul-" + i, atadandotiltott, atadandohely);
+                    //tiltotta[tiltotta.length] = spStudents[i];
+                } 
             }
-             }
-
+            if(spStudents[0]==0){
+                emptyModulList=true;
+            }
+            var message="";
+            if (emptyModulList) {
+                
+                message = '<div class="alert alert-danger">Ehhez a képzéshez nincs modul rendelve. Kérem válasszon másikat!</div>';
+                   lockAll("_plan_dec",true);//;
+                lockAll("_plan_exe",true);
+                lockAll("_el_dec",true);
+            }
+            document.getElementById("error_place").innerHTML = message;
         });
 
     }
@@ -59,17 +73,110 @@ function modulSelectorsMake() {
 
 
 }
-function modulChange(hely){
-    var osszesdb= (document.getElementById("modul_length_of_course").value*1)+1;
-    tiltotta= new Array();
+function modulChange() {
+    var osszesdb = (document.getElementById("modul_length_of_course").value * 1) + 1;
+    tiltotta = new Array();
     hasznalt = new Array();
     for (var i = 1, max = osszesdb; i < max; i++) {
-        var ertek = document.getElementById("form-row-modul-"+i).value;
-        if(ertek!=-1){
+        var ertek = document.getElementById("form-row-modul-" + i).value;
+        if (ertek != -1) {
             hasznalt[hasznalt.length] = i;
-            tiltotta[tiltotta.length] =ertek;
+            tiltotta[tiltotta.length] = ertek;
         }
     }
     modulSelectorsMake();
+
+}
+function checkEnoughDay(){
+    var plan_dec_number =calc("_plan_dec");//;
+    var plan_exe_number =calc("_plan_exe");
+    var startday= document.getElementById("form-row-start").value;
+    var signDay= document.getElementById("form-row-sign-date").value;
+    var id = document.getElementById("form-row-kepzes").value;
     
+    var param = plan_dec_number+"//"+plan_exe_number+"//"+startday+"//"+signDay+"//"+id;
+    var slink = 'server.php';
+        $.post(slink, {
+            muv: "enough_day",
+            param: param
+
+        }, function (data, status) {
+            console.log(data);
+            var value = "";
+            var spStudents = data.split("//");
+            var message="";
+            var need_doc =0;
+            var need_exec =0;
+            var needMoreExec=false;
+            var needLessExec = false;
+            var needMore=false;
+            var needLess = false;
+
+        if(spStudents[0]<0){
+                needMore=true;
+                need_doc = spStudents[0]*(-1);
+            }
+            if(spStudents[1]<0){
+                needMoreExec=true;
+                need_exec = spStudents[1]*(-1);
+            }
+            if(spStudents[0]>0){
+                needLess=true;
+                need_doc = spStudents[0];
+            }
+            if(spStudents[1]>0){
+                needLessExec=true;
+                need_exec = spStudents[1];
+            }
+            if (needMore||needLess||needLessExec||needMoreExec) {
+                
+                message = '<div class="alert alert-danger">Hiba az oktatás idővallumjával vagy a tervezett óraszámmal!';
+                
+             }
+             if (needLess) {
+                
+                message+= '<br>Túl nagy idővallumot vagy túl sok  tervezett elméleti óraszámot adott meg!<br> A már be nem osztható elmeléti órák száma: '+need_doc+'.';
+                
+             }
+             if (needMore) {
+                
+                message+= '<br>Nem elég nagy idővallumot vagy túl kevés tervezett elméleti óraszámot adott meg!<br>Nem beosztható elmeléti órák száma: '+need_doc+'.';
+                
+             }
+               if (needLessExec) {
+                
+                message+= '<br>Túl nagy idővallumot vagy túl sok  tervezett gyakorlati óraszámot adott meg!<br> A már be nem osztható gyakorlati órák száma: '+need_exec+'.';
+                
+             }
+             if (needMoreExec) {
+                
+                message+= '<br>Nem elég nagy idővallumot vagy túl kevés tervezett gyakorlati óraszámot adott meg!<br>Nem beosztható gyakorlati órák száma: '+need_exec+'.';
+                
+             }
+            document.getElementById("error_place").innerHTML = message;
+        });
+
+    }
+    
+    
+
+function calc(type){
+    var sum=0;
+    var week_days = ["mon","tue","wed","thu","fri","sat","sun"];
+    for (var i = 0, max = week_days.length; i < max; i++) {
+      sum+=document.getElementById(week_days[i]+type).value*1;  
+    } 
+    return sum;
+}
+function lockAll(type, lock){
+    var sum=0;
+    var week_days = ["mon","tue","wed","thu","fri","sat","sun"];
+    for (var i = 0, max = week_days.length; i < max; i++) {
+        document.getElementById(week_days[i]+type).readOnly= lock;  
+        document.getElementById("form-row-start").readOnly= lock;  
+        document.getElementById("form-row-sign-date").readOnly= lock;  
+        document.getElementById("form-row-exam-date").readOnly= lock;
+        
+    } 
+    return sum;
 }

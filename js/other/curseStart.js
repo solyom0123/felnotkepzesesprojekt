@@ -94,7 +94,22 @@ function checkEnoughDay(){
     var signDay= document.getElementById("form-row-sign-date").value;
     var id = document.getElementById("form-row-kepzes").value;
     
-    var param = plan_dec_number+"//"+plan_exe_number+"//"+startday+"//"+signDay+"//"+id;
+    var param = new Array();
+    param[0]=plan_dec_number;
+    param[1]=plan_exe_number
+    param[2]=startday
+    if(startday!=""){
+    param[3]=getMonthStartWeekDaysNo(startday);
+    }else{
+    param[3]="";    
+    }
+    param[4]=signDay
+    if(signDay!=""){
+    param[5]=getMonthStartWeekDaysNo(signDay);
+    }else{
+    param[5]="";    
+    }
+    param[6]=id;
     var slink = 'server.php';
         $.post(slink, {
             muv: "enough_day",
@@ -161,10 +176,10 @@ function checkEnoughDay(){
     
 
 function calc(type){
-    var sum=0;
+    var sum=new Array();
     var week_days = ["mon","tue","wed","thu","fri","sat","sun"];
     for (var i = 0, max = week_days.length; i < max; i++) {
-      sum+=document.getElementById(week_days[i]+type).value*1;  
+      sum[sum.length]=document.getElementById(week_days[i]+type).value*1;  
     } 
     return sum;
 }

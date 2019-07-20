@@ -24,7 +24,8 @@ function loadingModuls(linkfr) {
     if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list"  ) {
         modulEducation(true);
     }else if(linkfr == "course_start"){
-        modulEducation(false)
+        modulEducation(false);
+        clearUsedSelectChooseArrays();
     }
     if (linkfr == "course_in_form") {
         coursekepmodal();

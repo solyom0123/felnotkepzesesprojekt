@@ -85,7 +85,7 @@ function getModul($conn) {
 
 function list_modul_for_course_with_piece($conn) {
     global $value;
-    $sql = "select count(*) as darab from modul where education_id=" . $value . ";  ";
+    $sql = "select count(*) as darab from modul where education_id=" . $value . " or education_id=-1;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -95,7 +95,7 @@ function list_modul_for_course_with_piece($conn) {
     } else {
         echo '0//' . $conn->error;
     }
-    $sql = "select modul_id as id from modul where education_id=" . $value . ";  ";
+    $sql = "select modul_id as id from modul where education_id=" . $value . " or education_id=-1;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -119,7 +119,20 @@ function enough_day($conn) {
 
     $endweek = 0;
     $allweek = 0;
-    $sql = "select SUM(doctrine) as doci from modul  where education_id=" . $value[6] . ";  ";
+    $endofsql = " ";
+    
+    if(count($value[7])>0){
+       $i =0;
+        foreach ($value[7] as $modulnumber) {
+             
+            $endofsql .=" modul_id=".$modulnumber." ";
+            if ($i< count($value[7])-1) {
+                $endofsql.="or";
+            }
+            $i++;
+        }
+    }
+    $sql = "select SUM(doctrine) as doci from modul  where ".$endofsql.";  ";
     //echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -131,7 +144,8 @@ function enough_day($conn) {
         $moduls_needed_plan_dec = "0";
         echo $conn->error;
     }
-    $sql = "select SUM(exercise) as exec from modul where education_id=" . $value[6] . ";  ";
+    
+    $sql = "select SUM(exercise) as exec from modul where ".$endofsql.";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
@@ -145,13 +159,14 @@ function enough_day($conn) {
         echo $conn->error;
     }
 
-    $sql = "select SUM(writting_test) as exam from modul where education_id=" . $value[6] . ";  ";
+    $sql = "select SUM(writting_test) as exam from modul where ".$endofsql.";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+            if($row["exam"]>0)
             $moduls_needed_plan_dec += $row["exam"];
         }
     } else {
@@ -159,13 +174,14 @@ function enough_day($conn) {
         echo $conn->error;
     }
 
-    $sql = "select SUM(verbal_test) as exam from modul where education_id=" . $value[6] . ";  ";
+    $sql = "select SUM(verbal_test) as exam from modul where ".$endofsql.";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+            if($row["exam"]>0)
             $moduls_needed_plan_dec += $row["exam"];
         }
     } else {
@@ -173,13 +189,14 @@ function enough_day($conn) {
         echo $conn->error;
     }
 
-    $sql = "select SUM(practical_test) as exam from modul  where education_id=" . $value[6] . ";  ";
+    $sql = "select SUM(practical_test) as exam from modul  where ".$endofsql.";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+            if($row["exam"]>0)
             $moduls_needed_plan_exec += $row["exam"];
         }
     } else {
@@ -273,4 +290,20 @@ function sumclassnumber($unusedweekdays, $datedata, $type) {
         $actdayno = calcNextDayNo($actdayno);
     }
     return $sum;
+}
+function list_modul_filter_with_non_ordered($conn) {
+    global $value;
+    $sql = "select modul_id as id, modul_name as name, education_id as eid"
+            . " from modul where education_id=" . $value . " or education_id=-1;  ";
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
 }

@@ -94,6 +94,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(list_modul_for_course_with_piece(kapcsolodas()));
 }else if ($muv == "enough_day") {
     lekapcsolodas(enough_day(kapcsolodas()));
+}else if ($muv == "list_modul_filter_with_education_ordeless") {
+    lekapcsolodas(list_modul_filter_with_non_ordered(kapcsolodas()));
 }
 
 

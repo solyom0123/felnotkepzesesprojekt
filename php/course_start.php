@@ -6,10 +6,6 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     echo $_POST['param'][0];
 }
 ?>
-<div id="error_place">
-    
-</div>
-<script>setElozo('course_start')</script>
 <div class="row "><h2 class="col-md-12 h2-default">Képzés(tanfolyam) indítása</h2></div>
 
 <form >
@@ -88,6 +84,20 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div>                            
     </div>
 -->
+   <div class="form-group row">
+        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
+        
+        <div class="col-md-8 ">
+            <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
+    <div id="modul-order-place" >
+        
+    </div>
+
+<div id="error_place">
+    
+</div>
     <div class="form-group row">
         <label  class="col-md-4 col-form-label">Elméleti órák beosztása:</label>
         <div class="co-md-5"></div>
@@ -95,6 +105,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             <a href="#" data-toggle="tooltip" title="Adja meg az elmélet és a gyakorlati oktatás óraszámait napokra bontva!"><img src="img/help.png" class="img-circle" alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
+
         <div class="form-group row">
             
             <table class="col-md-12  ">
@@ -220,17 +231,6 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 
             </table>
         </div> 
-
-    <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
-        
-        <div class="col-md-8 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
-    </div>
-    <div id="modul-order-place" >
-        
-    </div>
     <div class="form-group row">
 
         <div class="col-md-2"></div>   
@@ -239,4 +239,6 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 
 
     </div>
+
+ 
 </form>

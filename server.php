@@ -8,6 +8,7 @@ include_once './php/servermethods/student.php';
 include_once './php/servermethods/modul.php';
 include_once './php/servermethods/teacher.php';
 include_once './php/servermethods/date.php';
+include_once './php/servermethods/schedule.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -96,6 +97,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(enough_day(kapcsolodas()));
 }else if ($muv == "list_modul_filter_with_education_ordeless") {
     lekapcsolodas(list_modul_filter_with_non_ordered(kapcsolodas()));
+}else if ($muv == "course_start") {
+    makeSchedulePlan();
 }
 
 

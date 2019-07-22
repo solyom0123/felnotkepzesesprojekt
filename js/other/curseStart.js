@@ -33,9 +33,7 @@ function modulSelectorsMake() {
             var spStudents = data.split("//");
             var emptyModulList = false;
             document.getElementById("modul_length_of_course").value = spStudents[0];
-            lockAll("_plan_dec", false);//;
-            lockAll("_plan_exe", false);
-            lockAll("_el_dec", false);
+            lockAllFieldsCourseStartForm(false);
             for (var i = 1; i < spStudents.length; i++) {
                 if (spStudents[i] != "") {
                     value += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
@@ -67,9 +65,7 @@ function modulSelectorsMake() {
                         if (emptyModulList) {
 
                             message = '<div class="alert alert-danger">Ehhez a képzéshez nincs modul rendelve. Kérem válasszon másikat!</div>';
-                            lockAll("_plan_dec", true);//;
-                            lockAll("_plan_exe", true);
-                            lockAll("_el_dec", true);
+                            lockAllFieldsCourseStartForm(true);
                         }
                         document.getElementById("error_place").innerHTML = message;
                     })
@@ -81,9 +77,7 @@ function modulSelectorsMake() {
         });
 
     } else {
-        lockAll("_plan_dec", true);//;
-        lockAll("_plan_exe", true);
-        lockAll("_el_dec", true);
+        lockAllFieldsCourseStartForm(true);
 
         document.getElementById("modul-order-place").innerHTML = "";
     }
@@ -91,18 +85,14 @@ function modulSelectorsMake() {
 
 
 }
+function lockAllFieldsCourseStartForm(lock){
+     lockAllWeekDaysInput("_plan_dec", lock);//;
+        lockAllWeekDaysInput("_plan_exe", lock);
+        lockAllWeekDaysInput("_el_dec", lock);
+}
 function modulChange() {
     clearUsedSelectChooseArrays();
-    var osszesdb = (document.getElementById("modul_length_of_course").value * 1) + 1;
-    tiltotta = new Array();
-    hasznalt = new Array();
-    for (var i = 1, max = osszesdb; i < max; i++) {
-        var ertek = document.getElementById("form-row-modul-" + i).value;
-        if (ertek != -1) {
-            hasznalt[hasznalt.length] = i;
-            tiltotta[tiltotta.length] = ertek;
-        }
-    }
+    collectModulSelectorsData();
     modulSelectorsMake();
 
 }
@@ -201,6 +191,35 @@ function calc(type) {
     for (var i = 0, max = week_days.length; i < max; i++) {
         sum[sum.length] = document.getElementById(week_days[i] + type).value * 1;
     }
+    collectModulSelectorsData();
+    return sum;
+}
+function lockAllWeekDaysInput(type, lock) {
+    var week_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+    for (var i = 0, max = week_days.length; i < max; i++) {
+        document.getElementById(week_days[i] + type).readOnly = lock;
+    }
+    document.getElementById("form-row-start").readOnly = lock;
+    document.getElementById("form-row-sign-date").readOnly = lock;
+    document.getElementById("form-row-exam-date").readOnly = lock;
+    
+
+}
+function lockAllModulSelector(lock){
+    var osszesdb = (document.getElementById("modul_length_of_course").value * 1) + 1;
+    for (var i = 1, max = osszesdb; i < max; i++) {
+       document.getElementById("form-row-modul-" + i).disabled = lock;
+    }
+    document.getElementById("form-row-schedule-button").disabled = lock;
+     document.getElementById("form-row-kepzes").disabled = lock;
+      document.getElementById("form-row-name").disabled = lock;
+     
+}
+function clearUsedSelectChooseArrays(){
+    tiltotta= new Array();
+    hasznalt= new Array();
+}
+function collectModulSelectorsData(){
     var osszesdb = (document.getElementById("modul_length_of_course").value * 1) + 1;
     tiltotta = new Array();
     hasznalt = new Array();
@@ -211,21 +230,4 @@ function calc(type) {
             tiltotta[tiltotta.length] = ertek;
         }
     }
-    return sum;
-}
-function lockAll(type, lock) {
-    var sum = 0;
-    var week_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-    for (var i = 0, max = week_days.length; i < max; i++) {
-        document.getElementById(week_days[i] + type).readOnly = lock;
-        document.getElementById("form-row-start").readOnly = lock;
-        document.getElementById("form-row-sign-date").readOnly = lock;
-        document.getElementById("form-row-exam-date").readOnly = lock;
-
-    }
-    return sum;
-}
-function clearUsedSelectChooseArrays(){
-    tiltotta= new Array();
-    hasznalt= new Array();
 }

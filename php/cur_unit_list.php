@@ -11,7 +11,7 @@
         <div class="form-group row">
             <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzések:</label>
             <div class="col-md-4">
-                 <select id="form-row-kepzes" onclick="modulfrissit(0,'modul-list')">
+                <select id="form-row-kepzes" onclick="modulRefesh(0,'modul-list')">
           <?php echo $_POST['param'];?>
          </select>
             </div> 

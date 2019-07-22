@@ -19,35 +19,33 @@ class Aktiv_Kepzes_Model{
      * @param {type} tartaleknapok
      * @returns {Aktiv_Kepzes_Model}
      */
-    constructor(belsoazon,kezdes,vizsgakezdes,vizsgaJelentkezes,tartaleknapok){
+    constructor(id,belsoazon,kepzes,kezdes,vizsgakezdes,vizsgaJelentkezes,tartaleknapok){
+       this.id =id;
        this.belsoAzonosito= belsoazon;
-       this.kepzes;
+       this.kepzes=kepzes;
        this.kezdes=kezdes;
        this.vizsgaKezdes=vizsgakezdes;
        this.vizsgaJelentkezes=vizsgaJelentkezes;
        this.befejezes;
        this.tartaleknapok=tartaleknapok;
        this.het = new Array();
-       this.utemtervnek = new Array();
+       this.utemterv = new Array();
        this.kizart_napok = new Array();
+       this.naptar = new Array();
     }
-    getMindenModulMegvolt(){
-        var megvolt= true;
-        for (var i = 0, max = this.kepzes.getModulok().length; i < max; i++) {
-            var aktmodul = this.kepzes.getModulok()[i];
-            for (var j = 0, maxj = aktmodul.getTananyagegysegek().length; j < maxj; j++) {
-                var aktegyseg = aktmodul.getTananyagegysegek()[j];
-                if (aktegyseg.getMegmaradtElmelet()!=0 || aktegyseg.getMegmaradtGyakorlat()!=0 ) {
-                    megvolt =false;
-                }
-            }
-        }
-        return megvolt;
-    }
+   
     getBelsoAzonosito(){
         return this.belsoAzonosito;
     }
-    
+    getNaptar(){
+        return this.naptar.length;
+    }
+    addNapNaptarhoz(nap){
+            this.naptar[this.naptar.length]= nap;
+    } 
+    getNapNaptarhoz(int){
+          return  this.naptar[int];
+    }
     
     getKepzes(){
         return this.kepzes;
@@ -69,28 +67,40 @@ class Aktiv_Kepzes_Model{
     getbefejezes(){
         return this.befejezes;
     }
+    getId(){
+        return this.befejezes;
+    }
     
-    setbefejezes(befejezes){
+    setBefejezes(befejezes){
          this.kepzes= befejezes;
     }
     
     
     
-    gettartaleknapok(){
+    getTartaleknapok(){
         return this.tartaleknapok;
     }
     
-    gethet(){
-        return this.het;
+    getHet(){
+        return this.het.length;
     }
-    getutemterv(){
+    getUtemterv(){
         return this.utemterv;
     }
     
-    getkizartnapok(){
-        return this.kizart_napok;
+    getKizartnapok(){
+        return this.kizart_napok.length;
     }
-    
-    
-    
+    addKizartnap(nap){
+       this.kizart_napok[this.kizart_napok.length]= nap;
+    }
+    getKizartnap(int){
+       return this.kizart_napok[int];
+    }
+    addWeekDay(nap){
+       this.het[this.het.length]= nap;
+    }
+    getWeekDay(int){
+       return this.het[int];
+    }
 }

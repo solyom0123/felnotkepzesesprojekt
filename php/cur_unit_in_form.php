@@ -40,7 +40,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
          <div class="form-group row">
             <label for="form-row-mod" class="col-md-4 col-form-label">Modul:</label>
             <div class="col-md-4">
-                 <select onclick="modulfrissit(0,'form-row-mod')" class="form-control" id="form-row-kepzes">
+                <select onclick="modulRefesh(0,'form-row-mod')" class="form-control" id="form-row-kepzes">
             
                 </select>
                 <select class="form-control" id="form-row-mod">

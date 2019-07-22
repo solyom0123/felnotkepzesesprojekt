@@ -234,7 +234,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     <div class="form-group row">
 
         <div class="col-md-2"></div>   
-        <div onclick="startCourse();setElozo('course_start')" ><input type="button" name="log-form" class="btn col-md-8 btn option-button" value="Tanfolyam ütemezés előzetes tervezése"></div>
+        <div onclick="gettingStart();setElozo('course_start')" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-8 btn option-button" value="Tanfolyam ütemezés előzetes tervezése"></div>
 
 
 

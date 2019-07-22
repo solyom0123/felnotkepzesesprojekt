@@ -32,6 +32,14 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/student.js"></script>
         <script type="text/javascript" src="./js/other/teacher.js"></script>
         <script type="text/javascript" src="./js/other/curseStart.js"></script>
+        <script type="text/javascript" src="./js/other/schedule.js"></script>
+        <script type="text/javascript" src="./js/model/Aktiv_Kepzes_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Kepzes_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Modul_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Oktatok_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Tananyagegyseg_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Utemterv_bejegyzes_Model.js"></script>
+        <script type="text/javascript" src="./js/model/Vizsga_Model.js"></script>
    <script type="text/javascript" src="./js/other/date.js"></script>
 
         <script>

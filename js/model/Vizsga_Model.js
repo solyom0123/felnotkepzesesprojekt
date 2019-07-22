@@ -1,29 +1,8 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 class Vizsga_Model {
     //osztalyvaltozok:
     //tipus: milyen tipusu vizsga
-    //szamitott_oraszam: az adatbazisban megadott a napra megengedett oraszamok elmeletbol
-    //engedett_gyakorlati_ora: az adatbazisban megadott a napra megengedett oraszamok gyakorlatbol
+    //oraszam: mennyivizsgavan
     
     /**
      * 
@@ -31,25 +10,25 @@ class Vizsga_Model {
      * @param {type} szamitott_oraszam
      * @returns {Vizsga_Model}
      */
-    constructor(tipus,
-    szamitott_oraszam,
+    constructor(tipus,oraszam
     ){
     this.tipus=tipus; 
-    this.szamitott_oraszam=szamitott_oraszam ;
-    this.felhasznalt=false;
+    this.oraszam=oraszam;
+    this.used = false;
     }
     
     getTipus(){
         return this.tipus;
     }
+    getUsed(){
+        return this.used;
+    }
     
-    getSzamitott_oraszam(){
-        return this.szamitott_oraszam;
+    setUsed(used){
+        return this.used =used;
     }
-    getFelhasznalt(){
-        return this.felhasznalt;
+    getOraszam(){
+        return this.oraszam;
     }
-    setFelhasznalt(fel){
-        this.felhasznalt=fel;
-    }
+  
 }

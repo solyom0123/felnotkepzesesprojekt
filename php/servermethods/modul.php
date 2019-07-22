@@ -38,14 +38,14 @@ function list_modul($conn) {
 
 function list_modul_filter($conn) {
     global $value;
-    $sql = "select modul_id as id, modul_name as name, education_id as eid"
+    $sql = "select modul_id as id, modul_name as name,modul_number as no, education_id as eid"
             . " from modul where education_id=" . $value . " ;  ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+            echo $row["name"] . " " . $row["no"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
         }
     } else {
         echo "none;//";
@@ -120,19 +120,19 @@ function enough_day($conn) {
     $endweek = 0;
     $allweek = 0;
     $endofsql = " ";
-    
-    if(count($value[7])>0){
-       $i =0;
+
+    if (count($value[7]) > 0) {
+        $i = 0;
         foreach ($value[7] as $modulnumber) {
-             
-            $endofsql .=" modul_id=".$modulnumber." ";
-            if ($i< count($value[7])-1) {
-                $endofsql.="or";
+
+            $endofsql .= " modul_id=" . $modulnumber . " ";
+            if ($i < count($value[7]) - 1) {
+                $endofsql .= "or";
             }
             $i++;
         }
     }
-    $sql = "select SUM(doctrine) as doci from modul  where ".$endofsql.";  ";
+    $sql = "select SUM(doctrine) as doci from modul  where " . $endofsql . ";  ";
     //echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -144,8 +144,8 @@ function enough_day($conn) {
         $moduls_needed_plan_dec = "0";
         echo $conn->error;
     }
-    
-    $sql = "select SUM(exercise) as exec from modul where ".$endofsql.";  ";
+
+    $sql = "select SUM(exercise) as exec from modul where " . $endofsql . ";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
@@ -159,45 +159,48 @@ function enough_day($conn) {
         echo $conn->error;
     }
 
-    $sql = "select SUM(writting_test) as exam from modul where ".$endofsql.";  ";
+    $sql = "select SUM(CASE WHEN writting_test>0 THEN writting_test ELSE 0 END) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if($row["exam"]>0)
-            $moduls_needed_plan_dec += $row["exam"];
+            if ($row["exam"] > 0) {
+                $moduls_needed_plan_dec += $row["exam"];
+            }
         }
     } else {
         $moduls_needed_plan_dec += "0";
         echo $conn->error;
     }
 
-    $sql = "select SUM(verbal_test) as exam from modul where ".$endofsql.";  ";
+    $sql = "select SUM(CASE WHEN verbal_test>0 THEN verbal_test ELSE 0 END) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if($row["exam"]>0)
-            $moduls_needed_plan_dec += $row["exam"];
+            if ($row["exam"] > 0) {
+                $moduls_needed_plan_dec += $row["exam"];
+            }
         }
     } else {
         $moduls_needed_plan_dec += "0";
         echo $conn->error;
     }
 
-    $sql = "select SUM(practical_test) as exam from modul  where ".$endofsql.";  ";
+    $sql = "select SUM(CASE WHEN practical_test>0 THEN practical_test ELSE 0 END) as exam from modul  where " . $endofsql . ";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if($row["exam"]>0)
-            $moduls_needed_plan_exec += $row["exam"];
+            if ($row["exam"] > 0) {
+                $moduls_needed_plan_exec += $row["exam"];
+            }
         }
     } else {
         $moduls_needed_plan_exec += "0";
@@ -210,6 +213,7 @@ function enough_day($conn) {
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+
             $unusedweekdays[$row['date']] = numberofday($row["napno"]);
         }
     } else {
@@ -260,7 +264,8 @@ function calcNextDayNo($dayno) {
     }
     return $calcdayno;
 }
-function calcIndexType($type){
+
+function calcIndexType($type) {
     $index = 0;
     if ($type == "doc") {
         $index = 0;
@@ -269,6 +274,7 @@ function calcIndexType($type){
     }
     return $index;
 }
+
 function sumclassnumber($unusedweekdays, $datedata, $type) {
     $begin = new DateTime($datedata[2]);
     $end = new DateTime($datedata[4]);
@@ -278,29 +284,30 @@ function sumclassnumber($unusedweekdays, $datedata, $type) {
     $actdayno = $datedata[3];
     $sum = 0;
     $index = calcIndexType($type);
-    
+
     foreach ($period as $dt) {
         $actdat = $dt->format("Y-m-d");
         if (!array_key_exists($actdat, $unusedweekdays)) {
-        //var_dump($dt->format("Y-m-d"));
-        
-            $sum += $datedata[$index][$actdayno-1];
-          //  var_dump($sum);
+            //var_dump($dt->format("Y-m-d"));
+
+            $sum += $datedata[$index][$actdayno - 1];
+            //  var_dump($sum);
         }
         $actdayno = calcNextDayNo($actdayno);
     }
     return $sum;
 }
+
 function list_modul_filter_with_non_ordered($conn) {
     global $value;
-    $sql = "select modul_id as id, modul_name as name, education_id as eid"
+    $sql = "select modul_id as id, modul_name as name,modul_number as no, education_id as eid"
             . " from modul where education_id=" . $value . " or education_id=-1;  ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+            echo $row["name"] . " " . $row["no"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
         }
     } else {
         echo "none;//";

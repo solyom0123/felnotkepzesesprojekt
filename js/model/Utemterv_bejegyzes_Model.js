@@ -5,7 +5,7 @@
  */
 
 
-class Elkeszult_Nap_Model {
+class Utemterv_bejegyzes_Model {
     //osztalyvaltozok:
     //het_napja:  nap  object
     
@@ -24,33 +24,30 @@ class Elkeszult_Nap_Model {
     constructor(hetnapja,
     datum,
     tartaleknap,
-   
-            
+    tanegysegId,
+    oraszam, 
+    tipus,
+    start, 
+    end        
     ){
 
     this.hetnapja = hetnapja;
     this.datum = datum;
     this.tartaleknap= tartaleknap;
-    this.felhasznalt_elmelet =0;
-    this.felhasznalt_gyakorlat=0;
-    this.hozzarendeltek = new Array();
+    this.tanegysegVagyVizsgaid = tanegysegId;
+    this.oraszam =oraszam;
+    this.start =start;
+    this.end = end;
+    this.tipus=tipus;
     }
     
-    getFelhasznalt_elmelet(){
-        return this.felhasznalt_elmelet;
+    getOra(){
+        return this.ora;
     }
     
-    getFelhasznalt_gyakorlat(){
-        return this.felhasznalt_gyakorlat;
+    getTanegysegVizsgaid(){
+        return this.tanegysegVagyVizsgaid;
     }
-    setFelhasznalt_elmelet(felhasz){
-        this.felhasznalt_elmelet=felhasz;
-    }
-    
-    setFelhasznalt_gyakorlat(felhasz){
-        this.felhasznalt_gyakorlat=felhasz;
-    }
-    
     getdatum(){
         return this.datum;
     }
@@ -58,16 +55,7 @@ class Elkeszult_Nap_Model {
     getNap(){
         return this.hetnapja;
     }
-    gettartaleknap(){
-        return this.tartaleknap;
+    getTipus(){
+        return this.tipus;
     }
-    
-    settartaleknap(tartalek){
-        this.tartaleknap=tartalek;
-    }
-    
-    gethozzarendeltek(){
-        return this.hozzarendeltek;
-    }
-    
 }

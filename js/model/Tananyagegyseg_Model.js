@@ -7,8 +7,8 @@
 
 class Tananyagegyseg_Model {
     //osztalyvaltozok:
-    //id: adatbazisban a kepzeshez tartozo id
-    //tanegyseg_neve: az adatbazisban megadott kepzesi nev
+    //id: adatbazisban a tanegyseghez tartozo id
+    //tanegyseg_neve: az adatbazisban megadott tanegyseg nev
     //elmeleti_oraszam:  az adatbazisban megadott adatok
     //gyakorlati_oraszam: az adatbazisban megadott adatok;
    // felhasznalt_elmelet: hozzarendeltuk-e mar egy naphoz az elmeletet vagy sem
@@ -25,8 +25,8 @@ class Tananyagegyseg_Model {
     constructor(id,
     tanegyseg_neve,
     elmeleti_oraszam,
-    gyakorlati_oraszam
-            
+    gyakorlati_oraszam,
+    modulid        
     ){
     this.id=id; 
     this.tanegyseg_neve=tanegyseg_neve;
@@ -35,6 +35,7 @@ class Tananyagegyseg_Model {
     this.felhasznalt_elmelet=0;
     this.felhasznalt_gyakorlat=0;
     this.oktatok = new Array();
+    this.modulid = modulid;
     }
     getMegmaradtElmelet(){
         return this.elmeleti_oraszam-this.felhasznalt_elmelet;
@@ -56,6 +57,9 @@ class Tananyagegyseg_Model {
     getOktatok(){
         return this.oktatok;
         
+    }
+    getModulid(){
+        return this.modulid;
     }
     getFelhasznalt_gyakorlat(){
         return this.felhasznalt_gyakorlat;

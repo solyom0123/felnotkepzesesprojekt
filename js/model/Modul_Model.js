@@ -71,7 +71,7 @@ class Modul_Model {
     }
     
     getFelhasznaltGyakorlatiOraszam(){
-        return this.felhasznalt_elmeleti_oraszam;
+        return this.felhasznalt_gyakorlati_oraszam;
     }
     getKifogogyott(){
         return false;

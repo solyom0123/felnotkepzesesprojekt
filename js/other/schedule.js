@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var kiiras ="";
 //var utemterv = new Aktiv_Kepzes_Model();
 function gettingStart() {
     var formDataArray = new Array();
@@ -11,15 +11,15 @@ function gettingStart() {
     //lockAllModulSelector(true);
     collectDatainArray(formDataArray);
 
-    console.log(formDataArray);
+   // console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "course_start",
         param: formDataArray
 
     }, function (data, status) {
-        console.log(data);
-
+       // console.log(data);
+        kiiras ="";
         var spReplyData = data.split("//");
         var spModuls = spReplyData[2].split("/;/");
         var spCurUnits = spReplyData[3].split("/;/");
@@ -28,7 +28,7 @@ function gettingStart() {
         var spCourse = spReplyData[1].split(";");
         var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
         var cur_unitArray = new Array();
-        console.log(schedule);
+        //console.log(schedule);
         var schedule = makeSchedule(formDataArray, spReplyData, course);
         makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
         makeModul_ModelsfromData(spModuls, schedule);
@@ -37,9 +37,10 @@ function gettingStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[5], schedule, 1);
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[6], schedule, 2);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
-        console.log(schedule);
-         console.log("Ütemterv");
+        //console.log(schedule);
+        kiiras+="<table>";
         scanDates(schedule);
+        kiiras+="</table>";
         console.log(schedule);
     });
 }
@@ -52,14 +53,15 @@ function scanDates(schedule) {
             if (hourscanuse.length > 0) {
                 var moduls = searchModul(schedule, hourscanuse);
                 if(moduls.length>0){
-                    console.log(actdate);
-                    console.log(moduls);
-                    console.log(hourscanuse);
+                    //console.log(actdate);
+                    //console.log(moduls);
+                    //console.log(hourscanuse);
+                    
                 useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno);
                 }
             }
         }
-        console.log("_____nextday___");
+        //console.log("_____nextday___");
     }
 }
 function useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno) {
@@ -71,14 +73,15 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno) {
         var actHour = hourscanuse[actHoursCanUseNoInArray];
         var actModul = moduls[actModulNoInArray];
         var foundCurUnit = searchCurUnit(actModul, actHour);
-        console.log(foundCurUnit);
+       // console.log(foundCurUnit);
         var foundExam = null;
         if (foundCurUnit != null) {
-            console.log(actHour.getOra()-usedHoursAmmount);
+            //console.log(actHour.getOra()-usedHoursAmmount);
             var hourAmmmountByHoursType= calchourAmmmountByHoursType(foundCurUnit,actHour,(actHour.getOra()-usedHoursAmmount));
             var modulstarthourAmmmountByHoursType= calcmodulstarthourAmmmountByHoursType(actModul,actHour);
-                console.log(hourAmmmountByHoursType);
-                console.log(modulstarthourAmmmountByHoursType);
+              //  console.log(hourAmmmountByHoursType);
+               // console.log(modulstarthourAmmmountByHoursType);
+               kiiras+="<tr><td>"+actdate+"</td><td>"+foundCurUnit.getTanegyseg_neve()+"</td><td>"+actModul.getModul_neve()+"</td><td>"+hourAmmmountByHoursType+"</td><td>"+modulstarthourAmmmountByHoursType+"</td></tr>";
             schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno,actdate,false,foundCurUnit.getId(),hourAmmmountByHoursType,actHour.getTipus(),false,(modulstarthourAmmmountByHoursType),(modulstarthourAmmmountByHoursType+hourAmmmountByHoursType)))
              usedHoursAmmount+=hourAmmmountByHoursType;
              calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour,foundCurUnit,hourAmmmountByHoursType);
@@ -87,8 +90,9 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno) {
         } else {
             foundExam = searchExam(actModul, actHour,(actHour.getOra()-usedHoursAmmount));
             if (foundExam != null) {
-             var hourAmmmountByHoursType= foundExam.getOraszam(); 
+             var hourAmmmountByHoursType= (foundExam.getOraszam()*1); 
              var modulstarthourAmmmountByHoursType= calcmodulstarthourAmmmountByHoursType(actModul,actHour);
+               kiiras+="<tr><td>"+actdate+"</td><td>"+foundExam.getTipus()+"</td><td>"+actModul.getModul_neve()+"</td><td>"+hourAmmmountByHoursType+"</td><td>"+modulstarthourAmmmountByHoursType+"</td></tr>";
              schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno,actdate,false,actModul.getId(),hourAmmmountByHoursType,foundExam.getTipus(),true,(modulstarthourAmmmountByHoursType),(modulstarthourAmmmountByHoursType+hourAmmmountByHoursType)))
              usedHoursAmmount+=hourAmmmountByHoursType;
              calcAndSetActModulUsedHourAmmountByHourType(actHour,actModul,hourAmmmountByHoursType);
@@ -155,7 +159,7 @@ function calchourAmmmountByHoursType(foundCurUnit,actHour,hourAmmount){
 
 function searchCurUnit(modul, hour) {
     var returnCurUnit = null;
-    console.log(modul);
+   // console.log(modul);
     for (var i = 0, max = modul.getTananyagegysegek().length; i < max; i++) {
         var actCurUnit = modul.getTanegyseg(i);
         if (hour.getTipus() == 1) {
@@ -177,13 +181,13 @@ function searchExam(modul, hour,hourammount) {
         var actExam = modul.getVizsga(i);
         if (hour.getTipus() == 1) {
             if (modul.getVizsga(i).getTipus() == "verbal" || modul.getVizsga(i).getTipus() == "writting") {
-                if (hourammount >= modul.getVizsga(i).getOraszam() && !modul.getVizsga(i).getUsed()) {
+                if (hourammount >= (modul.getVizsga(i).getOraszam()*1) && !modul.getVizsga(i).getUsed()) {
                     return actExam;
                 }
             }
-        } else if (hour.getTipus() == 1) {
+        } else if (hour.getTipus() == 2) {
             if (modul.getVizsga(i).getTipus() == "practice") {
-                if (hourammount >= modul.getVizsga(i).getOraszam() && !modul.getVizsga(i).getUsed()) {
+                if (hourammount >= (modul.getVizsga(i).getOraszam()*1) && !modul.getVizsga(i).getUsed()) {
                     return actExam;
                 }
             }
@@ -226,7 +230,7 @@ function haveUnusedExamWithEnoughHour(modul, day) {
                     return true;
                 }
             }
-        } else if (day.getTipus() == 1) {
+        } else if (day.getTipus() == 2) {
             if (modul.getVizsga(i).getTipus() == "practice") {
                 if (day.getOra() >= modul.getVizsga(i).getOraszam() && !modul.getVizsga(i).getUsed()) {
                     return true;

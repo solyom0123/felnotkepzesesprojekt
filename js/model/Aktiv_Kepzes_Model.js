@@ -88,6 +88,12 @@ class Aktiv_Kepzes_Model{
         return this.utemterv;
     }
     
+    addUtemtervhez(nap){
+            this.utemterv[this.utemterv.length]= nap;
+    } 
+    getUtemtervNap(int){
+          return  this.utemterv[int];
+    }
     getKizartnapok(){
         return this.kizart_napok.length;
     }
@@ -103,4 +109,5 @@ class Aktiv_Kepzes_Model{
     getWeekDay(int){
        return this.het[int];
     }
+    
 }

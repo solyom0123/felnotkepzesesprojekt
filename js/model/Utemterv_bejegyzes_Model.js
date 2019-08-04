@@ -27,6 +27,7 @@ class Utemterv_bejegyzes_Model {
     tanegysegId,
     oraszam, 
     tipus,
+    vizsga,
     start, 
     end        
     ){
@@ -38,11 +39,12 @@ class Utemterv_bejegyzes_Model {
     this.oraszam =oraszam;
     this.start =start;
     this.end = end;
+     this.vizsga = vizsga;
     this.tipus=tipus;
     }
     
     getOra(){
-        return this.ora;
+        return this.oraszam;
     }
     
     getTanegysegVizsgaid(){
@@ -57,5 +59,8 @@ class Utemterv_bejegyzes_Model {
     }
     getTipus(){
         return this.tipus;
+    }
+    getVizsga(){
+        return this.vizsga;
     }
 }

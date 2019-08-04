@@ -76,7 +76,7 @@ class Modul_Model {
     getKifogogyott(){
         return false;
     }
-    getTanegység(int) {
+    getTanegyseg(int) {
         return this.tananyagegysegek[int];
     }
     getGyakorlati_oraszam(){

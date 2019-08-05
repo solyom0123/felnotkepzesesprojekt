@@ -21,11 +21,11 @@ function megsem() {
     });
 }
 function loadingModuls(linkfr) {
-    if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list"  ) {
+    if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list") {
         modulEducation(true);
-    }else if(linkfr == "course_start"){
+    } else if (linkfr == "course_start") {
         modulEducation(false);
-        clearUsedSelectChooseArrays();
+        //clearUsedSelectChooseArrays();
     }
     if (linkfr == "course_in_form") {
         coursekepmodal();
@@ -40,13 +40,13 @@ function loadingModuls(linkfr) {
         teacherListOption();
         coursefilemodal();
     }
-     if (linkfr == "date_in_form") {
+    if (linkfr == "date_in_form") {
         var date = new Date();
-        var stringDate = date.getFullYear()+"-"+(date.getMonth()+1)+"-01";
+        var stringDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-01";
         //console.log(stringDate);
         monthGet(stringDate);
-        
-        
+
+
     }
 
 
@@ -71,13 +71,22 @@ function setElozo(elozo) {
  */
 function link(link) {
     var slink = './php/' + link + '.php';
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: slink,
+            type: 'GET',
 
-    $.get(slink, function (data, status) {
-        document.getElementsByClassName('tartalom-wrapper')[0].innerHTML = "";
-        $(".tartalom-wrapper").append(data);
+            success: function (data) {
+                document.getElementsByClassName('tartalom-wrapper')[0].innerHTML = "";
+                $(".tartalom-wrapper").append(data);
 
-        loadingModuls(link);
-
+                loadingModuls(link);
+                resolve(data);
+            },
+            error: function (err) {
+                reject(["rejected", err])
+            }
+        });
     });
 }
 /**
@@ -91,15 +100,25 @@ function link(link) {
 function serverdata(linkfr, value, muv, target) {
     ////console.log(value);
     ////console.log(target);
-    $.post("server.php", {
-        muv: muv,
-        param: value
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: value,
+                muv: muv
+            },
 
-    }, function (data, status) {
-        //console.log(data);
-        if (target != "") {
-            document.getElementsByClassName(target)[0].innerHTML = data;
-        }
+            success: function (data) {
+                if (target != "") {
+                    document.getElementsByClassName(target)[0].innerHTML = data;
+                }
+                resolve(data);
+            },
+            error: function (err) {
+                reject(["rejected", err])
+            }
+        });
     });
 }
 /**
@@ -113,19 +132,28 @@ function serverdata(linkfr, value, muv, target) {
 function linkWithData(linkfr, value, muv, target) {
     ////console.log(value);
     ////console.log(target);
-    $.post("./php/" + linkfr + ".php", {
-        muv: muv,
-        param: value
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "./php/" + linkfr + ".php",
+            type: 'POST',
+            data: {
+                param: value,
+                muv: muv
+            },
 
-    }, function (data, status) {
-        //console.log(data);
-        if (target != "") {
-            document.getElementsByClassName(target)[0].innerHTML = data;
-        }
-        loadingModuls(linkfr);
-
-
+            success: function (data) {
+                if (target != "") {
+                    document.getElementsByClassName(target)[0].innerHTML = data;
+                }
+                loadingModuls(linkfr);
+                resolve(data);
+            },
+            error: function (err) {
+                reject(["rejected", err])
+            }
+        });
     });
+
 }
 /**
  * 

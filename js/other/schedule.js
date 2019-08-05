@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var kiiras ="";
+var kiiras = "";
+var sc = null;
 //var utemterv = new Aktiv_Kepzes_Model();
 function gettingStart() {
     var formDataArray = new Array();
@@ -11,15 +12,16 @@ function gettingStart() {
     //lockAllModulSelector(true);
     collectDatainArray(formDataArray);
 
-   // console.log(formDataArray);
+    // console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "course_start",
         param: formDataArray
 
     }, function (data, status) {
-       // console.log(data);
-        kiiras ="";
+        // console.log(data);
+        kiiras = "";
+        sc = null;
         var spReplyData = data.split("//");
         var spModuls = spReplyData[2].split("/;/");
         var spCurUnits = spReplyData[3].split("/;/");
@@ -38,11 +40,98 @@ function gettingStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[6], schedule, 2);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
         //console.log(schedule);
-        kiiras+="<table>";
+        kiiras += "<table><th>dátum</th><th>Tanegység neve</th><th>Modul neve</th><th>Óraszám</th><th>Kezdő</th><th>Vég</th><th>Oktató</th>";
         scanDates(schedule);
-        kiiras+="</table>";
         console.log(schedule);
+        kiiras += "</table>";
+        showResult(schedule);
     });
+}
+function showResult(schedule) {
+    link("resultpage")
+            .then(data => {
+                document.getElementById("resultTable").innerHTML = kiiras;
+                sc = schedule;
+            })
+            .catch(error => {
+                //console.log(error)
+            });
+
+    //document.getElementById("resultTable").innerHTML= kiiras;
+}
+function editschedule() {
+    link("course_start")
+            .then(data => {
+                document.getElementById("form-row-name").value = sc.getBelsoAzonosito();
+                document.getElementById("form-row-start").value = sc.getKezdes();
+                document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
+                document.getElementById("form-row-exam-date").value = sc.getVizsgaKezdes();
+                solveDaysAndWriteBack(sc);
+                setTimeout(
+                        function () {
+                            document.getElementById("form-row-kepzes").value = sc.getKepzes().getId();
+                            modulSelectorsMake();
+                            setTimeout(
+                                    function () {
+                                        solveModulsAndOrderBack(sc);
+                                        checkEnoughDay();
+                                    }
+                            , 1000);
+
+                        }
+                , 1000);
+
+
+            })
+            .catch(error => {
+                //console.log(error)
+            });
+
+}
+function solveDaysAndWriteBack(sc) {
+    for (var i = 0, max = sc.getHet(); i < max; i++) {
+        var actWeekday = sc.getWeekDay(i);
+        var dayname = "";
+        var typename = "";
+        switch (actWeekday.getNap()) {
+            case 1:
+                dayname = "mon";
+                break;
+            case 2:
+                dayname = "tue";
+                break;
+            case 3:
+                dayname = "wed";
+                break;
+            case 4:
+                dayname = "thu";
+                break;
+            case 5:
+                dayname = "fri";
+                break;
+            case 6:
+                dayname = "sat";
+                break;
+            case 7:
+                dayname = "sun";
+                break;
+        }
+        switch (actWeekday.getTipus()) {
+            case 1:
+                typename = "plan_dec";
+                break;
+            case 2:
+                typename = "plan_exe";
+                break;
+        }
+        document.getElementById(dayname + "_" + typename).value = actWeekday.getOra();
+    }
+}
+function solveModulsAndOrderBack(sc) {
+    for (var i = 0, max = sc.getKepzes().getModulok().length; i < max; i++) {
+        var actmodul = sc.getKepzes().getModul(i);
+        document.getElementById("form-row-modul-" + (i + 1)).value = actmodul.getId();
+    }
 }
 function scanDates(schedule) {
     for (var i = 0, max = schedule.getNaptar(); i < max; i++) {
@@ -52,19 +141,19 @@ function scanDates(schedule) {
             var hourscanuse = checkEnableHoursAtDate(schedule, dayno);
             if (hourscanuse.length > 0) {
                 var moduls = searchModul(schedule, hourscanuse);
-                if(moduls.length>0){
+                if (moduls.length > 0) {
                     //console.log(actdate);
                     //console.log(moduls);
                     //console.log(hourscanuse);
-                    
-                useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno);
+
+                    useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno);
                 }
             }
         }
         //console.log("_____nextday___");
     }
 }
-function useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno) {
+function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
     var actModulNoInArray = 0;
     var actHoursCanUseNoInArray = 0;
     var usedHoursAmmount = 0;
@@ -73,121 +162,122 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse,actdate,dayno) {
         var actHour = hourscanuse[actHoursCanUseNoInArray];
         var actModul = moduls[actModulNoInArray];
         var foundCurUnit = searchCurUnit(actModul, actHour);
-       // console.log(foundCurUnit);
+        // console.log(foundCurUnit);
+        var helyiarray = new Array();
         var foundExam = null;
         if (foundCurUnit != null) {
             //console.log(actHour.getOra()-usedHoursAmmount);
-            var hourAmmmountByHoursType= calchourAmmmountByHoursType(foundCurUnit,actHour,(actHour.getOra()-usedHoursAmmount));
-            var modulstarthourAmmmountByHoursType= calcmodulstarthourAmmmountByHoursType(actModul,actHour);
-              //  console.log(hourAmmmountByHoursType);
-               // console.log(modulstarthourAmmmountByHoursType);
-               kiiras+="<tr><td>"+actdate+"</td><td>"+foundCurUnit.getTanegyseg_neve()+"</td><td>"+actModul.getModul_neve()+"</td><td>"+hourAmmmountByHoursType+"</td><td>"+modulstarthourAmmmountByHoursType+"</td></tr>";
-            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno,actdate,false,foundCurUnit.getId(),hourAmmmountByHoursType,actHour.getTipus(),false,(modulstarthourAmmmountByHoursType),(modulstarthourAmmmountByHoursType+hourAmmmountByHoursType)))
-             usedHoursAmmount+=hourAmmmountByHoursType;
-             calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour,foundCurUnit,hourAmmmountByHoursType);
-             calcAndSetActModulUsedHourAmmountByHourType(actHour,actModul,hourAmmmountByHoursType);
-             
+            var hourAmmmountByHoursType = calchourAmmmountByHoursType(foundCurUnit, actHour, (actHour.getOra() - usedHoursAmmount));
+            var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
+            //  console.log(hourAmmmountByHoursType);
+            // console.log(modulstarthourAmmmountByHoursType);
+            kiiras += "<tr><td>" + actdate + "</td><td>" + foundCurUnit.getTanegyseg_neve() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td><select onchange="loadTeacher"><option value="-1">Kérem válasszon oktatót!</option><option value="-2">Senki</option></select></td></tr>';
+            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType)))
+            usedHoursAmmount += hourAmmmountByHoursType;
+            calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType);
+            calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
+
         } else {
-            foundExam = searchExam(actModul, actHour,(actHour.getOra()-usedHoursAmmount));
+            foundExam = searchExam(actModul, actHour, (actHour.getOra() - usedHoursAmmount));
             if (foundExam != null) {
-             var hourAmmmountByHoursType= (foundExam.getOraszam()*1); 
-             var modulstarthourAmmmountByHoursType= calcmodulstarthourAmmmountByHoursType(actModul,actHour);
-               kiiras+="<tr><td>"+actdate+"</td><td>"+foundExam.getTipus()+"</td><td>"+actModul.getModul_neve()+"</td><td>"+hourAmmmountByHoursType+"</td><td>"+modulstarthourAmmmountByHoursType+"</td></tr>";
-             schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno,actdate,false,actModul.getId(),hourAmmmountByHoursType,foundExam.getTipus(),true,(modulstarthourAmmmountByHoursType),(modulstarthourAmmmountByHoursType+hourAmmmountByHoursType)))
-             usedHoursAmmount+=hourAmmmountByHoursType;
-             calcAndSetActModulUsedHourAmmountByHourType(actHour,actModul,hourAmmmountByHoursType);
-             foundExam.setUsed(true);   
+                var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
+                var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
+                kiiras += "<tr><td>" + actdate + "</td><td>" + foundExam.getTipus() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td>Vizsgához nem lehet oktatót választani!</td></tr></tr>';
+                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType)))
+                usedHoursAmmount += hourAmmmountByHoursType;
+                calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
+                foundExam.setUsed(true);
             }
-                        
+
         }
-            if ((actModulNoInArray + 1) < moduls.length&&(actHour.getOra()-usedHoursAmmount)>0) {
-                    actModulNoInArray++;
-                } else {
-                    actModulNoInArray = 0;
-                    usedHoursAmmount = 0;
-                    actHoursCanUseNoInArray++;
-                }
+        if ((actModulNoInArray + 1) < moduls.length && (actHour.getOra() - usedHoursAmmount) > 0) {
+            actModulNoInArray++;
+        } else {
+            actModulNoInArray = 0;
+            usedHoursAmmount = 0;
+            actHoursCanUseNoInArray++;
+        }
 
     }
 }
-function  calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour,foundCurUnit,hourAmmmountByHoursType){
+function  calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType) {
     if (actHour.getTipus() == 1) {
-                foundCurUnit.setFelhasznalt_elmelet(foundCurUnit.getFelhasznalt_elmelet()+hourAmmmountByHoursType);
-        } else if (actHour.getTipus() == 2) {
-                foundCurUnit.setFelhasznalt_gyakorlat(foundCurUnit.getFelhasznalt_gyakorlat()+hourAmmmountByHoursType);
-        }
-    
-}
-function calcAndSetActModulUsedHourAmmountByHourType(actHour,actModul,hourAmmmountByHoursType){
-    if (actHour.getTipus() == 1) {
-                actModul.setFelhasznaltElmeletiOraszam(actModul.getFelhasznaltElmeletiOraszam()+hourAmmmountByHoursType);
-        } else if (actHour.getTipus() == 2) {
-                actModul.setFelhasznaltGyakorlatiOraszam(actModul.getFelhasznaltGyakorlatiOraszam()+hourAmmmountByHoursType);
-        }
-    
-}    
-function calcmodulstarthourAmmmountByHoursType(actModul,actHour){
-    var returnValue= 0;
-    if (actHour.getTipus() == 1) {
-               returnValue= actModul.getFelhasznaltElmeletiOraszam();
-        } else if (actHour.getTipus() == 2) {
-                returnValue= actModul.getFelhasznaltGyakorlatiOraszam();
-        }
-    return returnValue;
-    
-}
-function calchourAmmmountByHoursType(foundCurUnit,actHour,hourAmmount){
-    var returnValue= 0;
-    if (actHour.getTipus() == 1) {
-            var elmHour=foundCurUnit.getElmeleti_oraszam() - foundCurUnit.getFelhasznalt_elmelet();
-            if ((elmHour)<=hourAmmount ) {
-                returnValue= elmHour;
-            }else{
-                returnValue= hourAmmount;
-            }
+        foundCurUnit.setFelhasznalt_elmelet(foundCurUnit.getFelhasznalt_elmelet() + hourAmmmountByHoursType);
+    } else if (actHour.getTipus() == 2) {
+        foundCurUnit.setFelhasznalt_gyakorlat(foundCurUnit.getFelhasznalt_gyakorlat() + hourAmmmountByHoursType);
+    }
 
-        } else if (actHour.getTipus() == 2) {
-            var gyakHour=foundCurUnit.getGyakorlati_oraszam() - foundCurUnit.getFelhasznalt_gyakorlat();
-            if ((gyakHour)<=hourAmmount ) {
-                returnValue= gyakHour;
-            }else{
-                returnValue= hourAmmount;
-            }
+}
+function calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType) {
+    if (actHour.getTipus() == 1) {
+        actModul.setFelhasznaltElmeletiOraszam(actModul.getFelhasznaltElmeletiOraszam() + hourAmmmountByHoursType);
+    } else if (actHour.getTipus() == 2) {
+        actModul.setFelhasznaltGyakorlatiOraszam(actModul.getFelhasznaltGyakorlatiOraszam() + hourAmmmountByHoursType);
+    }
+
+}
+function calcmodulstarthourAmmmountByHoursType(actModul, actHour) {
+    var returnValue = 0;
+    if (actHour.getTipus() == 1) {
+        returnValue = actModul.getFelhasznaltElmeletiOraszam();
+    } else if (actHour.getTipus() == 2) {
+        returnValue = actModul.getFelhasznaltGyakorlatiOraszam();
+    }
+    return returnValue;
+
+}
+function calchourAmmmountByHoursType(foundCurUnit, actHour, hourAmmount) {
+    var returnValue = 0;
+    if (actHour.getTipus() == 1) {
+        var elmHour = foundCurUnit.getElmeleti_oraszam() - foundCurUnit.getFelhasznalt_elmelet();
+        if ((elmHour) <= hourAmmount) {
+            returnValue = elmHour;
+        } else {
+            returnValue = hourAmmount;
         }
+
+    } else if (actHour.getTipus() == 2) {
+        var gyakHour = foundCurUnit.getGyakorlati_oraszam() - foundCurUnit.getFelhasznalt_gyakorlat();
+        if ((gyakHour) <= hourAmmount) {
+            returnValue = gyakHour;
+        } else {
+            returnValue = hourAmmount;
+        }
+    }
     return returnValue;
 }
 
 function searchCurUnit(modul, hour) {
     var returnCurUnit = null;
-   // console.log(modul);
+    // console.log(modul);
     for (var i = 0, max = modul.getTananyagegysegek().length; i < max; i++) {
         var actCurUnit = modul.getTanegyseg(i);
         if (hour.getTipus() == 1) {
-            if ((actCurUnit.getElmeleti_oraszam() - actCurUnit.getFelhasznalt_elmelet()) > 0 ) {
+            if ((actCurUnit.getElmeleti_oraszam() - actCurUnit.getFelhasznalt_elmelet()) > 0) {
                 return actCurUnit;
             }
 
         } else if (hour.getTipus() == 2) {
-            if ((actCurUnit.getGyakorlati_oraszam() - actCurUnit.getFelhasznalt_gyakorlat()) > 0 ) {
+            if ((actCurUnit.getGyakorlati_oraszam() - actCurUnit.getFelhasznalt_gyakorlat()) > 0) {
                 return actCurUnit;
             }
         }
     }
     return returnCurUnit;
 }
-function searchExam(modul, hour,hourammount) {
+function searchExam(modul, hour, hourammount) {
     var returnExam = null;
     for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
         var actExam = modul.getVizsga(i);
         if (hour.getTipus() == 1) {
             if (modul.getVizsga(i).getTipus() == "verbal" || modul.getVizsga(i).getTipus() == "writting") {
-                if (hourammount >= (modul.getVizsga(i).getOraszam()*1) && !modul.getVizsga(i).getUsed()) {
+                if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
                     return actExam;
                 }
             }
         } else if (hour.getTipus() == 2) {
             if (modul.getVizsga(i).getTipus() == "practice") {
-                if (hourammount >= (modul.getVizsga(i).getOraszam()*1) && !modul.getVizsga(i).getUsed()) {
+                if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
                     return actExam;
                 }
             }
@@ -298,7 +388,7 @@ function makeUnusableUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
         if (dataArray[i] != "" && dataArray[i] != " ") {
             var spDateData = dataArray[i].split(";");
-            let unusableDate = new Utemterv_bejegyzes_Model(spDateData[1], spDateData[0], 0, 0, 0, 0, 0, 0,0);
+            let unusableDate = new Utemterv_bejegyzes_Model(spDateData[1], spDateData[0], 0, 0, 0, 0, 0, 0, 0);
 
             schedule.addKizartnap(unusableDate);
         }
@@ -307,7 +397,7 @@ function makeUnusableUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
 function makeWeekUtemterv_bejegyzes_ModelfromArray(dataArray, schedule, type) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
         if (dataArray[i] > 0) {
-            let weekDate = new Utemterv_bejegyzes_Model(i + 1, "", 0, 0, dataArray[i], type, 0, 0,0);
+            let weekDate = new Utemterv_bejegyzes_Model(i + 1, "", 0, 0, dataArray[i], type, 0, 0, 0);
 
             schedule.addWeekDay(weekDate);
         }
@@ -316,7 +406,7 @@ function makeWeekUtemterv_bejegyzes_ModelfromArray(dataArray, schedule, type) {
 function makeDayUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
         if (dataArray[i] != "" && dataArray[i] != " ") {
-            let DayDate = new Utemterv_bejegyzes_Model(0, dataArray[i], 0, 0, 0, 0, 0, 0,0);
+            let DayDate = new Utemterv_bejegyzes_Model(0, dataArray[i], 0, 0, 0, 0, 0, 0, 0);
 
             schedule.addNapNaptarhoz(DayDate);
         }

@@ -43,7 +43,9 @@ class Modul_Model {
     getModul_neve(){
         return this.modul_neve;
     }
-    
+    getModul_azon(){
+        return this.modul_azon;
+    }
     getTananyagegysegek(){
         return this.tananyagegysegek;
     }

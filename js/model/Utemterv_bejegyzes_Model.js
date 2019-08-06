@@ -27,11 +27,14 @@ class Utemterv_bejegyzes_Model {
     tanegysegId,
     oraszam, 
     tipus,
+    
+    
     vizsga,
     start, 
-    end        
+    end,
+    modul        
     ){
-
+    this.oktato ="senki";
     this.hetnapja = hetnapja;
     this.datum = datum;
     this.tartaleknap= tartaleknap;
@@ -41,6 +44,7 @@ class Utemterv_bejegyzes_Model {
     this.end = end;
      this.vizsga = vizsga;
     this.tipus=tipus;
+    this.modul =modul;
     }
     
     getOra(){
@@ -62,5 +66,20 @@ class Utemterv_bejegyzes_Model {
     }
     getVizsga(){
         return this.vizsga;
+    }
+    getOktato(){
+        return this.oktato;
+    }
+    getModul(){
+        return this.modul;
+    }
+    setOktato(oktato){
+        this.oktato=oktato;
+    }
+    getKezd(){
+        return this.start;
+    }
+    getVeg(){
+        return this.end;
     }
 }

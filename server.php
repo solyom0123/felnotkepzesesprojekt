@@ -99,6 +99,10 @@ if ($muv == "new_modul") {
     lekapcsolodas(list_modul_filter_with_non_ordered(kapcsolodas()));
 }else if ($muv == "course_start") {
     makeSchedulePlan();
+}else if ($muv == "delete_edited_sc") {
+    lekapcsolodas(deleteedited(kapcsolodas()));
+}else if ($muv == "pass_schedule") {
+    lekapcsolodas(passschedule(kapcsolodas()));
 }
 
 

@@ -132,3 +132,28 @@ function arraytoString($inputarray){
     }
     return $returnString;
 }
+function deleteedited($conn){
+    global $value;
+    
+    $sql = "delete from schedule_plan_data WHERE id=".$value;
+   if ($conn->query($sql) === TRUE) {
+       // echo 'ok';
+    } else {
+       echo $conn->error;
+    }
+    
+    return $conn;
+}
+function passschedule($conn){
+     global $value;
+     var_dump($value);
+     $sql = "INSERT INTO schedule_plan (`schedule_plan_data_id`,`date`,used_hours,used_hours_type,used_modul_id,used_studymaterials_id,modul_start_hour,modul_end_hour,teacher_id,exam)
+VALUES ('" . $value[9] . "','" . $value[0] . "','" . $value[2] . "','" . $value[6] . "','" . $value[8] . "','" . $value[1] . "','" . $value[3] . "','" . $value[4] . "','" . $value[7] . "','" . $value[5] . "');";
+   if ($conn->query($sql) === TRUE) {
+        echo 'ok';
+    } else {
+        echo 'error';
+    }
+     
+    return $conn;
+}

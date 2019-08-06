@@ -47,6 +47,16 @@ function gettingStart() {
         showResult(schedule);
     });
 }
+function deleteEditedSchedule(){
+     var slink = 'server.php';
+    $.post(slink, {
+        muv: "delete_edited_sc",
+        param: sc.getId()
+
+    }, function (data, status) {
+        console.log(data);
+    });
+}
 function showResult(schedule) {
     link("resultpage")
             .then(data => {
@@ -157,13 +167,13 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
     var actModulNoInArray = 0;
     var actHoursCanUseNoInArray = 0;
     var usedHoursAmmount = 0;
-    var end = false;
+    //var end = false;
     while (actHoursCanUseNoInArray < hourscanuse.length) {
         var actHour = hourscanuse[actHoursCanUseNoInArray];
         var actModul = moduls[actModulNoInArray];
         var foundCurUnit = searchCurUnit(actModul, actHour);
         // console.log(foundCurUnit);
-        var helyiarray = new Array();
+        //var helyiarray = new Array();
         var foundExam = null;
         if (foundCurUnit != null) {
             //console.log(actHour.getOra()-usedHoursAmmount);
@@ -172,7 +182,7 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
             //  console.log(hourAmmmountByHoursType);
             // console.log(modulstarthourAmmmountByHoursType);
             kiiras += "<tr><td>" + actdate + "</td><td>" + foundCurUnit.getTanegyseg_neve() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td><select onchange="loadTeacher"><option value="-1">Kérem válasszon oktatót!</option><option value="-2">Senki</option></select></td></tr>';
-            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType)))
+            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType),actModul.getId()))
             usedHoursAmmount += hourAmmmountByHoursType;
             calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType);
             calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
@@ -183,7 +193,7 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
                 var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
                 var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
                 kiiras += "<tr><td>" + actdate + "</td><td>" + foundExam.getTipus() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td>Vizsgához nem lehet oktatót választani!</td></tr></tr>';
-                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType)))
+                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType),actModul.getId()))
                 usedHoursAmmount += hourAmmmountByHoursType;
                 calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
                 foundExam.setUsed(true);
@@ -446,4 +456,57 @@ function collectDatainArray(targetArray) {
 
 
 
+}
+function passschedule(start){
+    var param = new Array();
+    if(start< sc.getUtemterv().length){
+      var localparam= new Array();
+      var actday = sc.getUtemtervNap(start);
+      localparam[localparam.length] = actday.getdatum();
+      localparam[localparam.length] = actday.getTanegysegVizsgaid();
+      localparam[localparam.length] = actday.getOra();//hour
+      localparam[localparam.length] = actday.getKezd();//start
+      localparam[localparam.length] = actday.getVeg(),//end
+      localparam[localparam.length] = actday.getVizsga();//vizsga
+      localparam[localparam.length] = actday.getTipus();//tipus
+      localparam[localparam.length] = actday.getOktato();//oktato
+      localparam[localparam.length] = actday.getModul();//modul
+      localparam[localparam.length] = sc.getId();//sc
+      
+        passscheduleAJAXPROMISE(localparam)
+                .then(data => {
+                    setTimeout(function(){
+                    passschedule(start+1);
+                },300);
+                })
+            .catch(error => {
+                console.log(error);
+            });
+        }else{
+        //sc= null;
+        //clearUsedSelectChooseArrays();
+        //link("course_start");
+
+        }
+    }
+function passscheduleAJAXPROMISE(param){
+return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server.php",
+            type: 'POST',
+            data: {
+                 param: param,
+                muv: "pass_schedule"
+            },
+
+            success: function (data) {
+                console.log(data);
+        
+                resolve(data);
+            },
+            error: function (err) {
+                reject(["rejected", err])
+            }
+        });
+    });     
 }

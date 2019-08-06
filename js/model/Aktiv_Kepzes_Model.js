@@ -68,7 +68,7 @@ class Aktiv_Kepzes_Model{
         return this.befejezes;
     }
     getId(){
-        return this.befejezes;
+        return this.id;
     }
     
     setBefejezes(befejezes){

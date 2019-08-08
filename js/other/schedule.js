@@ -40,15 +40,15 @@ function gettingStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[6], schedule, 2);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
         //console.log(schedule);
-        kiiras += "<table><th>dátum</th><th>Tanegység neve</th><th>Modul neve</th><th>Óraszám</th><th>Kezdő</th><th>Vég</th><th>Oktató</th>";
+        kiiras += '<table id="scTable" onload="loadTeacherselects(0)"><tr><th>dátum</th><th>Tanegység neve</th><th>Modul neve</th><th>Óraszám</th><th>Kezdő</th><th>Vég</th><th>Oktató</th></tr>';
         scanDates(schedule);
         console.log(schedule);
         kiiras += "</table>";
         showResult(schedule);
     });
 }
-function deleteEditedSchedule(){
-     var slink = 'server.php';
+function deleteEditedSchedule() {
+    var slink = 'server.php';
     $.post(slink, {
         muv: "delete_edited_sc",
         param: sc.getId()
@@ -60,8 +60,11 @@ function deleteEditedSchedule(){
 function showResult(schedule) {
     link("resultpage")
             .then(data => {
+                
                 document.getElementById("resultTable").innerHTML = kiiras;
                 sc = schedule;
+                loadTeacherselects(0);
+                
             })
             .catch(error => {
                 //console.log(error)
@@ -181,8 +184,8 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
             var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
             //  console.log(hourAmmmountByHoursType);
             // console.log(modulstarthourAmmmountByHoursType);
-            kiiras += "<tr><td>" + actdate + "</td><td>" + foundCurUnit.getTanegyseg_neve() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td><select onchange="loadTeacher"><option value="-1">Kérem válasszon oktatót!</option><option value="-2">Senki</option></select></td></tr>';
-            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType),actModul.getId()))
+            kiiras += "<tr><td>" + actdate + "</td><td>" + foundCurUnit.getTanegyseg_neve() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td><select onchange="loadTeacher(\'' + actdate + '\',' + foundCurUnit.getId() + ')" ><option value="-1">Kérem válasszon oktatót!</option></select></td></tr>';
+            schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()))
             usedHoursAmmount += hourAmmmountByHoursType;
             calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType);
             calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
@@ -193,7 +196,7 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
                 var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
                 var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
                 kiiras += "<tr><td>" + actdate + "</td><td>" + foundExam.getTipus() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td>Vizsgához nem lehet oktatót választani!</td></tr></tr>';
-                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType),actModul.getId()))
+                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()))
                 usedHoursAmmount += hourAmmmountByHoursType;
                 calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
                 foundExam.setUsed(true);
@@ -457,56 +460,146 @@ function collectDatainArray(targetArray) {
 
 
 }
-function passschedule(start){
+function passschedule(start) {
     var param = new Array();
-    if(start< sc.getUtemterv().length){
-      var localparam= new Array();
-      var actday = sc.getUtemtervNap(start);
-      localparam[localparam.length] = actday.getdatum();
-      localparam[localparam.length] = actday.getTanegysegVizsgaid();
-      localparam[localparam.length] = actday.getOra();//hour
-      localparam[localparam.length] = actday.getKezd();//start
-      localparam[localparam.length] = actday.getVeg(),//end
-      localparam[localparam.length] = actday.getVizsga();//vizsga
-      localparam[localparam.length] = actday.getTipus();//tipus
-      localparam[localparam.length] = actday.getOktato();//oktato
-      localparam[localparam.length] = actday.getModul();//modul
-      localparam[localparam.length] = sc.getId();//sc
-      
+    var modal = document.getElementById("loadModal")
+    if (start < sc.getUtemterv().length) {
+        var localparam = new Array();
+        var actday = sc.getUtemtervNap(start);
+        localparam[localparam.length] = actday.getdatum();
+        localparam[localparam.length] = actday.getTanegysegVizsgaid();
+        localparam[localparam.length] = actday.getOra();//hour
+        localparam[localparam.length] = actday.getKezd();//start
+        localparam[localparam.length] = actday.getVeg(), //end
+                localparam[localparam.length] = actday.getVizsga();//vizsga
+        localparam[localparam.length] = actday.getTipus();//tipus
+        localparam[localparam.length] = actday.getOktato();//oktato
+        localparam[localparam.length] = actday.getModul();//modul
+        localparam[localparam.length] = sc.getId();//sc
+        modal.style.display = "block";
+
         passscheduleAJAXPROMISE(localparam)
                 .then(data => {
-                    setTimeout(function(){
-                    passschedule(start+1);
-                },300);
+                    setTimeout(function () {
+                        passschedule(start + 1);
+                    }, 300);
                 })
-            .catch(error => {
-                console.log(error);
-            });
-        }else{
+                .catch(error => {
+
+                    modal.style.display = "none";
+
+                });
+    } else {
+        modal.style.display = "none";
         //sc= null;
         //clearUsedSelectChooseArrays();
         //link("course_start");
 
-        }
     }
-function passscheduleAJAXPROMISE(param){
-return new Promise((resolve, reject) => {
+}
+function passscheduleAJAXPROMISE(param) {
+
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: "server.php",
             type: 'POST',
             data: {
-                 param: param,
+                param: param,
                 muv: "pass_schedule"
             },
 
             success: function (data) {
                 console.log(data);
-        
+
                 resolve(data);
             },
             error: function (err) {
                 reject(["rejected", err])
             }
         });
-    });     
+    });
+}
+function loadTeacherselects(start) {
+    var modal = document.getElementById("loadModal");
+        
+    if (start < sc.getUtemterv().length) {
+        var actday = sc.getUtemtervNap(start);
+        modal.style.display = "block";
+
+        if (!actday.getVizsga()) {
+            searchTeacher(actday.getTanegysegVizsgaid(), start + 1)
+                    .then(data => {
+                        setTimeout(function () {
+                            loadTeacherselects(start+1);
+
+                        }, 300);
+                    })
+                    .catch(error => {
+
+                        modal.style.display = "none";
+
+                    });
+
+        } else {
+            loadTeacherselects(start + 1);
+        }
+    } else {
+        modal.style.display = "none";
+
+    }
+
+}
+function searchTeacher(curUnitId, rowno) {
+    return new Promise((resolve, reject) => {
+
+        $.ajax({
+
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: curUnitId,
+                muv: "searchTeacher"
+            },
+
+            success: function (data) {
+                console.log(data);
+                var options = makeOptionsForteacherselect(data);
+
+                loadOptions(rowno, options);
+                resolve(data);
+            },
+            error: function (err) {
+                reject(err);
+            }
+        });
+    });
+}
+function makeOptionsForteacherselect(data) {
+    var returnValue = "";
+    var spData = data.split("/;/");
+    for (var i = 0, max = spData.length; i < max; i++) {
+        var spActrow = spData[i].split(";,;,;");
+        if(spData[i]!=""&&spData[i]!=" "){
+        returnValue += "<option value=\"" + spActrow[0] + "\">" + spActrow[1] + "</options>";
+        }
+    }
+    return returnValue;
+}
+function loadOptions(rowno, options) {
+    var myTable = document.getElementById("scTable");
+    var rows = myTable.getElementsByTagName("tr");
+    var select = rows[rowno].getElementsByTagName("td")[6].getElementsByTagName("select")[0];
+    select.innerHTML = select.innerHTML + options;
+}
+function loadTeacher( actdate, curUnitId){
+    for (var i = 0, max = sc.getUtemterv().length; i < max; i++) {
+         var actday = sc.getUtemtervNap(i);
+        if(actday.getdatum()==actdate&&actday.getTanegysegVizsgaid()==curUnitId&&!actday.getVizsga()){
+         var oktatoid= solveTeacherselectValue(i+1);
+         actday.setOktato(oktatoid);
+        }
+     }
+}
+function solveTeacherselectValue(rowno){
+  return  document.getElementById("scTable").getElementsByTagName("tr")[rowno].getElementsByTagName("td")[6].getElementsByTagName("select")[0].value;
 }

@@ -15,7 +15,22 @@ function makeSchedulePlan() {
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
 }
+function searchTeacher($conn){
+     global $value;
+    $sql = "select t.teacher_id as id, t.teacher_full_name as name"
+            . " from teachers t,studymaterials_teacher st where t.teacher_id = st.teacher and st.studymaterials=".$value;
 
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["id"] . " ;,;,;" . $row["name"] . "/;/" ;
+        }
+    } else {
+        echo "-2;,;,;Nincs oktató a tanegységhez rendelve!/;/";
+    }
+    return $conn;
+}
 function collectNeededCourseData($conn) {
     global $value;
     $sql = "select education_id as id,education_name as name,education_inhouse_id as inId"

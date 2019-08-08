@@ -103,6 +103,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(deleteedited(kapcsolodas()));
 }else if ($muv == "pass_schedule") {
     lekapcsolodas(passschedule(kapcsolodas()));
+}else if ($muv == "searchTeacher") {
+    lekapcsolodas(searchTeacher(kapcsolodas()));
 }
 
 

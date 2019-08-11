@@ -1,7 +1,27 @@
 
-<br>
-<br>
-<h1>Generálás eredménye</h1>
+<h1 class="col-md-12">Generálás eredménye</h1>
+<div class="col-md-12 alert-info" id="replacementDays">
+    <div class="col-md-12">Szabadon használható pótnapok</div>
+    <div class="col-md-12" id="replacementDays_headrow">
+    <div class="col-md-2">Nap dátuma</div>
+    <div class="col-md-2">Naphoz tartozó óraszám</div>
+    <div class="col-md-2">Felhasználható tanegységek</div>
+    <div class="col-md-2">Felhasználható óraszám</div>
+    <div class="col-md-2">Maradék tartaléknapok száma</div> 
+    <div class="col-md-2">Hozzáadás</div>
+    
+    </div>
+    <div class="col-md-12" id="replacementDays_datarow">
+    <select  class="col-md-2" onchange="calcReplacementDayHours()"></select>
+    <div class="col-md-2"></div>
+    <select class="col-md-2" onchange="calcUseableHour()"></select>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><button onclick="addReplacementDay()">Hozzáadás</button></div>
+    
+    </div>
+        
+</div>
 <div class="col-md-12 "id="resultTable">
 </div>
   

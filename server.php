@@ -105,6 +105,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(passschedule(kapcsolodas()));
 }else if ($muv == "searchTeacher") {
     lekapcsolodas(searchTeacher(kapcsolodas()));
+} else if($muv =="cur_units_without_this_course"){
+    lekapcsolodas(curUnitsWithoutThisCourse(kapcsolodas()));
 }
 
 

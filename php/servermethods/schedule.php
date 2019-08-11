@@ -31,6 +31,23 @@ function searchTeacher($conn){
     }
     return $conn;
 }
+function curUnitsWithoutThisCourse($conn){
+ global $value;
+    $sql = "select s.studymaterials_id as id, s.study_materials_name as name , s.doctrine as d, s.elearn as el, s.exercise as ex"
+            . " from studymaterials s, modul m where s.modul_id = m.modul_id and m.modul_id not in (select modul_id from modul where education_id=".$value.")";
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["id"] . " ;,;,;" . $row["name"]  . " ;,;,;" . $row["d"] ." ;,;,;" . $row["el"] ." ;,;,;" . $row["ex"] . "/;/" ;
+        }
+    } else {
+        echo "-2;,;,;Nincs tanegység!;,;,;0;,;,;0;,;,;0/;/";
+    }
+    return $conn;
+    
+}
 function collectNeededCourseData($conn) {
     global $value;
     $sql = "select education_id as id,education_name as name,education_inhouse_id as inId"
@@ -80,14 +97,14 @@ function collectNeededModulsData($conn,$modulid) {
 }
 function collectNeededCurUnitDatasData($conn,$modulid) {
     global $value;
-    $sql = "select studymaterials_id as id,study_materials_name as name, doctrine as d,exercise as e, modul_id as m"
+    $sql = "select studymaterials_id as id,study_materials_name as name, doctrine as d,exercise as e,elearn as el, modul_id as m"
             . " from studymaterials where modul_id=" . $modulid . "   ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . "; " . $row["id"] . ";" . $row['d'] . ";" . $row['e'] . ";" . $row['m'] . "/;/";
+            echo $row["name"] . "; " . $row["id"] . ";" . $row['d'] . ";" . $row['e'] . ";". $row['el'] . ";" . $row['m'] . "/;/";
         }
     } else {
         echo "none;/;/";
@@ -119,9 +136,9 @@ function insertSchedule($conn) {
     $week_plan_elearn ="";
     $used_moduls =arraytoString($value[7]);
     $used_module_place =arraytoString($value[8]);
-    
-    $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,exercise_week_plan,used_modul_id,used_modul_place)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "');";
+    $replace = $value[9];
+    $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,exercise_week_plan,used_modul_id,used_modul_place,replace_days)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "',".$replace.");";
    if ($conn->query($sql) === TRUE) {
        // echo 'ok';
     } else {
@@ -162,8 +179,8 @@ function deleteedited($conn){
 function passschedule($conn){
      global $value;
      var_dump($value);
-     $sql = "INSERT INTO schedule_plan (`schedule_plan_data_id`,`date`,used_hours,used_hours_type,used_modul_id,used_studymaterials_id,modul_start_hour,modul_end_hour,teacher_id,exam)
-VALUES ('" . $value[9] . "','" . $value[0] . "','" . $value[2] . "','" . $value[6] . "','" . $value[8] . "','" . $value[1] . "','" . $value[3] . "','" . $value[4] . "','" . $value[7] . "','" . $value[5] . "');";
+     $sql = "INSERT INTO schedule_plan (`schedule_plan_data_id`,`date`,used_hours,used_hours_type,used_modul_id,used_studymaterials_id,modul_start_hour,modul_end_hour,teacher_id,exam,replace_day)
+VALUES ('" . $value[10] . "','" . $value[0] . "','" . $value[2] . "','" . $value[6] . "','" . $value[8] . "','" . $value[1] . "','" . $value[3] . "','" . $value[4] . "','" . $value[7] . "','" . $value[5] . "','" . $value[9] . "');";
    if ($conn->query($sql) === TRUE) {
         echo 'ok';
     } else {

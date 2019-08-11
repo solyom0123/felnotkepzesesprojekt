@@ -27,7 +27,7 @@ class Modul_Model {
     modul_neve,
     modul_azon,
     elmeleti_oraszam,
-    gyakorlati_oraszam,
+    gyakorlati_oraszam
     ){
     this.id=id; 
     this.modul_neve=modul_neve;

@@ -50,7 +50,9 @@ class Utemterv_bejegyzes_Model {
     getOra(){
         return this.oraszam;
     }
-    
+    setOra(ora){
+       this.oraszam=ora;
+    }
     getTanegysegVizsgaid(){
         return this.tanegysegVagyVizsgaid;
     }
@@ -64,7 +66,10 @@ class Utemterv_bejegyzes_Model {
     getTipus(){
         return this.tipus;
     }
-    getVizsga(){
+    setTipus(tipus){
+       this.tipus=tipus;
+    }
+    isVizsga(){
         return this.vizsga;
     }
     getOktato(){
@@ -73,13 +78,31 @@ class Utemterv_bejegyzes_Model {
     getModul(){
         return this.modul;
     }
+    setModul(id){
+        this.modul=id;
+        
+    }
     setOktato(oktato){
         this.oktato=oktato;
+    }
+    setTanegyseg(id){
+     this.tanegysegVagyVizsgaid=id;   
     }
     getKezd(){
         return this.start;
     }
+    setKezd(ora){
+        this.start=ora;
+    }
+    
     getVeg(){
         return this.end;
+    }
+    
+    setVeg(ora){
+       this.end=ora;
+    }
+    isTartalekNap(){
+        return this.tartaleknap;
     }
 }

@@ -26,13 +26,17 @@ class Tananyagegyseg_Model {
     tanegyseg_neve,
     elmeleti_oraszam,
     gyakorlati_oraszam,
+    elearn_oraszam,
     modulid        
     ){
     this.id=id; 
     this.tanegyseg_neve=tanegyseg_neve;
     this.elmeleti_oraszam =elmeleti_oraszam;
     this.gyakorlati_oraszam = gyakorlati_oraszam;
+    this.elearn_oraszam = elearn_oraszam;
+    
     this.felhasznalt_elmelet=0;
+    this.felhasznalt_elearn=0;
     this.felhasznalt_gyakorlat=0;
     this.oktatok = new Array();
     this.modulid = modulid;
@@ -51,8 +55,15 @@ class Tananyagegyseg_Model {
     getElmeleti_oraszam(){
         return this.elmeleti_oraszam;
     }
+    
+    getElearn_oraszam(){
+        return this.elearn_oraszam;
+    }
     getFelhasznalt_elmelet(){
         return this.felhasznalt_elmelet;
+    }
+    getFelhasznalt_elearn(){
+        return this.felhasznalt_elearn;
     }
     getOktatok(){
         return this.oktatok;
@@ -68,7 +79,9 @@ class Tananyagegyseg_Model {
     setFelhasznalt_elmelet(felhasznalt){
        this.felhasznalt_elmelet= felhasznalt;
     }
-    
+    setFelhasznalt_elearn(felhasznalt){
+       this.felhasznalt_elearn= felhasznalt;
+    }
     setFelhasznalt_gyakorlat(felhasznalt){
         this.felhasznalt_gyakorlat= felhasznalt;
     }

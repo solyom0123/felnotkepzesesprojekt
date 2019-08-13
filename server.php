@@ -8,6 +8,7 @@ include_once './php/servermethods/student.php';
 include_once './php/servermethods/modul.php';
 include_once './php/servermethods/teacher.php';
 include_once './php/servermethods/date.php';
+include_once './php/servermethods/active_courses.php';
 include_once './php/servermethods/schedule.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -107,6 +108,14 @@ if ($muv == "new_modul") {
     lekapcsolodas(searchTeacher(kapcsolodas()));
 } else if($muv =="cur_units_without_this_course"){
     lekapcsolodas(curUnitsWithoutThisCourse(kapcsolodas()));
+}else if($muv =="list_active_course"){
+    lekapcsolodas(list_active_course(kapcsolodas()));
+}else if($muv =="active_course_get"){
+    lekapcsolodas(get_active_course(kapcsolodas()));
+}else if($muv =="activeCourseDelete"){
+    lekapcsolodas(delete_active_course(kapcsolodas()));
+}else if($muv =="activeCourseSend"){
+    lekapcsolodas(send_active_course(kapcsolodas()));
 }
 
 

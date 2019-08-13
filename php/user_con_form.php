@@ -17,12 +17,12 @@
 
 
 <div class="row "><h2 class="col-md-12 h2-default">Tanuló hozzáadása</h2></div>
-
-    <form >
+    <id style="display: none"></id>
+  
         <div class="form-group row">
             <label for="form-row-cname" class="col-md-4 col-form-label">Képzés neve:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-cname" id="form-row-cname" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-cname" id="form-row-cname" type="text"  placeholder="Név" readonly>
             </div> 
 
             <div class="col-md-4 ">
@@ -32,7 +32,7 @@
         <div class="form-group row">
             <label for="form-row-cid" class="col-md-4 col-form-label">Képzés belső azonosító:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-cid" type="text"  placeholder="Név">
+                <input class="form-control-plaintext" name="form-row-name" id="form-row-cid" type="text"  placeholder="Név" readonly>
             </div> 
 
             <div class="col-md-4 ">
@@ -42,7 +42,7 @@
         <div class="form-group row">
             <label for="form-row-student" class="col-md-4 col-form-label">Tanulók:</label>
             <div class="col-md-4">
-                <select class="form-control" id="form-row-student">
+                <select class="form-control" id="form-row-student" onchange="activeCourseSend()">
                 </select>
             </div> 
             <div class="col-md-4 ">
@@ -55,18 +55,19 @@
         </div>
          <div class="form-group row">
             <div class="col-md-12">
-                <table  id="studentTable">
+                <table  class="col-md-12" id="studentTable">
+                    
                 </table>
             </div>              
        
         </div>
          <div class="form-group row">
         
-          <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+             <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
 
 
 
         </div>
-    </form>
+
 
                     

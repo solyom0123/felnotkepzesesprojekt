@@ -12,6 +12,15 @@ and open the template in the editor.
 
 .tooltip-wrapper{
    }
+.span-half-corner-wrapper-large {
+    position: relative;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    
+
+}
 .span-half-corner-wrapper {
     position: relative;
     text-align: center;

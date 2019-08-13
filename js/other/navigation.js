@@ -11,13 +11,24 @@
  */
 function megsem() {
 
-    $.post("./php/elozmeny.php", {
-        ker: 1
-    }, function (data, status) {
-        //  //console.log(data);
-        //console.log("visszalépésadat: " + data);
-        link(data);
-        loadingModuls(data);
+    
+     return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "./php/elozmeny.php",
+            type: 'POST',
+            data: {
+                ker: 1
+            },
+
+            success: function (data) {
+                link(data);
+                loadingModuls(data);
+                resolve(data);
+            },
+            error: function (err) {
+                reject(["rejected", err])
+            }
+        });
     });
 }
 function loadingModuls(linkfr) {
@@ -32,10 +43,13 @@ function loadingModuls(linkfr) {
         coursefilemodal();
 
     }
+    if (linkfr == "actually_course") {
+        activeCourseList();
+    }
     if (linkfr == "course_basic_datas") {
         courseList();
     }
-
+    
     if (linkfr == "teacher_connect_in_form") {
         teacherListOption();
         coursefilemodal();

@@ -256,9 +256,9 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
 .span-half-corner {
     position: absolute;
     margin-top: 50px;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    background-color: var(--szurke);
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background-color: var(--sotetvalami);
     text-align: center;
 	text-decoration:bold;
     left: 0px;
@@ -271,16 +271,30 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
 
 }
 .span-half-corner:hover {
+    opacity: 1;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+
+}
+.span-half-corner-large {
     position: absolute;
-    margin-top: 50px;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    /*background-color: var(--szurke);*/
+    margin-top: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background-color: var(--sotetvalami);
     text-align: center;
+	text-decoration:bold;
     left: 0px;
     top: 0px;
-    width: 100px;
-    height: 50px; 
+    width: 200px;
+    height: 100px; 
+    opacity: 0.8;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+}
+.span-half-corner-large:hover {
     opacity: 1;
     /*color: var(--sotetvalami);*/
 	color:white;

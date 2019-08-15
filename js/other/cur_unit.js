@@ -153,7 +153,7 @@
                     var value = "";
                         var spStudents = data.split("//");
                         for (var i = 0; i < spStudents.length; i++) {
-                            if (spStudents[i] != "") {
+                            if (!checkEmptyString(spStudents[i])) {
                                 var spStudent = spStudents[i].split(";");
 
                                 value += '<option value="' + spStudent[2] + '">' + spStudent[0] + '|| ' + spStudent[1] + '</option>';

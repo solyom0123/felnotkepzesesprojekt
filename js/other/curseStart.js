@@ -36,7 +36,7 @@ function modulSelectorsMake() {
             document.getElementById("modul_length_of_course").value = spStudents[0];
             lockAllFieldsCourseStartForm(false);
             for (var i = 1; i < spStudents.length; i++) {
-                if (spStudents[i] != "") {
+                if (!checkEmptyString(spStudents[i])) {
                     value += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
                             '<div class="col-md-4"><select  class="form-control" id="form-row-modul-' + i + '" onchange="modulChange()">' +
                             '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. modult modult!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
@@ -50,7 +50,7 @@ function modulSelectorsMake() {
 
                         modullist = moduls;
                         for (var i = 1; i < spStudents.length; i++) {
-                            if (spStudents[i] != "") {
+                            if (!checkEmptyString(spStudents[i])) {
                                 //console.log(i);
                                 let atadandotiltott = Object.assign(new Array(), tiltotta);
                                 let atadandohely = Object.assign(new Array(), hasznalt);
@@ -110,13 +110,13 @@ function checkEnoughDay() {
     param[1] = plan_exe_number;
     param[2] = el_dec_number;
     param[3] = startday;
-    if (startday != "") {
+    if (!checkEmptyString(startday)) {
         param[4] = getMonthStartWeekDaysNo(startday);
     } else {
         param[4] = "";
     }
     param[5] = signDay;
-    if (signDay != "") {
+    if (!checkEmptyString(signDay)) {
         param[6] = getMonthStartWeekDaysNo(signDay);
     } else {
         param[6] = "";
@@ -170,7 +170,7 @@ function checkEnoughDay() {
             needLessEL = true;
             need_el = spStudents[2];
         }
-        if (spStudents[3] != "") {
+        if (!checkEmptyString(spStudents[3])) {
             unuseableExam = true;
             var spdata = spStudents[3].split(",");
             if (spdata[0] == "doc") {

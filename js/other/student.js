@@ -23,7 +23,7 @@
                         var value = "";
                         var spStudents = data.split("//");
                         for (var i = 0; i < spStudents.length; i++) {
-                            if (spStudents[i] != "") {
+                            if (!checkEmptyString(spStudents[i])) {
                                 var spStudent = spStudents[i].split(";");
 
                                 value += '<li ><div class="row"><input id="student" name="student" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';

@@ -30,7 +30,7 @@ function teacherList() {
             var value = "";
             var spStudents = data.split("//");
             for (var i = 0; i < spStudents.length; i++) {
-                if (spStudents[i] != "") {
+                if (!checkEmptyString(spStudents[i])) {
                     var spStudent = spStudents[i].split(";");
 
                     value += '<li ><div class="row"><input id="teacher" name="teacher" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
@@ -211,56 +211,178 @@ function teacherEdit(id) {
 
     });
 }
-function teacher_cur_unit_List(value) {
-    var muv = "list_cur_unit_teacher";
-    var target = "form-row-anyag";
-    if (value == -2) {
-        value = document.getElementById("form-row-oktato").value;
 
-    }
-    if (value == -3) {
-        value = document.getElementById("form-row-oktato").value;
-        muv = "list_cur_unit_without_teacher";
-        target = "form-row-without";
-    }
 
-    var slink = 'server.php';
+
+//        ||||||||  ||      ||  |||||||     ||      ||  ||||      ||    ||  ||||||||||      
+//       ||         ||      ||  ||      ||  ||      ||  ||  ||    ||    ||      ||
+//       ||         ||      ||  ||      ||  ||      ||  ||    ||  ||    ||      ||
+//       ||         ||      ||  ||      ||  ||      ||  ||     || ||    ||      ||
+//       ||         ||      ||  ||||||||    ||      ||  ||      ||||    ||      ||
+//        ||||||||    ||||||    ||      ||    ||||||    ||      ||||    ||      ||
+//
+function deleteConnectteacherAndCurUnit() {
+    var muv = "delete_cur_unit_teacher";
+    var id = document.getElementById("form-row-oktato").value;
+    var data = collectCbData("teacherCurUnitOld");
+    if(!checkEmptyString(data)){
+    var value = new Array(id, data);
+        var slink = 'server.php';
+    
     $.post(slink, {
+        
         muv: muv,
         param: value
 
     }, function (data, status) {
         //console.log(data);
-        if (value != -1) {
-            var value = '';
+
+            teacher_cur_unit_get(1,1,1,1);
+    });
+    }
+}
+
+function connectionSend() {
+    var oktato = document.getElementById("form-row-oktato").value;
+    
+    var data = collectCbData("teacherCurUnitNew");
+    if(!checkEmptyString(data)){
+    var value = new Array(oktato, data);
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "connectionSend",
+        param: value
+
+    }, function (data, status) {
+        //console.log(data);
+            teacher_cur_unit_get(1,1,1,1);
+
+    });
+    }
+}
+
+
+function  makeRowsFromDataTeacher(spCurunits,cbName,type) {
+    var td = "<td>";
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    var buttonparambefore="";
+    var buttonparamafter="";
+    if(type!=1){
+     buttonparamafter=",1,1"   
+    }else{
+      
+     buttonparambefore="1,1,"   
+    }
+    var down_arrow_start = '<span style="cursor: pointer;"  onclick="teacher_cur_unit_get('+buttonparambefore;
+    var down_arrow_end = ',1'+buttonparamafter+')"><img src="./img/down_arrow.png" width="20px" height="20px"></span>';
+    var up_arrow_start = '<span   style="cursor: pointer;" onclick="teacher_cur_unit_get('+buttonparambefore;
+    var up_arrow_end = ',2'+buttonparamafter+')"><img src="./img/up_arrow.png" width="20px" height="20px"></span>';
+    var checkbox_start = '<input type="checkbox" class="'+cbName+'" value="';
+    var checkbox_end = '">';
+    var th_end = '</th>';
+    var value = tr +
+            th_head +
+            "Tanegység név " +
+            down_arrow_start + 1 + down_arrow_end +
+            up_arrow_start + 1 + up_arrow_end +
+            th_end +
+            th_head +
+            "Modul " +
+            down_arrow_start + 2 + down_arrow_end +
+            up_arrow_start + 2 + up_arrow_end +
+            th_end +
+            th_head +
+            tr_end;
+
+    if (spCurunits[0] != "none;//") {
+        for (var i = 0; i < spCurunits.length; i++) {
+
+            if (!checkEmptyString(spCurunits[i])) {
+
+                var spStudent = spCurunits[i].split(";");
+
+                tr = '<tr style="cursor: pointer;" onMouseOver="this.style.color=\'red\'" onMouseOut="this.style.color=\'black\'" >';
+                value += tr +
+                        td +
+                        checkbox_start + spStudent[1] + checkbox_end +
+                        spStudent[0] +
+                        td_end +
+                        td +
+                        spStudent[2] +
+                        td_end +
+                        tr_end;
+
+            }
+        }
+
+    } else {
+        value += tr +
+                td +
+                'Nincs' +
+                td_end +
+                td +
+                'Nincs' +
+                td_end +
+                tr_end;
+
+    }
+
+    console.log(value);
+    return value;
+}
+function teacher_cur_unit_get(order_new,ordertype_new,order_old,ordertype_old){
+    teacher_cur_unit_List(-2,order_new,ordertype_new);teacher_cur_unit_List(-3,order_old,ordertype_old);
+}
+function teacher_cur_unit_List(value,order,ordertype) {
+    var muv = "list_cur_unit_teacher";
+    var target = "form-row-anyag";
+    var id =0;
+    if (value == -2) {
+        id = document.getElementById("form-row-oktato").value;
+
+    }
+    if (value == -3) {
+        id = document.getElementById("form-row-oktato").value;
+        muv = "list_cur_unit_without_teacher";
+        target = "form-row-without";
+    }
+    var sendValue = new Array(id,order+"_"+ordertype);
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: muv,
+        param: sendValue
+
+    }, function (data, status) {
+        //console.log(data);
+        var table ="";
+            var spStudents =null;
             if (data != "none;//") {
-                var spStudents = data.split("//");
-                for (var i = 0; i < spStudents.length; i++) {
-                    if (spStudents[i] != "") {
-                        var spStudent = spStudents[i].split(";");
-
-                        value += '<option value="' + spStudent[1] + '">' + spStudent[0] + '</option>';
-                    }
-                }
-
-
+                 spStudents = data.split("//");
+                   
 
 
 
             } else {
-                var value = '<option value="-1">Nincs tanegységhez rendelve</option>';
-
+                var spStudents = new Array(data);
+                   
             }
-            document.getElementById(target).innerHTML = value;
+            if(value==-2){
+                table = makeRowsFromDataTeacher(spStudents,"teacherCurUnitOld",2);
+                }else{
+                table = makeRowsFromDataTeacher(spStudents,"teacherCurUnitNew",1);
+                    
+                }
+            document.getElementById(target).innerHTML = table;
 
-        } else {
-            var value = '<option value="-1">Nincs tanegységhez rendelve</option>';
-            document.getElementById(target).innerHTML = value;
-        }
+        
 
 
     });
 }
+
 function teacherListOption() {
 
     var slink = 'server.php';
@@ -274,7 +396,7 @@ function teacherListOption() {
             var value = "";
             var spStudents = data.split("//");
             for (var i = 0; i < spStudents.length; i++) {
-                if (spStudents[i] != "") {
+                if (!checkEmptyString(spStudents[i])) {
                     var spStudent = spStudents[i].split(";");
 
                     value += '<option name="teacher" value="' + spStudent[1] + '">' + spStudent[0] + '</option>';
@@ -288,136 +410,4 @@ function teacherListOption() {
 
         document.getElementById("form-row-oktato").innerHTML = value;
     });
-}
-function deleteConnectteacherAndCurUnit() {
-    var muv = "delete_cur_unit_teacher";
-    var id = document.getElementById("form-row-oktato").value;
-    var cur_unit = document.getElementById("form-row-anyag").value;
-    var value = new Array(id, cur_unit);
-    var slink = 'server.php';
-    var text="";
-    $.post(slink, {
-        
-        muv: muv,
-        param: value
-
-    }, function (data, status) {
-        //console.log(data);
-
-        if (data != "error") {
-            text= '<div class="alert alert-success">Sikeres törlés!</div>';
-
-
-        } else {
-            text = '<div class="alert alert-danger">Sikertelen törlés!</div>';
-
-        }
-         value = new Array(text, id, cur_unit, "fájl neve");
-        connectionGetWithTwoParameter(value);
-
-    });
-}
-function connectionSend() {
-    var oktato = document.getElementById("form-row-oktato").value;
-    var cur_unit = document.getElementById("form-row-without").value;
-    var file_name = document.getElementById("form-row-alk-name").value;
-    var value = new Array(oktato, cur_unit, file_name);
-    var slink = 'server.php';
-    $.post(slink, {
-        muv: "connectionSend",
-        param: value
-
-    }, function (data, status) {
-        //console.log(data);
-        var text;
-        if (data != "error") {
-            text = '<div class="alert alert-success">Sikeres felvitel!</div>';
-
-
-        } else {
-            text = '<div class="alert alert-danger">Sikertelen felvitel!</div>';
-
-        }
-        value = new Array(text, oktato, cur_unit, file_name);
-        connectionGetWithTwoParameter(value);
-
-
-    });
-}
-function connectionEdit() {
-    var name = document.getElementById("form-row-oktato").value;
-    var szulnev = document.getElementById("form-row-anyag").value;
-    var mothername = document.getElementById("form-row-alk-name").value;
-
-    var value = new Array(name, szulnev, mothername);
-    var slink = 'server.php';
-    $.post(slink, {
-        muv: "connectionEdit",
-        param: value
-
-    }, function (data, status) {
-        //console.log(data);
-        var text;
-        if (data != "error") {
-            text = '<div class="alert alert-success">Sikeres módosítás!</div>';
-
-
-        } else {
-            text = '<div class="alert alert-danger">Sikertelen módosítás!</div>';
-
-        }
-        var value = new Array(text, name, szulnev, mothername);
-        connectionGetWithTwoParameter(value);
-    });
-}
-function connectionGetWithTwoParameter(value) {
-    var loadFileName= false
-    if (!Array.isArray(value)) {
-        //console.log("alma");
-        var oktato = document.getElementById("form-row-oktato").value;
-        var anyag = document.getElementById("form-row-anyag").value;
-
-        value = new Array("", oktato, anyag);
-        loadFileName=true;
-    }
-    if(anyag!=-1){
-    
-    if(!loadFileName){
-    linkWithData("teacher_connect_in_form", value, "editafter", 'tartalom-wrapper');
-    teacher_cur_unit_List(-2);
-    teacher_cur_unit_List(-3);
-    }
-    //console.log(value);
-    //console.log("________________");
-    var slink = 'server.php';
-    
-    value = new Array(value[1], value[2]);
-    //console.log(value);
-        $.post(slink, {
-        muv: "connectionget",
-        param: value
-
-    }, function (data, status) {
-        //console.log(data);
-        var spData = data.split("/;/");
-        document.getElementById("form-row-oktato").value = spData[0];
-        document.getElementById("form-row-anyag").value = spData[1];
-        document.getElementById("form-row-alk-name").value = spData[2];
-
-
-
-
-    });
-    }
-
-}
-function connectionGetWithOneParameter(value) {
-    link("teacher_connect_in_form");
-    document.getElementById("form-row-oktato").value = value;
-    teacher_cur_unit_List(-2);
-    teacher_cur_unit_List(-3);
-
-
-
-
 }

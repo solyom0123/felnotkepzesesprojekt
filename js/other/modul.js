@@ -184,7 +184,7 @@ function modulList(targetDiv) {
         if (data != "none;//") {
             var spReturnDataList = data.split("//");
             for (var i = 0; i < spReturnDataList.length; i++) {
-                if (spReturnDataList[i] != "") {
+                if (!checkEmptyString(spReturnDataList[i])) {
                     var spStudent = spReturnDataList[i].split(";");
 
                     returnSelectorOptions += '<option value="' + spStudent[2] + '">' + spStudent[0] + '</option>';
@@ -221,7 +221,7 @@ function modulEducation(list) {
         if (data != "none;//") {
             var spReturnDataList = data.split("//");
             for (var i = 0; i < spReturnDataList.length; i++) {
-                if (spReturnDataList[i] != "") {
+                if (!checkEmptyString(spReturnDataList[i])) {
                     var spStudent = spReturnDataList[i].split(";");
 
                     returnSelectorOptions += '<option value="' + spStudent[2] + '">' + spStudent[0] + '</option>';
@@ -254,7 +254,7 @@ function modulRefesh(id, targetDiv) {
         }
         var spReturnDataList = data.split("//");
         for (var i = 0; i < spReturnDataList.length; i++) {
-            if (spReturnDataList[i] != "") {
+            if (!checkEmptyString(spReturnDataList[i])) {
                 var spReturnDataItem = spReturnDataList[i].split(";");
 
                 returnSelectorOptions += '<option value="' + spReturnDataItem[2] + '">' + spReturnDataItem[0] + '|| ' + spReturnDataItem[1] + '</option>';
@@ -310,7 +310,7 @@ function modulRefeshwithParametersSELECTION(modullist,id,targetDiv, unusableSele
     }
     var spModulList = modullist.split("//");
     for (var i = 0,outerforMaximum=spModulList.length; i <outerforMaximum ; i++) {
-        if (spModulList[i] != "") {
+        if (!checkEmptyString(spModulList[i])) {
             var spModulListItemsData = spModulList[i].split(";");
             var matchWithUnusableSelectorListValue = checkMatchWithListItemsWhenNotInSameSelectorList(unusableSelectorListId,selectedSelectorListId,spModulListItemsData[2],unusableSelectorListValue);
             if (!matchWithUnusableSelectorListValue) {

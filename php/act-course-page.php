@@ -14,7 +14,7 @@
         <tr>
             <td>
                 <div class="span-half-corner-wrapper-large">
-                    <div onclick="activeCourseGet();setElozo('act-course-page')">
+                    <div onclick="activeCourseGet(1,1);setElozo('act-course-page')">
                         <img  src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="200" height="200">
 
                         <div class="span-half-corner-large">

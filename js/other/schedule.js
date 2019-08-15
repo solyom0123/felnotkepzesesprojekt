@@ -27,6 +27,7 @@ function collectDatainArray(targetArray) {
 
 
 }
+
 function gettingStart() {
     var formDataArray = new Array();
     //lockAllFieldsCourseStartForm(true);
@@ -61,16 +62,139 @@ function gettingStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[5], schedule, 1);
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[6], schedule, 2);
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[10], schedule, 3);
-        
+        makeTableForShow(1,null);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
         //console.log(schedule);
-        kiiras += '<table id="scTable" onload="loadTeacherselects(0)"><tr>' +
-                '<th>dátum</th><th>Tanegység neve</th><th>Modul neve</th><th>Óraszám</th><th>Kezdő</th><th>Vég</th><th>Oktató</th></tr>';
         scanDates(schedule);
+        makeTableForShow(4,null);
         console.log(schedule);
-        kiiras += "</table>";
         showResult(schedule);
     });
+}
+function makeTableForShow(type,data){
+    var table= '<table id="scTable" onload="loadTeacherselects(0)">';
+    var table_end= '</table>';
+    var td = "<td>";
+    var select_head = '<select onchange="loadTeacher(\''
+    var select_middle = '\',';
+    var select_end = ',false)" ><option value="-1">Kérem válasszon oktatót!</option></select>';
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    var buttonparambefore="";
+    var buttonparamafter="";
+    /*var down_arrow_start = '<span style="cursor: pointer;"  onclick="teacher_cur_unit_get('+buttonparambefore;
+    var down_arrow_end = ',1'+buttonparamafter+')"><img src="./img/down_arrow.png" width="20px" height="20px"></span>';
+    var up_arrow_start = '<span   style="cursor: pointer;" onclick="teacher_cur_unit_get('+buttonparambefore;
+    var up_arrow_end = ',2'+buttonparamafter+')"><img src="./img/up_arrow.png" width="20px" height="20px"></span>';
+    var checkbox_start = '<input type="checkbox" class="'+cbName+'" value="';
+    var checkbox_end = '">';*/
+    var th_end = '</th>';
+   
+    switch (type) {
+        case 1:
+            kiiras += table+
+                    tr +
+                th_head+
+                'dátum'+
+                th_end+
+                th_head+
+                'Tanegység neve'+
+                th_end+
+                th_head+
+               'Modul neve'+
+                th_end+
+                th_head+
+                'Óraszám'+
+                th_end+
+                th_head+
+                'Kezdő'+
+                th_end+
+                th_head+
+                'Vég'+
+                th_end+
+                th_head+
+                'Típus'+
+                th_end+
+                th_head+
+                'Oktató'+
+                th_end+
+                tr_end;
+        
+            break;
+        case 2:
+           kiiras+= tr +
+                td+
+                data[0]+
+                td_end+
+                td+
+                data[1]+
+                td_end+
+                td+
+                data[2]+
+                td_end+
+                td+
+                data[3]+
+                td_end+
+                td+
+                data[4]+
+                td_end+
+                td+
+                data[5]+
+                td_end+
+                td+
+                data[6]+
+                td_end+
+                td+
+                select_head+ 
+                data[7] + 
+                select_middle+ 
+                data[8] +
+                select_end+
+                td_end+
+                
+                tr_end;
+                
+            break;
+            case 3:
+            kiiras+=tr +
+                td+
+                data[0]+
+                td_end+
+                td+
+                data[1]+
+                td_end+
+                td+
+                data[2]+
+                td_end+
+                td+
+                data[3]+
+                td_end+
+                td+
+                data[4]+
+                td_end+
+                td+
+                data[5]+
+                td_end+
+                td+
+                data[6]+
+                td_end+
+                td+
+                'Vizsgához nem lehet oktatót választani!' + 
+                td_end+
+                tr_end;
+                
+            break;
+        case 4:
+            kiiras += table_end;
+        
+            break;
+            
+        default:
+            
+            break;
+    }
 }
 function scanDates(schedule) {
     for (var i = 0, max = schedule.getNaptar(); i < max; i++) {
@@ -114,7 +238,8 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
             var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
             //  console.log(hourAmmmountByHoursType);
             // console.log(modulstarthourAmmmountByHoursType);
-            kiiras += "<tr><td>" + actdate + "</td><td>" + foundCurUnit.getTanegyseg_neve() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td><select onchange="loadTeacher(\'' + actdate + '\',' + foundCurUnit.getId() + ',false)" ><option value="-1">Kérem válasszon oktatót!</option></select></td></tr>';
+            var data= new Array( actdate, foundCurUnit.getTanegyseg_neve() ,actModul.getModul_neve() + " " + actModul.getModul_azon() , hourAmmmountByHoursType, modulstarthourAmmmountByHoursType , (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) ,solveUtemTerv_ModelTypeForHuman(actHour.getTipus()), actdate ,foundCurUnit.getId() );
+            makeTableForShow(2,data);
             schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()))
             usedHoursAmmount += hourAmmmountByHoursType;
             calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType);
@@ -125,7 +250,8 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
             if (foundExam != null) {
                 var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
                 var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
-                kiiras += "<tr><td>" + actdate + "</td><td>" + foundExam.getTipus() + "</td><td>" + actModul.getModul_neve() + " " + actModul.getModul_azon() + "</td><td>" + hourAmmmountByHoursType + "</td><td>" + modulstarthourAmmmountByHoursType + "</td><td>" + (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) + '</td><td>Vizsgához nem lehet oktatót választani!</td></tr></tr>';
+                var data = new Array( actdate,foundExam.getTipus(),actModul.getModul_neve() + " " + actModul.getModul_azon() , hourAmmmountByHoursType , modulstarthourAmmmountByHoursType , (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType) ,solveUtemTerv_ModelTypeForHuman(actHour.getTipus()));
+                makeTableForShow(3,data);
                 schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, actModul.getId(), hourAmmmountByHoursType, foundExam.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()))
                 usedHoursAmmount += hourAmmmountByHoursType;
                 calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
@@ -268,7 +394,7 @@ function makeSchedule(dataArrayFromInput, dataArrayFromServer, course) {
 }
 function makeTanegyseg_ModelFromData(dataArray, targetArray) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
-        if (dataArray[i] != "") {
+        if (!checkEmptyString(dataArray[i])) {
             var spCurUnitData = dataArray[i].split(";");
             var curUnit = new Tananyagegyseg_Model(spCurUnitData[1], spCurUnitData[0], spCurUnitData[2], spCurUnitData[3], spCurUnitData[4], spCurUnitData[5]);
             targetArray[targetArray.length] = curUnit;
@@ -277,7 +403,7 @@ function makeTanegyseg_ModelFromData(dataArray, targetArray) {
 }
 function makeModul_ModelsfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
-        if (dataArray[i] != "" && dataArray[i] != " ") {
+        if (!checkEmptyString(dataArray[i])) {
             var spModulData = dataArray[i].split(";");
             let modul = new Modul_Model(spModulData[1], spModulData[0], spModulData[2], spModulData[3], spModulData[4]);
             makeExamForModul_Models(modul, "verbal", spModulData[5]);
@@ -290,7 +416,7 @@ function makeModul_ModelsfromData(dataArray, schedule) {
 }
 function makeUnusableUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
-        if (dataArray[i] != "" && dataArray[i] != " ") {
+        if (!checkEmptyString(dataArray[i])) {
             var spDateData = dataArray[i].split(";");
             let unusableDate = new Utemterv_bejegyzes_Model(spDateData[1], spDateData[0], 0, 0, 0, 0, 0, 0, 0);
 
@@ -309,7 +435,7 @@ function makeWeekUtemterv_bejegyzes_ModelfromArray(dataArray, schedule, type) {
 }
 function makeDayUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
-        if (dataArray[i] != "" && dataArray[i] != " ") {
+        if (!checkEmptyString(dataArray[i])) {
             let DayDate = new Utemterv_bejegyzes_Model(0, dataArray[i], 0, 0, 0, 0, 0, 0, 0);
 
             schedule.addNapNaptarhoz(DayDate);
@@ -499,7 +625,9 @@ function addReplacementDay() {
 function insertInTable(utemterv) {
     var tartalom = document.getElementById("scTable").innerHTML;
     var sorokszama= document.getElementById("scTable").getElementsByTagName("tr");
-    document.getElementById("scTable").innerHTML = tartalom + '<tr><td>' + utemterv.getdatum() + '</td><td>' + objects[whichcurunit(utemterv.getTanegysegVizsgaid())]["name"] + '</td><td>Pótnap</td><td>' + utemterv.getOra() + '</td><td>' + utemterv.getKezd() + '</td><td>' + utemterv.getVeg() + '</td><td><select onchange="loadTeacher(\'' + utemterv.getdatum() + '\',' + utemterv.getTanegysegVizsgaid() + ',true)" ><option value="-1">Kérem válasszon oktatót!</option></select></td></td></tr>'
+    var data= new Array(utemterv.getdatum(),objects[whichcurunit(utemterv.getTanegysegVizsgaid())]["name"],utemterv.getOra(),utemterv.getKezd(),utemterv.getVeg(),solveUtemTerv_ModelTypeForHuman(utemterv.getTipus()),utemterv.getdatum(), utemterv.getTanegysegVizsgaid());
+    makeTableForShow(2,data);
+    document.getElementById("scTable").innerHTML = tartalom + '<tr><td>' + data[0] + '</td><td>' + data[1] + '</td><td></td><td>' + data[2] + '</td><td>' + data[3] + '</td><td>' + data[4] + '</td><td>'+data[5]+'</td><td><select onchange="loadTeacher(\'' + data[6] + '\',' + data[7] + ',true)" ><option value="-1">Kérem válasszon oktatót!</option></select></td></td></tr>';
     searchTeacher(utemterv.getTanegysegVizsgaid())
                 .then(data => {
                     setTimeout(function () {
@@ -621,6 +749,27 @@ function solveModulsAndOrderBack(sc) {
         document.getElementById("form-row-modul-" + (i + 1)).value = actmodul.getId();
     }
 }
+function solveUtemTerv_ModelTypeForHuman(type){
+   var returnValue= '';
+    switch (type) {
+        case 1:
+             returnValue="elméleti";
+            break;
+        case 2:
+             returnValue="gyakorlati";
+            break;
+        case 3:
+             returnValue="elearn";
+            break;
+        case 0:
+             returnValue="pótnap";
+            break;    
+        default:
+            
+            break;
+    }
+    return returnValue;
+}
 function loadTeacherselects(start, kulonbseg) {
     var modal = document.getElementById("loadModal");
     console.log(start);
@@ -666,7 +815,7 @@ function loadTeacherselects(start, kulonbseg) {
 function loadOptions(rowno, options) {
     var myTable = document.getElementById("scTable");
     var rows = myTable.getElementsByTagName("tr");
-    var select = rows[rowno].getElementsByTagName("td")[6].getElementsByTagName("select")[0];
+    var select = rows[rowno].getElementsByTagName("td")[7].getElementsByTagName("select")[0];
     select.innerHTML = select.innerHTML + options;
 }
 function loadTeacher(actdate, curUnitId,isReplacement) {
@@ -704,7 +853,7 @@ function makeObjectFromReturnValue(data) {
     var spData = data.split("/;/");
     var returnArray = new Array();
     for (var i = 0, max = spData.length; i < max; i++) {
-        if (spData[i] != "") {
+        if (!checkEmptyString(spData[i])) {
             var spDataPiece = spData[i].split(";,;,;");
             var helyiArray = new Array();
             helyiArray["id"] = spDataPiece[0];
@@ -737,7 +886,7 @@ function makeOptionsForteacherselect(data) {
     var spData = data.split("/;/");
     for (var i = 0, max = spData.length; i < max; i++) {
         var spActrow = spData[i].split(";,;,;");
-        if (spData[i] != "" && spData[i] != " ") {
+        if (!checkEmptyString(spData[i])) {
             returnValue += "<option value=\"" + spActrow[0] + "\">" + spActrow[1] + "</options>";
         }
     }
@@ -894,3 +1043,5 @@ function passscheduleAJAXPROMISE(param) {
         });
     });
 }
+//-------------------------------------------------------------------------------------
+//---------------------------------

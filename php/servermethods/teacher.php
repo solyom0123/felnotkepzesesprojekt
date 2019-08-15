@@ -66,13 +66,16 @@ function editTeacher($conn) {
 
 function list_teacher_cur_unit($conn) {
     global $value;
-
-    $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=" . $value . ") ;  ";
+    $id = $value[0];
+    $spOrder = explode("_", $value[1]);
+    $order = solveOrderCurunit($spOrder[0]);
+    $ordertype = solveOrderTypeCurunit($spOrder[1]);
+    $sql = "select s.studymaterials_id as id, s.study_materials_name as name ,(select modul_name from modul where modul_id = s.modul_id) as mname from studymaterials s where s.studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=".$id.")  order by ".$order." ". $ordertype.";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['id'] . "//";
+            echo $row["name"] . ";" . $row['id'] . ";".$row["mname"]."//";
         }
     } else {
         echo "none;//";
@@ -82,13 +85,16 @@ function list_teacher_cur_unit($conn) {
 
 function list_teacher_cur_without_unit($conn) {
     global $value;
-
-    $sql = "select studymaterials_id as id, study_materials_name as name from studymaterials where studymaterials_id not in (select studymaterials from studymaterials_teacher where teacher=" . $value . ") ;  ";
+    $id = $value[0];
+    $spOrder = explode("_", $value[1]);
+    $order = solveOrderCurunit($spOrder[0]);
+    $ordertype = solveOrderTypeCurunit($spOrder[1]);
+    $sql = "select s.studymaterials_id as id, s.study_materials_name as name,(select modul_name from modul where modul_id = s.modul_id) as mname from studymaterials s where s.studymaterials_id not in (select studymaterials from studymaterials_teacher where teacher=" . $id . ") order by ".$order." ". $ordertype." ;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['id'] . "//";
+            echo $row["name"] . ";" . $row['id'] .  ";".$row["mname"]. "//";
         }
     } else {
         echo "none;//";
@@ -98,63 +104,74 @@ function list_teacher_cur_without_unit($conn) {
 
 function insertConnection($conn) {
     global $value;
-    $sql = "INSERT INTO studymaterials_teacher(teacher, studymaterials,file)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "')";
+    $spids = explode("_", $value[1]);
+    for ($index = 0; $index < count($spids); $index++) {
+        if ($spids[$index] != "") {
+
+    
+    $sql = "INSERT INTO studymaterials_teacher(teacher, studymaterials)
+VALUES ('" . $value[0] . "','" . $spids[$index] . "')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
     } else {
         echo 'error';
     }
-
-    return $conn;
-}
-
-function getConnection($conn) {
-    global $value;
-    if(is_array ( $value )){
-    $sql = "select studymaterials as st,teacher as id, file   from studymaterials_teacher where teacher=" . $value[0] . " and studymaterials= ".$value[1].";  ";
-        
-    }else{
-    $sql = "select studymaterials as st,teacher as id, file   from studymaterials_teacher where teacher=" . $value . ";  ";
-    }
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            echo $row["id"] . "/;/" . $row['st'] . "/;/" . $row['file'] . "/;/";
         }
-    } else {
-        echo "none/;/";
     }
-
     return $conn;
 }
 
-function editConnection($conn) {
-    global $value;
-  
-    $sql = "UPDATE studymaterials_teacher SET file ='" . $value[2] . "' where teacher='" . $value[0] . "' and  studymaterials='" . $value[1] . "'";
 
-    if ($conn->query($sql) === TRUE) {
-        echo 'ok';
-    } else {
-        echo 'error'.$conn->error;
-    }
-
-    return $conn;
-}
 function deleteConnection($conn) {
     global $value;
-  
-    $sql = "DELETE from studymaterials_teacher  where teacher='" . $value[0] . "' and  studymaterials='" . $value[1] . "'";
+  $spids = explode("_", $value[1]);
+    for ($index = 0; $index < count($spids); $index++) {
+        if ($spids[$index] != "") {
+
+    
+    $sql = "DELETE from studymaterials_teacher where teacher= ".$value[0] ."  and studymaterials =   ".$spids[$index];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
     } else {
         echo 'error'.$conn->error;
     }
-
+        }
+    }
     return $conn;
+}
+function solveOrderCurunit($order) {
+    $returnValue = '';
+    switch ($order) {
+        case "1":
+            $returnValue = "name";
+
+            break;
+        case "2":
+            $returnValue = "mname";
+
+            break;
+
+        default:
+            $returnValue = "name";
+
+            break;
+    }
+    return $returnValue;
+}
+
+function solveOrderTypeCurunit($order) {
+    $returnValue = '';
+    switch ($order) {
+        case "1":
+            $returnValue = "ASC";
+
+            break;
+        case "2":
+            $returnValue = "DESC";
+
+            break;
+    }
+    return $returnValue;
 }

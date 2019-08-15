@@ -128,7 +128,7 @@ function courseList() {
             var value = "";
             var spStudents = data.split("//");
             for (var i = 0; i < spStudents.length; i++) {
-                if (spStudents[i] != "") {
+                if (!checkEmptyString(spStudents[i])) {
                     var spStudent = spStudents[i].split(";");
                     var image = "default";
                     if (spStudent[1] != 'default') {

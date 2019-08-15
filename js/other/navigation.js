@@ -44,7 +44,7 @@ function loadingModuls(linkfr) {
 
     }
     if (linkfr == "actually_course") {
-        activeCourseList();
+        activeCourseList(1,1);
     }
     if (linkfr == "course_basic_datas") {
         courseList();
@@ -52,7 +52,7 @@ function loadingModuls(linkfr) {
     
     if (linkfr == "teacher_connect_in_form") {
         teacherListOption();
-        coursefilemodal();
+       // coursefilemodal();
     }
     if (linkfr == "date_in_form") {
         var date = new Date();
@@ -64,6 +64,14 @@ function loadingModuls(linkfr) {
     }
 
 
+}
+function checkEmptyString(string){
+    if(string==""||string==" "){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 /**
  * 
@@ -124,7 +132,7 @@ function serverdata(linkfr, value, muv, target) {
             },
 
             success: function (data) {
-                if (target != "") {
+                if (!checkEmptyString(target)) {
                     document.getElementsByClassName(target)[0].innerHTML = data;
                 }
                 resolve(data);
@@ -156,7 +164,7 @@ function linkWithData(linkfr, value, muv, target) {
             },
 
             success: function (data) {
-                if (target != "") {
+                if (!checkEmptyString(target)) {
                     document.getElementsByClassName(target)[0].innerHTML = data;
                 }
                 loadingModuls(linkfr);

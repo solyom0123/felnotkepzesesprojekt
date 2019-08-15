@@ -26,8 +26,8 @@
 </div>
   
  <div class="option-button-wrapper">
-     <div class="option-button" onclick="passschedule(0)">Elfogad!</div></a>
- <div class="option-button" onclick="editschedule();deleteEditedSchedule()">Módosít</div></a>
+     <div class="option-button" onclick="passschedule(0)">Elfogad!</div>
+ <div class="option-button" onclick="editschedule();deleteEditedSchedule()">Módosít</div>
     
 
     </div>

@@ -9,29 +9,123 @@
         <label for="form-row-name" class="col-md-2 col-form-label">Dátum:</label>
         <label for="form-row-name" class="col-md-1 col-form-label">Elmélet óraszáma:</label>
         <label for="form-row-name" class="col-md-1 col-form-label">E-learning óraszáma:</label>
-		<label for="form-row-name" class="col-md-1 col-form-label">Gyakorlat óraszáma:</label>
+                <label for="form-row-name" class="col-md-1 col-form-label">Gyakorlat óraszáma:</label>
         <label for="form-row-name" class="col-md-2 col-form-label">Modul :</label>
         <label for="form-row-name" class="col-md-3 col-form-label">Tananyagegység:</label>
         <label for="form-row-name" class="col-md-2 col-form-label">Oktató:</label>
 
     </div>
-    -->
+-->
+<div class="row "><h2 class="col-md-12 h2-default">Ütemterv adatok</h2></div>
+<id style="display: none"></id>
+<div class="form-group row">
+    <label for="form-row-name" class="col-md-4 col-form-label">Belső azonosító:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Belső azonosító">
+    </div> 
 
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div class="form-group row">
+    <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzés kiválasztása:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-kepzes" id="form-row-name" type="text"  placeholder="Képzés">
+
+    </div> 
+    <input id="modul_length_of_course" type="hidden" >
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Itt megadhatja az akkreditációban szereplő képzés adatokat"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div class="form-group row">
+    <label for="form-row-start" class="col-md-4 col-form-label">Kezdés dátuma:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-start" id="form-row-start"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+    </div> 
+
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Adja meg a képzés kezdő dátumát"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div class="form-group row">
+    <label for="form-row-sign-date" class="col-md-4 col-form-label">Vizsga jelentkezés hatarideje:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+    </div> 
+
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Vizsgajelentkezés határideje"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+
+<div class="form-group row">
+    <label for="form-row-exam-date" class="col-md-4 col-form-label">Vizsga időpontja:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+    </div> 
+
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Adja meg a vizsga időpontját"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div class="form-group row">
+    <label for="form-row-help-day" class="col-md-4 col-form-label">Képzésbe bevonható tartalék napok száma:</label>
+    <div class="col-md-4">
+        <input class="form-control-plaintext" name="form-row-help-day" id="form-row-help-day" type="number" min="0" >
+    </div> 
+
+    <div class="col-md-4 ">
+        <a href="#" data-toggle="tooltip" title="Adja meg a képzéshez hozzárendelhető tartalék napok számát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div class="form-group row">
+    <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
+
+    <div class="col-md-8 ">
+        <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+    </div>                            
+</div>
+<div id="modul-order-place" >
+
+</div>
+<div class="form-group row">
+    <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-12 btn option-button" value="Módosít"></div>
+</div>
 <div class="row "><h2 class="col-md-12 h2-default">Ütemterv</h2></div>
 
 <form >
-    
+    <div class="col-md-12 alert-info" id="replacementDays">
+        <div class="col-md-12">Szabadon használható pótnapok</div>
+        <div class="col-md-12" id="replacementDays_headrow">
+            <div class="col-md-2">Nap dátuma</div>
+            <div class="col-md-2">Naphoz tartozó óraszám</div>
+            <div class="col-md-2">Felhasználható tanegységek</div>
+            <div class="col-md-2">Felhasználható óraszám</div>
+            <div class="col-md-2">Maradék tartaléknapok száma</div> 
+            <div class="col-md-2">Hozzáadás</div>
 
-    <div class="form-group row">
+        </div>
+        <div class="col-md-12" id="replacementDays_datarow">
+            <select  class="col-md-2" onchange="calcReplacementDayHours()"></select>
+            <div class="col-md-2"></div>
+            <select class="col-md-2" onchange="calcUseableHour()"></select>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"><button onclick="addReplacementDay()">Hozzáadás</button></div>
 
-        <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-3 btn option-button" value="Elfogad"></div>
-        <div class="col-md-1"></div>
-        <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-3 btn option-button" value="Újra generál"></div>
-        <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></div>
-
-
+        </div>
 
     </div>
+    <div class="col-md-12 "id="resultTable">
+    </div>
+    <div class="form-group row">
+        <div class="option-button col-md-12" onclick="passschedule(0)">Elfogad!</div></a>
+    </div>
+    <div class="form-group row">
+        <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+    </div>
+
 </form>
 

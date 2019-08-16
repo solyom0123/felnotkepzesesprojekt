@@ -116,6 +116,12 @@ if ($muv == "new_modul") {
     lekapcsolodas(delete_active_course(kapcsolodas()));
 }else if($muv =="activeCourseSend"){
     lekapcsolodas(send_active_course(kapcsolodas()));
+}else if($muv =="load_an_active_schedule"){
+    lekapcsolodas(select_all_dataforAnActiveEducation(kapcsolodas()));
+}else if($muv =="edit_an_active_schedule_data"){
+    lekapcsolodas(edit_dataforAnActiveEducation(kapcsolodas()));
+}else if ($muv == "edit_schedule") {
+    lekapcsolodas(editschedule(kapcsolodas()));
 }
 
 

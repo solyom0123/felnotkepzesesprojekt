@@ -21,18 +21,17 @@ class Utemterv_bejegyzes_Model {
      * @param {type} tartaleknap
      * @returns {Elkeszult_Nap_Model}
      */
-    constructor(hetnapja,
-    datum,
-    tartaleknap,
-    tanegysegId,
-    oraszam, 
-    tipus,
-    
-    
-    vizsga,
-    start, 
-    end,
-    modul        
+    constructor(
+    hetnapja,   //
+    datum,      //0
+    tartaleknap,//1
+    tanegysegId,//2
+    oraszam,    //3
+    tipus,      //4
+    vizsga,     //5
+    start,      //6
+    end,        //7
+    modul       //8 
     ){
     this.oktato ="senki";
     this.hetnapja = hetnapja;

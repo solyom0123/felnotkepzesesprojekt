@@ -31,7 +31,7 @@
 <div class="form-group row">
     <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzés kiválasztása:</label>
     <div class="col-md-4">
-        <input class="form-control-plaintext" name="form-row-kepzes" id="form-row-name" type="text"  placeholder="Képzés">
+        <input class="form-control-plaintext" name="form-row-kepzes" id="form-row-kepzes" type="text"  placeholder="Képzés" readonly>
 
     </div> 
     <input id="modul_length_of_course" type="hidden" >
@@ -42,7 +42,7 @@
 <div class="form-group row">
     <label for="form-row-start" class="col-md-4 col-form-label">Kezdés dátuma:</label>
     <div class="col-md-4">
-        <input class="form-control-plaintext" name="form-row-start" id="form-row-start"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+        <input class="form-control-plaintext" name="form-row-start" id="form-row-start"   type="date"  placeholder="ÉÉÉÉ.HH.NN." readonly>
     </div> 
 
     <div class="col-md-4 ">
@@ -52,7 +52,7 @@
 <div class="form-group row">
     <label for="form-row-sign-date" class="col-md-4 col-form-label">Vizsga jelentkezés hatarideje:</label>
     <div class="col-md-4">
-        <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+        <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date"   type="date"  placeholder="ÉÉÉÉ.HH.NN." readonly>
     </div> 
 
     <div class="col-md-4 ">
@@ -63,7 +63,7 @@
 <div class="form-group row">
     <label for="form-row-exam-date" class="col-md-4 col-form-label">Vizsga időpontja:</label>
     <div class="col-md-4">
-        <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
+        <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date"   type="date"  placeholder="ÉÉÉÉ.HH.NN." >
     </div> 
 
     <div class="col-md-4 ">
@@ -81,7 +81,7 @@
     </div>                            
 </div>
 <div class="form-group row">
-    <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
+    <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének :</label>
 
     <div class="col-md-8 ">
         <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
@@ -91,11 +91,11 @@
 
 </div>
 <div class="form-group row">
-    <div onclick="link('course_start')"><input type="button" name="log-form" class="btn col-md-12 btn option-button" value="Módosít"></div>
+    <div onclick="editActiveEducation()"><input type="button" name="log-form" class="btn col-md-12 btn option-button" value="Módosít"></div>
 </div>
 <div class="row "><h2 class="col-md-12 h2-default">Ütemterv</h2></div>
 
-<form >
+
     <div class="col-md-12 alert-info" id="replacementDays">
         <div class="col-md-12">Szabadon használható pótnapok</div>
         <div class="col-md-12" id="replacementDays_headrow">
@@ -121,11 +121,20 @@
     <div class="col-md-12 "id="resultTable">
     </div>
     <div class="form-group row">
-        <div class="option-button col-md-12" onclick="passschedule(0)">Elfogad!</div></a>
+        <div class="option-button col-md-12" onclick="editschedule(0)">Elfogad!</div></a>
     </div>
     <div class="form-group row">
-        <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+        <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
     </div>
 
-</form>
 
+
+<div id="loadModal" class="modal">
+
+        <!-- Modal content -->
+        <div   class="modal-content">
+            <img src="/img/load.gif" width="200px" height="200px">
+            <h3>Kérem várjon, míg az oldal dolgozik!<br>Ne lépjen ki, ne váltson ablakot!<br>Ez az üzenet automatikusan eltűnik a folyamat végén!</h3>
+        </div>
+
+    </div>

@@ -22,7 +22,7 @@
                         </div>
                     </div></div></td>
             <td><div class="span-half-corner-wrapper-large">
-                    <div onclick="link('utemterv_in_form');setElozo('act-course-page')">
+                    <div onclick="loadAnActiveSchedule();setElozo('act-course-page')">
                         <img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="200" height="200">
                         <div class="span-half-corner-large">
                             <span>ütemterv módosítás(Nem generál új ütemtervet)</span>

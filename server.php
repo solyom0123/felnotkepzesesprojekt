@@ -122,6 +122,12 @@ if ($muv == "new_modul") {
     lekapcsolodas(edit_dataforAnActiveEducation(kapcsolodas()));
 }else if ($muv == "edit_schedule") {
     lekapcsolodas(editschedule(kapcsolodas()));
+}else if ($muv == "save_schedule") {
+    lekapcsolodas(insertSchedule(kapcsolodas()));
+}else if ($muv == "update_schedule") {
+    lekapcsolodas(updateSchedule(kapcsolodas()));
+}else if ($muv == "course_start_update") {
+    makeUpdateSchedulePlan();
 }
 
 

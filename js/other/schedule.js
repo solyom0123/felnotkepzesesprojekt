@@ -28,6 +28,85 @@ function collectDatainArray(targetArray) {
 
 
 }
+function saveSchedule() {
+    var formDataArray = new Array();
+    //lockAllFieldsCourseStartForm(true);
+    //lockAllModulSelector(true);
+    collectDatainArray(formDataArray);
+
+    // console.log(formDataArray);
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "save_schedule",
+        param: formDataArray
+
+    }, function (data, status) {
+        link("course_start");
+    });
+}
+function updateSchedule() {
+    var id = document.getElementsByTagName("id")[0].innerHTML;
+    var formDataArray = new Array();
+    //lockAllFieldsCourseStartForm(true);
+    //lockAllModulSelector(true);
+    collectDatainArray(formDataArray);
+    formDataArray[formDataArray.length]=id;
+     console.log(formDataArray);
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "update_schedule",
+        param: formDataArray
+
+    }, function (data, status) {
+        console.log(data);
+        backtotheMenu();
+    });
+}
+function gettingupdateStart() {
+     var id = document.getElementsByTagName("id")[0].innerHTML;
+    var formDataArray = new Array();
+    //lockAllFieldsCourseStartForm(true);
+    //lockAllModulSelector(true);
+    collectDatainArray(formDataArray);
+    formDataArray[formDataArray.length]=id;
+
+    // console.log(formDataArray);
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "course_start_update",
+        param: formDataArray
+
+    }, function (data, status) {
+        // console.log(data);
+        kiiras = "";
+        sc = null;
+        objects = null;
+        var spReplyData = data.split("//");
+        var spModuls = spReplyData[2].split("/;/");
+        var spCurUnits = spReplyData[3].split("/;/");
+        var spDateInfos = spReplyData[4].split("/;/");
+        var spCaleInfos = spReplyData[5].split("/;/");
+        var spCourse = spReplyData[1].split(";");
+        var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
+        var cur_unitArray = new Array();
+        //console.log(schedule);
+        var schedule = makeSchedule(formDataArray, spReplyData, course);
+        makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
+        makeModul_ModelsfromData(spModuls, schedule);
+        makeUnusableUtemterv_bejegyzes_ModelfromData(spDateInfos, schedule);
+        connectCurUnitsForModuls(schedule, cur_unitArray);
+        makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[5], schedule, 1);
+        makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[6], schedule, 2);
+        makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[10], schedule, 3);
+        makeTableForShow(1, null);
+        makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
+        //console.log(schedule);
+        scanDates(schedule);
+        makeTableForShow(4, null);
+        console.log(schedule);
+        showResultUpdate(schedule);
+    });
+}
 function gettingStart() {
     var formDataArray = new Array();
     //lockAllFieldsCourseStartForm(true);
@@ -277,6 +356,36 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
 function showResult(schedule) {
     link("resultpage")
             .then(data => {
+                document.getElementById("resultTable").innerHTML = kiiras;
+                sc = schedule;
+                loadTeacherselects(0, 0, false);
+                replacementdays = collectSCReplacmentDays(sc);
+                var options = makeOptionsFromReplacemetnDays(replacementdays);
+                document.getElementById("replacementDays_datarow").getElementsByTagName("select")[0].innerHTML = options;
+                document.getElementById("replacementDays_datarow").getElementsByTagName("div")[2].innerHTML = sc.getTartaleknapok();
+                searchForCurUnits(sc.getKepzes().getId())
+                        .then(data => {
+                            objects = makeObjectFromReturnValue(data);
+                            options = makeOptionsFromObjects(objects);
+                            document.getElementById("replacementDays_datarow").getElementsByTagName("select")[1].innerHTML = options;
+
+                        })
+                        .catch(error => {
+                            //console.log(error)
+                        });
+
+            })
+            .catch(error => {
+                //console.log(error)
+            });
+
+    //document.getElementById("resultTable").innerHTML= kiiras;
+}
+function showResultUpdate(schedule) {
+    var id = document.getElementsByTagName("id")[0].innerHTML;
+    link("resultpageedit")
+            .then(data => {
+                 document.getElementsByTagName("id")[0].innerHTML= id ;
                 document.getElementById("resultTable").innerHTML = kiiras;
                 sc = schedule;
                 loadTeacherselects(0, 0, false);
@@ -601,10 +710,10 @@ function addReplacementDay() {
                 }
                 console.log(sum - (remain_curunit * 1));
 
-                objects[curunit]["used"] = (objects[curunit]["used"]*1) + (replacementdays[i].getOra()*1);
+                objects[curunit]["used"] = (objects[curunit]["used"] * 1) + (replacementdays[i].getOra() * 1);
                 calcUseableHour();
                 remain_curunit = document.getElementById("replacementDays_datarow").getElementsByTagName("div")[1].innerHTML;
-                replacementdays[i].setVeg((replacementdays[i].getKezd()*1) + (replacementdays[i].getOra()*1));
+                replacementdays[i].setVeg((replacementdays[i].getKezd() * 1) + (replacementdays[i].getOra() * 1));
                 replacementdays[i].setTanegyseg(selected_cur_unit);
                 insertInTable(replacementdays[i]);
                 removeDay(selected_day);
@@ -621,12 +730,12 @@ function addReplacementDayafterEdit(day) {
     var curunit = whichcurunit(selected_cur_unit);
     var sum = (objects[curunit]["el"] * 1) + (objects[curunit]["ex"] * 1) + (objects[curunit]["d"] * 1)
     var remain_replacementdays_ammount = document.getElementById("replacementDays_datarow").getElementsByTagName("div")[2].innerHTML;
-    
 
-    objects[curunit]["used"] = (objects[curunit]["used"]*1) + (day[3]*1);
+
+    objects[curunit]["used"] = (objects[curunit]["used"] * 1) + (day[3] * 1);
     var newday = new Utemterv_bejegyzes_Model(0, day[0], solveBooleanFromString(day[1]), day[2], day[3], day[4], solveBooleanFromString(day[5]), day[6], day[7], day[8], day[9]);
     insertInTable(newday);
-    var remain_curunit = sum - (objects[curunit]["used"]*1);
+    var remain_curunit = sum - (objects[curunit]["used"] * 1);
     if ((remain_curunit * 1) < 1) {
         removeCuruint(selected_cur_unit);
     }
@@ -647,53 +756,53 @@ function insertInTable(utemterv) {
     makeTableForShow(2, data);
     document.getElementById("scTable")
     var tr = document.createElement("tr");
-    var td_0 = document.createElement("td");                 
+    var td_0 = document.createElement("td");
     var td_0_textnode = document.createTextNode(data[0]);
-    td_0.appendChild(td_0_textnode);                              
+    td_0.appendChild(td_0_textnode);
     tr.appendChild(td_0);
-    var td_1 = document.createElement("td");                 
+    var td_1 = document.createElement("td");
     var td_1_textnode = document.createTextNode(data[1]);
-    td_1.appendChild(td_1_textnode);                              
+    td_1.appendChild(td_1_textnode);
     tr.appendChild(td_1);
-    var td_2 = document.createElement("td");                 
+    var td_2 = document.createElement("td");
     var td_2_textnode = document.createTextNode("");
-    td_2.appendChild(td_2_textnode);                              
+    td_2.appendChild(td_2_textnode);
     tr.appendChild(td_2);
-    var td_3 = document.createElement("td");                 
+    var td_3 = document.createElement("td");
     var td_3_textnode = document.createTextNode(data[2]);
-    td_3.appendChild(td_3_textnode);                              
+    td_3.appendChild(td_3_textnode);
     tr.appendChild(td_3);
-    var td_4 = document.createElement("td");                 
+    var td_4 = document.createElement("td");
     var td_4_textnode = document.createTextNode(data[3]);
-    td_4.appendChild(td_4_textnode);                              
-    tr.appendChild(td_4);   
-    var td_5 = document.createElement("td");                 
+    td_4.appendChild(td_4_textnode);
+    tr.appendChild(td_4);
+    var td_5 = document.createElement("td");
     var td_5_textnode = document.createTextNode(data[4]);
-    td_5.appendChild(td_5_textnode);                              
+    td_5.appendChild(td_5_textnode);
     tr.appendChild(td_5);
-    var td_6 = document.createElement("td");                 
+    var td_6 = document.createElement("td");
     var td_6_textnode = document.createTextNode(data[5]);
-    td_6.appendChild(td_6_textnode);                              
+    td_6.appendChild(td_6_textnode);
     tr.appendChild(td_6);
-    var td_7 = document.createElement("td");  
+    var td_7 = document.createElement("td");
     var td_7_select = document.createElement("select");
     var td_7_select_option = document.createElement("option");
     td_7_select.setAttribute("onClick", 'loadTeacher(\'' + data[6] + '\',' + data[7] + ',true)');
     td_7_select_option.setAttribute("value", "-1");
-    
+
     var td_7_select_optiontextnode = document.createTextNode("Kérem válasszon oktatót!");
     td_7_select_option.appendChild(td_7_select_optiontextnode);
     td_7_select.appendChild(td_7_select_option);
     td_7.appendChild(td_7_select);
     tr.appendChild(td_7);
-    document.getElementById("scTable").appendChild(tr);     
-            
+    document.getElementById("scTable").appendChild(tr);
+
     searchTeacher(utemterv.getTanegysegVizsgaid())
             .then(data => {
                 setTimeout(function () {
 
                     var options = makeOptionsForteacherselect(data);
-                    loadOptions(searchReplacementDayInTable(utemterv.getdatum(),sorokszama.length), options);
+                    loadOptions(searchReplacementDayInTable(utemterv.getdatum(), sorokszama.length), options);
 
 
                 }, 300);
@@ -733,9 +842,42 @@ function removeCuruint(cur_unit) {
     document.getElementById("replacementDays_datarow").getElementsByTagName("select")[1].innerHTML = newselect;
 
 }
-function editschedule() {
+function backLoadschedule() {
     link("course_start")
             .then(data => {
+                document.getElementById("form-row-name").value = sc.getBelsoAzonosito();
+                document.getElementById("form-row-start").value = sc.getKezdes();
+                document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
+                document.getElementById("form-row-exam-date").value = sc.getVizsgaKezdes();
+                document.getElementById("form-row-help-day").value = sc.getTartaleknapok();
+
+                solveDaysAndWriteBack(sc);
+                setTimeout(
+                        function () {
+                            document.getElementById("form-row-kepzes").value = sc.getKepzes().getId();
+                            modulSelectorsMake();
+                            setTimeout(
+                                    function () {
+                                        solveModulsAndOrderBack(sc);
+                                        checkEnoughDay();
+                                    }
+                            , 1000);
+
+                        }
+                , 1000);
+
+
+            })
+            .catch(error => {
+                //console.log(error)
+            });
+
+}
+function backLoadUpdateschedule() {
+     var id = document.getElementsByTagName("id")[0].innerHTML ;
+    link("course_start_edit")
+            .then(data => {
+                  document.getElementsByTagName("id")[0].innerHTML= id ;
                 document.getElementById("form-row-name").value = sc.getBelsoAzonosito();
                 document.getElementById("form-row-start").value = sc.getKezdes();
                 document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
@@ -798,6 +940,9 @@ function solveDaysAndWriteBack(sc) {
                 break;
             case 2:
                 typename = "plan_exe";
+                break;
+            case 3:
+                typename = "el_dec";
                 break;
         }
         document.getElementById(dayname + "_" + typename).value = actWeekday.getOra();
@@ -941,7 +1086,7 @@ function searchIndexSelectedOption(svalue, select) {
     var index = 0;
     var options = select.getElementsByTagName("option");
     for (var i = 0, max = options.length; i < max; i++) {
-       var optionvalue =options[i].value.trim();
+        var optionvalue = options[i].value.trim();
         if (optionvalue == svalue) {
             index = i;
         }
@@ -1154,6 +1299,46 @@ function passschedule(start) {
 
     }
 }
+function passUpdateschedule(start) {
+    var param = new Array();
+    var modal = document.getElementById("loadModal")
+    if (start < sc.getUtemterv().length) {
+        var localparam = new Array();
+        var actday = sc.getUtemtervNap(start);
+        localparam[localparam.length] = actday.getdatum();
+        localparam[localparam.length] = actday.getTanegysegVizsgaid();
+        localparam[localparam.length] = actday.getOra();//hour
+        localparam[localparam.length] = actday.getKezd();//start
+        localparam[localparam.length] = actday.getVeg(), //end
+                localparam[localparam.length] = actday.isVizsga();//vizsga
+        localparam[localparam.length] = actday.getTipus();//tipus
+        localparam[localparam.length] = actday.getOktato();//oktato
+        localparam[localparam.length] = actday.getModul();//modul
+        localparam[localparam.length] = actday.isTartalekNap();//tartalek
+        localparam[localparam.length] = sc.getId();//sc
+        modal.style.display = "block";
+
+        passscheduleAJAXPROMISE(localparam)
+                .then(data => {
+                    setTimeout(function () {
+                        passschedule(start + 1);
+                    }, 300);
+                })
+                .catch(error => {
+
+                    modal.style.display = "none";
+
+                });
+    } else {
+        modal.style.display = "none";
+        sc = null;
+        objects = null;
+        replacementdays = null;
+        clearUsedSelectChooseArrays();
+        backtotheMenu();
+
+    }
+}
 function passscheduleAJAXPROMISE(param) {
 
     return new Promise((resolve, reject) => {
@@ -1219,15 +1404,22 @@ function loadActiveScheduleFrom(data, id) {
     var spSchedule = data.split("/;/")[2];
     loadNameAndDatesInputs(spNameAndDates, id);
     loadModulNames(spModulNames);
+    var modulsArray=makeCorrectModulStringInArray(spModulNames);
+    makeModul_ModelsfromData(modulsArray, sc);
     usedReplacementdays = loadSchedule(spSchedule);
     makeTableForShow(4, null);
     console.log(sc);
     //console.log(kiiras);
+    if(!hiba){
     document.getElementById("resultTable").innerHTML = kiiras;
+     loadTeacherselects(0, 0, true);
+    }else{
+        hiba=false;
+        writeErrorMessageAndTowardToGenerate();
+    }
 
 
-
-    loadTeacherselects(0, 0, true);
+   
 
 }
 function loadBackSecondHalf() {
@@ -1242,8 +1434,10 @@ function loadBackSecondHalf() {
                 options = makeOptionsFromObjects(objects);
                 document.getElementById("replacementDays_datarow").getElementsByTagName("select")[1].innerHTML = options;
                 loadUsedReplacementDays(usedReplacementdays);
-                setTimeout(function(){setBackSelectedTeachersAtReplacementDay(usedReplacementdays);},3000);
-                
+                setTimeout(function () {
+                    setBackSelectedTeachersAtReplacementDay(usedReplacementdays);
+                }, 3000);
+
             })
             .catch(error => {
                 //console.log(error)
@@ -1277,7 +1471,8 @@ function loadSchedule(spSchedule) {
 
 
     } else {
-        //writeErrorMessageAndTowardToGenerate();
+        hiba=true;
+    
     }
     return lastDays;
 }
@@ -1292,7 +1487,19 @@ function loadNameAndDatesInputs(spNameAndDates, id) {
 
     var NameAndDates = spNameAndDates.split("//")[0].split(";,;");
     var kepzes = new Kepzes_Model(NameAndDates[9], NameAndDates[1], NameAndDates[2]);
+
     sc = new Aktiv_Kepzes_Model(id, NameAndDates[0], kepzes, NameAndDates[3], NameAndDates[8], NameAndDates[4], NameAndDates[7]);
+    var doctrina_days = makeArrayFomString(NameAndDates[10]);
+    var elearn_days = makeArrayFomString(NameAndDates[11]);
+    var exercise_days = makeArrayFomString(NameAndDates[12]);
+    console.log(doctrina_days);
+    console.log(elearn_days);
+    console.log(exercise_days);
+    makeWeekUtemterv_bejegyzes_ModelfromArray(doctrina_days, sc, 1);
+    makeWeekUtemterv_bejegyzes_ModelfromArray(exercise_days, sc, 2);
+    makeWeekUtemterv_bejegyzes_ModelfromArray(elearn_days, sc, 3);
+
+    console.log(spNameAndDates);
     makeTableForShow(1, null);
     document.getElementById("form-row-name").value = NameAndDates[0];
     document.getElementById("form-row-help-day").value = NameAndDates[7];
@@ -1315,6 +1522,7 @@ function loadModulNames(spModulNames) {
         if (!checkEmptyString(NameAndDates[i])) {
             var spModul = NameAndDates[i].split(";");
             inputs += span_head + (i + 1) + ": " + span_end + inputs_head + spModul[1] + " - " + spModul[2] + inputs_end;
+            
         }
     }
     document.getElementById("modul-order-place").innerHTML = inputs;
@@ -1347,15 +1555,15 @@ function loadUsedReplacementDays(usedReplacementDays) {
         addReplacementDayafterEdit(usedReplacementDays[i]);
     }
 }
-function setBackSelectedTeachersAtReplacementDay(usedReplacementDays){
+function setBackSelectedTeachersAtReplacementDay(usedReplacementDays) {
     for (var i = 0, max = usedReplacementDays.length; i < max; i++) {
-        
-         var myTable = document.getElementById("scTable");
-                var rows = myTable.getElementsByTagName("tr");
-                
-                var select = rows[searchReplacementDayInTable(usedReplacementDays[i][0],rows.length)].getElementsByTagName("td")[7].getElementsByTagName("select")[0];
-                select.selectedIndex = searchIndexSelectedOption(usedReplacementDays[i][11].trim(), select);
-                
+
+        var myTable = document.getElementById("scTable");
+        var rows = myTable.getElementsByTagName("tr");
+
+        var select = rows[searchReplacementDayInTable(usedReplacementDays[i][0], rows.length)].getElementsByTagName("td")[7].getElementsByTagName("select")[0];
+        select.selectedIndex = searchIndexSelectedOption(usedReplacementDays[i][11].trim(), select);
+
     }
 }
 function editschedule(start) {
@@ -1418,4 +1626,69 @@ function editscheduleAJAXPROMISE(param) {
             }
         });
     });
+}
+function makeArrayFomString(string) {
+    var returnArrray = new Array();
+    var spString = string.split(";");
+    for (var i = 0, max = spString.length; i < max; i++) {
+        if (!checkEmptyString(spString[i]))
+        {
+            returnArrray[returnArrray.length] = (spString[i] * 1);
+        }
+
+    }
+    return returnArrray;
+}
+function makeCorrectModulStringInArray(string) {
+    var returnArrray = new Array();
+    var spString = string.split("//");
+    for (var i = 0, max = spString.length; i < max; i++) {
+        if (!checkEmptyString(spString[i]))
+        {
+        var spModul = spString[i].split(";");
+    
+            returnArrray[returnArrray.length] = spModul[1]+";"+spModul[0]+";"+spModul[2]+";-1;-1;-1;-1;-1";
+        }
+
+    }
+    return returnArrray;
+}
+function writeErrorMessageAndTowardToGenerate(){
+    var massege = '<tr><td colspan="8"><div style="cursor: pointer;" onclick="backLoadeditschedule()" class="alert alert-danger"><h1>Ehhez az aktív képzéshez nem készült ütemterv!<br> Kérem kattintson erre az üzenetre a generáláshoz</h1></div></td></tr>';
+    document.getElementById("resultTable").innerHTML=massege;
+    document.getElementById("pass-btn").style.display="none";
+     document.getElementById("replacementDays").style.display="none";
+}
+function backLoadeditschedule() {
+     var id = document.getElementsByTagName("id")[0].innerHTML;
+    link("course_start_edit")
+            .then(data => {
+                 document.getElementsByTagName("id")[0].innerHTML = id;
+                document.getElementById("form-row-name").value = sc.getBelsoAzonosito();
+                document.getElementById("form-row-start").value = sc.getKezdes();
+                document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
+                document.getElementById("form-row-exam-date").value = sc.getVizsgaKezdes();
+                document.getElementById("form-row-help-day").value = sc.getTartaleknapok();
+
+                solveDaysAndWriteBack(sc);
+                setTimeout(
+                        function () {
+                            document.getElementById("form-row-kepzes").value = sc.getKepzes().getId();
+                            modulSelectorsMake();
+                            setTimeout(
+                                    function () {
+                                        solveModulsAndOrderBack(sc);
+                                        checkEnoughDay();
+                                    }
+                            , 1000);
+
+                        }
+                , 1000);
+
+
+            })
+            .catch(error => {
+                //console.log(error)
+            });
+
 }

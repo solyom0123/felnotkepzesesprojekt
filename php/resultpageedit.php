@@ -1,4 +1,4 @@
-
+<id style="display: none"></id>
 <h1 class="col-md-12">Generálás eredménye</h1>
 <div class="col-md-12 alert-info" id="replacementDays">
     <div class="col-md-12">Szabadon használható pótnapok</div>
@@ -26,8 +26,8 @@
 </div>
   
  <div class="option-button-wrapper">
-     <div class="option-button" onclick="passschedule(0)">Elfogad!</div>
-     <div class="option-button" onclick="backLoadschedule();deleteEditedSchedule()">Módosít</div>
+     <div class="option-button" onclick="passUpdateschedule(0)">Elfogad!</div>
+     <div class="option-button" onclick="backLoadUpdateschedule()">Módosítás</div>
     
 
     </div>

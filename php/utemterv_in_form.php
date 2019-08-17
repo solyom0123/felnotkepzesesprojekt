@@ -121,10 +121,10 @@
     <div class="col-md-12 "id="resultTable">
     </div>
     <div class="form-group row">
-        <div class="option-button col-md-12" onclick="editschedule(0)">Elfogad!</div></a>
+        <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn">Elfogad!</div></a>
     </div>
     <div class="form-group row">
-        <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+        <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>
     </div>
 
 

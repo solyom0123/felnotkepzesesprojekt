@@ -7,7 +7,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 }
 ?>
 <div class="row "><h2 class="col-md-12 h2-default">Képzés(tanfolyam) indítása</h2></div>
-
+<id style="display: none"></id>
 <form >
     <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Belső azonosító:</label>
@@ -231,13 +231,17 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             </table>
         </div> 
     <div class="form-group row">
-        <div onclick="saveSchedule()" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés"></div>
+        <div onclick="updateSchedule()" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Szerkesztés"></div>
          <div class="col-md-2"></div>
-        <div onclick="gettingStart();setElozo('course_start')" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés és generálás"></div>
+        <div onclick="gettingupdateStart();setElozo('course_start_edit')" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Szerkesztés és generálás"></div>
 
 
 
     </div>
+   <div class="form-group row">
+        <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>
+    </div>
+
 
  
 </form>

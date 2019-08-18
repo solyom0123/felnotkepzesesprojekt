@@ -47,7 +47,22 @@ function getCurUnit($conn) {
 
     return $conn;
 }
+function searchforcurunitcourseid($conn){
+     global $value;
 
+    $sql = "select e.education_id as e from modul m, education e where m.education_id = e.education_id and m.modul_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["e"] ;
+        }
+    } else {
+        echo "none";
+    }
+
+    return $conn;
+}
 function list_cur_unit_filter($conn) {
     global $value;
     $sql = "select studymaterials_id as id, study_materials_name as name, modul_id as eid"

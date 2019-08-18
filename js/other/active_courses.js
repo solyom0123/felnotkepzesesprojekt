@@ -24,7 +24,7 @@ function activeCourseSend() {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             activeCourseGet(1,1,1,1);
 
         });
@@ -53,7 +53,7 @@ function deleteStudentConnect() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         activeCourseGet();
 
     });}
@@ -68,7 +68,7 @@ function activeCourseGet(ordernew, ordertypenew,orderold,ordertypeold) {
         param: value + "_" + ordernew + "_" + ordertypenew+"_"+ orderold + "_" + ordertypeold
 
     }, function (date, status) {
-        console.log(date);
+        //console.log(date);
         link("user_con_form")
                 .then(data => {
                     document.getElementsByTagName("id")[0].innerHTML = value;
@@ -84,7 +84,7 @@ function activeCourseGet(ordernew, ordertypenew,orderold,ordertypeold) {
                     document.getElementById("studentTable").innerHTML = tableRowsOfUsedStudent;
                 })
                 .catch(error => {
-                    //console.log(error)
+                    ////console.log(error)
                 });
 
 
@@ -152,7 +152,7 @@ function  makeRowsFromDataStudent(spUsedStudentsInfo) {
 
     }
 
-    console.log(value);
+    //console.log(value);
     return value;
 }
 function backtotheMenu() {
@@ -175,7 +175,7 @@ function backtotheMenu() {
                 });
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 }
 function  makeTableFromDataNewStudent(spNewStudentsInfo) {
@@ -239,7 +239,7 @@ function  makeTableFromDataNewStudent(spNewStudentsInfo) {
 
     }
 
-    console.log(value);
+    //console.log(value);
     return value;
 }
 
@@ -249,7 +249,7 @@ function loadActiveMenu(id) {
                 document.getElementsByTagName("id")[0].innerHTML = id;
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 }
 
@@ -261,7 +261,7 @@ function activeCourseList(order, type) {
         param: order + "_" + type
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var td = "<td>";
         var tr_end = "</tr>";
         var td_end = "</td>";

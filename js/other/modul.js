@@ -26,7 +26,7 @@ function modulSend() {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var value;
         if (data != "error") {
 
@@ -56,14 +56,12 @@ function modulGet() {
             param: value
 
         }, function (data, status) {
-            //  ////console.log(data);
+            //  //////console.log(data);
             if (data != "none/;/") {
                 var spData = data.split("/;/");
                 document.getElementById("form-row-name").value = spData[0];
                 ;
                 document.getElementById("form-row-number").value = spData[1];
-                ;
-                document.getElementById("form-row-kepzes").value = spData[2];
                 ;
                 document.getElementById("form-row-elm").value = spData[3];
                 ;
@@ -81,7 +79,11 @@ function modulGet() {
                     document.getElementById("form-row-gyak-ora").value = spData[7];
                     document.getElementById("form-row-gyakorlati").checked = true;
                 }
-
+                     setTimeout(function (){
+                document.getElementById("form-row-kepzes").value = spData[2];
+                ;
+            },1000);
+           
 
             } else {
                 link("modul_in_form");
@@ -100,15 +102,14 @@ function modulGetWithParam(returnErrorInfoDataArray) {
         param: returnErrorInfoDataArray[1]
 
     }, function (data, status) {
-        // ////console.log(data);
+        // //////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
             ;
             document.getElementById("form-row-number").value = spData[1];
             ;
-            document.getElementById("form-row-kepzes").value = spData[2];
-            ;
+            
             document.getElementById("form-row-elm").value = spData[3];
             ;
             document.getElementById("form-row-gyak").value = spData[4];
@@ -119,7 +120,10 @@ function modulGetWithParam(returnErrorInfoDataArray) {
             ;
             document.getElementById("form-row-gyak-ora").value = spData[7];
             ;
-
+                setTimeout(function (){
+                document.getElementById("form-row-kepzes").value = spData[2];
+                ;
+            },1000);
 
 
         } else {
@@ -155,7 +159,7 @@ function modulEdit(id) {
         param: sendModulDataArray
 
     }, function (data, status) {
-        //  ////console.log(data);
+        //  //////console.log(data);
         var returnErrorTextMessage;
         if (data != "error") {
             returnErrorTextMessage = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -179,7 +183,7 @@ function modulList(targetDiv) {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var returnSelectorOptions = '<option value="-1">Nincs képzéshez rendelve</option>';
         if (data != "none;//") {
             var spReturnDataList = data.split("//");
@@ -212,7 +216,7 @@ function modulEducation(list) {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var returnSelectorOptions = '<option value="-1">Kérem válasszon a listából!</option>';
         if (list) {
             returnSelectorOptions = '<option value="-1">Nincs képzéshez rendelve</option>';
@@ -241,29 +245,39 @@ function modulRefesh(id, targetDiv) {
     } else {
         id = -1;
     }
-    $.post(slink, {
-        muv: "list_modul_filter",
-        param: id
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: id,
+                muv: "list_modul_filter"
+            },
+            success: function (mid) {
+                if (id != -1) {
+                    var returnSelectorOptions = "";
+                } else {
+                    var returnSelectorOptions = '<option value="-1">Nincs modulhoz rendelve</option>';
+                }
+                var spReturnDataList = mid.split("//");
+                for (var i = 0; i < spReturnDataList.length; i++) {
+                    if (!checkEmptyString(spReturnDataList[i])) {
+                        var spReturnDataItem = spReturnDataList[i].split(";");
 
-    }, function (data, status) {
-        ////console.log(data);
-        if (id != -1) {
-            var returnSelectorOptions = "";
-        } else {
-            var returnSelectorOptions = '<option value="-1">Nincs modulhoz rendelve</option>';
-        }
-        var spReturnDataList = data.split("//");
-        for (var i = 0; i < spReturnDataList.length; i++) {
-            if (!checkEmptyString(spReturnDataList[i])) {
-                var spReturnDataItem = spReturnDataList[i].split(";");
+                        returnSelectorOptions += '<option value="' + spReturnDataItem[2] + '">' + spReturnDataItem[0] + '|| ' + spReturnDataItem[1] + '</option>';
+                    }
+                }
+                document.getElementById(targetDiv).innerHTML = "";
+                document.getElementById(targetDiv).innerHTML = returnSelectorOptions;
 
-                returnSelectorOptions += '<option value="' + spReturnDataItem[2] + '">' + spReturnDataItem[0] + '|| ' + spReturnDataItem[1] + '</option>';
+                resolve(mid);
+            },
+            error: function (err) {
+                reject(["rejected", err])
             }
-        }
-        document.getElementById(targetDiv).innerHTML = "";
-        document.getElementById(targetDiv).innerHTML = returnSelectorOptions;
-
+        });
     });
+
 
 }
 function modulRefeshwithParametersAJAXCALL(id, nonorderd) {
@@ -296,23 +310,23 @@ function modulRefeshwithParametersAJAXCALL(id, nonorderd) {
     });
 
 }
-function modulRefeshwithParametersSELECTION(modullist,id,targetDiv, unusableSelectorListValue, unusableSelectorListId) {
+function modulRefeshwithParametersSELECTION(modullist, id, targetDiv, unusableSelectorListValue, unusableSelectorListId) {
     var spTargetDiv = targetDiv.split("-");
     var selectedSelectorListId = spTargetDiv[spTargetDiv.length - 1];
-    
-    ////console.log("status:" + status);
-    //console.log(modullist);
-    //console.log("\n"+targetDiv);
+
+    //////console.log("status:" + status);
+    ////console.log(modullist);
+    ////console.log("\n"+targetDiv);
     if (id != -1) {
         var returnSelectorOptions = '<option value="-1">Kérem válaszon modult!</option>';
     } else {
         var returnSelectorOptions = '<option value="-1">Nincs modulhoz rendelve</option>';
     }
     var spModulList = modullist.split("//");
-    for (var i = 0,outerforMaximum=spModulList.length; i <outerforMaximum ; i++) {
+    for (var i = 0, outerforMaximum = spModulList.length; i < outerforMaximum; i++) {
         if (!checkEmptyString(spModulList[i])) {
             var spModulListItemsData = spModulList[i].split(";");
-            var matchWithUnusableSelectorListValue = checkMatchWithListItemsWhenNotInSameSelectorList(unusableSelectorListId,selectedSelectorListId,spModulListItemsData[2],unusableSelectorListValue);
+            var matchWithUnusableSelectorListValue = checkMatchWithListItemsWhenNotInSameSelectorList(unusableSelectorListId, selectedSelectorListId, spModulListItemsData[2], unusableSelectorListValue);
             if (!matchWithUnusableSelectorListValue) {
                 returnSelectorOptions += '<option value="' + spModulListItemsData[2] + '">' + spModulListItemsData[0] + '</option>';
             }
@@ -328,16 +342,16 @@ function modulRefeshwithParametersSELECTION(modullist,id,targetDiv, unusableSele
     }
 
 }
-function checkMatchWithListItemsWhenNotInSameSelectorList(placeList,samePlace,matchingItem,matchingvalueList){
+function checkMatchWithListItemsWhenNotInSameSelectorList(placeList, samePlace, matchingItem, matchingvalueList) {
     for (var j = 0, innerforMaximum = placeList.length; j < innerforMaximum; j++) {
-                if (placeList[j] != samePlace) {
-                    //  ////console.log("tiltoot: "+tiltott[j]);
-                    // ////console.log("jelenlegi: "+spStudent[2]);
-                    if (matchingvalueList[j] == matchingItem) {
-                        return true;
-                    }
-                }
+        if (placeList[j] != samePlace) {
+            //  //////console.log("tiltoot: "+tiltott[j]);
+            // //////console.log("jelenlegi: "+spStudent[2]);
+            if (matchingvalueList[j] == matchingItem) {
+                return true;
             }
-            return false
-            
+        }
+    }
+    return false
+
 }

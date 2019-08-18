@@ -5,16 +5,9 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Oktatóhoz rendelt tanegységek szerkesztése: </h2>
-    <?php
-    if (isset($_POST['param']) && $_POST['muv'] == "load") {
-        echo $_POST['param'];
-    } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
-        echo $_POST['param'][0];
-    }
-    ?>
+<div class="row "><h2 class="col-md-12 h2-default">Oktató adatok </h2></div>
+    <div class="alert alert-warning"><h3> Válasszon oktatót a legördülő listából!</h3></div>
 
-    <form >
 
         <div class="form-group row">
             <label for="form-row-name" class="col-md-4 col-form-label">Oktató:</label>
@@ -27,55 +20,69 @@
             </div>                            
         </div>
 
+      
+        <!-- Tab content -->
+        <div id="add" class="tabcontent">
+            <div class="row "><h2 class="col-md-12 h2-default">Tananyagegységhez rendelése</h2></div>
+            <div class="form-group row">
+                <label for="form-row-name" class="col-md-4 col-form-label">OKTATHATÓ Tananyagegységek:</label>
+                <div class="col-md-4">
+                    <table  id="form-row-without" >
 
-        <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">OKTATHATÓ Tananyagegységek:</label>
-            <div class="col-md-4">
-                <table  id="form-row-without" >
-
-                </table>
-            </div> 
-            <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="...!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-            </div>                            
-        </div>
-
-        <div class="option-button-wrapper form-group row">
-
-
-            <div onclick="connectionSend()" class="btn col-md-12 btn option-button">FELVITEL</div>
-
-
-
-        </div>
-        <div class="form-group row">
-            <label for="form-row-name" class="col-md-4 col-form-label">Hozzárendelt tananyagegységek:</label>
-            <div class="col-md-4">
-                <table  id="form-row-anyag">
-                </table>
+                    </table>
+                </div> 
+                <div class="col-md-4 ">
+                    <a href="#" data-toggle="tooltip" title="...!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                </div>                            
             </div>
-            <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-            </div>                            
+
+            <div class="option-button-wrapper form-group row">
+
+
+                <div onclick="connectionSend()" class="btn col-md-12 btn option-button">HOZZÁRENDELÉS</div>
+
+
+
+            </div>
+            <div class="form-group row">
+                <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="MÉGSEM"></div>
+
+
+            </div>
         </div>
-        <div class="option-button-wrapper form-group row">
+        <div id="delete" class="tabcontent">
+            <div class="row "><h2 class="col-md-12 h2-default">Tananyagegységtől eltávolítás</h2></div>
+            <div class="form-group row">
+                <label for="form-row-name" class="col-md-4 col-form-label">Hozzárendelt tananyagegységek:</label>
+                <div class="col-md-4">
+                    <table  id="form-row-anyag">
+                    </table>
+                </div>
+                <div class="col-md-4 ">
+                    <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+                </div>                            
+            </div>
+            <div class="option-button-wrapper form-group row">
 
 
-            <div onclick="deleteConnectteacherAndCurUnit()"  class="option-button col-md-12">TÖRLÉS</div>
+                <div onclick="deleteConnectteacherAndCurUnit()"  class="option-button col-md-12">Eltávolítás</div>
 
 
 
 
 
+            </div>
+            <div class="option-button-wrapper form-group row">
+
+
+                <div onclick="megsem()" class="btn col-md-12 btn option-button">MÉGSEM</div>
+
+
+
+            </div>
         </div>
-        <div class="option-button-wrapper form-group row">
 
 
-            <div onclick="megsem()" class="btn col-md-12 btn option-button">MÉGSEM</div>
-
-
-
-        </div>
         <!-- The Modal -->
         <!--</form>
         

@@ -43,6 +43,10 @@ function loadingModuls(linkfr) {
         coursefilemodal();
 
     }
+    if (linkfr == "user_con_form") {
+        openDefultTab();
+
+    }
     if (linkfr == "actually_course") {
         activeCourseList(1,1);
     }
@@ -52,13 +56,19 @@ function loadingModuls(linkfr) {
     
     if (linkfr == "teacher_connect_in_form") {
         teacherListOption();
+        openDefultTab();
        // coursefilemodal();
     }
-    
+    if (linkfr == "utemterv_in_form") {
+        
+        openDefultTab();
+        VOLT=false;
+       // coursefilemodal();
+    }
     if (linkfr == "date_in_form") {
         var date = new Date();
         var stringDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-01";
-        //console.log(stringDate);
+        ////console.log(stringDate);
         monthGet(stringDate);
 
 
@@ -80,11 +90,11 @@ function checkEmptyString(string){
  * @returns {undefined}
  */
 function setElozo(elozo) {
-    //console.log("elozo: " + elozo);
+    ////console.log("elozo: " + elozo);
     $.post("./php/elozmeny.php", {
         preva: elozo
     }, function (data, status) {
-        //  //console.log(data);
+        //  ////console.log(data);
     });
 }
 /**
@@ -121,8 +131,8 @@ function link(link) {
  * @returns {undefined}
  */
 function serverdata(linkfr, value, muv, target) {
-    ////console.log(value);
-    ////console.log(target);
+    //////console.log(value);
+    //////console.log(target);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "server.php",
@@ -153,8 +163,8 @@ function serverdata(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkWithData(linkfr, value, muv, target) {
-    ////console.log(value);
-    ////console.log(target);
+    //////console.log(value);
+    //////console.log(target);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "./php/" + linkfr + ".php",
@@ -184,7 +194,7 @@ function linkWithData(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkside(link) {
-    // //console.log(value);
+    // ////console.log(value);
     var slink = './php/' + link + '.php';
     if (!link == "") {
         $.get(slink, function (data, status) {
@@ -200,11 +210,11 @@ function linkside(link) {
  * @returns {undefined}
  */
 function linkhead() {
-    // //console.log(value);
+    // ////console.log(value);
     var slink = './php/header.php';
 
     $.get(slink, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         document.getElementsByClassName('header-wrapper')[0].innerHTML = data;
     });
 }
@@ -219,14 +229,14 @@ function login(muv) {
     var name = document.getElementById("name").value;
     var pass = document.getElementById("pass").value;
     var value = new Array(name, pass);
-    ////console.log(muv + "," + name + "," + pass);
+    //////console.log(muv + "," + name + "," + pass);
     var slink = 'server.php';
     $.post(slink, {
         muv: muv,
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var splited = data.split(";");
         if (splited[0] == "true") {
 
@@ -255,7 +265,7 @@ function loggedIn() {
         param: "value"
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         if (data == "true") {
 
             link("main_admin");

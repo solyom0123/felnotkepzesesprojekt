@@ -7,7 +7,9 @@ var kiiras = "";
 var sc = null;
 var objects = null;
 var replacementdays = null;
-var usedReplacementdays = null;
+var USEDREPLACEMENTDAYS = null;
+var VOLT =false;
+var SPSCHEDULEDATA ="";
 //var utemterv = new Aktiv_Kepzes_Model();
 //-----------------------------------------------------------------------------
 //---------------------------SCHEDULING FUNCTIONS------------------------------
@@ -34,7 +36,7 @@ function saveSchedule() {
     //lockAllModulSelector(true);
     collectDatainArray(formDataArray);
 
-    // console.log(formDataArray);
+    // //console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "save_schedule",
@@ -51,14 +53,14 @@ function updateSchedule() {
     //lockAllModulSelector(true);
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length]=id;
-     console.log(formDataArray);
+     //console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "update_schedule",
         param: formDataArray
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         backtotheMenu();
     });
 }
@@ -70,14 +72,14 @@ function gettingupdateStart() {
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length]=id;
 
-    // console.log(formDataArray);
+    // //console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "course_start_update",
         param: formDataArray
 
     }, function (data, status) {
-        // console.log(data);
+        // //console.log(data);
         kiiras = "";
         sc = null;
         objects = null;
@@ -89,7 +91,7 @@ function gettingupdateStart() {
         var spCourse = spReplyData[1].split(";");
         var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
         var cur_unitArray = new Array();
-        //console.log(schedule);
+        ////console.log(schedule);
         var schedule = makeSchedule(formDataArray, spReplyData, course);
         makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
         makeModul_ModelsfromData(spModuls, schedule);
@@ -100,10 +102,10 @@ function gettingupdateStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[10], schedule, 3);
         makeTableForShow(1, null);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
-        //console.log(schedule);
+        ////console.log(schedule);
         scanDates(schedule);
         makeTableForShow(4, null);
-        console.log(schedule);
+        //console.log(schedule);
         showResultUpdate(schedule);
     });
 }
@@ -113,14 +115,14 @@ function gettingStart() {
     //lockAllModulSelector(true);
     collectDatainArray(formDataArray);
 
-    // console.log(formDataArray);
+    // //console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "course_start",
         param: formDataArray
 
     }, function (data, status) {
-        // console.log(data);
+        // //console.log(data);
         kiiras = "";
         sc = null;
         objects = null;
@@ -132,7 +134,7 @@ function gettingStart() {
         var spCourse = spReplyData[1].split(";");
         var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
         var cur_unitArray = new Array();
-        //console.log(schedule);
+        ////console.log(schedule);
         var schedule = makeSchedule(formDataArray, spReplyData, course);
         makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
         makeModul_ModelsfromData(spModuls, schedule);
@@ -143,10 +145,10 @@ function gettingStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[10], schedule, 3);
         makeTableForShow(1, null);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
-        //console.log(schedule);
+        ////console.log(schedule);
         scanDates(schedule);
         makeTableForShow(4, null);
-        console.log(schedule);
+        //console.log(schedule);
         showResult(schedule);
     });
 }
@@ -284,9 +286,9 @@ function scanDates(schedule) {
                 var moduls = searchModul(schedule, hourscanuse);
 
                 if (moduls.length > 0) {
-                    //console.log(actdate);
-                    //console.log(moduls);
-                    //console.log(hourscanuse);
+                    ////console.log(actdate);
+                    ////console.log(moduls);
+                    ////console.log(hourscanuse);
 
                     useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno);
                 } else {
@@ -295,7 +297,7 @@ function scanDates(schedule) {
                 }
             }
         }
-        //console.log("_____nextday___");
+        ////console.log("_____nextday___");
     }
 }
 function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
@@ -307,15 +309,15 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
         var actHour = hourscanuse[actHoursCanUseNoInArray];
         var actModul = moduls[actModulNoInArray];
         var foundCurUnit = searchCurUnit(actModul, actHour);
-        // console.log(foundCurUnit);
+        // //console.log(foundCurUnit);
         //var helyiarray = new Array();
         var foundExam = null;
         if (foundCurUnit != null) {
-            //console.log(actHour.getOra()-usedHoursAmmount);
+            ////console.log(actHour.getOra()-usedHoursAmmount);
             var hourAmmmountByHoursType = calchourAmmmountByHoursType(foundCurUnit, actHour, (actHour.getOra() - usedHoursAmmount));
             var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
-            //  console.log(hourAmmmountByHoursType);
-            // console.log(modulstarthourAmmmountByHoursType);
+            //  //console.log(hourAmmmountByHoursType);
+            // //console.log(modulstarthourAmmmountByHoursType);
             var data = new Array(actdate, foundCurUnit.getTanegyseg_neve(), actModul.getModul_neve() + " " + actModul.getModul_azon(), hourAmmmountByHoursType, modulstarthourAmmmountByHoursType, (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), solveUtemTerv_ModelTypeForHuman(actHour.getTipus()), actdate, foundCurUnit.getId());
             makeTableForShow(2, data);
             schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundCurUnit.getId(), hourAmmmountByHoursType, actHour.getTipus(), false, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()))
@@ -371,12 +373,12 @@ function showResult(schedule) {
 
                         })
                         .catch(error => {
-                            //console.log(error)
+                            ////console.log(error)
                         });
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
     //document.getElementById("resultTable").innerHTML= kiiras;
@@ -401,12 +403,12 @@ function showResultUpdate(schedule) {
 
                         })
                         .catch(error => {
-                            //console.log(error)
+                            ////console.log(error)
                         });
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
     //document.getElementById("resultTable").innerHTML= kiiras;
@@ -569,7 +571,7 @@ function makeExamForModul_Models(modul, exam_type, exam_hour) {
 //,,,,,,,,,,,,,,,,,,,,,,,,,,,,search functions,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 function searchCurUnit(modul, hour) {
     var returnCurUnit = null;
-    // console.log(modul);
+    // //console.log(modul);
     for (var i = 0, max = modul.getTananyagegysegek().length; i < max; i++) {
         var actCurUnit = modul.getTanegyseg(i);
         if (hour.getTipus() == 1) {
@@ -682,7 +684,7 @@ function deleteEditedSchedule() {
         param: sc.getId()
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
     });
 }
 function addReplacementDay() {
@@ -708,7 +710,7 @@ function addReplacementDay() {
                 } else {
                     replacementdays[i].setKezd(sum - (remain_curunit * 1));
                 }
-                console.log(sum - (remain_curunit * 1));
+                //console.log(sum - (remain_curunit * 1));
 
                 objects[curunit]["used"] = (objects[curunit]["used"] * 1) + (replacementdays[i].getOra() * 1);
                 calcUseableHour();
@@ -869,7 +871,7 @@ function backLoadschedule() {
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
 }
@@ -902,7 +904,7 @@ function backLoadUpdateschedule() {
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
 }
@@ -998,11 +1000,11 @@ function solveUtemTerv_ModelExamTypeForHuman(type) {
 }
 function loadTeacherselects(start, kulonbseg, load) {
     var modal = document.getElementById("loadModal");
-    console.log(start);
+    //console.log(start);
     if (start < sc.getUtemterv().length) {
         var actday = sc.getUtemtervNap(start);
-        console.log(sc.getUtemtervNap(start));
-        console.log(document.getElementById("scTable").getElementsByTagName("tr")[start + 1 - kulonbseg]);
+        //console.log(sc.getUtemtervNap(start));
+        //console.log(document.getElementById("scTable").getElementsByTagName("tr")[start + 1 - kulonbseg]);
 
         modal.style.display = "block";
 
@@ -1048,8 +1050,8 @@ function setTeacherOptionsValue(index, kulonbsegteacher) {
 
     if (index < sc.getUtemterv().length) {
         var actday = sc.getUtemtervNap(index);
-        console.log(sc.getUtemtervNap(index));
-        console.log(document.getElementById("scTable").getElementsByTagName("tr")[index + 1 - kulonbsegteacher]);
+        //console.log(sc.getUtemtervNap(index));
+        //console.log(document.getElementById("scTable").getElementsByTagName("tr")[index + 1 - kulonbsegteacher]);
 
         modal.style.display = "block";
 
@@ -1186,7 +1188,7 @@ function searchTeacher(curUnitId) {
             },
 
             success: function (data) {
-                // console.log(data);
+                // //console.log(data);
                 resolve(data);
             },
             error: function (err) {
@@ -1207,7 +1209,7 @@ function searchForCurUnits(param) {
             },
 
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 resolve(data);
             },
             error: function (err) {
@@ -1351,7 +1353,7 @@ function passscheduleAJAXPROMISE(param) {
             },
 
             success: function (data) {
-                console.log(data);
+                //console.log(data);
 
                 resolve(data);
             },
@@ -1380,7 +1382,7 @@ function loadAnActiveSchedule() {
                     },
 
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                         loadActiveScheduleFrom(data, id);
 
                     },
@@ -1391,13 +1393,13 @@ function loadAnActiveSchedule() {
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
 
 }
 function loadActiveScheduleFrom(data, id) {
-
+    SPSCHEDULEDATA = null;
     document.getElementsByTagName("id")[0].innerHTML = id;
     var spNameAndDates = data.split("/;/")[0];
     var spModulNames = data.split("/;/")[1];
@@ -1406,10 +1408,19 @@ function loadActiveScheduleFrom(data, id) {
     loadModulNames(spModulNames);
     var modulsArray=makeCorrectModulStringInArray(spModulNames);
     makeModul_ModelsfromData(modulsArray, sc);
-    usedReplacementdays = loadSchedule(spSchedule);
+    SPSCHEDULEDATA = spSchedule;
+    
+
+   
+
+}
+function startLoadSchedulePlan(){
+    if(!VOLT){
+        VOLT=true;
+    USEDREPLACEMENTDAYS = loadSchedule(SPSCHEDULEDATA);
     makeTableForShow(4, null);
-    console.log(sc);
-    //console.log(kiiras);
+    //console.log(sc);
+    ////console.log(kiiras);
     if(!hiba){
     document.getElementById("resultTable").innerHTML = kiiras;
      loadTeacherselects(0, 0, true);
@@ -1417,10 +1428,7 @@ function loadActiveScheduleFrom(data, id) {
         hiba=false;
         writeErrorMessageAndTowardToGenerate();
     }
-
-
-   
-
+    }
 }
 function loadBackSecondHalf() {
     setTeacherOptionsValue(0, 0);
@@ -1433,14 +1441,14 @@ function loadBackSecondHalf() {
                 objects = makeObjectFromReturnValue(data);
                 options = makeOptionsFromObjects(objects);
                 document.getElementById("replacementDays_datarow").getElementsByTagName("select")[1].innerHTML = options;
-                loadUsedReplacementDays(usedReplacementdays);
+                loadUsedReplacementDays(USEDREPLACEMENTDAYS);
                 setTimeout(function () {
-                    setBackSelectedTeachersAtReplacementDay(usedReplacementdays);
+                    setBackSelectedTeachersAtReplacementDay(USEDREPLACEMENTDAYS);
                 }, 3000);
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
 
 }
@@ -1492,14 +1500,14 @@ function loadNameAndDatesInputs(spNameAndDates, id) {
     var doctrina_days = makeArrayFomString(NameAndDates[10]);
     var elearn_days = makeArrayFomString(NameAndDates[11]);
     var exercise_days = makeArrayFomString(NameAndDates[12]);
-    console.log(doctrina_days);
-    console.log(elearn_days);
-    console.log(exercise_days);
+    //console.log(doctrina_days);
+    //console.log(elearn_days);
+    //console.log(exercise_days);
     makeWeekUtemterv_bejegyzes_ModelfromArray(doctrina_days, sc, 1);
     makeWeekUtemterv_bejegyzes_ModelfromArray(exercise_days, sc, 2);
     makeWeekUtemterv_bejegyzes_ModelfromArray(elearn_days, sc, 3);
 
-    console.log(spNameAndDates);
+    //console.log(spNameAndDates);
     makeTableForShow(1, null);
     document.getElementById("form-row-name").value = NameAndDates[0];
     document.getElementById("form-row-help-day").value = NameAndDates[7];
@@ -1542,7 +1550,7 @@ function editActiveEducation() {
         },
 
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             loadAnActiveSchedule();
         },
         error: function (err) {
@@ -1617,7 +1625,7 @@ function editscheduleAJAXPROMISE(param) {
             },
 
             success: function (data) {
-                console.log(data);
+                //console.log(data);
 
                 resolve(data);
             },
@@ -1688,7 +1696,32 @@ function backLoadeditschedule() {
 
             })
             .catch(error => {
-                //console.log(error)
+                ////console.log(error)
             });
+
+}
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+function openDefultTab(){
+document.getElementById("defaultOpen").click();
+
 
 }

@@ -13,7 +13,7 @@
                     param: date
 
                 }, function (data, status) {
-                    //console.log(data);
+                    ////console.log(data);
                     var spdate=data.split("-");
                     monthGet(spdate[0]+"-"+(spdate[1]*1)+"-01");
 
@@ -29,10 +29,10 @@
                     param: date
 
                 }, function (data, status) {
-                  //console.log(data);
+                  ////console.log(data);
                 
                 var spStudents = data.split("//");
-                //console.log(spStudents);
+                ////console.log(spStudents);
                  var datesFromServer=spStudents[2].split("/-/");
                  var spLastDateOfMonth=  spStudents[0].split("-");
                     var end= ((spLastDateOfMonth[2]*1)+1);

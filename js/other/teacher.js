@@ -25,7 +25,7 @@ function teacherList() {
         param: "value"
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
@@ -72,7 +72,7 @@ function teacherSend() {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var value;
         if (data != "error") {
             value = '<div class="alert alert-success">Sikeres felvitel!</div>';
@@ -100,7 +100,7 @@ function teacherGet() {
             param: value
 
         }, function (data, status) {
-            //console.log(data);
+            ////console.log(data);
             if (data != "none/;/") {
                 var spData = data.split("/;/");
                 document.getElementById("form-row-name").value = spData[0];
@@ -141,7 +141,7 @@ function teacherGetWithParam(value) {
         param: value[1]
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -196,7 +196,7 @@ function teacherEdit(id) {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -224,6 +224,7 @@ function teacherEdit(id) {
 function deleteConnectteacherAndCurUnit() {
     var muv = "delete_cur_unit_teacher";
     var id = document.getElementById("form-row-oktato").value;
+    if(id!=-1){
     var data = collectCbData("teacherCurUnitOld");
     if(!checkEmptyString(data)){
     var value = new Array(id, data);
@@ -235,16 +236,17 @@ function deleteConnectteacherAndCurUnit() {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
 
             teacher_cur_unit_get(1,1,1,1);
     });
     }
 }
+}
 
 function connectionSend() {
     var oktato = document.getElementById("form-row-oktato").value;
-    
+    if(oktato!=-1){
     var data = collectCbData("teacherCurUnitNew");
     if(!checkEmptyString(data)){
     var value = new Array(oktato, data);
@@ -254,10 +256,11 @@ function connectionSend() {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
             teacher_cur_unit_get(1,1,1,1);
 
     });
+    }
     }
 }
 
@@ -330,7 +333,7 @@ function  makeRowsFromDataTeacher(spCurunits,cbName,type) {
 
     }
 
-    console.log(value);
+    //console.log(value);
     return value;
 }
 function teacher_cur_unit_get(order_new,ordertype_new,order_old,ordertype_old){
@@ -349,6 +352,7 @@ function teacher_cur_unit_List(value,order,ordertype) {
         muv = "list_cur_unit_without_teacher";
         target = "form-row-without";
     }
+    if(id!=-1){
     var sendValue = new Array(id,order+"_"+ordertype);
     var slink = 'server.php';
     $.post(slink, {
@@ -356,7 +360,7 @@ function teacher_cur_unit_List(value,order,ordertype) {
         param: sendValue
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var table ="";
             var spStudents =null;
             if (data != "none;//") {
@@ -381,6 +385,16 @@ function teacher_cur_unit_List(value,order,ordertype) {
 
 
     });
+    }else{
+            if(value==-2){
+                table = makeRowsFromDataTeacher("","teacherCurUnitOld",2);
+                }else{
+                table = makeRowsFromDataTeacher("","teacherCurUnitNew",1);
+                    
+                }
+            document.getElementById(target).innerHTML = table;
+
+    }
 }
 
 function teacherListOption() {
@@ -391,9 +405,10 @@ function teacherListOption() {
         param: "value"
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         if (data != "none;//") {
             var value = "";
+                 value += '<option name="teacher" value="-1">Kérem válasszon oktatót!</option>'
             var spStudents = data.split("//");
             for (var i = 0; i < spStudents.length; i++) {
                 if (!checkEmptyString(spStudents[i])) {

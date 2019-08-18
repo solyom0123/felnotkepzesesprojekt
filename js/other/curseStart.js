@@ -29,7 +29,7 @@ function modulSelectorsMake() {
             param: id
 
         }, function (data, status) {
-            ////console.log(data);
+            //////console.log(data);
             var value = "";
             var spStudents = data.split("//");
             var emptyModulList = false;
@@ -51,7 +51,7 @@ function modulSelectorsMake() {
                         modullist = moduls;
                         for (var i = 1; i < spStudents.length; i++) {
                             if (!checkEmptyString(spStudents[i])) {
-                                //console.log(i);
+                                ////console.log(i);
                                 let atadandotiltott = Object.assign(new Array(), tiltotta);
                                 let atadandohely = Object.assign(new Array(), hasznalt);
                                 let index = "form-row-modul-" + i;
@@ -71,7 +71,7 @@ function modulSelectorsMake() {
                         document.getElementById("error_place").innerHTML = message;
                     })
                     .catch(error => {
-                        //console.log(error)
+                        ////console.log(error)
                     });
 
 
@@ -129,7 +129,7 @@ function checkEnoughDay() {
         param: param
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
 
         var spStudents = data.split("//");
         var message = "";

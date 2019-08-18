@@ -128,6 +128,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(updateSchedule(kapcsolodas()));
 }else if ($muv == "course_start_update") {
     makeUpdateSchedulePlan();
+}else if ($muv == "search-for-curunitcourse") {
+    lekapcsolodas(searchforcurunitcourseid(kapcsolodas()));
 }
 
 

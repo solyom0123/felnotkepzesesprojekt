@@ -130,6 +130,15 @@ if ($muv == "new_modul") {
     makeUpdateSchedulePlan();
 }else if ($muv == "search-for-curunitcourse") {
     lekapcsolodas(searchforcurunitcourseid(kapcsolodas()));
+}else if ($muv == "file_list_get") {
+    lekapcsolodas(file_list(kapcsolodas()));
+}else if ($muv == "upload_file_new") {
+    uploadFileNew();
+    echo "<script>window.close();</script>";
+}else if($muv =="userEdit"){
+    lekapcsolodas(userEdit(kapcsolodas()));    
+}else if ($muv == "getUser") {
+    lekapcsolodas(getLoginData(kapcsolodas()));
 }
 
 
@@ -162,12 +171,12 @@ function lookUpSession() {
 
 function login($conn) {
     global $value;
-    $sql = "select user_id as id, password as pw  from `user` where user_name='" . $value[0] . "'  ";
+    $sql = "select user_id as id, password as pw, permission_id as pi from `user` where user_name='" . $value[0] . "'  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if (password_verify($value[1], $row["pw"])) {
+            if (password_verify($value[1], $row["pw"])&&($row["pi"]==0||$row["pi"]==1)) {
                 echo 'true;' . $row["id"];
             } else {
                 echo 'false;';

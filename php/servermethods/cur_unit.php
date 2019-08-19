@@ -31,6 +31,30 @@ function editCurUnit($conn) {
 
     return $conn;
 }
+function file_list($conn){
+      global $value;
+$sql ='';
+ $order = solveOrderFile($value[2]);
+    $ordertype = solveOrderTypeCurunit($value[3]);
+if($value[0]==0){
+    $sql = "select file_name as fn,upload_time as ut,id  from teacher_files where teacher_id=" . $value[1] . "  order by ".$order." ". $ordertype."";
+}else{
+    $sql = "select file_name as fn,upload_time as ut,id from studymaterials_files where studymaterials_studymaterials_id=" . $value[1] . " order by ".$order." ". $ordertype." ";
+    
+}
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["fn"] . ";" . $row['ut'] . ";" . $row['id'] . "/;/";
+        }
+    } else {
+        echo "none;/;/";
+         echo $conn->error;
+    }
+
+    return $conn;
+}
 function getCurUnit($conn) {
     global $value;
 
@@ -79,3 +103,23 @@ function list_cur_unit_filter($conn) {
     }
     return $conn;
 }
+function solveOrderFile($order) {
+    $returnValue = '';
+    switch ($order) {
+        case "1":
+            $returnValue = "file_name";
+
+            break;
+        case "2":
+            $returnValue = "upload_time";
+
+            break;
+
+        default:
+            $returnValue = "file_name";
+
+            break;
+    }
+    return $returnValue;
+}
+

@@ -1,6 +1,10 @@
 
-
-<div class="row "><h2 class="col-md-12 h2-default">Új akkreditált képzés adatai: </h2>
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Akkreditált képzés alapadatai</button>
+ 
+</div>
+<div id="add" class="tabcontent">
+<div class="row "><h2 class="col-md-12 h2-default">Akkreditált képzés alapadatai: </h2>
     <?php
     if (isset($_POST['param']) && $_POST['muv'] == "load") {
         echo $_POST['param'];
@@ -89,7 +93,7 @@
         </div>
 
     </form>
-
+</div>
 
 
 

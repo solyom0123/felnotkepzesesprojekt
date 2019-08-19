@@ -8,8 +8,12 @@
 ?>
 
 
-
-<div class="row "><h2 class="col-md-12 h2-default">Modul felvitele</h2></div>
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Modul alapadatai</button>
+    
+</div>
+<div id="add" class="tabcontent">
+<div class="row "><h2 class="col-md-12 h2-default">Modul alapadatai</h2></div>
 <?php
 if(isset($_POST['param'])&&$_POST['muv']=="load"){
     echo $_POST['param'];
@@ -135,5 +139,5 @@ if(isset($_POST['param'])&&$_POST['muv']=="edit"){
 
         </div>
     </form>
-
+</div>
                     

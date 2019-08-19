@@ -27,6 +27,8 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
+        $id = getTeacherId();
+        echo ','.$id;
     } else {
         echo 'error';
     }
@@ -37,12 +39,12 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[
 function getTeacher($conn) {
     global $value;
 
-    $sql = "select teacher_full_name as nev,birth_name as bnev,mothers_name as anev,birth_date as bd,birth_place as bp,gender as g,home_address as ha,nationality as n,phone_number as pn,taj  from teachers where teacher_id=" . $value . ";  ";
+    $sql = "select teacher_full_name as nev,birth_name as bnev,mothers_name as anev,birth_date as bd,birth_place as bp,gender as g,home_address as ha,nationality as n,phone_number as pn,taj,userid  from teachers where teacher_id=" . $value . ";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["nev"] . "/;/" . $row['bnev'] . "/;/" . $row['anev'] . "/;/" . $row['bd'] . "/;/" . $row['bp'] . "/;/" . $row['g'] . "/;/" . $row['ha'] . "/;/" . $row['n'] . "/;/" . $row['pn'] . "/;/" . $row['taj'] . "/;/";
+            echo $row["nev"] . "/;/" . $row['bnev'] . "/;/" . $row['anev'] . "/;/" . $row['bd'] . "/;/" . $row['bp'] . "/;/" . $row['g'] . "/;/" . $row['ha'] . "/;/" . $row['n'] . "/;/" . $row['pn'] . "/;/" . $row['taj'] . "/;/" . $row["userid"] . "/;/";
         }
     } else {
         echo "none/;/";
@@ -79,6 +81,21 @@ function list_teacher_cur_unit($conn) {
         }
     } else {
         echo "none;//";
+    }
+    return $conn;
+}
+
+function getLoginData($conn) {
+    global $value;
+    $sql = "select user_name from user where user_id =".$value.  ";";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["user_name"] ;
+        }
+    } else {
+        echo "none//";
     }
     return $conn;
 }
@@ -174,4 +191,22 @@ function solveOrderTypeCurunit($order) {
             break;
     }
     return $returnValue;
+}
+function getTeacherId() {
+    $id = 0;
+    $conn = kapcsolodas();
+   
+        $sql = "select max(teacher_id) as id  from teachers ;";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $id = $row["id"];
+        }
+    } else {
+        $id = 0;
+        echo $conn->error;
+    }
+    lekapcsolodas($conn);
+    return $id;
 }

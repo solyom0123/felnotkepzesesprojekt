@@ -109,7 +109,8 @@ function curunitGet() {
                                         ;
                                         document.getElementById("form-row-gyak").value = spData[4];
                                         document.getElementById("form-row-elearn").value = spData[5];
-
+                                         listUploadedFile(1,value,1,1);
+                                        otherfilemodal(1,value,spData[0]);
 
                                     } else {
                                         link("cur_unit_in_form");
@@ -150,13 +151,13 @@ function searchForCurUnitCourseId(modId) {
 function curunitGetWithParam(value) {
 
     var slink = 'server.php';
-    linkWithData("cur_unit_in_form", value, "edit", 'tartalom-wrapper')
+    linkWithData("cur_unit_in_form", value, "editafter", 'tartalom-wrapper')
                 .then(data => {
                     setTimeout(
                             function () {
                                 $.post(slink, {
                                     muv: "curunitget",
-                                    param: value
+                                    param: value[1]
 
                                 }, function (data, status) {
                                     console.log(data);
@@ -191,8 +192,8 @@ function curunitGetWithParam(value) {
                                         ;
                                         document.getElementById("form-row-gyak").value = spData[4];
                                         document.getElementById("form-row-elearn").value = spData[5];
-
-
+                                        listUploadedFile(1,value[1],1,1);
+                                        otherfilemodal(1,value[1],spData[0]);
                                     } else {
                                         link("cur_unit_in_form");
                                     }
@@ -209,7 +210,81 @@ function curunitGetWithParam(value) {
                     ////console.log(error)
                 });
 }
+function listUploadedFile(type,id,order,ordertype) {
+    var slink = 'server.php';
+    
+    $.post(slink, {
+        muv: "file_list_get",
+        param: new Array(type,id,order,ordertype)
 
+    }, function (data, status) {
+       console.log(data);
+            var spData = data.split("/;/");
+            document.getElementById("form-row-file-list").innerHTML = makefiletable(type,id,spData);
+
+    });
+}
+function  makefiletable(type,id,spCurunits) {
+    var td = "<td>";
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    
+    var down_arrow_start = '<span style="cursor: pointer;"  onclick="listUploadedFile('+type+","+id+",";
+    var down_arrow_end = ',1)"><img src="./img/down_arrow.png" width="20px" height="20px"></span>';
+    var up_arrow_start = '<span   style="cursor: pointer;" onclick="listUploadedFile('+type+","+id+",";
+    var up_arrow_end = ',2)"><img src="./img/up_arrow.png" width="20px" height="20px"></span>';
+    var th_end = '</th>';
+    var value = tr +
+            th_head +
+            "File név " +
+            down_arrow_start + 1 + down_arrow_end +
+            up_arrow_start + 1 + up_arrow_end +
+            th_end +
+            th_head +
+            "feltöltés ideje" +
+            down_arrow_start + 2 + down_arrow_end +
+            up_arrow_start + 2 + up_arrow_end +
+            th_end +
+            th_head +
+            tr_end;
+
+    if (spCurunits[0] != "none;") {
+        for (var i = 0; i < spCurunits.length; i++) {
+
+            if (!checkEmptyString(spCurunits[i])) {
+
+                var spStudent = spCurunits[i].split(";");
+
+                tr = '<tr style="cursor: pointer;" onMouseOver="this.style.color=\'red\'" onMouseOut="this.style.color=\'black\'" >';
+                value += tr +
+                        td +
+                        spStudent[0] +
+                        td_end +
+                        td +
+                        spStudent[1] +
+                        td_end +
+                        tr_end;
+
+            }
+        }
+
+    } else {
+        value += tr +
+                td +
+                'Nincs' +
+                td_end +
+                td +
+                'Nincs' +
+                td_end +
+                tr_end;
+
+    }
+
+    //console.log(value);
+    return value;
+}
 function tanegysegfrissit(id, hova) {
 
     var slink = 'server.php';
@@ -243,4 +318,34 @@ function tanegysegfrissit(id, hova) {
         });
 
     }
+}
+function otherfilemodal(type,id,name) {
+    document.getElementById("form-row-file-id").value =id;
+    document.getElementById("form-row-file-type").value = type;
+    document.getElementById("form-row-main-name").value = name;
+    var filemodal = document.getElementById("fileModal");
+
+    var sendbtn = document.getElementById("filesub");
+
+    var btn = document.getElementById("fileBtn");
+
+    var span = document.getElementById("fileclose");
+
+    btn.onclick = function () {
+        filemodal.style.display = "block";
+    };
+    span.onclick = function () {
+        filemodal.style.display = "none";
+    };
+    sendbtn.onclick = function () {
+        //var sEleresiUt = document.getElementById("form-row-alk").value.split("\\")
+        //document.getElementById("form-row-alk-name").value = sEleresiUt[sEleresiUt.length - 1];
+        setTimeout(function (){
+        listUploadedFile(type,id,1,1);
+            
+        },2000);
+        filemodal.style.display = "none";
+        
+    };
+
 }

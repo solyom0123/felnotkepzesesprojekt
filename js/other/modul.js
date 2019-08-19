@@ -133,6 +133,7 @@ function modulGetWithParam(returnErrorInfoDataArray) {
 
     });
 }
+
 function modulEdit(id) {
     var name = document.getElementById("form-row-name").value;
     var innerModulNO = document.getElementById("form-row-number").value;

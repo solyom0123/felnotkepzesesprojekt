@@ -65,6 +65,9 @@ function loadingModuls(linkfr) {
         VOLT=false;
        // coursefilemodal();
     }
+    if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"){
+         openDefultTab();
+    }
     if (linkfr == "date_in_form") {
         var date = new Date();
         var stringDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-01";

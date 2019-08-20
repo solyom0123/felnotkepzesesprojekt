@@ -1,5 +1,21 @@
 <?php
+function getActiveEducationSchemas() {
+    
+    $conn = kapcsolodas();
+        $sql = "select `name`  as n , id as i  from schedule_plan_data ;";
+   
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["i"].";".$row["n"]."/;/";
+        }
+    } else {
+        echo "none;";
+    }
+    lekapcsolodas($conn);
 
+}
 function makeSchedulePlan() {
     global $value;
     lekapcsolodas(insertSchedule(kapcsolodas()));

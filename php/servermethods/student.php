@@ -151,3 +151,25 @@ function getNewUserid() {
     lekapcsolodas($conn);
     return $id;
 }
+function getUsedNames() {
+    global $value;
+    
+    $conn = kapcsolodas();
+   if($value[0]==1){
+    $sql = "select user_name as n  from `user` where user_name like '".$value[1]."%';";
+   }else{
+        $sql = "select `name`  as n  from schedule_plan_data where `name` like '".$value[1]."%';";
+   
+   }
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["n"].";";
+        }
+    } else {
+        echo "none;";
+    }
+    lekapcsolodas($conn);
+
+}

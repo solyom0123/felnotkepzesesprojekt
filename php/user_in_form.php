@@ -235,8 +235,15 @@
             
             <label for="form-row-uname" class="col-md-4 col-form-label">Felhasználó név:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-uname" id="form-row-uname" type="text"  placeholder="Név">
-            </div> 
+                    <div class=" dropup">
+                        <div class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <input autocomplete="new-password" onkeyup="getUsedName(1)" class="form-control-plaintext" name="form-row-uname" id="form-row-uname" type="text"  placeholder="Név">
+                        </div>
+                        <div class="dropdown-menu">
+                          
+                        </div>
+                    </div>
+                </div>
 
             <div class="col-md-4 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy felhasználó nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>

@@ -36,6 +36,7 @@ function loadingModuls(linkfr) {
         modulEducation(true);
     } else if (linkfr == "course_start"||linkfr == "course_start_edit") {
         modulEducation(false);
+        getActiveEduScheme();
         //clearUsedSelectChooseArrays();
     }
     if (linkfr == "course_in_form") {
@@ -65,6 +66,7 @@ function loadingModuls(linkfr) {
         VOLT=false;
        // coursefilemodal();
     }
+    
     if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"){
          openDefultTab();
     }

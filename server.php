@@ -139,7 +139,12 @@ if ($muv == "new_modul") {
     lekapcsolodas(userEdit(kapcsolodas()));    
 }else if ($muv == "getUser") {
     lekapcsolodas(getLoginData(kapcsolodas()));
+}else if ($muv == "getUsedName") {
+    getUsedNames();
+}else if ($muv == "getActiveEduSchemee") {
+    getActiveEducationSchemas();
 }
+
 
 
 function kapcsolodas() {

@@ -7,13 +7,32 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 }
 ?>
 <div class="row "><h2 class="col-md-12 h2-default">Képzés(tanfolyam) indítása</h2></div>
-
+<id style="display: none"></id>
 <form >
+    <div class="form-group row">
+        <label for="form-row-sema" class="col-md-4 col-form-label">Betölthető már mentett aktív képzések:</label>
+        <div class="col-md-4">
+            <select onchange="backloadActiveEduSchema()" class="form-control-plaintext" name="form-row-sema" id="form-row-sema" >
+                
+            </select>
+        </div>
+
+        <div class="col-md-4 ">
+            <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
     <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Belső azonosító:</label>
         <div class="col-md-4">
-            <input class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Belső azonosító">
-        </div> 
+                    <div class=" dropup col-md-12">
+                        <div class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <input autocomplete="new-password" onkeyup="getUsedName(2)" class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
+                        </div>
+                        <div class="dropdown-menu col-md-12" >
+                          
+                        </div>
+                    </div>
+                </div>
 
         <div class="col-md-4 ">
             <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>

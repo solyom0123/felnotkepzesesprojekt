@@ -10,15 +10,7 @@ function modulSend() {
     var szobeli_ora = document.getElementById("form-row-szobeli-ora").value;
     var gyakorlati_ora = document.getElementById("form-row-gyak-ora").value;
 
-    if (!document.getElementById('form-row-szobeli').checked) {
-        szobeli_ora = -1;
-    }
-    if (!document.getElementById('form-row-gyakorlati').checked) {
-        gyakorlati_ora = -1;
-    }
-    if (!document.getElementById('form-row-irasbeli').checked) {
-        irasbeli_ora = -1;
-    }
+
     var value = new Array(name, azon, kepzes, elm, gyak, irasbeli_ora, szobeli_ora, gyakorlati_ora);
     var slink = 'server.php';
     $.post(slink, {
@@ -66,24 +58,14 @@ function modulGet() {
                 document.getElementById("form-row-elm").value = spData[3];
                 ;
                 document.getElementById("form-row-gyak").value = spData[4];
-                if (spData[5] != -1) {
-                    document.getElementById("form-row-irasbeli-ora").value = spData[5];
-                    document.getElementById("form-row-irasbeli").checked = true;
+                document.getElementById("form-row-irasbeli-ora").value = spData[5];
+                document.getElementById("form-row-szobeli-ora").value = spData[6];
+                document.getElementById("form-row-gyak-ora").value = spData[7];
+                setTimeout(function () {
+                    document.getElementById("form-row-kepzes").value = spData[2];
                     ;
-                }
-                if (spData[6] != -1) {
-                    document.getElementById("form-row-szobeli-ora").value = spData[6];
-                    document.getElementById("form-row-szobeli").checked = true;
-                }
-                if (spData[7] != -1) {
-                    document.getElementById("form-row-gyak-ora").value = spData[7];
-                    document.getElementById("form-row-gyakorlati").checked = true;
-                }
-                     setTimeout(function (){
-                document.getElementById("form-row-kepzes").value = spData[2];
-                ;
-            },1000);
-           
+                }, 1000);
+
 
             } else {
                 link("modul_in_form");
@@ -109,7 +91,7 @@ function modulGetWithParam(returnErrorInfoDataArray) {
             ;
             document.getElementById("form-row-number").value = spData[1];
             ;
-            
+
             document.getElementById("form-row-elm").value = spData[3];
             ;
             document.getElementById("form-row-gyak").value = spData[4];
@@ -120,10 +102,10 @@ function modulGetWithParam(returnErrorInfoDataArray) {
             ;
             document.getElementById("form-row-gyak-ora").value = spData[7];
             ;
-                setTimeout(function (){
+            setTimeout(function () {
                 document.getElementById("form-row-kepzes").value = spData[2];
                 ;
-            },1000);
+            }, 1000);
 
 
         } else {
@@ -144,15 +126,7 @@ function modulEdit(id) {
     var speakingTestClassNumber = document.getElementById("form-row-szobeli-ora").value;
     var practiseTestClassNumber = document.getElementById("form-row-gyak-ora").value;
 
-    if (!document.getElementById('form-row-szobeli').checked) {
-        speakingTestClassNumber = -1;
-    }
-    if (!document.getElementById('form-row-gyakorlati').checked) {
-        practiseTestClassNumber = -1;
-    }
-    if (!document.getElementById('form-row-irasbeli').checked) {
-        writtingTestClassNumber = -1;
-    }
+
     var sendModulDataArray = new Array(name, innerModulNO, courseId, doctrineClassNumber, exerciseClassNumber, writtingTestClassNumber, speakingTestClassNumber, practiseTestClassNumber, id);
     var slink = 'server.php';
     $.post(slink, {
@@ -265,7 +239,7 @@ function modulRefesh(id, targetDiv) {
                     if (!checkEmptyString(spReturnDataList[i])) {
                         var spReturnDataItem = spReturnDataList[i].split(";");
 
-                        returnSelectorOptions += '<option value="' + spReturnDataItem[2] + '">' + spReturnDataItem[0] + '|| ' + spReturnDataItem[1] + '</option>';
+                        returnSelectorOptions += '<option value="' + spReturnDataItem[2] + '">' + spReturnDataItem[0] + '</option>';
                     }
                 }
                 document.getElementById(targetDiv).innerHTML = "";
@@ -280,6 +254,133 @@ function modulRefesh(id, targetDiv) {
     });
 
 
+}
+function getAccessForModul() {
+    var value = document.getElementById("modul-list").value;
+
+
+    if (value != -1) {
+        hiba = false;
+        document.getElementById("alertdiv").innerHTML = "";
+        var modul_data = null;
+        var calc_data = null;
+        $.ajax({
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: value,
+                muv: "modulgetCalc"
+            },
+
+            success: function (moduls) {
+                console.log(moduls);
+                var spmoduls = moduls.split(";,;,;");
+                modul_data = spmoduls[0];
+                calc_data = spmoduls[1];
+                resolveAccessData(modul_data, calc_data);
+            },
+            error: function (err) {
+            }
+        });
+    }
+}
+function modulAccessPass() {
+    var value = document.getElementById("modul-list").value;
+
+
+    if (value != -1) {
+        $.ajax({
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: value,
+                muv: "modulAccessPass"
+            },
+
+            success: function (moduls) {
+                getAccessForModul();
+            },
+            error: function (err) {
+            }
+        });
+    }
+}
+function resolveAccessData(modul_data, calc_data) {
+    var hibatext = '<div class="alert alert-warning">Következő hibák léptek fel:';
+    hibatext += rewriteModul(modul_data);
+    hibatext += rewriteCalcData(calc_data);
+    hibatext += calcDiff(modul_data, calc_data);
+    if (hiba) {
+        document.getElementById("sendBtnCalc").style.display = "none";
+        hibatext += '</div>';
+        document.getElementById("alertdiv").innerHTML = hibatext;
+    } else {
+        document.getElementById("sendBtnCalc").style.display = "block";
+    }
+
+}
+function calcDiff(modul_data, calc_data) {
+    var lochibatext = '';
+    var spModul_data = modul_data.split('/;/');
+    var spCalc_data = calc_data.split('/;/');
+    if (((spCalc_data[0] * 1) + (spCalc_data[1] * 1) + (spCalc_data[2] * 1)) != ((spModul_data[3] * 1) + (spModul_data[4] * 1))) {
+        hiba = true;
+        lochibatext += "nincs elég/túl sok tananyagegység van hozzárendelve a modulhoz"
+    }
+    return lochibatext;
+}
+function  rewriteModul(modul_data) {
+    var lochibatext = '';
+    var spModul_data = modul_data.split('/;/');
+    if (spModul_data[10] == "true" && spModul_data[9] != "0000-00-00") {
+        document.getElementById("form-row-state").value = "Engedélyezett";
+        document.getElementById("form-row-state-date").value = spModul_data[9];
+        hiba = true;
+        lochibatext += "már engedélyezett modul,";
+
+    } else {
+        document.getElementById("form-row-state").value = "Nem engedélyezett";
+        document.getElementById("form-row-state-date").value = spModul_data[8];
+    }
+    var hourText = '<input type="text" value="Elmélet: ' + spModul_data[3] + '" readonly><br><input type="text" value="Gyakorlat: ' + spModul_data[4] + '" readonly>';
+    document.getElementById("ahour").innerHTML = hourText;
+
+    if (((spModul_data[3] * 1) + (spModul_data[4] * 1)) == 0) {
+        hiba = true;
+        lochibatext += "nincs megadva semmien óraszám a modulhoz,";
+    }
+    var examText = '';
+    if (spModul_data[5] != "-1") {
+        examText += '<input type="text" value="Írásbeli vizsga: ' + spModul_data[5] + '" readonly><br>';
+    }
+    if (spModul_data[6] != "-1") {
+        examText += '<input type="text" value="Szóbeli vizsga: ' + spModul_data[6] + '" readonly><br>';
+    }
+    if (spModul_data[7] != "-1") {
+        examText += '<input type="text" value="Gyakorlati vizsga: ' + spModul_data[7] + '" readonly><br>';
+    }
+    if (examText != '') {
+        document.getElementById("exams").innerHTML = examText;
+
+    } else {
+        hiba = true;
+        lochibatext += "nincs vizsga felvíve a modulhoz,";
+    }
+
+    return lochibatext;
+}
+function  rewriteCalcData(calc_data) {
+    var lochibatext = '';
+    var spModul_data = calc_data.split('/;/');
+
+    var hourText = '<input type="text" value="Elmélet: ' + ((spModul_data[0] * 1) + (spModul_data[1] * 1)) + '" readonly><br><input type="text" value="Gyakorlat: ' + spModul_data[2] + '" readonly>';
+    document.getElementById("dbdata").innerHTML = hourText;
+
+    if (((spModul_data[0] * 1) + (spModul_data[1] * 1) + (spModul_data[2] * 1)) == 0) {
+        hiba = true;
+        lochibatext += "nincs semmien tananyagegység hozzárendelve a modulhoz,"
+    }
+    return lochibatext;
 }
 function modulRefeshwithParametersAJAXCALL(id, nonorderd) {
     var slink = 'server.php';

@@ -52,6 +52,11 @@ if ($muv == "new_modul") {
     lekapcsolodas(editModul(kapcsolodas()));
 }else if ($muv == "modulget") {
     lekapcsolodas(getModul(kapcsolodas()));
+}else if ($muv == "modulgetCalc") {
+    lekapcsolodas(getModul(kapcsolodas()));
+    echo ';,;,;';
+    lekapcsolodas(getCalcModulNeeded(kapcsolodas()));
+
 } else if ($muv == "upload_kep") {
     uploadImage();
     echo "<script>window.close();</script>";
@@ -143,6 +148,8 @@ if ($muv == "new_modul") {
     getUsedNames();
 }else if ($muv == "getActiveEduSchemee") {
     getActiveEducationSchemas();
+}else if ($muv == "modulAccessPass") {
+    lekapcsolodas(passModul(kapcsolodas()));
 }
 
 

@@ -77,11 +77,8 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div>
         <div class="form-group row">
             <label for="form-row-irasbeli" class="col-md-4 col-form-label">Írásbeli vizsga:</label>
-            <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-irasbeli" type="checkbox"  >
-            </div> 
-    <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-elm" id="form-row-irasbeli-ora" type="text"  placeholder="szükséges óraszám">
+             <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-elm" id="form-row-irasbeli-ora" type="number" min="0" placeholder="szükséges óraszám">
             </div> 
 
             <div class="col-md-4 ">
@@ -90,11 +87,9 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div>
         <div class="form-group row">
             <label for="form-row-szobeli" class="col-md-4 col-form-label">Szóbeli vizsga:</label>
-            <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-name" id="form-row-szobeli" type="checkbox"  >
-            </div> 
-            <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-elm" id="form-row-szobeli-ora" type="text"  placeholder="szükséges óraszám">
+            
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-elm" id="form-row-szobeli-ora" type="number" min="0" placeholder="szükséges óraszám">
             </div> 
 
             <div class="col-md-4 ">
@@ -103,11 +98,8 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         </div>
         <div class="form-group row">
             <label for="form-row-gyakorlati" class="col-md-4 col-form-label">Gyakorlati vizsga:</label>
-            <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-gyakorlati" id="form-row-gyakorlati" type="checkbox"  >
-            </div> 
-            <div class="col-md-2">
-                <input class="form-control-plaintext" name="form-row-elm" id="form-row-gyak-ora" type="text"  placeholder="szükséges óraszám">
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-elm" id="form-row-gyak-ora" type="number" min="0"  placeholder="szükséges óraszám">
             </div> 
 
             <div class="col-md-4 ">

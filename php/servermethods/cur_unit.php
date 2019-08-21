@@ -8,11 +8,15 @@
 
 function insertCurUnit($conn) {
     global $value;
+    
     $sql = "INSERT INTO studymaterials (study_materials_name,description,modul_id, doctrine,exercise, elearn)
 VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."','" . $value[5] ."')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
+        if($value[2]!=-1){
+            lekapcsolodas(editModulModDate(kapcsolodas(), $value[2]));
+        }
     } else {
         echo 'error';
     }
@@ -21,10 +25,29 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3
 }
 function editCurUnit($conn) {
     global $value;
+    $used_modul_id =0;
+    $sql = "select modul_id as id from studymaterials where studymaterials_id=" . $value[6] . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+        $used_modul_id =   $row['id']  ;
+         if($used_modul_id!=-1){
+            lekapcsolodas(editModulModDate(kapcsolodas(), $used_modul_id));
+        }
+            
+        }
+    } else {
+        echo "none/;/";
+    }
+            
     $sql = "UPDATE studymaterials SET study_materials_name='" . $value[0] . "', description='" . $value[1] . "', modul_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',elearn='" . $value[5] . "' where studymaterials_id=".$value[6];
-
+    
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
+         if($value[2]!=-1){
+            lekapcsolodas(editModulModDate(kapcsolodas(), $value[2]));
+        }
     } else {
         echo 'error'.$conn->error;
     }

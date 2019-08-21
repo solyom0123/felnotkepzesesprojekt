@@ -37,6 +37,8 @@ function loadingModuls(linkfr) {
     } else if (linkfr == "course_start"||linkfr == "course_start_edit") {
         modulEducation(false);
         getActiveEduScheme();
+         lockAllFieldsCourseStartForm(false);
+        lockAllModulSelector(false);
         //clearUsedSelectChooseArrays();
     }
     if (linkfr == "course_in_form") {
@@ -66,9 +68,16 @@ function loadingModuls(linkfr) {
         VOLT=false;
        // coursefilemodal();
     }
-    
+      if (linkfr == "modul_access_in_form") {
+        
+        openDefultTab();
+         hiba = false;
+         modulEducation(true);
+       // coursefilemodal();
+    }
     if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"){
-         openDefultTab();
+         
+        openDefultTab();
     }
     if (linkfr == "date_in_form") {
         var date = new Date();

@@ -250,9 +250,9 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             </table>
         </div> 
     <div class="form-group row">
-        <div onclick="saveSchedule()" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés"></div>
+        <div onclick="saveSchedule()" ><input type="button" name="log-form" class="btn col-md-4 btn option-button" value="Mentés"></div>
          <div class="col-md-2"></div>
-        <div onclick="gettingStart();setElozo('course_start')" ><input type="button" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés és generálás"></div>
+         <div onclick="gettingStart();setElozo('course_start')" ><input type="button" style="display: none" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés és generálás"></div>
 
 
 

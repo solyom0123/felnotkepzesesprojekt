@@ -8,8 +8,8 @@
 
 function insertModul($conn) {
     global $value;
-    $sql = "INSERT INTO modul (modul_name,modul_number,education_id,doctrine,exercise,writting_test,verbal_test,practical_test)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "')";
+    $sql = "INSERT INTO modul (modul_name,modul_number,education_id,doctrine,exercise,writting_test,verbal_test,practical_test,mod_date)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "',NOW()) ";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -49,13 +49,14 @@ function list_modul_filter($conn) {
         }
     } else {
         echo "none;//";
+        echo $conn->error;
     }
     return $conn;
 }
 
 function editModul($conn) {
     global $value;
-    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "' where modul_id=" . $value[8];
+    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $value[3] . "',exercise='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "',mod_date = NOW() where modul_id=" . $value[8];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -65,24 +66,101 @@ function editModul($conn) {
 
     return $conn;
 }
-
-function getModul($conn) {
+function passModul($conn) {
     global $value;
+    $sql = "UPDATE modul SET pass_date=NOW() where modul_id=" . $value;
 
-    $sql = "select modul_name as nev,modul_number as okj,education_id as id,doctrine as d, exercise as e, writting_test as w,verbal_test as v, practical_test as  p from modul where modul_id=" . $value . ";  ";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/" . $row['d'] . "/;/" . $row["e"] . "/;/" . $row['w'] . "/;/" . $row['v'] . "/;/" . $row['p'] . "/;/ ";
-        }
+    if ($conn->query($sql) === TRUE) {
+        //echo 'ok';
     } else {
-        echo "none/;/";
+        //echo 'error' . $conn->error;
     }
 
     return $conn;
 }
+function editModulModDate($conn,$id) {
+   
+    $sql = "UPDATE modul SET mod_date=NOW() where modul_id=" . $id;
 
+    if ($conn->query($sql) === TRUE) {
+       // echo 'ok';
+    } else {
+        //echo 'error' . $conn->error;
+    }
+
+    return $conn;
+}
+function ispassModul($id) {
+   $conn = kapcsolodas();
+   $pass=false;
+    $sql = "select (select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $id . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+           if( $row["state"]=="true"){
+               $pass= true;
+           }
+        }
+    } else {
+        echo "none/;/";
+        echo $conn->error;
+    }
+    
+    lekapcsolodas($conn);
+    return $pass;
+}
+function getNameModul($id) {
+   $conn = kapcsolodas();
+   $pass='névtelen modul';
+    $sql = "select modul_name as na from modul where modul_id=" . $id . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+           $pass =$row["na"];
+        }
+    } else {
+        echo "none/;/";
+        echo $conn->error;
+    }
+    
+    lekapcsolodas($conn);
+    return $pass;
+}
+function getModul($conn) {
+    global $value;
+
+    $sql = "select modul_name as nev,modul_number as okj,education_id as id,doctrine as d, exercise as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/" . $row['d'] . "/;/" . $row["e"] . "/;/" . $row['w'] . "/;/" . $row['v'] . "/;/" . $row['p'] . "/;/" . $row['md'] . "/;/" . $row['pd']. "/;/" . $row['state'];
+        }
+    } else {
+        echo "none/;/";
+        echo $conn->error;
+    }
+
+    return $conn;
+}
+function getCalcModulNeeded($conn) {
+    global $value;
+
+    $sql = "select sum(doctrine) as d,sum(elearn) as e,sum(exercise) as ex from studymaterials where modul_id=" . $value . ";  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["d"]."/;/".$row["e"] . "/;/".$row["ex"] ;
+        }
+    } else {
+        echo "0/;/0";
+    }
+
+    return $conn;
+}
 function list_modul_for_course_with_piece($conn) {
     global $value;
     $sql = "select count(*) as darab from modul where education_id=" . $value . " or education_id=-1;  ";
@@ -122,11 +200,13 @@ function enough_day($conn) {
     $endweek = 0;
     $allweek = 0;
     $endofsql = " ";
-
+    $badmodul = array();
     if (count($value[8]) > 0) {
         $i = 0;
         foreach ($value[8] as $modulnumber) {
-
+            if(!ispassModul($modulnumber)){
+                array_push($badmodul, $modulnumber);
+            }
             $endofsql .= " modul_id=" . $modulnumber . " ";
             if ($i < count($value[8]) - 1) {
                 $endofsql .= "or";
@@ -312,6 +392,15 @@ function enough_day($conn) {
           echo   "exe,".$biggest_exe_exam."//";
      }else{
          echo ''; 
+     }
+     echo '/;/';
+     if(count($badmodul)>0){
+         echo 'true//';
+     }else{
+          echo 'false//';
+     }
+     for ($index = 0; $index < count($badmodul); $index++) {
+         echo getNameModul($badmodul[$index]).';';
      }
     return $conn;
 }

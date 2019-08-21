@@ -53,7 +53,7 @@ function getActiveEduScheme() {
 
 
         } else {
-            var text = '<option value="-1">Nincs elmentet séma!</option>';
+            var text = '<option value="-1">Nincs elmentett séma!</option>';
         }
         document.getElementById("form-row-sema").innerHTML = text;
     });
@@ -69,8 +69,8 @@ function backloadActiveEduSchema() {
 }
 function saveSchedule() {
     var formDataArray = new Array();
-    //lockAllFieldsCourseStartForm(true);
-    //lockAllModulSelector(true);
+    lockAllFieldsCourseStartForm(true);
+    lockAllModulSelector(true);
     collectDatainArray(formDataArray);
 
     // //console.log(formDataArray);
@@ -86,8 +86,8 @@ function saveSchedule() {
 function updateSchedule() {
     var id = document.getElementsByTagName("id")[0].innerHTML;
     var formDataArray = new Array();
-    //lockAllFieldsCourseStartForm(true);
-    //lockAllModulSelector(true);
+    lockAllFieldsCourseStartForm(true);
+    lockAllModulSelector(true);
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length] = id;
     //console.log(formDataArray);
@@ -104,8 +104,8 @@ function updateSchedule() {
 function gettingupdateStart() {
     var id = document.getElementsByTagName("id")[0].innerHTML;
     var formDataArray = new Array();
-    //lockAllFieldsCourseStartForm(true);
-    //lockAllModulSelector(true);
+    lockAllFieldsCourseStartForm(true);
+    lockAllModulSelector(true);
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length] = id;
 
@@ -148,10 +148,12 @@ function gettingupdateStart() {
 }
 function gettingStart() {
     var formDataArray = new Array();
-    //lockAllFieldsCourseStartForm(true);
-    //lockAllModulSelector(true);
+    lockAllFieldsCourseStartForm(true);
+    lockAllModulSelector(true);
+    checkEnoughDay();
+    if(hiba==false){
     collectDatainArray(formDataArray);
-
+    
     // //console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
@@ -159,7 +161,7 @@ function gettingStart() {
         param: formDataArray
 
     }, function (data, status) {
-        // //console.log(data);
+        //console.log(data);
         kiiras = "";
         sc = null;
         objects = null;
@@ -188,6 +190,10 @@ function gettingStart() {
         //console.log(schedule);
         showResult(schedule);
     });
+    }else{
+        lockAllFieldsCourseStartForm(false);
+        lockAllModulSelector(false); 
+    }
 }
 function makeTableForShow(type, data) {
     var table = '<table id="scTable" onload="loadTeacherselects(0)">';
@@ -549,6 +555,7 @@ function makeModul_ModelsfromData(dataArray, schedule) {
         if (!checkEmptyString(dataArray[i])) {
             var spModulData = dataArray[i].split(";");
             let modul = new Modul_Model(spModulData[1], spModulData[0], spModulData[2], spModulData[3], spModulData[4]);
+            
             makeExamForModul_Models(modul, 1, spModulData[5]);
             makeExamForModul_Models(modul, 2, spModulData[6]);
             makeExamForModul_Models(modul, 3, spModulData[7]);
@@ -601,7 +608,7 @@ function addCurUnitForModul(modul, array) {
     }
 }
 function makeExamForModul_Models(modul, exam_type, exam_hour) {
-    if (exam_hour != -1) {
+    if (exam_hour != "0"&&exam_hour != 0) {
         modul.addVizsga(new Vizsga_Model(exam_type, exam_hour));
     }
 }
@@ -1199,7 +1206,7 @@ function makeOptionsFromReplacemetnDays(replacementdays) {
         returnValue += '<option value="-1">Kérem válasszon egy dátumot!</option>';
 
         for (var i = 0, max = replacementdays.length; i < max; i++) {
-            returnValue += '<option value="' + replacementdays[i].getdatum() + '">' + replacementdays[i].getdatum() + '</option>';
+            returnValue += '<option value="' + replacementdays[i].getdatum() + '">' + replacementdays[i].getdatum() +", "+replacementdays[i].getOra()+ ' óra </option>';
 
         }
     } else {

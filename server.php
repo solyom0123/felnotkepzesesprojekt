@@ -150,7 +150,20 @@ if ($muv == "new_modul") {
     getActiveEducationSchemas();
 }else if ($muv == "modulAccessPass") {
     lekapcsolodas(passModul(kapcsolodas()));
+}else if ($muv == "list_dates_for_active") {
+    lekapcsolodas(list_dates_for_active(kapcsolodas()));
+}else if ($muv == "list_students_for_active") {
+    lekapcsolodas(list_students_for_active(kapcsolodas()));
+}else if ($muv == "table_dates") {
+    lekapcsolodas(table_for_date(kapcsolodas()));
+}else if ($muv == "table_student") {
+    lekapcsolodas(table_for_student(kapcsolodas()));
+}else if ($muv == "insertMissing") {
+    lekapcsolodas(insertorUpdateMissing(kapcsolodas()));
+}else if ($muv == "getMissing") {
+    lekapcsolodas(getMissing(kapcsolodas()));
 }
+
 
 
 

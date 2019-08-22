@@ -25,7 +25,7 @@
                     <div onclick="loadAnActiveSchedule();setElozo('act-course-page')">
                         <img src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="200" height="200">
                         <div class="span-half-corner-large">
-                            <span>ütemterv módosítás(Nem generál új ütemtervet)</span>
+                            <span>ütemterv módosítás<br>(Nem generál új ütemtervet)</span>
                         </div></div></div></td>
 
         </tr>

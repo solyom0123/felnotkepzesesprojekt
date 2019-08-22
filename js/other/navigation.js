@@ -34,7 +34,8 @@ function megsem() {
 function loadingModuls(linkfr) {
     if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list") {
         modulEducation(true);
-    } else if (linkfr == "course_start"||linkfr == "course_start_edit") {
+    } 
+    if (linkfr == "course_start"||linkfr == "course_start_edit") {
         modulEducation(false);
         getActiveEduScheme();
          lockAllFieldsCourseStartForm(false);
@@ -46,9 +47,11 @@ function loadingModuls(linkfr) {
         coursefilemodal();
 
     }
-    if (linkfr == "user_con_form") {
+  
+    if (linkfr == "missing_in_form") {
         openDefultTab();
-
+        activeCourseListOptions(0,"form-row-aktiv-kepzes");
+        activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
     }
     if (linkfr == "actually_course") {
         activeCourseList(1,1);
@@ -75,7 +78,7 @@ function loadingModuls(linkfr) {
          modulEducation(true);
        // coursefilemodal();
     }
-    if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"){
+    if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"||linkfr == "user_con_form"){
          
         openDefultTab();
     }

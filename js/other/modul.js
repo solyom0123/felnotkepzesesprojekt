@@ -339,7 +339,7 @@ function  rewriteModul(modul_data) {
         lochibatext += "már engedélyezett modul,";
 
     } else {
-        document.getElementById("form-row-state").value = "Nem engedélyezett";
+        document.getElementById("form-row-state").value = "Módosítva";
         document.getElementById("form-row-state-date").value = spModul_data[8];
     }
     var hourText = '<input type="text" value="Elmélet: ' + spModul_data[3] + '" readonly><br><input type="text" value="Gyakorlat: ' + spModul_data[4] + '" readonly>';

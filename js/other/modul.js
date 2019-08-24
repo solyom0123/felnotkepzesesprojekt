@@ -183,6 +183,7 @@ function modulList(targetDiv) {
 
     });
 }
+
 function modulEducation(list) {
 
     var slink = 'server.php';

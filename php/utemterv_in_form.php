@@ -19,7 +19,7 @@
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Aktív képzés adatai</button>
     <button class="tablinks" onclick="startLoadSchedulePlan();openCity(event, 'delete')">Ütemterv</button>
-
+    <button class="tablinks" onclick="openCity(event, 'bonus')">Bónusz napok</button>
 </div>
 <div id="add" class="tabcontent">
     <div class="row "><h2 class="col-md-12 h2-default">Aktív képzés adatai</h2></div>
@@ -105,6 +105,17 @@
 </div>
 <div id="delete" class="tabcontent">
     <div class="row "><h2 class="col-md-12 h2-default">Ütemterv</h2></div>
+<div class="col-md-12 "id="resultTable">
+    </div>
+    <div class="form-group row">
+        <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn">Elfogad!</div></a>
+    </div>
+    <div class="form-group row">
+        <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>
+    </div>
+</div>
+<div id="bonus" class="tabcontent">
+    <div class="row "><h2 class="col-md-12 h2-default">Bónusznapok</h2></div>
 
 
     <div class="col-md-12 alert-info" id="replacementDays">
@@ -120,7 +131,7 @@
         </div>
         <div class="col-md-12" id="replacementDays_datarow">
             <select  class="col-md-2" onchange="calcReplacementDayHours()"></select>
-            <div class="col-md-2"></div>
+           <div class="col-md-2"><input type="number" min="0" class="col-md-12"></div>
             <select class="col-md-2" onchange="calcUseableHour()"></select>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
@@ -129,7 +140,7 @@
         </div>
 
     </div>
-    <div class="col-md-12 "id="resultTable">
+    <div class="col-md-12 "id="bonustable">
     </div>
     <div class="form-group row">
         <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn">Elfogad!</div></a>

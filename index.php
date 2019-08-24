@@ -41,7 +41,8 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/model/Utemterv_bejegyzes_Model.js"></script>
         <script type="text/javascript" src="./js/model/Vizsga_Model.js"></script>
         <script type="text/javascript" src="./js/other/date.js"></script>
-
+        <script type="text/javascript" src="./js/other/bonus_unit.js"></script>
+        <script type="text/javascript" src="./js/other/bonus_teacher.js"></script>
         <script type="text/javascript" src="./js/other/active_courses.js"></script>
 
         <script>

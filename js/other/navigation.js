@@ -34,7 +34,10 @@ function megsem() {
 function loadingModuls(linkfr) {
     if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list") {
         modulEducation(true);
-    } 
+    }
+    if(linkfr == "bonus_unit_list"){
+        bonusunitList('bonus_unit_list');
+    }
     if (linkfr == "course_start"||linkfr == "course_start_edit") {
         modulEducation(false);
         getActiveEduScheme();
@@ -78,7 +81,7 @@ function loadingModuls(linkfr) {
          modulEducation(true);
        // coursefilemodal();
     }
-    if(linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"||linkfr == "user_con_form"){
+    if(linkfr == "bonus_teacher_in_form"||linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "bonus_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"||linkfr == "user_con_form"){
          
         openDefultTab();
     }

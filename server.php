@@ -44,7 +44,9 @@ if ($muv == "new_modul") {
     lekapcsolodas(editCourse(kapcsolodas()));
 } else if ($muv == "list_course") {
     lekapcsolodas(list_course(kapcsolodas()));
-} else if ($muv == "modulSend") {
+}else if ($muv == "list_bonus") {
+    lekapcsolodas(list_bonus(kapcsolodas()));
+}else if ($muv == "modulSend") {
     lekapcsolodas(insertModul(kapcsolodas()));
 } else if ($muv == "list_modul") {
     lekapcsolodas(list_modul(kapcsolodas()));
@@ -66,7 +68,9 @@ if ($muv == "new_modul") {
 }else if ($muv == "list_modul_filter") {
     lekapcsolodas(list_modul_filter(kapcsolodas()));
 } else if ($muv == "curunitSend") {
-    lekapcsolodas(insertCurUnit(kapcsolodas()));
+    lekapcsolodas(insertCurUnit(kapcsolodas(),false));
+}else if ($muv == "bonusunitSend") {
+    lekapcsolodas(insertCurUnit(kapcsolodas(),true));
 } else if ($muv == "curunitEdit") {
     lekapcsolodas(editCurUnit(kapcsolodas()));
 } else if ($muv == "curunitget") {
@@ -74,25 +78,35 @@ if ($muv == "new_modul") {
 } else if ($muv == "list_cur_unit_filter") {
     lekapcsolodas(list_cur_unit_filter(kapcsolodas()));
 } else if ($muv == "list_teacher") {
-    lekapcsolodas(list_teacher(kapcsolodas()));
+    lekapcsolodas(list_teacher(kapcsolodas(),false));
+}else if ($muv == "list_bonus_teacher") {
+    lekapcsolodas(list_teacher(kapcsolodas(),true));
 } else if ($muv == "teacherSend") {
-    lekapcsolodas(insertTeacher(kapcsolodas()));
+    lekapcsolodas(insertTeacher(kapcsolodas(),false));
+}else if ($muv == "bonusteacherSend") {
+    lekapcsolodas(insertTeacher(kapcsolodas(),true));
 } else if ($muv == "teacherget") {
     lekapcsolodas(getTeacher(kapcsolodas()));
 } else if ($muv == "teacherEdit") {
     lekapcsolodas(editTeacher(kapcsolodas()));
 } else if($muv=="list_cur_unit_teacher"){
-    lekapcsolodas(list_teacher_cur_unit(kapcsolodas()));
-} else if($muv=="list_cur_unit_without_teacher"){
-    lekapcsolodas(list_teacher_cur_without_unit(kapcsolodas()));
+    lekapcsolodas(list_teacher_cur_unit(kapcsolodas(),false,false));
+}else if($muv=="list_cur_unit_teacher_bonus"){
+    lekapcsolodas(list_teacher_cur_unit(kapcsolodas(),false,true));
+}else if($muv=="list_cur_unit_without_teacher"){
+    lekapcsolodas(list_teacher_cur_without_unit(kapcsolodas(),false));
 }else if ($muv == "connectionSend") {
-    lekapcsolodas(insertConnection(kapcsolodas()));
-} else if ($muv == "connectionget") {
-    lekapcsolodas(getConnection(kapcsolodas()));
-} else if ($muv == "connectionEdit") {
-    lekapcsolodas(editConnection(kapcsolodas()));
+    lekapcsolodas(insertConnection(kapcsolodas(),false));
 }else if ($muv == "delete_cur_unit_teacher") {
-    lekapcsolodas(deleteConnection(kapcsolodas()));
+    lekapcsolodas(deleteConnection(kapcsolodas(),false));
+} else if($muv=="list_teacher_cur_unit"){
+    lekapcsolodas(list_teacher_cur_unit(kapcsolodas(),true,false));
+} else if($muv=="list_teacher_without_cur_unit"){
+    lekapcsolodas(list_teacher_cur_without_unit(kapcsolodas(),true));
+}else if ($muv == "connectionSendCur") {
+    lekapcsolodas(insertConnection(kapcsolodas(),true));
+}else if ($muv == "delete_teacher_cur_unit") {
+    lekapcsolodas(deleteConnection(kapcsolodas(),true));
 }else if ($muv == "monthGet") {
     lekapcsolodas(getDates(kapcsolodas()));
 }else if ($muv == "dateEdit") {
@@ -162,6 +176,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(insertorUpdateMissing(kapcsolodas()));
 }else if ($muv == "getMissing") {
     lekapcsolodas(getMissing(kapcsolodas()));
+}else if($muv =="cur_units_with_bonus"){
+    lekapcsolodas(curUnitsWithbonus(kapcsolodas()));
 }
 
 

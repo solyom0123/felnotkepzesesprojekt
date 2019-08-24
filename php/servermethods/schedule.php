@@ -65,6 +65,7 @@ function searchTeacher($conn) {
     return $conn;
 }
 
+
 function curUnitsWithoutThisCourse($conn) {
     global $value;
     $sql = "select s.studymaterials_id as id, s.study_materials_name as name , s.doctrine as d, s.elearn as el, s.exercise as ex"
@@ -81,7 +82,22 @@ function curUnitsWithoutThisCourse($conn) {
     }
     return $conn;
 }
+function curUnitsWithbonus($conn) {
+    global $value;
+    $sql = "select s.studymaterials_id as id, s.study_materials_name as name , s.doctrine as d, s.elearn as el, s.exercise as ex"
+            . " from studymaterials s where s.bonus='true' ;";
 
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["id"] . " ;,;,;" . $row["name"] . " ;,;,;" . $row["d"] . " ;,;,;" . $row["el"] . " ;,;,;" . $row["ex"] . "/;/";
+        }
+    } else {
+        echo "-2;,;,;Nincs tanegység!;,;,;0;,;,;0;,;,;0/;/";
+    }
+    return $conn;
+}
 function collectNeededCourseData($conn) {
     global $value;
     $sql = "select education_id as id,education_name as name,education_inhouse_id as inId"
@@ -251,6 +267,8 @@ VALUES ('" . $value[10] . "','" . $value[0] . "','" . $value[2] . "','" . $value
 function select_all_dataforAnActiveEducation($conn) {
     global $value;
     $moduls = '';
+    $start;
+    $end;
     $sql = "select sc.`name` as n,e.education_name as e,e.okj_number as o,sc.start_day as s,sc.sign_day as si, sc.used_modul_id as mi, sc.used_modul_place as mp, sc.replace_days as r,sc.exam_date as ex , sc.course_id as cid, sc.doctrine_week_plan as dp, sc.elearn_week_plan as elp, sc.exercise_week_plan as exp  from schedule_plan_data sc, education e where e.education_id= sc.course_id and sc.id =" . $value;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -259,6 +277,8 @@ function select_all_dataforAnActiveEducation($conn) {
             echo $row["n"] . ";,;" . $row["e"] . ";,;" . $row["o"] . ";,;" . $row["s"] . ";,;" . $row["si"] . ";,;" . $row["mi"] . ";,;" . $row["mp"] . ";,;" . $row["r"] . ";,;" . $row["ex"] . ";,;" .$row["cid"]. ";,;".$row["dp"]. ";,;".$row["elp"]. ";,;".$row["exp"]. "//";
                     //0                 //1                 //2                 //3                 //4                 //5                     //6                 //7                 //8                 //9             //10                //11                //12
             $moduls = $row['mi'];
+            $start =  $row["s"];
+            $end =  $row["si"];
         }
     } else {
         echo "none//";
@@ -294,6 +314,28 @@ function select_all_dataforAnActiveEducation($conn) {
     } else {
         echo "none//";
         echo $conn->error;
+    }
+    echo '/;/';
+    $sql = "select date,DAYOFWEEK(date) as napno from unable_dates where `date` between (select start_day from schedule_plan_data where id= " . $value . " ) and (select sign_day from schedule_plan_data where id= " . $value . " )    ";
+    //echo $sql;
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+
+            echo $row['date'] . ";" . numberofday($row["napno"]) . "/;/";
+        }
+    } else {
+        echo $conn->error;
+    }
+     echo '/;/';
+    
+    $interval = DateInterval::createFromDateString('1 day');
+    $period = new DatePeriod($start, $interval, $end);
+
+    foreach ($period as $dt) {
+        echo $dt->format("Y-m-d") . "/;/";
     }
     return $conn;
 }

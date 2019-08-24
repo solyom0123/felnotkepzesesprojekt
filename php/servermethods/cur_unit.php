@@ -6,11 +6,16 @@
  * and open the template in the editor.
  */
 
-function insertCurUnit($conn) {
+function insertCurUnit($conn,$bonus) {
     global $value;
+    if($bonus){
+    $bonus = "true";
     
-    $sql = "INSERT INTO studymaterials (study_materials_name,description,modul_id, doctrine,exercise, elearn)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."','" . $value[5] ."')";
+    }else{
+    $bonus ="false";    
+    }
+    $sql = "INSERT INTO studymaterials (study_materials_name,description,modul_id, doctrine,exercise, elearn,bonus)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] ."','" . $value[3] ."','" . $value[4] ."','" . $value[5] ."','" . $bonus ."')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -113,7 +118,7 @@ function searchforcurunitcourseid($conn){
 function list_cur_unit_filter($conn) {
     global $value;
     $sql = "select studymaterials_id as id, study_materials_name as name, modul_id as eid"
-            . " from studymaterials where modul_id=".$value." ;  ";
+            . " from studymaterials where modul_id=".$value." and bonus='false';  ";
     
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

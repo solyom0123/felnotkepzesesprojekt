@@ -58,7 +58,20 @@ function list_course($conn) {
     }
     return $conn;
 }
+function list_bonus($conn) {
 
+    $sql = "select studymaterials_id as id, study_materials_name as name,'image' as image  from studymaterials where bonus='true' ;  ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["name"] . ";" . $row['image'] . ";" . $row['id'] . "//";
+        }
+    } else {
+        echo "none;//";
+    }
+    return $conn;
+}
 function uploadImage() {
     $target_dir = "img/";
     $target_file = $target_dir . basename($_FILES["form-row-kep"]["name"]);

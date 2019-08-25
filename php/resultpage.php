@@ -42,15 +42,17 @@
         </div>
 
     </div>
-    <div class="col-md-12 "id="bonustable">
+    <table class="col-md-12 "id="bonustable">
+        <tr><th>dátum</th><th>Tanegység neve</th><th>Modul neve</th><th>Óraszám</th><th>Kezdő</th><th>Vég</th><th>Típus</th><th>Oktató</th></tr>
+                    
+    </table>
+    <div class="form-group row col-md-12">
+        <div class="option-button col-md-12" onclick="passschedule(0)" id="pass-btn">Elfogad!</div></a>
     </div>
-    <div class="form-group row">
-       <div class="option-button" onclick="passschedule(0)">Elfogad!</div>
-   
+    <div class="form-group row col-md-12">
+        <div onclick="backLoadschedule(true,false);deleteEditedSchedule()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>
     </div>
-    <div class="form-group row">
-          <div class="option-button" onclick="backLoadschedule(true,false);deleteEditedSchedule()">Módosítás</div>
-    </div>
+    
 </div>
  
 <div id="loadModal" class="modal">

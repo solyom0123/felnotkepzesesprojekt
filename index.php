@@ -32,7 +32,7 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/student.js"></script>
         <script type="text/javascript" src="./js/other/teacher.js"></script>
         <script type="text/javascript" src="./js/other/curseStart.js"></script>
-        <script type="text/javascript" src="./js/other/schedule.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_global_vars.js"></script>
         <script type="text/javascript" src="./js/model/Aktiv_Kepzes_Model.js"></script>
         <script type="text/javascript" src="./js/model/Kepzes_Model.js"></script>
         <script type="text/javascript" src="./js/model/Modul_Model.js"></script>
@@ -44,7 +44,20 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/bonus_unit.js"></script>
         <script type="text/javascript" src="./js/other/bonus_teacher.js"></script>
         <script type="text/javascript" src="./js/other/active_courses.js"></script>
-
+        <script type="text/javascript" src="./js/other/schedule_make_calcing.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_make_controller.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_make_converter.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_make_search.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_after_edit_calc.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_after_edit_controller.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_after_edit_convert.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_after_edit_search.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_edit_calc.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_edit_controller.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_edit_convert.js"></script>
+        <script type="text/javascript" src="./js/other/schedule_edit_search.js"></script>
+        <script type="text/javascript" src="./js/other/tabs.js"></script>
+        
         <script>
            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

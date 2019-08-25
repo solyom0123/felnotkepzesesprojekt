@@ -20,6 +20,42 @@
 var tiltotta = new Array();
 var hasznalt = new Array();
 var hiba= false;
+function getActiveEduScheme() {
+
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "getActiveEduSchemee",
+        param: "value"
+
+    }, function (data, status) {
+        console.log(data);
+        if (data != "none;") {
+
+            var spData = data.split("/;/");
+            var text = '<option value="-1">Kérem válasszon sémát!</option>';
+            for (var i = 0; i < spData.length; i++) {
+                if (!checkEmptyString(spData[i])) {
+                    var sprow = spData[i].split(";");
+                    text += '<option value="' + sprow[0] + '">' + sprow[1] + '</option>'
+                }
+            }
+
+
+        } else {
+            var text = '<option value="-1">Nincs elmentett séma!</option>';
+        }
+        document.getElementById("form-row-sema").innerHTML = text;
+    });
+}
+function backloadActiveEduSchema() {
+    var value = document.getElementById("form-row-sema").value;
+    if (value != -1) {
+        document.getElementsByTagName("id")[0].innerHTML = value;
+        makeScFromSchema();
+        backLoadschedule(false, true);
+        // document.getElementById("form-row-name").value="";
+    }
+}
 function modulSelectorsMake() {
     var slink = 'server.php';
     var id = document.getElementById("form-row-kepzes").value;

@@ -66,6 +66,7 @@ function editModul($conn) {
 
     return $conn;
 }
+
 function passModul($conn) {
     global $value;
     $sql = "UPDATE modul SET pass_date=NOW() where modul_id=" . $value;
@@ -78,56 +79,60 @@ function passModul($conn) {
 
     return $conn;
 }
-function editModulModDate($conn,$id) {
-   
+
+function editModulModDate($conn, $id) {
+
     $sql = "UPDATE modul SET mod_date=NOW() where modul_id=" . $id;
 
     if ($conn->query($sql) === TRUE) {
-       // echo 'ok';
+        // echo 'ok';
     } else {
         //echo 'error' . $conn->error;
     }
 
     return $conn;
 }
+
 function ispassModul($id) {
-   $conn = kapcsolodas();
-   $pass=false;
+    $conn = kapcsolodas();
+    $pass = false;
     $sql = "select (select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $id . ";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-           if( $row["state"]=="true"){
-               $pass= true;
-           }
+            if ($row["state"] == "true") {
+                $pass = true;
+            }
         }
     } else {
         echo "none/;/";
         echo $conn->error;
     }
-    
+
     lekapcsolodas($conn);
     return $pass;
 }
+
 function getNameModul($id) {
-   $conn = kapcsolodas();
-   $pass='névtelen modul';
+    $conn = kapcsolodas();
+    $pass = 'névtelen modul';
     $sql = "select modul_name as na from modul where modul_id=" . $id . ";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-           $pass =$row["na"];
+            $pass = $row["na"];
         }
     } else {
         echo "none/;/";
         echo $conn->error;
     }
-    
+
     lekapcsolodas($conn);
     return $pass;
 }
+
 function getModul($conn) {
     global $value;
 
@@ -136,7 +141,7 @@ function getModul($conn) {
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/" . $row['d'] . "/;/" . $row["e"] . "/;/" . $row['w'] . "/;/" . $row['v'] . "/;/" . $row['p'] . "/;/" . $row['md'] . "/;/" . $row['pd']. "/;/" . $row['state'];
+            echo $row["nev"] . "/;/" . $row['okj'] . "/;/" . $row['id'] . "/;/" . $row['d'] . "/;/" . $row["e"] . "/;/" . $row['w'] . "/;/" . $row['v'] . "/;/" . $row['p'] . "/;/" . $row['md'] . "/;/" . $row['pd'] . "/;/" . $row['state'];
         }
     } else {
         echo "none/;/";
@@ -145,6 +150,7 @@ function getModul($conn) {
 
     return $conn;
 }
+
 function getCalcModulNeeded($conn) {
     global $value;
 
@@ -153,7 +159,7 @@ function getCalcModulNeeded($conn) {
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["d"]."/;/".$row["e"] . "/;/".$row["ex"] ;
+            echo $row["d"] . "/;/" . $row["e"] . "/;/" . $row["ex"];
         }
     } else {
         echo "0/;/0";
@@ -161,6 +167,7 @@ function getCalcModulNeeded($conn) {
 
     return $conn;
 }
+
 function list_modul_for_course_with_piece($conn) {
     global $value;
     $sql = "select count(*) as darab from modul where education_id=" . $value . " or education_id=-1;  ";
@@ -195,8 +202,8 @@ function enough_day($conn) {
     $moduls_needed_plan_exec = 0;
     $moduls_needed_el_doc = 0;
     $unusedweekdays = array();
-    $biggest_doct_exam=0;
-    $biggest_exe_exam=0;
+    $biggest_doct_exam = 0;
+    $biggest_exe_exam = 0;
     $endweek = 0;
     $allweek = 0;
     $endofsql = " ";
@@ -204,7 +211,7 @@ function enough_day($conn) {
     if (count($value[8]) > 0) {
         $i = 0;
         foreach ($value[8] as $modulnumber) {
-            if(!ispassModul($modulnumber)){
+            if (!ispassModul($modulnumber)) {
                 array_push($badmodul, $modulnumber);
             }
             $endofsql .= " modul_id=" . $modulnumber . " ";
@@ -224,7 +231,7 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_plan_dec = "0";
-        echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
 
     $sql = "select SUM(exercise) as exec from modul where " . $endofsql . ";  ";
@@ -238,8 +245,9 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_plan_dec = "0";
-        echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
+
     $sql = "select SUM(s.elearn) as exec from studymaterials s where " . $endofsql . " ;  ";
     //echo $sql;
 
@@ -251,7 +259,7 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_el_doc = "0";
-       echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
     $sql = "select SUM(CASE WHEN writting_test>0 THEN writting_test ELSE 0 END) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
@@ -266,9 +274,9 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_plan_dec += "0";
-      echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
-     $sql = "select  max(verbal_test) as exam from modul where " . $endofsql . ";  ";
+    $sql = "select  max(verbal_test) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
 
     $result = $conn->query($sql);
@@ -281,7 +289,7 @@ function enough_day($conn) {
         }
     } else {
         $biggest_doct_exam += "0";
-       echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
     $sql = "select  max(writting_test) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
@@ -291,17 +299,16 @@ function enough_day($conn) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
             if ($row["exam"] > 0) {
-                if($row["exam"]>$biggest_doct_exam){
-                $biggest_doct_exam = $row["exam"];
+                if ($row["exam"] > $biggest_doct_exam) {
+                    $biggest_doct_exam = $row["exam"];
                 }
-                    
-                }
+            }
         }
     } else {
         $biggest_doct_exam += "0";
-       echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
-    
+
     $sql = "select max(practical_test) as exam from modul where " . $endofsql . ";  ";
     //echo $sql;
 
@@ -315,7 +322,7 @@ function enough_day($conn) {
         }
     } else {
         $biggest_exe_exam += "0";
-        echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
 
     $sql = "select SUM(CASE WHEN verbal_test>0 THEN verbal_test ELSE 0 END) as exam from modul where " . $endofsql . ";  ";
@@ -331,7 +338,7 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_plan_dec += "0";
-        echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
 
     $sql = "select SUM(CASE WHEN practical_test>0 THEN practical_test ELSE 0 END) as exam from modul  where " . $endofsql . ";  ";
@@ -347,7 +354,7 @@ function enough_day($conn) {
         }
     } else {
         $moduls_needed_plan_exec += "0";
-     echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
     $sql = "select date,DAYOFWEEK(date) as napno from unable_dates where `date` between '" . $value[3] . "' and '" . $value[5] . "'    ";
     //echo $sql;
@@ -360,19 +367,21 @@ function enough_day($conn) {
             $unusedweekdays[$row['date']] = numberofday($row["napno"]);
         }
     } else {
-        echo $sql."||". $conn->error;
+        echo $sql . "||" . $conn->error;
     }
+
+
     //var_dump($unusedweekdays);
     $sumgetnumberofclassdoc = sumclassnumber($unusedweekdays, $value, "doc");
     $sumgetnumberofclassexec = sumclassnumber($unusedweekdays, $value, "exec");
     $sumgetnumberofclassel = sumclassnumber($unusedweekdays, $value, "el");
-    
+
     if (($sumgetnumberofclassdoc) != $moduls_needed_plan_dec) {
         echo (($sumgetnumberofclassdoc) - $moduls_needed_plan_dec) . "//";
     } else {
         echo 'ok//';
     }
-    
+
     if (($sumgetnumberofclassexec) != $moduls_needed_plan_exec) {
         echo (($sumgetnumberofclassexec) - $moduls_needed_plan_exec) . "//";
     } else {
@@ -383,44 +392,67 @@ function enough_day($conn) {
     } else {
         echo 'ok//';
     }
-     if(!enoughforExam("doc",$value,$biggest_doct_exam)){
-          echo   "doc,".$biggest_doct_exam."//";
-     }else{
-         echo ''; 
-     }
-     if(!enoughforExam("exe",$value,$biggest_exe_exam)){
-          echo   "exe,".$biggest_exe_exam."//";
-     }else{
-         echo ''; 
-     }
-     echo '/;/';
-     if(count($badmodul)>0){
-         echo 'true//';
-     }else{
-          echo 'false//';
-     }
-     for ($index = 0; $index < count($badmodul); $index++) {
-         echo getNameModul($badmodul[$index]).';';
-     }
+    if (!enoughforExam("doc", $value, $biggest_doct_exam)) {
+        echo "doc," . $biggest_doct_exam . "//";
+    } else {
+        echo '';
+    }
+    if (!enoughforExam("exe", $value, $biggest_exe_exam)) {
+        echo "exe," . $biggest_exe_exam . "//";
+    } else {
+        echo '';
+    }
+    echo '/;/';
+    $begin = new DateTime($value[3]);
+    $end_1 = new DateTime($value[5]);
+    $interval = DateInterval::createFromDateString('1 month');
+    $period = new DatePeriod($begin, $interval, $end_1);
+
+    foreach ($period as $dt) {
+        $alma = $dt->format("Y-m-d") . "";
+        $sql = "select `date` from help_date where `date`= (select  LAST_DAY('" . $alma . "') as last)";
+
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                
+            }
+        } else {
+            $spdate = explode("-", $alma);
+            echo $spdate[0] . "-" . $spdate[1] . "//";
+        }
+    }
+    echo '/;/';
+    if (count($badmodul) > 0) {
+        echo 'true//';
+    } else {
+        echo 'false//';
+    }
+    for ($index = 0; $index < count($badmodul); $index++) {
+        echo getNameModul($badmodul[$index]) . ';';
+    }
     return $conn;
 }
-function enoughforExam($type,$array,$biggestExamHour){
-    $enough =false;
-    if($type=="doc"){
+
+function enoughforExam($type, $array, $biggestExamHour) {
+    $enough = false;
+    if ($type == "doc") {
         for ($index = 0; $index < count($array); $index++) {
-            if ($array[0][$index]>=$biggestExamHour) {
-                $enough= true;
+            if ($array[0][$index] >= $biggestExamHour) {
+                $enough = true;
             }
         }
-    }else{
+    } else {
         for ($index = 0; $index < count($array); $index++) {
-            if ($array[1][$index]>=$biggestExamHour) {
-                $enough= true;
+            if ($array[1][$index] >= $biggestExamHour) {
+                $enough = true;
             }
         }
     }
     return $enough;
 }
+
 function numberofday($sqldate) {
     $numberofday = 0;
     if ($sqldate == 1) {
@@ -455,8 +487,8 @@ function calcIndexType($type) {
     $index = 0;
     if ($type == "doc") {
         $index = 0;
-    } else if($type=="el"){
-        $index=2; 
+    } else if ($type == "el") {
+        $index = 2;
     } else {
         $index = 1;
     }

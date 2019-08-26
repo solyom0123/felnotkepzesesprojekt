@@ -19,7 +19,7 @@
  */
 var tiltotta = new Array();
 var hasznalt = new Array();
-var hiba= false;
+var hiba = false;
 function getActiveEduScheme() {
 
     var slink = 'server.php';
@@ -137,7 +137,7 @@ function checkEnoughDay() {
     var plan_dec_number = calc("_plan_dec");//;
     var plan_exe_number = calc("_plan_exe");
     var el_dec_number = calc("_el_dec");
-   
+
     var startday = document.getElementById("form-row-start").value;
     var signDay = document.getElementById("form-row-sign-date").value;
     var id = document.getElementById("form-row-kepzes").value;
@@ -169,12 +169,13 @@ function checkEnoughDay() {
         console.log(data);
         var spdata = data.split("/;/");
         var spStudents = spdata[0].split("//");
-        var spModul = spdata[1].split("//");
+        var spMonths = spdata[1].split("//");
+        var spModul = spdata[2].split("//");
         var message = "";
         var need_doc = 0;
         var need_exec = 0;
         var need_el = 0;
-         var m_error =false;
+        var m_error = false;
         var needMoreExec = false;
         var needLessExec = false;
         var needMoreEl = false;
@@ -184,6 +185,7 @@ function checkEnoughDay() {
         var needLessEL = false;
         var needMore = false;
         var needLess = false;
+        var dateerror = false;
 
         if (spStudents[0] < 0) {
             needMore = true;
@@ -196,6 +198,9 @@ function checkEnoughDay() {
         if (spStudents[2] < 0) {
             needMoreEl = true;
             need_el = spStudents[2] * (-1);
+        }
+        if (spMonths.length > 0) {
+            dateerror = true;
         }
         if (spStudents[0] > 0) {
             needLess = true;
@@ -226,37 +231,48 @@ function checkEnoughDay() {
                 unuseableExamhour.push(spdata[1]);
             }
         }
-         if (spModul[0] =="true") {
+        if (spModul[0] == "true") {
             m_error = true;
         }
-        if (needMore || needMoreEl || needMoreExec || unuseableExam||m_error) {
-            hiba=true;
+        if (needMore || needMoreEl || needMoreExec || unuseableExam || m_error || dateerror) {
+            hiba = true;
             message = '<div class="alert alert-danger">Hiba az oktatás idővallumjával vagy a tervezett óraszámmal!';
 
         } else {
-            hiba=false;
+            hiba = false;
             message = '<div class="alert alert-success">Rövidebb idővallumú ütemterv készülhet, mint a vizsga jelentkezés időpontja!';
 
         }
-        
+
+        if (dateerror) {
+
+            message += '<br>A következő hónapok nem engedélyezettek: ';
+            for (var i = 0, max = spMonths.length; i < max; i++) {
+                if (!checkEmptyString(spMonths[i])) {
+                    message += '<br>' + spMonths[i] + ",";
+                }
+            }
+            message += '! ';
+
+        }
         if (m_error) {
 
             message += '<br>A következő modulok nem engedélyezettek: ';
-            var spmodulname= spModul[1].split(";");
+            var spmodulname = spModul[1].split(";");
             for (var i = 0, max = spmodulname.length; i < max; i++) {
-            if(!checkEmptyString(spmodulname[i])){   
-            message += '<br>'+spmodulname[i]+",";
-        }
+                if (!checkEmptyString(spmodulname[i])) {
+                    message += '<br>' + spmodulname[i] + ",";
+                }
             }
             message += '! ';
-            
+
         }
         if (needLess) {
 
             message += '<br>Az üresen maradó elméleti órák száma: ' + need_doc + '.';
 
         }
-        
+
         if (needMore) {
 
             message += '<br>Hiányzó elméleti órák száma: ' + need_doc + '.';
@@ -284,23 +300,23 @@ function checkEnoughDay() {
         }
         if (unuseableExam) {
             for (var i = 0, max = unuseableExamType.length; i < max; i++) {
-                if (unuseableExamType[i]=="doc") {
-                message += '<br>Az elméleti órák nem fedik le egyik napon sem a leghosszabb vizsgát: ' + unuseableExamhour[i]+ '.';
+                if (unuseableExamType[i] == "doc") {
+                    message += '<br>Az elméleti órák nem fedik le egyik napon sem a leghosszabb vizsgát: ' + unuseableExamhour[i] + '.';
 
-                }else{
-                message += '<br>A gyakorlati órák nem fedik le egyik napon sem a leghosszabb vizsgát: ' + unuseableExamhour[i]+ '.';
+                } else {
+                    message += '<br>A gyakorlati órák nem fedik le egyik napon sem a leghosszabb vizsgát: ' + unuseableExamhour[i] + '.';
 
                 }
             }
-            
+
         }
         document.getElementById("error_place").innerHTML = message;
-        if(hiba==true){
-        document.getElementById("form-row-schedule-button").style.display = "none";
-            
-        }else{
-        document.getElementById("form-row-schedule-button").style.display = "block";
-            
+        if (hiba == true) {
+            document.getElementById("form-row-schedule-button").style.display = "none";
+
+        } else {
+            document.getElementById("form-row-schedule-button").style.display = "block";
+
         }
     });
 

@@ -18,7 +18,7 @@
             <table class="calendar" id="calendar">
                <caption  class="calendar__banner--month"><h1 id="calendar_capation_h1">
                   
-                  </h1>
+                   </h1><div id="calendar_capation_okay_button" style="float: right; display: inline-block"></div>
                   </caption><thead><tr><th class="calendar__day__header">  Hétfő</th>
                   <th class="calendar__day__header">  Kedd</th>
                   <th class="calendar__day__header">  Szerda</th>

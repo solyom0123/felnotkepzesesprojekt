@@ -178,6 +178,10 @@ if ($muv == "new_modul") {
     lekapcsolodas(getMissing(kapcsolodas()));
 }else if($muv =="cur_units_with_bonus"){
     lekapcsolodas(curUnitsWithbonus(kapcsolodas()));
+}else if($muv =="checkmonth"){
+    lekapcsolodas(checkdateOwen(kapcsolodas()));
+}if($muv =="editcheckmonth"){
+    lekapcsolodas(editcheckdate(kapcsolodas()));
 }
 
 

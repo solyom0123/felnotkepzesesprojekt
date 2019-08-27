@@ -10,6 +10,7 @@ include_once './php/servermethods/teacher.php';
 include_once './php/servermethods/date.php';
 include_once './php/servermethods/active_courses.php';
 include_once './php/servermethods/schedule.php';
+include_once './php/servermethods/print.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -182,7 +183,10 @@ if ($muv == "new_modul") {
     lekapcsolodas(checkdateOwen(kapcsolodas()));
 }if($muv =="editcheckmonth"){
     lekapcsolodas(editcheckdate(kapcsolodas()));
+}if($muv =="print"){
+    printForm();
 }
+
 
 
 

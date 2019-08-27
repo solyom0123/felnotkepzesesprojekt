@@ -56,6 +56,11 @@ function loadingModuls(linkfr) {
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
     }
+     if (linkfr == "print_attendance_in_form") {
+        openDefultTab();
+        activeCourseListOptions(0,"form-row-aktiv-kepzes");
+     
+    }
     if (linkfr == "actually_course") {
         activeCourseList(1,1);
     }

@@ -15,11 +15,20 @@ function printForm(){
             echo '/;/';
              echo 'attendance_sheet_print.php';
             break;
-
+       case 2:
+           collectDataForMissingFormTeacher($value[1]);
+            echo '/;/';
+             echo 'attendance_sheet_teacher_print.php';
+            break;
+        case 3:
+           
+             echo 'attendance_sc_print.php';
+            break;
         default:
             break;
     }
 }
+
 function collectDataForMissingForm($dataArray){
     $conn = kapcsolodas();
     $date ='';
@@ -108,3 +117,80 @@ function collectDataForMissingForm($dataArray){
     echo $date;
     lekapcsolodas($conn);
 }
+function collectDataForMissingFormTeacher($dataArray){
+    $conn = kapcsolodas();
+    $date ='';
+     $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,`name` as n from schedule_plan_data where id=" . $dataArray[0] . ";";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+            echo $row["c"].';';
+            echo $row["e"].';';
+            echo 'cim'.';';
+           echo $row["s"]."-".$row["n"].';';
+            
+           } 
+    }else{
+        echo  $conn->error;
+    }
+    echo '/;/';
+    $sql = "select "
+            . "("
+            . "case "
+            .   "when sp.replace_day='false' "
+            .       "then "
+            .           "(select modul_name "
+            .               "from modul "
+            .               "where modul_id=sp.used_modul_id) "
+            .       "else '' END) as m,"
+            . " sp.used_hours as uh,  "
+            . "(case "
+            .   "when sp.used_hours_type=1 "
+            .       "then 'elméleti' "
+            .       "else "
+            .           "(case "
+            .               "when sp.used_hours_type=2"
+            .                   " then 'gyakorlati'  "
+            .                   "else ("
+            .                       "case "
+            .                           "when sp.used_hours_type=3 "
+            .                               "then 'elearn' "
+            .                               "else '' END "
+            .                          ") END"
+            . "             ) END"
+            . " ) as t, "
+            . "sp.date as d,"
+            . " (case"
+            .       " when exam ='false' "
+            .           "then "
+            .               "(select study_materials_name "
+            .                 "from studymaterials "
+            .                 "where studymaterials_id= sp.used_studymaterials_id)"
+            .           " else "
+            .               "(select realname "
+            .               "from helper_exam_data "
+            .               "where `type`= sp.used_studymaterials_id) END) as c, "
+            . "(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END) as tn "
+            . "from schedule_plan sp "
+            . "where "
+            .       "sp.schedule_plan_data_id=" . $dataArray[0] . " "
+            .       "and sp.date='" . $dataArray[1] . "';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row['m'].' - '.$row['c'].' - '.$row['t'].';';
+            echo $row['tn'].';';
+            echo $row['uh'].';//';
+            $date = $row['d'];
+        }
+    }else{
+        echo  $conn->error;
+    }
+    echo '/;/';
+    echo $date;
+    lekapcsolodas($conn);
+}
+            

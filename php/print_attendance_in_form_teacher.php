@@ -33,7 +33,7 @@
     
     <div class="option-button-wrapper form-group row">
 
-        <div onclick="startPrinting(1)" id="buttonSend" class="btn col-md-5 btn option-button">Nyomtatás</div>
+        <div onclick="startPrinting(2)" id="buttonSend" class="btn col-md-5 btn option-button">Nyomtatás</div>
         <div class="col-md-2"> </div>
         <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 

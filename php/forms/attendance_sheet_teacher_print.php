@@ -22,18 +22,13 @@ class PDF extends tFPDF {
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30, 10, 'Jelenléti ív - ' . $date, 0, 0, 'C');
+        $this->Cell(30, 10, 'Jelenléti ív - ' . $date, 0, 0);
         // Line break
         $this->Ln(20);
     }
 
 // Page footer
-    function BasicTable($header, $data) {
-        global $headtable;
-        // if( $data==true){
-        //}else{
-        //}
-    }
+
 
     function Footer() {
         // Position at 1.5 cm from bottom
@@ -41,8 +36,9 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0);
     }
+
 
 }
 
@@ -66,25 +62,29 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
 $pdf->Cell(100, 6, $headtable[3], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "Óra megnevezése:", 0, 0);
-$pdf->Cell(100, 6, $headtable[4], 0, 0);
-$pdf->Ln(5);
-$pdf->Cell(100, 6, "Óra óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $headtable[5], 0, 0);
-$pdf->Ln(20);
 $pdf->SetFont('DejaVuB', '', 10);
-$pdf->Cell(40, 6, "Tanuló neve", 1, 0);
-$pdf->Cell(40, 6, "Születési dátum", 1, 0);
-$pdf->Cell(40, 6, "Hiányzás Óraszáma", 1, 0);
-$pdf->Cell(70, 6, "Aláírás", 1, 0);
-
+$pdf->Cell(60, 10, "Modul", "LTB", 0);
+$pdf->Cell(60, 10, "Tanegység", "TB", 0);
+$pdf->Cell(20, 10, "Típus", "TRB", 0);
+$pdf->Cell(20, 10, "Óraszám", 1, 0);
 $pdf->Ln();
-$pdf->SetFont('DejaVu', '', 10);
+$pdf->Cell(70, 10, "Okatató Neve", 1, 0);
+$pdf->Cell(90, 10, "Aláírás", 1, 0);
+$pdf->Ln();
+$pdf->SetFont('DejaVu', '', 8);
+$pdf->SetFillColor(224,235,255);
+$pdf->SetTextColor(0);
+  $fill = true;
 for ($index = 0; $index < count($maintable); $index++) {
-$pdf->Cell(40, 6, $maintable[$index][0], 1, 0);
-$pdf->Cell(40, 6, $maintable[$index][1], 1, 0);
-$pdf->Cell(40, 6, '', 1, 0);
-$pdf->Cell(70, 6, "", 1, 0);
-$pdf->Ln();
+    $spmaintable = explode('-', $maintable[$index][0]);
+    $pdf->Cell(60, 6, $spmaintable[0], "LTB",0,"",$fill);
+    $pdf->Cell(60, 6, $spmaintable[1], "TB",0,"",$fill);
+    $pdf->Cell(20, 6, $spmaintable[2], "TRB",0,"",$fill);
+    $pdf->Cell(20, 6, $maintable[$index][2],1,0,"",$fill);
+    $pdf->Ln();
+    $pdf->Cell(70, 8, $maintable[$index][1], 1, 0,"",$fill);
+    $pdf->Cell(90, 8, "", 1, 0,"",$fill);
+    $pdf->Ln();
+     $fill = !$fill;
 }
 $pdf->Output();

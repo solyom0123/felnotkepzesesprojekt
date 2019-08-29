@@ -7,7 +7,6 @@
  */
 ?>
 
-<script>setElozo('administrativ')</script>
                     <h2 class="h2-default">Adminisztrációs feladatok</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">

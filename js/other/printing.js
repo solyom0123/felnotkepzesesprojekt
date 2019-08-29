@@ -5,11 +5,29 @@
  */
 
 
-function startPrinting() {
+function startPrinting(type) {
+    switch (type) {
+        case 1:
+            attendforStudent(type);
+            break;
+            case 2:
+            attendforteacher(type);
+            break;
+            case 3:
+            scprint(type);
+            break;
+        default:
+            
+            break;
+    }
+    
+
+}
+function attendforStudent(type){
     var date = document.getElementById("form-row-date").value;
     var course = document.getElementById("form-row-aktiv-kepzes").value;
     if (course != -1 && date != -1) {
-        var value = new Array('1', new Array(course, date))
+        var value = new Array(type, new Array(course, date))
         var slink = 'server.php';
         $.post(slink, {
             muv: "print",
@@ -42,7 +60,7 @@ function startPrinting() {
                     mainhead_array[4] = spCourses[0];
                     mainhead_array[5] = spCourses[1];
 
-                    makeformForsend(date, mainhead_array, maintable_array, link);
+                    makeformForsendattendstudent(date, mainhead_array, maintable_array, link);
                 }
                 i++;
             }else{
@@ -53,21 +71,76 @@ function startPrinting() {
             )
         });
     }
-
 }
-function  makeformForsend(date, mainhead_array, maintable_array, link) {
-    var form = '<form target="_blank" method="POST" action="./php/forms/' + link + '">';
-    form += '<input type="hidden" name="date" value="' + date + '">';
-    for (var i = 0, max = mainhead_array.length; i < max; i++) {
-        form += '<input type="hidden" name="head[]" value="' + mainhead_array[i] + '">';
-    }
+function scprint(type){
+   var course = document.getElementById("form-row-aktiv-kepzes").value;
+    if (course != -1 ) {
+        var value = new Array(type, new Array(course))
+        var slink = 'server.php';
+        $.post(slink, {
+            muv: "print",
+            param: value
 
-    for (var i = 0, max = maintable_array.length; i < max; i++) {
-
-        form += '<input type="hidden" name="main[' + i + '][0]" value="' + maintable_array[i][0] + '">';
-        form += '<input type="hidden" name="main[' + i + '][1]" value="' + maintable_array[i][1] + '">';
+        }, function (data, status) {
+            console.log(data);
+            var link = data;
+               makeformForscprint(course,link); 
+            
+            
+        });
     }
-    form+='<input type="submit" id="passToPrint" ></form>';
+}
+function  makeformForscprint(value, link) {
+    var button_id="passToPrint";
+    var form = form_head("./php/forms/"+link,true,"POST");
+    form += one_variable_input("param",value);
+    form+=submit_button(button_id);
+    form+=form_end();
     document.getElementById("help_div").innerHTML = form;
-    document.getElementById("passToPrint").click();
+    document.getElementById(button_id).click();
+}
+function  makeformForsendattendstudent(date, mainhead_array, maintable_array, link) {
+    var button_id="passToPrint";
+    var form = form_head("./php/forms/"+link,true,"POST");
+    form += one_variable_input("date",date);
+    form += one_dimension_input("head",mainhead_array);
+    form += two_dimension_input("main",maintable_array);
+    form+=submit_button(button_id);
+    form+=form_end();
+    document.getElementById("help_div").innerHTML = form;
+    document.getElementById(button_id).click();
+}
+function attendforteacher(type){
+    var date = document.getElementById("form-row-date").value;
+    var course = document.getElementById("form-row-aktiv-kepzes").value;
+    if (course != -1 && date != -1) {
+        var value = new Array(type, new Array(course, date))
+        var slink = 'server.php';
+        $.post(slink, {
+            muv: "print",
+            param: value
+
+        }, function (data, status) {
+            console.log(data);
+            var mainhead_array = new Array();
+            var date = '';
+            var courses_datas = new Array();
+            var maintable_array = new Array();
+            var spData = data.split("/;/");
+            mainhead_array = spData[0].split(";");
+            mainhead_array[mainhead_array.length] = "";
+            courses_datas = spData[1].split("//");
+            for (var i = 0, max = courses_datas.length; i < max; i++) {
+                if (!checkEmptyString(courses_datas[i])) {
+                    var loac_array = courses_datas[i].split(";");
+                    maintable_array[maintable_array.length] = loac_array;
+                }
+            }
+            date = spData[2];
+            var link = spData[3];
+            makeformForsendattendstudent(date, mainhead_array, maintable_array, link);
+            
+        
+    });
+}
 }

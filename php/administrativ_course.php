@@ -7,7 +7,6 @@
  */
 ?>
 
-<script>setElozo('administraiv_course')</script>
                     <h2 class="h2-default">Képzésekhez kapcsolódó adminisztráció</h2>
 
                     <div class="table-wrapper">
@@ -18,12 +17,8 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('show_page');setElozo('administrativ_course')" ><img src="img/catalog.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Jelenléti ív</span></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('student_list_print_license');setElozo('administrativ_course')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </div>
-                                        </div><span>Képzési szerződés</span></td>
-                                      <td><div class="span-half-corner-wrapper">
+                                        </div><span>Nyomtatványok</span></td>
+                                         <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('missing_in_form');setElozo('administrativ_course')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Hiányzások kezelése</span></td>

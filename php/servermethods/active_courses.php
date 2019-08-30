@@ -24,49 +24,54 @@ function send_active_course($conn) {
     }
     return $conn;
 }
+
 function insertorUpdateMissing($conn) {
     global $value;
-   $sql = "select  id  from missing_table where `date` =' " . $value[0] . "' and modul_id = " . $value[2] . " and cur_unit_id=" . $value[3] . "  and active_education_id = " . $value[4] . "  and student_id=" . $value[5] . " and replacement_day='" . $value[6] . "' and exam='" . $value[7] . "' and day_type=" . $value[8] . ";";
-   echo $sql;
-   $result = $conn->query($sql);
+    $sql = "select  id  from missing_table where `date` =' " . $value[0] . "' and modul_id = " . $value[2] . " and cur_unit_id=" . $value[3] . "  and active_education_id = " . $value[4] . "  and student_id=" . $value[5] . " and replacement_day='" . $value[6] . "' and exam='" . $value[7] . "' and day_type=" . $value[8] . ";";
+    echo $sql;
+    $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-          $sql = "Update missing_table set missing_hour_ammount=" . $value[1] . " where id=" . $row["id"] . "; ";
+            $sql = "Update missing_table set missing_hour_ammount=" . $value[1] . " where id=" . $row["id"] . "; ";
 
             if ($conn->query($sql) === TRUE) {
                 echo 'update';
             } else {
                 echo 'error';
             }
-         }
+        }
     } else {
         echo $conn->error;
-           $sql = "INSERT INTO missing_table (`date`,missing_hour_ammount,modul_id,cur_unit_id,active_education_id,student_id,replacement_day,exam,day_type) " .
-                    "VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "')";
+        $sql = "INSERT INTO missing_table (`date`,missing_hour_ammount,modul_id,cur_unit_id,active_education_id,student_id,replacement_day,exam,day_type) " .
+                "VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "')";
 
-            if ($conn->query($sql) === TRUE) { echo 'insert';} else {
-                echo 'error';
-            }
-        }  
+        if ($conn->query($sql) === TRUE) {
+            echo 'insert';
+        } else {
+            echo 'error';
+        }
+    }
     return $conn;
 }
+
 function getMissing($conn) {
     global $value;
-   $sql = "select missing_hour_ammount as mh  from missing_table where `date` =' " . $value[0] . "' and modul_id = " . $value[2] . " and cur_unit_id=" . $value[3] . "  and active_education_id = " . $value[4] . "  and student_id=" . $value[5] . " and replacement_day='" . $value[6] . "' and exam='" . $value[7] . "' and day_type=" . $value[8] . ";";
-   $result = $conn->query($sql);
+    $sql = "select missing_hour_ammount as mh  from missing_table where `date` =' " . $value[0] . "' and modul_id = " . $value[2] . " and cur_unit_id=" . $value[3] . "  and active_education_id = " . $value[4] . "  and student_id=" . $value[5] . " and replacement_day='" . $value[6] . "' and exam='" . $value[7] . "' and day_type=" . $value[8] . ";";
+    $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
             echo $row["mh"];
-         }
+        }
     } else {
         echo '0';
-        }
+    }
 
-            
+
     return $conn;
 }
+
 function delete_active_course($conn) {
     global $value;
     $spids = explode("_", $value[1]);
@@ -213,9 +218,8 @@ function table_for_date($conn) {
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
         echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
-            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][0] . "_,_" . $course_date[$actcourse][1] . "_,_" .$course_date[$actcourse][2]. "_,_" . $course_date[$actcourse][3] . "_,_" . $course_date[$actcourse][4] . "_,_". $course_date[$actcourse][5] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
+            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][0] . "_,_" . $course_date[$actcourse][1] . "_,_" . $course_date[$actcourse][2] . "_,_" . $course_date[$actcourse][3] . "_,_" . $course_date[$actcourse][4] . "_,_" . $course_date[$actcourse][5] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                             1-mod                               2-cur                                   3_uh                              4-rep                                           5-exam                           6-type                       7-aid                 8-date
-            
         }
         echo '//';
     }
@@ -225,15 +229,14 @@ function table_for_date($conn) {
 function table_for_student($conn) {
     global $value;
 
-    $sql = "select mc.id as id,mc.`date` as date, mc.missing_hour_ammount as hour, (case when mc.replacement_day='false' then (select modul_name from modul where modul_id=mc.modul_id)  else 'Pótnap'  end) as mn, (case  when mc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=mc.cur_unit_id) else (select realname from helper_exam_data where `type`=mc.day_type) end) as sn  from missing_table mc where mc.active_education_id=" . $value[0] . " and mc.student_id=".$value[1].";";
+    $sql = "select mc.id as id,mc.`date` as date, mc.missing_hour_ammount as hour, (case when mc.replacement_day='false' then (select modul_name from modul where modul_id=mc.modul_id)  else 'Pótnap'  end) as mn, (case  when mc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=mc.cur_unit_id) else (select realname from helper_exam_data where `type`=mc.day_type) end) as sn  from missing_table mc where mc.active_education_id=" . $value[0] . " and mc.student_id=" . $value[1] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-         echo $row['id'].";".$row['date'].";".$row['hour'].";".$row['mn'].";".$row['sn']."//";
-           
+            echo $row['id'] . ";" . $row['date'] . ";" . $row['hour'] . ";" . $row['mn'] . ";" . $row['sn'] . "//";
         }
-    }else{
+    } else {
         echo "-1;Nincs;Nincs;Nincs;Nincs;";
     }
 
@@ -241,21 +244,21 @@ function table_for_student($conn) {
 }
 
 function solveBackCurUnitNameModulName($course_date) {
-    $returnText="";
+    $returnText = "";
     for ($index = 0; $index < count($course_date); $index++) {
         $conn = kapcsolodas();
-         $returnText.= $course_date[$index][2] . " óra : ";
+        $returnText .= $course_date[$index][2] . " óra : ";
         if ($course_date[$index][3] != "true") {
             $sql = "select modul_name as mn, modul_number as m from modul where modul_id=" . $course_date[$index][0];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $returnText.= $row["mn"] . " - " . $row['m'];
+                    $returnText .= $row["mn"] . " - " . $row['m'];
                 }
             }
         } else {
-             $returnText.= " Pótnap:";
+            $returnText .= " Alkalmi:";
         }
         if ($course_date[$index][4] != "true") {
             $sql = "select study_materials_name as sn  from studymaterials where studymaterials_id=" . $course_date[$index][1];
@@ -263,19 +266,35 @@ function solveBackCurUnitNameModulName($course_date) {
             if ($result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                    $returnText.= " __ ". $row["sn"] . ";";
+                    $returnText .= " __ " . $row["sn"] ;
+                    switch ($course_date[$index][5]) {
+                        case "1":
+                            $returnText .= " __ elmélet;";
+                            break;
+                        case "2":
+                            $returnText .= "__ gyakorlat;";
+                            break;
+                        case "3":
+                            $returnText .= "__ elarn;";
+                            break;
+                        
+                        default:
+                            $returnText .= "__ alkalmi;";
+                        
+                            break;
+                    }
                 }
             }
         } else {
-            switch ($course_date[$index][5]) {
+            switch ($course_date[$index][1]) {
                 case "1":
-                     $returnText.= " __ szóbeli vizsga;";
+                    $returnText .= " __ szóbeli vizsga;";
                     break;
                 case "2":
-                     $returnText.= "__ írásbeli vizsga;";
+                    $returnText .= "__ írásbeli vizsga;";
                     break;
                 case "3":
-                     $returnText.= "__ gyakorlati vizsga;";
+                    $returnText .= "__ gyakorlati vizsga;";
                     break;
 
                 default:
@@ -287,8 +306,6 @@ function solveBackCurUnitNameModulName($course_date) {
     }
     return $returnText;
 }
-
-
 
 function solveOrderActiveEducation($order) {
     $returnValue = '';

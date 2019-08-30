@@ -101,9 +101,11 @@
      <div class="option-button-wrapper form-group row">
 
        <!-- <div onclick="missingsend()"  class="btn col-md-5 btn option-button">Elküld</div>-->
+        <div onclick="startPrinting(5)" id="buttonSend" class="btn col-md-5 btn option-button">Nyomtatás</div>
        <!-- <div class="col-md-2"> </div>-->
         <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
 
 
     </div>
+     <div id="help_div" style="display: none"></div>
 </div>

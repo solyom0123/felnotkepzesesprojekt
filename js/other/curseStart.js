@@ -199,7 +199,7 @@ function checkEnoughDay() {
             needMoreEl = true;
             need_el = spStudents[2] * (-1);
         }
-        if (spMonths.length > 0) {
+        if (!checkEmptyString(spdata[1])) {
             dateerror = true;
         }
         if (spStudents[0] > 0) {

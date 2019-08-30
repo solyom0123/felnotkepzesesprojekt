@@ -16,6 +16,12 @@ function startPrinting(type) {
             case 3:
             scprint(type);
             break;
+            case 4:
+            scprint(type);
+            break;
+            case 5:
+            missingPrint(type);
+            break;
         default:
             
             break;
@@ -73,7 +79,12 @@ function attendforStudent(type){
     }
 }
 function scprint(type){
-   var course = document.getElementById("form-row-aktiv-kepzes").value;
+   var course = 0;
+   if(type==3){
+          course = document.getElementById("form-row-aktiv-kepzes").value;
+       }else{
+           course = document.getElementById("form-row-aktiv-kepzes-h").value;
+       }
     if (course != -1 ) {
         var value = new Array(type, new Array(course))
         var slink = 'server.php';
@@ -90,10 +101,39 @@ function scprint(type){
         });
     }
 }
+function missingPrint(type){
+   var course = document.getElementById("form-row-aktiv-kepzes-list").value;
+        var student= document.getElementById("form-row-student").value;    
+    if (course != -1&&student!=-1) {
+        var value = new Array()
+        value[value.length] = type;
+        var slink = 'server.php';
+        $.post(slink, {
+            muv: "print",
+            param: value
+
+        }, function (data, status) {
+            console.log(data);
+            var link = data;
+               makeformFormissingprint(new Array(course,student),link); 
+            
+            
+        });
+    }
+}
 function  makeformForscprint(value, link) {
     var button_id="passToPrint";
     var form = form_head("./php/forms/"+link,true,"POST");
     form += one_variable_input("param",value);
+    form+=submit_button(button_id);
+    form+=form_end();
+    document.getElementById("help_div").innerHTML = form;
+    document.getElementById(button_id).click();
+}
+function  makeformFormissingprint(value, link) {
+    var button_id="passToPrint";
+    var form = form_head("./php/forms/"+link,true,"POST");
+    form += one_dimension_input("param",value);
     form+=submit_button(button_id);
     form+=form_end();
     document.getElementById("help_div").innerHTML = form;

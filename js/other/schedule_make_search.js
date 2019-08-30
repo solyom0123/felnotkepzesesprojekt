@@ -29,6 +29,7 @@ function searchCurUnit(modul, hour) {
 }
 function searchExam(modul, hour, hourammount) {
     var returnExam = null;
+    if(modulclosed(modul)){
     for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
         var actExam = modul.getVizsga(i);
         if (hour.getTipus() == 1) {
@@ -44,8 +45,19 @@ function searchExam(modul, hour, hourammount) {
                 }
             }
         }
+        }
     }
     return returnExam;
+}
+function modulclosed(modul){
+    var returnValue =true;
+    if(modul.getFelhasznaltElmeletiOraszam()<modul.getElmeleti_oraszam()){
+        returnValue =false;
+    }
+    if(modul.getFelhasznaltGyakorlatiOraszam()<modul.getGyakorlati_oraszam()){
+        returnValue =false;
+    }
+    return returnValue;
 }
 function searchModul(schedule, hourscanuse) {
     var returnArray = new Array();

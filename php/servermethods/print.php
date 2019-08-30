@@ -24,7 +24,16 @@ function printForm(){
            
              echo 'attendance_sc_print.php';
             break;
+        case 4:
+           
+             echo 'attendance_dd_print.php';
+            break;
+        case 5:
+           
+             echo 'missing_notes_print.php';
+            break;
         default:
+            
             break;
     }
 }

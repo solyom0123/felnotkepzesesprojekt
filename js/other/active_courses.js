@@ -331,6 +331,7 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
             if (type == 0) {
                 value = makeTablefromDataDate(data.split("//"));
                  document.getElementById(target).innerHTML = value;
+
                   missingget(1, 1);
                  document.getElementById("buttonSend").style.display = "block";
                 
@@ -348,8 +349,11 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
 }
 function  missingsend(i, j) {
     var rows = document.getElementById("mhour").getElementsByTagName("tr");
+    var timer = setInterval(function(){
+         if(rows.length>1){     
     var columns = rows[i].getElementsByTagName("td");
     var inputs = columns[j].getElementsByTagName("input");
+    
     if (inputs[0].value != 0) {
         var hour = inputs[0].value;
         var mod = inputs[0].getAttribute("data-mod");
@@ -368,42 +372,38 @@ function  missingsend(i, j) {
         }, function (data, status) {
         inputs[0].style.backgroundColor = "green";
         inputs[0].style.color = "white";
-            setTimeout(function () {
-                if ((j + 1) < columns.length) {
-                    missingsend(i, j + 1);
-                } else {
-                    if ((i + 1) < rows.length) {
-                        missingsend(i + 1, 1);
-                    }
-
-                }
-            }, 50);
         });
-    }else{
-        setTimeout(function () {
-             inputs[0].style.backgroundColor = "green";
-             inputs[0].style.color = "white";
-                if ((j + 1) < columns.length) {
-                    missingsend(i, j + 1);
-                } else {
-                    if ((i + 1) < rows.length) {
-                        missingsend(i + 1, 1);
-                    }
+        }else{
+                    inputs[0].style.backgroundColor = "green";
+        inputs[0].style.color = "white";
 
+        }
+         if ((j + 1) < columns.length) {
+                j++;
+            } else {
+                i++;j=1;
+                if (i < rows.length) {
+                }else{    
+                    clearInterval(timer);
                 }
-            }, 50);
 
-    }
+            }
+        }else{
+                    clearInterval(timer);            
+        }      
+     }, 300);
+    
 }
 
 
 
 function  missingget(i, j) {
     var rows = document.getElementById("mhour").getElementsByTagName("tr");
+    var timer = setInterval(function(){
+    if(rows.length>1){     
     var columns = rows[i].getElementsByTagName("td");
     var inputs = columns[j].getElementsByTagName("input");
-    
-      
+     
     var hour = inputs[0].value;
     var mod = inputs[0].getAttribute("data-mod");
     var exa = inputs[0].getAttribute("data-exa");
@@ -423,17 +423,24 @@ function  missingget(i, j) {
       inputs[0].style.color = "black";
       
         inputs[0].value = data;
-        setTimeout(function () {
-            if ((j + 1) < columns.length) {
-                missingget(i, j + 1);
+       
+    });
+         
+          if ((j + 1) < columns.length) {
+                j++;
             } else {
-                if ((i + 1) < rows.length) {
-                    missingget(i + 1, 1);
+                 i++;j=1;
+                if (i  < rows.length) {
+                   
+                }else{
+                    clearInterval(timer);
                 }
 
             }
-        }, 50);
-    });
+        }else{
+                    clearInterval(timer);            
+        }   
+     }, 300);
 
 
 

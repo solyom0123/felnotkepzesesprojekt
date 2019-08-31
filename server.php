@@ -166,7 +166,7 @@ if ($muv == "new_modul") {
 }else if ($muv == "modulAccessPass") {
     lekapcsolodas(passModul(kapcsolodas()));
 }else if ($muv == "list_dates_for_active") {
-    lekapcsolodas(list_dates_for_active(kapcsolodas()));
+    lekapcsolodas(list_dates_for_active(kapcsolodas(),0));
 }else if ($muv == "list_students_for_active") {
     lekapcsolodas(list_students_for_active(kapcsolodas()));
 }else if ($muv == "table_dates") {
@@ -185,6 +185,16 @@ if ($muv == "new_modul") {
     lekapcsolodas(editcheckdate(kapcsolodas()));
 }if($muv =="print"){
     printForm();
+}else if ($muv == "table_dates_exam") {
+    lekapcsolodas(table_for_date_exam(kapcsolodas()));
+}else if ($muv == "table_student_exam") {
+    lekapcsolodas(table_for_student_exam(kapcsolodas()));
+}else if ($muv == "insertExam") {
+    lekapcsolodas(insertorUpdateExam(kapcsolodas()));
+}else if ($muv == "getExam") {
+    lekapcsolodas(getExam(kapcsolodas()));
+}else if ($muv == "list_dates_for_active_exam") {
+    lekapcsolodas(list_dates_for_active(kapcsolodas(),1));
 }
 
 

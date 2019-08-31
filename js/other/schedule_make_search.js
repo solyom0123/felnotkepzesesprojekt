@@ -115,7 +115,7 @@ function checkEnableHoursAtDate(schedule, dayno) {
 function tiltottnap(schedule, actdate) {
     for (var i = 0, max = schedule.getKizartnapok(); i < max; i++) {
 
-        if (schedule.getKizartnap(i) == actdate) {
+        if (schedule.getKizartnap(i).getdatum() == actdate) {
             return true;
         }
 

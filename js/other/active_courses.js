@@ -317,8 +317,13 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
         var muv = '';
         if (type == 0) {
             muv = "table_dates";
-        } else {
+        } else if (type == 1){
             muv = "table_student";
+        }else if (type == 2){
+            muv = "table_dates_exam";
+        
+        }else {
+            muv = "table_student_exam";
         }
         var slink = 'server.php';
         $.post(slink, {
@@ -332,12 +337,24 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
                 value = makeTablefromDataDate(data.split("//"));
                  document.getElementById(target).innerHTML = value;
 
-                  missingget(1, 1);
+                  missingget(1, 1,0);
+                 document.getElementById("buttonSend").style.display = "block";
+                
+            } else  if (type ==1) {
+                value = makeTablefromDataStudent(data.split("//"));
+                 document.getElementById(target).innerHTML = value;
+                
+            } else if (type == 2) {
+                value = makeTablefromDataDate(data.split("//"));
+                 document.getElementById(target).innerHTML = value;
+
+                  missingget(1, 1,1);
                  document.getElementById("buttonSend").style.display = "block";
                 
             } else {
-                value = makeTablefromDataStudent(data.split("//"));
+                 value = makeTablefromDataStudentExam(data.split("//"));
                  document.getElementById(target).innerHTML = value;
+               
        
             }
             
@@ -347,7 +364,12 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
          document.getElementById("buttonSend").style.display = "none";
     }
 }
-function  missingsend(i, j) {
+function  missingsend(i, j,type) {
+    document.getElementById("loadModal").style.display="block";
+    var muv ="insertMissing";
+    if(type!=0){
+        muv ="insertExam"
+    }
     var rows = document.getElementById("mhour").getElementsByTagName("tr");
     var timer = setInterval(function(){
          if(rows.length>1){     
@@ -356,17 +378,13 @@ function  missingsend(i, j) {
     
     if (inputs[0].value != 0) {
         var hour = inputs[0].value;
-        var mod = inputs[0].getAttribute("data-mod");
-        var exa = inputs[0].getAttribute("data-exa");
-        var rep = inputs[0].getAttribute("data-rep");
-        var cur = inputs[0].getAttribute("data-cur");
+        var mod = inputs[0].getAttribute("data-scprid");
         var stu = inputs[0].getAttribute("data-stu");
-        var type = inputs[0].getAttribute("data-type");
         var act = inputs[0].getAttribute("data-act");
         var date = inputs[0].getAttribute("data-date");
-        var value = new Array(date, hour, mod, cur, act, stu, rep, exa, type);
+        var value = new Array(date, hour, mod,  act, stu);
         $.post("server.php", {
-            muv: "insertMissing",
+            muv: muv,
             param: value
 
         }, function (data, status) {
@@ -383,12 +401,14 @@ function  missingsend(i, j) {
             } else {
                 i++;j=1;
                 if (i < rows.length) {
-                }else{    
+                }else{   
+                     document.getElementById("loadModal").style.display="none";
                     clearInterval(timer);
                 }
 
             }
         }else{
+             document.getElementById("loadModal").style.display="none";
                     clearInterval(timer);            
         }      
      }, 300);
@@ -397,7 +417,14 @@ function  missingsend(i, j) {
 
 
 
-function  missingget(i, j) {
+function  missingget(i, j,type) {
+    
+     document.getElementById("loadModal").style.display="block";
+    var muv ="getMissing";
+    if(type!=0){
+        muv ="getExam";
+    }
+   
     var rows = document.getElementById("mhour").getElementsByTagName("tr");
     var timer = setInterval(function(){
     if(rows.length>1){     
@@ -405,17 +432,13 @@ function  missingget(i, j) {
     var inputs = columns[j].getElementsByTagName("input");
      
     var hour = inputs[0].value;
-    var mod = inputs[0].getAttribute("data-mod");
-    var exa = inputs[0].getAttribute("data-exa");
-    var rep = inputs[0].getAttribute("data-rep");
-    var cur = inputs[0].getAttribute("data-cur");
+    var mod = inputs[0].getAttribute("data-scprid");
     var stu = inputs[0].getAttribute("data-stu");
-    var type = inputs[0].getAttribute("data-type");
     var act = inputs[0].getAttribute("data-act");
     var date = inputs[0].getAttribute("data-date");
-    var value = new Array(date, hour, mod, cur, act, stu, rep, exa, type);
+    var value = new Array(date, hour, mod, act, stu);
     $.post("server.php", {
-        muv: "getMissing",
+        muv: muv,
         param: value
 
     }, function (data, status) {
@@ -433,11 +456,13 @@ function  missingget(i, j) {
                 if (i  < rows.length) {
                    
                 }else{
+                     document.getElementById("loadModal").style.display="none";
                     clearInterval(timer);
                 }
 
             }
         }else{
+                     document.getElementById("loadModal").style.display="none";
                     clearInterval(timer);            
         }   
      }, 300);
@@ -450,8 +475,10 @@ function listOptionsWithTargetAndSource(type, target, source) {
     var muv = '';
     if (type == 0) {
         muv = "list_dates_for_active";
-    } else {
+    } else if (type == 1) {
         muv = "list_students_for_active";
+    } else {
+        muv = "list_dates_for_active_exam";
     }
     var slink = 'server.php';
     $.post(slink, {
@@ -470,18 +497,10 @@ function listOptionsWithTargetAndSource(type, target, source) {
 function makeTablefromDataDate(data) {
     var spdatafirstrow = data[0].split(";");
     var td = "<td>";
-    var data_mod_head = 'data-mod="';
+    var data_mod_head = 'data-scprid="';
     var data_mod_end = '" ';
-    var data_cur_head = 'data-cur="';
-    var data_cur_end = '" ';
-    var data_rep_head = 'data-rep="';
-    var data_rep_end = '" ';
-    var data_exa_head = 'data-exa="';
-    var data_exa_end = '" ';
     var data_stu_head = 'data-stu="';
     var data_stu_end = '" ';
-    var data_type_head = 'data-type="';
-    var data_type_end = '" ';
     var data_act_head = 'data-act="';
     var data_act_end = '" ';
     var data_date_head = 'data-date="';
@@ -522,15 +541,11 @@ function makeTablefromDataDate(data) {
 
                     value += td +
                             input_head +
-                            max_tag + spStudentRow[3] + max_tag_end +
+                            max_tag + spStudentRow[2] + max_tag_end +
                             data_stu_head + spStudentRow[0] + data_stu_end +
                             data_mod_head + spStudentRow[1] + data_mod_end +
-                            data_cur_head + spStudentRow[2] + data_cur_end +
-                            data_rep_head + spStudentRow[4] + data_rep_end +
-                            data_exa_head + spStudentRow[5] + data_exa_end +
-                            data_type_head + spStudentRow[6] + data_type_end +
-                            data_act_head + spStudentRow[7] + data_act_end +
-                            data_date_head + spStudentRow[8] + data_date_end +
+                            data_act_head + spStudentRow[3] + data_act_end +
+                            data_date_head + spStudentRow[4] + data_date_end +
                             input_end +
                             td_end;
                 }
@@ -599,6 +614,58 @@ function makeTablefromDataStudent(data){
                         th_head +
                         th_end +
                         tr_end;
+    
+   
+    
+    return value;
+
+}
+function makeTablefromDataStudentExam(data){
+   var sum=0;
+    var td = "<td>";
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    var th_end = '</th>';
+    var value = tr +
+            th_head +
+            "Dátum" +
+            th_end+
+            th_head +
+            "Modul" +
+            th_end+
+            th_head +
+            "VizsgaTípus" +
+            th_end+
+            th_head +
+            "Érdemjegy" +
+            th_end+
+            
+            tr_end;
+    for (var i = 0, max = data.length; i < max; i++) {
+     
+       if (!checkEmptyString(data[i])) {
+            var spStudent = data[i].split(";");
+        value += tr +
+                        td +
+                        spStudent[1] +
+                        td_end +
+                        td +
+                        spStudent[3] +
+                        td_end +
+                        td +
+                        spStudent[4] +
+                        td_end +
+                        td +
+                        spStudent[2] +
+                        td_end +
+                        tr_end;
+                
+        }
+    
+    }
+   
     
    
     

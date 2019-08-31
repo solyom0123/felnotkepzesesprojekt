@@ -51,12 +51,12 @@ function loadingModuls(linkfr) {
 
     }
   
-    if (linkfr == "missing_in_form") {
+    if (linkfr == "missing_in_form"||linkfr == "exam_in_form") {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
     }
-     if (linkfr == "print_attendance_in_form"||linkfr == "print_attendance_in_form_teacher") {
+     if (linkfr == "print_attendance_in_form"||linkfr=="print_exam_attendance_in_form"|linkfr == "print_attendance_in_form_teacher") {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
      
@@ -92,7 +92,7 @@ function loadingModuls(linkfr) {
          modulEducation(true);
        // coursefilemodal();
     }
-    if(linkfr == "bonus_teacher_in_form"||linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "bonus_unit_in_form"||linkfr == "course_in_form"||linkfr == "modul_in_form"||linkfr == "user_in_form"||linkfr == "user_con_form"){
+    if(linkfr == "bonus_teacher_in_form"||linkfr == "teacher_in_form"||linkfr == "cur_unit_in_form"||linkfr == "bonus_unit_in_form"||linkfr == "course_in_form"||linkfr == "resultpageedit"||linkfr == "resultpage"||linkfr == "modul_in_form"||linkfr == "user_in_form"||linkfr == "user_con_form"){
          
         openDefultTab();
     }
@@ -135,6 +135,7 @@ function setElozo(elozo) {
  */
 function link(link) {
     var slink = './php/' + link + '.php';
+    console.log(link);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: slink,

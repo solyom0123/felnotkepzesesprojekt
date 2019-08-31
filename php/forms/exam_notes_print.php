@@ -11,31 +11,61 @@ $headtable = array();
 $maintable = array();
 $sumtable = array();
 $name = '';
-$summissing = 0;
-$sumdocm = 0;
-$sumexm = 0;
-$sumexamm = 0;
-$sumother =0;
+$summissing = false;
+$notfinishexam = array();
 
 function collectDataForScPrint($id) {
-    global $headtable, $name, $maintable, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm,$sumother;
+    global $headtable, $name, $maintable, $sumtable, $summissing,$notfinishexam;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-    
+    $sql = "select"
+            . " sc.id as id,"
+            . " sc.`date`,"
+            . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
+            . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
+            . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=".$id[0]." and mc.student_id=".$id[1]." and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+            . "from schedule_plan sc "
+            . "where sc.schedule_plan_data_id=" . $id[0] . ""
+            . " and sc.exam='true' "
+            . "and sc.id not in "
+            . "(select mc.schedule_plan_row_id "
+            . "from exam_table mc"
+            . " where mc.schedule_plan_data_id=" . $id[0] . " "
+            . "and mc.student_id=" . $id[1] . " and mc.grade >1);";
+    //echo $sql;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            //echo $row['date'].";".$row['hour'].";".$row['mn'].";".$row['sn']."//";
+            $locarray = array();
+            array_push($locarray, $row['date']);
+            array_push($locarray, $row['mn']);
+            array_push($locarray, $row["et"]);
+            array_push($locarray, $row["grade"]);
+            array_push($notfinishexam, $locarray);
+            
+        }
+        $summissing = false;
+    } else {
+        $summissing = true;
+        echo $conn->error;
+        
+    }
 
-    $sql = "select (select sc.used_hours_type from schedule_plan sc where sc.id = sc_plan_row_id ) as dt, "
-            . "(select sc.exam from schedule_plan sc where sc.id = sc_plan_row_id ) as exam ,"
+    $sql = "select (select sc.used_hours_type from schedule_plan sc where sc.id = mc.schedule_plan_row_id ) as dt, "
+            . "(select sc.exam from schedule_plan sc where sc.id = mc.schedule_plan_row_id ) as exam ,"
             . "(select student_full_name from students s where s.student_id = mc.student_id) as sname, "
             . "mc.id as id,"
-            . "(select sc.`date` from schedule_plan sc where sc.id = sc_plan_row_id )  as date,"
-            . " mc.missing_hour_ammount as hour, "
-            . "(select (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end) from schedule_plan sc where sc.id = sc_plan_row_id )  as mn,"
-            . "(select (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_hours_type) end) from schedule_plan sc where sc.id = sc_plan_row_id ) as sn  "
-            . "from missing_table mc "
-            . "where mc.active_education_id=" . $id[0] . " "
+            . "(select sc.`date` from schedule_plan sc where sc.id = mc.schedule_plan_row_id )  as date,"
+            . " mc.grade as hour, "
+            . "(select (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end) from schedule_plan sc where sc.id = mc.schedule_plan_row_id )  as mn,"
+            . "(select (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) from schedule_plan sc where sc.id = mc.schedule_plan_row_id) as sn  "
+            . "from exam_table mc "
+            . "where mc.schedule_plan_data_id=" . $id[0] . " "
             . "and mc.student_id=" . $id[1] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -48,18 +78,6 @@ function collectDataForScPrint($id) {
             array_push($locarray, $row["sn"]);
             array_push($locarray, $row["hour"]);
             $name = $row['sname'];
-            $summissing+= intval($row["hour"]);
-            if ($row["exam"] == "true") {
-                $sumexamm += intval($row["hour"]);
-            } else {
-                if ($row["dt"] == "1" || $row["dt"] == "3") {
-                    $sumdocm += intval($row["hour"]);
-                } else  if ($row["dt"] == "2" ){
-                    $sumexm += intval($row["hour"]);
-                }else{
-                    $sumother += intval($row["hour"]);
-                }
-            }
             array_push($maintable, $locarray);
         }
     } else {
@@ -192,6 +210,7 @@ function collectDataForScPrint($id) {
     }
     lekapcsolodas($conn);
 }
+
 function calcweekplan($spd) {
     $dweek = array(0, 0, 0, 0, 0, 0, 0);
     for ($index = 0; $index < count($spd) - 1; $index++) {
@@ -291,7 +310,7 @@ class PDF extends tFPDF {
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30, 10, 'Hiányzás összegző - '.$name, 0, 0);
+        $this->Cell(30, 10, 'Vizsga eredmény összegző - '.$name, 0, 0);
         // Line break
         $this->Ln(20);
     }
@@ -346,8 +365,8 @@ $pdf->Ln(5);
 $pdf->SetFont('DejaVuB', '', 10);
 $pdf->Cell(20, 10, "Dátum", "LT", 0);
 $pdf->Cell(60, 10, "Modul ", "LTR", 0);
-$pdf->Cell(60, 10, "Tanegység", "LTRB", 0);
-$pdf->Cell(20, 10, "Óraszám", "TRL", 0);
+$pdf->Cell(60, 10, "Vizsga típus", "LTRB", 0);
+$pdf->Cell(20, 10, "Osztályzat", "TRL", 0);
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 8);
 $pdf->SetFillColor(224, 235, 255);
@@ -362,30 +381,43 @@ for ($index = 0; $index < count($maintable); $index++) {
     $fill = !$fill;
 }
 $pdf->Ln(10);
-$pdf->Cell(100, 6, "A hiányzás összes óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $summissing, 0, 0);
-$pdf->Ln(5);
 
-$pdf->Cell(100, 6, "A hiányzás elméleti óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumdocm, 0, 0);
-$pdf->Ln(5);
-
-$pdf->Cell(100, 6, "A hiányzás gyakorlati óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumexm, 0, 0);
-$pdf->Ln(5);
-
-$pdf->Cell(100, 6, "A hiányzás vizsga óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumexamm, 0, 0);
-$pdf->Ln(5);
-$pdf->Cell(100, 6, "A hiányzás alkalmi óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumother, 0, 0);
+$pdf->Cell(100, 6, "A záróvizsgára alkalmas:", 0, 0);
+if($summissing){
+$pdf->Cell(100, 6, "Igen, alkalmas.", 0, 0);
+}else{
+$pdf->Cell(100, 6, "Nem, nem alkalmas.", 0, 0);    
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "Hiányzó vagy bukott vizsgák:", 0, 0);
+$pdf->Ln(5);
+$pdf->SetFont('DejaVuB', '', 10);
+$pdf->Cell(20, 10, "Dátum", 1, 0);
+$pdf->Cell(60, 10, "Modul ", 1, 0);
+$pdf->Cell(60, 10, "Vizsga típus", 1, 0);
+$pdf->Cell(40, 10, "Osztályzat", 1, 0);
+$pdf->Ln();
+$pdf->SetFont('DejaVu', '', 8);
+for ($index = 0; $index < count($notfinishexam); $index++) {
+    $pdf->Cell(20, 6, $notfinishexam[$index][0], 1, 0, "", $fill);
+    $pdf->Cell(60, 6, $notfinishexam[$index][1], 1, 0, "", $fill);
+    $pdf->Cell(60, 6, $notfinishexam[$index][2], 1, 0, "", $fill);
+    $pdf->Cell(40, 6, $notfinishexam[$index][3], 1, 0, "", $fill);
+    $pdf->Ln();
+    $fill = !$fill;
+}
+
+}
+
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
     $pdf->Cell(20, 6, $sumtable[$index1][2], 0, 0);
     $pdf->Ln();
 }
+
+
 $pdf->Ln(10);
 $pdf->Cell(80, 6, "Összesen:", 0, 0);
 $pdf->Cell(60, 6, $sumtable[0][0], 0, 0);

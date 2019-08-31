@@ -22,6 +22,12 @@ function startPrinting(type) {
             case 5:
             missingPrint(type);
             break;
+            case 6:
+            missingPrint(type);
+            break;
+             case 7:
+            attendforStudent(type);
+            break;
         default:
             
             break;

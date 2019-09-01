@@ -195,7 +195,18 @@ if ($muv == "new_modul") {
     lekapcsolodas(getExam(kapcsolodas()));
 }else if ($muv == "list_dates_for_active_exam") {
     lekapcsolodas(list_dates_for_active(kapcsolodas(),1));
+}else if ($muv == "table_dates_final_exam") {
+    lekapcsolodas(table_for_date_final_exam(kapcsolodas()));
+}else if ($muv == "table_student_final_exam") {
+    lekapcsolodas(table_for_student_final_exam(kapcsolodas()));
+}else if ($muv == "insertFinalExam") {
+    lekapcsolodas(insertorUpdateFinalExam(kapcsolodas()));
+}else if ($muv == "getFinalExam") {
+    lekapcsolodas(getFinalExam(kapcsolodas()));
+}else if ($muv == "list_dates_for_active_final_exam") {
+    lekapcsolodas(list_dates_for_active(kapcsolodas(),2));
 }
+
 
 
 

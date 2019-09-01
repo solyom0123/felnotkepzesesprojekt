@@ -51,12 +51,12 @@ function loadingModuls(linkfr) {
 
     }
   
-    if (linkfr == "missing_in_form"||linkfr == "exam_in_form") {
+    if (linkfr == "missing_in_form"||linkfr == "exam_in_form"||linkfr == "final_exam_in_form") {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
     }
-     if (linkfr == "print_attendance_in_form"||linkfr=="print_exam_attendance_in_form"|linkfr == "print_attendance_in_form_teacher") {
+     if (linkfr == "list_names_in_form"||linkfr == "print_attendance_in_form"||linkfr == "print_final_exam_attendance_in_form"||linkfr=="print_exam_attendance_in_form"|linkfr == "print_attendance_in_form_teacher") {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
      

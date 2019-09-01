@@ -31,6 +31,10 @@
                         <table class="table-default">
                             <tbody>
                                 <tr>
+                                     <td><div class="span-half-corner-wrapper">
+                                            <div onclick="link('print_final_exam_attendance_in_form');setElozo('show_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
+                                        </div><span>Final vizsga <br>jelenléti</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('print_exam_attendance_in_form');setElozo('show_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
@@ -51,7 +55,10 @@
                                             <div onclick="link('student_list_print_license');setElozo('show_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Képzési szerződés</span></td>
-                                        
+                                        <td><div class="span-half-corner-wrapper">
+                                            <div onclick="link('list_names_in_form');setElozo('show_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
+                                        </div><span>Névsor nyomtatás</span></td>
                                    </tr>
                                    
                             </tbody>

@@ -40,7 +40,10 @@
                                             <div onclick="link('exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Vizsgák kezelése</span></td>
-                                   
+                                   <td><div class="span-half-corner-wrapper">
+                                            <div onclick="link('final_exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
+                                        </div><span>Záróvizsgák kezelése</span></td>
                                    </tr>
                                    
                             </tbody>

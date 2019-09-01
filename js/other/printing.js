@@ -28,6 +28,12 @@ function startPrinting(type) {
              case 7:
             attendforStudent(type);
             break;
+             case 8:
+            attendforStudent(type);
+            break;
+             case 9:
+            listnamePrint(type);
+            break;
         default:
             
             break;
@@ -36,11 +42,68 @@ function startPrinting(type) {
 
 }
 function attendforStudent(type){
-    var date = document.getElementById("form-row-date").value;
+    var date =0;
+    if(type!=8){
+     date = document.getElementById("form-row-date").value;
+    }else{
+     date = document.getElementById("form-row-hour").value;   
+    }
     var course = document.getElementById("form-row-aktiv-kepzes").value;
     if (course != -1 && date != -1) {
-        var value = new Array(type, new Array(course, date))
-        var slink = 'server.php';
+         var slink ='server.php';
+         var value = new Array(type, new Array(course, date))
+        
+        $.post(slink, {
+            muv: "print",
+            param: value
+
+        }, function (data, status) {
+            console.log(data);
+            var mainhead_array = new Array();
+            var date = '';
+            var courses_datas = new Array();
+            var maintable_array = new Array();
+            var spData = data.split("/;/");
+            mainhead_array = spData[0].split(";");
+            mainhead_array[mainhead_array.length] = "";
+            courses_datas = spData[1].split("//");
+            var spStudents = spData[2].split("//");
+            for (var i = 0, max = spStudents.length; i < max; i++) {
+                if (!checkEmptyString(spStudents[i])) {
+                    var loac_array = spStudents[i].split(";");
+                    maintable_array[maintable_array.length] = loac_array;
+                }
+            }
+            date = spData[3];
+            var link = spData[4];
+            var i=0;
+            var timer = setInterval (function(){
+            if(i<courses_datas.length){
+                if (!checkEmptyString(courses_datas[i])) {
+                    var spCourses = courses_datas[i].split(";");
+                    mainhead_array[4] = spCourses[0];
+                    mainhead_array[5] = spCourses[1];
+
+                    makeformForsendattendstudent(date, mainhead_array, maintable_array, link);
+                }
+                i++;
+            }else{
+                clearInterval(timer);
+            }
+            
+            },300
+            )
+        });
+    }
+}
+function listnamePrint(type){
+    var types = document.getElementById("form-row-type").value;
+   
+    var course = document.getElementById("form-row-aktiv-kepzes").value;
+    if (course != -1 && types != -1) {
+         var slink ='server.php';
+         var value = new Array(type, new Array(course, types))
+        
         $.post(slink, {
             muv: "print",
             param: value

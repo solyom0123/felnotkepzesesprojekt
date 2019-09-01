@@ -66,6 +66,14 @@ function passUpdateschedule(start) {
         passscheduleAJAXPROMISE(localparam)
                 .then(data => {
                     setTimeout(function () {
+                          if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
+                         document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.backgroundColor = "green";
+                         document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.color = "white";
+                     }else{
+                        document.getElementById("bonustable").getElementsByTagName("tr")[start+1-(document.getElementById("scTable").getElementsByTagName("tr").length)].style.backgroundColor = "green";
+                         document.getElementById("bonustable").getElementsByTagName("tr")[start+1-(document.getElementById("scTable").getElementsByTagName("tr").length)].style.color = "white";
+                     
+                     }
                         passUpdateschedule(start + 1);
                     }, 300);
                 })

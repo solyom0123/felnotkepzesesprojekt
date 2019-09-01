@@ -96,6 +96,9 @@ function insertInTable(utemterv,i) {
     
                     console.log(data);
                     var options = makeOptionsForteacherselect(data);
+                    
+                     document.getElementById("bonustable").getElementsByTagName("tr")[searchforOptions(sdata[0],sdata[1],sdata[2],sdata[3])].style.backgroundColor = "yellow";
+                    document.getElementById("bonustable").getElementsByTagName("tr")[searchforOptions(sdata[0],sdata[1],sdata[2],sdata[3])].style.color = "black";
                     loadOptions(searchforOptions(sdata[0],sdata[1],sdata[2],sdata[3]), options,"bonustable");
 
 
@@ -259,8 +262,11 @@ function loadTeacherselects(start, kulonbseg, load) {
         searchTeacher(actday.getTanegysegVizsgaid())
                 .then(data => {
                     setTimeout(function () {
-                        if (!actday.isVizsga()&&!actday.isTartalekNap() ) {
-
+                        if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
+                        document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.backgroundColor = "yellow";
+                        document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.color = "black";
+                        }   if (!actday.isVizsga()&&!actday.isTartalekNap() ) {
+                            
                             var options = makeOptionsForteacherselect(data);
                             loadOptions(start + 1 - kulonbseg, options,"scTable");
 
@@ -273,6 +279,7 @@ function loadTeacherselects(start, kulonbseg, load) {
                             
 
                         }
+                       
                     }, 300);
                 })
                 .catch(error => {

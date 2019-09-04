@@ -43,14 +43,15 @@ function loadSchedule(spSchedule) {
         for (var i = 0, max = scRows.length; i < max; i++) {
             var actrow = scRows[i].split(";,;");
             if (!checkEmptyString(scRows[i])) {
-                var day = new Utemterv_bejegyzes_Model(0, actrow[0], solveBooleanFromString(actrow[1]), actrow[2], actrow[3], actrow[4], solveBooleanFromString(actrow[5]), actrow[6], actrow[7], actrow[8], actrow[9]);
+                var day = new Utemterv_bejegyzes_Model(0, actrow[0], solveBooleanFromString(actrow[1]), actrow[2], actrow[3], actrow[4], solveBooleanFromString(actrow[5]), actrow[6], actrow[7], actrow[8]);
+                                                    //0         1           2                               3              4        5           6                               7           8           9   
                 day.setOktato(actrow[11] * 1);
                 sc.addUtemtervhez(day);
                 if (actrow[1] == "true") {
                     lastDays[lastDays.length] = actrow;
                 }
                 if (actrow[5] == "true") {
-                    var data = new Array(actrow[0], solveUtemTerv_ModelExamTypeForHuman(actrow[2]), actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]));
+                    var data = new Array(actrow[0], solveUtemTerv_ModelExamTypeForHuman(actrow[2]), actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]),actrow[0], actrow[8]+"_"+actrow[2]);
                     makeTableForShow(3, data);
                 }
                 if (actrow[5] == "false" && actrow[1] == "false") {

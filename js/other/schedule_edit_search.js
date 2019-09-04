@@ -26,6 +26,29 @@ function searchIndexSelectedOption(svalue, select) {
     }
     return index;
 }
+
+function searchTeacherExam(modul) {
+    return new Promise((resolve, reject) => {
+
+        $.ajax({
+
+            url: "server.php",
+            type: 'POST',
+            data: {
+                param: modul,
+                muv: "searchTeacherExam"
+            },
+
+            success: function (data) {
+                // //console.log(data);
+                resolve(data);
+            },
+            error: function (err) {
+                reject(err);
+            }
+        });
+    });
+}
 function searchTeacher(curUnitId) {
     return new Promise((resolve, reject) => {
 

@@ -73,8 +73,9 @@ function makeTableForShow(type, data) {
     var table_end = '</table>';
     var td = "<td>";
     var select_head = '<select onchange="loadTeacher(\''
-    var select_middle = '\',';
+    var select_middle = '\',\'';
     var select_middle_1 = ',';
+     var select_middle_2 = '\',';
     var select_end = ')" ><option value="-1">Kérem válasszon oktatót!</option></select>';
     var tr_end = "</tr>";
     var td_end = "</td>";
@@ -149,7 +150,7 @@ function makeTableForShow(type, data) {
                     data[7] +
                     select_middle +
                     data[8] +
-                    select_middle_1 +
+                    select_middle_2 +
                     false +
                     select_middle_1 +
                     0 +
@@ -182,7 +183,16 @@ function makeTableForShow(type, data) {
                     data[6] +
                     td_end +
                     td +
-                    'Vizsgához nem lehet oktatót választani!' +
+                     select_head +
+                    data[7] +
+                      select_middle +
+                    data[8] +
+                    select_middle_2 +
+                    false +
+                    select_middle_1 +
+                    0 +
+                    select_end +
+                     
                     td_end +
                     tr_end;
 

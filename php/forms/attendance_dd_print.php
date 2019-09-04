@@ -10,14 +10,27 @@ $value = isset($_POST['param']) ? $_POST['param'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
-
+$alma = array();
 function collectDataForScPrint($id) {
-    global $headtable, $maintable, $sumtable;
+    global $headtable, $maintable, $sumtable,$alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
+    $sql = "select `name`, address from kepzokozpont ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+            array_push($alma, $row["name"]);
+            array_push($alma, $row["address"]);
+        }
+    } else {
+        echo $sql;
+        echo $conn->error;
+    }
     $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -90,7 +103,7 @@ function collectDataForScPrint($id) {
     $plan .= solvebackDaysPrint($expweek, 1);
     array_push($headtable, $plan);
 
-    $sql = "select sp.`date`,(select s.study_materials_name from studymaterials s  where s.studymaterials_id = sp.used_studymaterials_id) as cn,(select m.modul_number from modul m  where m.modul_id = sp.used_modul_id) as ei,sp.used_hours_type as t,sp.replace_day as r ,(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END)  as te,sp.modul_start_hour as s,sp.modul_end_hour as ed  from schedule_plan sp where schedule_plan_data_id=" . $id;
+    $sql = "select sp.`date`,(case when sp.exam='false' then (select s.study_materials_name from studymaterials s  where s.studymaterials_id = sp.used_studymaterials_id) else (select he.realname from helper_exam_data he where he.`type` = sp.used_studymaterials_id) END) as cn,(select m.modul_number from modul m  where m.modul_id = sp.used_modul_id) as ei,sp.used_hours_type as t,sp.replace_day as r ,(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END)  as te,sp.modul_start_hour as s,sp.modul_end_hour as ed  from schedule_plan sp where schedule_plan_data_id=" . $id;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -293,7 +306,7 @@ $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
 $pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
-$pdf->Cell(100, 6, $headtable[0], 0, 0);
+$pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
 $pdf->Cell(100, 6, $headtable[1], 0, 0);
@@ -302,7 +315,7 @@ $pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 
 $pdf->Cell(100, 6, $headtable[2], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
-$pdf->Cell(100, 6, $headtable[3], 0, 0);
+$pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
 $pdf->Cell(100, 6, $headtable[4], 0, 0);
@@ -347,7 +360,7 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
     $pdf->Cell(20, 6, $sumtable[$index1][2], 0, 0);
-    $pdf->Ln(1);
+    $pdf->Ln();
 }
 $pdf->Ln(10);
 $pdf->Cell(80, 6, "Összesen:", 0, 0);

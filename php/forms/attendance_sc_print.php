@@ -7,12 +7,14 @@ include_once '../../server.php';
  * and open the template in the editor.
  */
 $value = isset($_POST['param']) ? $_POST['param'] : null;
+$shour = isset($_POST['hour']) ? $_POST['hour'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
+$alma = array();
 
 function collectDataForScPrint($id) {
-    global $headtable, $maintable, $sumtable;
+    global $headtable, $maintable, $sumtable,$alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -34,6 +36,19 @@ function collectDataForScPrint($id) {
             $dp = $row['dp'];
             $ep = $row['ep'];
             $exp = $row['exp'];
+        }
+    } else {
+        echo $sql;
+        echo $conn->error;
+    }
+    $sql = "select `name`, address from kepzokozpont ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+            array_push($alma, $row["name"]);
+            array_push($alma, $row["address"]);
         }
     } else {
         echo $sql;
@@ -257,14 +272,25 @@ function solveDaynamePrint($index, $type, $value) {
 }
 
 function getclock($value) {
-    $returnValue = "08:00";
+    global $shour;
+    $returnValue = $shour.":00";
     $hour = (($value * 45) / 60);
     $min = 0;
     if (is_int($hour)) {
-        $returnValue .= "-" . (8 + $hour) . ":00";
+        if(($shour + $hour)<24){
+        $returnValue .= "-" . ($shour + $hour) . ":00";
+        }else{
+        $returnValue .= "-" . (($shour + $hour)-24) . ":00";
+            
+        }
     } else {
         $minutes = $hour - intval($hour);
-        $returnValue .= "-" . (8 + intval($hour)) . ":" . (60 * $minutes);
+        if(($shour +  intval($hour))<24){
+        $returnValue .= "-" . ($shour + intval($hour)) . ":00";
+        }else{
+        $returnValue .= "-" . (($shour + intval($hour))-24) . ":".(60 * $minutes);
+            
+        }
     }
     return $returnValue;
 }
@@ -314,7 +340,7 @@ $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
 $pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
-$pdf->Cell(100, 6, $headtable[0], 0, 0);
+$pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
 $pdf->Cell(100, 6, $headtable[1], 0, 0);
@@ -323,7 +349,7 @@ $pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 
 $pdf->Cell(100, 6, $headtable[2], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
-$pdf->Cell(100, 6, $headtable[3], 0, 0);
+$pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
 $pdf->Cell(100, 6, $headtable[4], 0, 0);

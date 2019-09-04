@@ -149,7 +149,9 @@ function listnamePrint(type){
 }
 function scprint(type){
    var course = 0;
+   var ido =0;
    if(type==3){
+            ido = document.getElementById("hour").value;
           course = document.getElementById("form-row-aktiv-kepzes").value;
        }else{
            course = document.getElementById("form-row-aktiv-kepzes-h").value;
@@ -164,7 +166,7 @@ function scprint(type){
         }, function (data, status) {
             console.log(data);
             var link = data;
-               makeformForscprint(course,link); 
+               makeformForscprint(course,link,ido); 
             
             
         });
@@ -190,10 +192,11 @@ function missingPrint(type){
         });
     }
 }
-function  makeformForscprint(value, link) {
+function  makeformForscprint(value, link,ido) {
     var button_id="passToPrint";
     var form = form_head("./php/forms/"+link,true,"POST");
     form += one_variable_input("param",value);
+    form += one_variable_input("hour",ido);
     form+=submit_button(button_id);
     form+=form_end();
     document.getElementById("help_div").innerHTML = form;

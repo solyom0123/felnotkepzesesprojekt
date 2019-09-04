@@ -29,36 +29,31 @@ function searchCurUnit(modul, hour) {
 }
 function searchExam(modul, hour, hourammount) {
     var returnExam = null;
-    if(modulclosed(modul)){
+
     for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
         var actExam = modul.getVizsga(i);
         if (hour.getTipus() == 1) {
-            if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
-                if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
-                    return actExam;
+            if (modul.getFelhasznaltElmeletiOraszam() >= modul.getElmeleti_oraszam()) {
+                if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
+                    if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
+                        return actExam;
+                    }
                 }
             }
         } else if (hour.getTipus() == 2) {
-            if (modul.getVizsga(i).getTipus() == 3) {
-                if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
-                    return actExam;
+            if (modul.getFelhasznaltGyakorlatiOraszam() >= modul.getGyakorlati_oraszam()) {
+                if (modul.getVizsga(i).getTipus() == 3) {
+                    if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
+                        return actExam;
+                    }
                 }
             }
         }
-        }
     }
+
     return returnExam;
 }
-function modulclosed(modul){
-    var returnValue =true;
-    if(modul.getFelhasznaltElmeletiOraszam()<modul.getElmeleti_oraszam()){
-        returnValue =false;
-    }
-    if(modul.getFelhasznaltGyakorlatiOraszam()<modul.getGyakorlati_oraszam()){
-        returnValue =false;
-    }
-    return returnValue;
-}
+
 function searchModul(schedule, hourscanuse) {
     var returnArray = new Array();
     for (var i = 0, max = schedule.getKepzes().getModulok().length; i < max; i++) {

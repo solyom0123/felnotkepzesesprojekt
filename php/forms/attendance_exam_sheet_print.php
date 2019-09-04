@@ -5,9 +5,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 $date = $_POST['date'];
 $headtable = $_POST["head"];
 $maintable = $_POST["main"];
+include_once '../../server.php';
+$alma = array();
+function alma(){
+     global $alma;
+    $conn = kapcsolodas();
+    $dp = '';
+    $ep = '';
+    $exp = '';
+    $mi = '';
+    $sql = "select `name`, address from kepzokozpont ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+            array_push($alma, $row["name"]);
+            array_push($alma, $row["address"]);
+        }
+    } else {
+        echo $sql;
+        echo $conn->error;
+    }
+    lekapcsolodas($conn);
+}
 require_once('../tfpdf.php');
 
 class PDF extends tFPDF {
@@ -50,18 +82,22 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 //$pdf->BasicTable('$header',true);
 
+alma();
 $pdf->AddPage();
 $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
-$pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
-$pdf->Cell(100, 6, $headtable[0], 0, 0);
+$pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
+$pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
+$pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
 $pdf->Cell(100, 6, $headtable[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
+$pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
 $pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Ln(5);
+$pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
+$pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
 $pdf->Cell(100, 6, $headtable[3], 0, 0);

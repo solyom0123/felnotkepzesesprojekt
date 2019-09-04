@@ -14,7 +14,7 @@ function setTeacherOptionsValue(index, kulonbsegteacher) {
         modal.style.display = "block";
 
 
-        if (!actday.isVizsga() && !actday.isTartalekNap()) {
+        if (!actday.isTartalekNap()) {
             if (actday.getOktato() * 1 > 0) {
                 var myTable = document.getElementById("scTable");
                 var rows = myTable.getElementsByTagName("tr");

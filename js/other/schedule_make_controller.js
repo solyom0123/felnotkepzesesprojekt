@@ -103,7 +103,7 @@ function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
             if (foundExam != null) {
                 var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
                 var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour);
-                var data = new Array(actdate, solveUtemTerv_ModelExamTypeForHuman(foundExam.getTipus()), actModul.getModul_neve() + " " + actModul.getModul_azon(), hourAmmmountByHoursType, modulstarthourAmmmountByHoursType, (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), solveUtemTerv_ModelTypeForHuman(actHour.getTipus()));
+                var data = new Array(actdate, solveUtemTerv_ModelExamTypeForHuman(foundExam.getTipus()), actModul.getModul_neve() + " " + actModul.getModul_azon(), hourAmmmountByHoursType, modulstarthourAmmmountByHoursType, (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), solveUtemTerv_ModelTypeForHuman(actHour.getTipus()),  actdate, actModul.getId()+"_"+foundExam.getTipus() );
                 makeTableForShow(3, data);
                 schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundExam.getTipus(), hourAmmmountByHoursType, actHour.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()));
                 usedHoursAmmount += hourAmmmountByHoursType;

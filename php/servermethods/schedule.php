@@ -54,7 +54,7 @@ function makeUpdateSchedulePlan() {
 function searchTeacher($conn) {
     global $value;
     $sql = "select t.teacher_id as id, t.teacher_full_name as name"
-            . " from teachers t,studymaterials_teacher st where t.teacher_id = st.teacher and st.studymaterials=" . $value;
+            . " from teachers t,studymaterials_teacher st where t.teacher_id = st.teacher and st.studymaterials=" . $value."  group by t.teacher_id";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -64,6 +64,22 @@ function searchTeacher($conn) {
         }
     } else {
         echo "-2;,;,;Nincs oktató a tanegységhez rendelve!/;/";
+    }
+    return $conn;
+}
+function searchTeacherExam($conn) {
+    global $value;
+    $sql = "select t.teacher_id as id, t.teacher_full_name as name"
+            . " from teachers t,studymaterials_teacher  st, studymaterials s where t.teacher_id = st.teacher and  st.studymaterials = s.studymaterials_id and s.modul_id=" . $value."  group by t.teacher_id";
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row["id"] . " ;,;,;" . $row["name"] . "/;/";
+        }
+    } else {
+        echo "-2;,;,;Nincs oktató a modulhoz rendelve!/;/";
     }
     return $conn;
 }
@@ -314,6 +330,8 @@ function select_all_dataforAnActiveEducation($conn) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
             echo $row["d"] . ";,;" . $row["r"] . ";,;" . $row["si"] . ";,;" . $row["uh"] . ";,;" . $row["t"] . ";,;" . $row["e"] . ";,;" . $row["sh"] . ";,;" . $row["eh"] . ";,;" . $row["mi"] . ";,;" . $row["mn"] . ";,;" . $row["sn"] . ";,;" . $row["ti"] . ";,;" . $row["tn"] . "//";
+            //     0                    1                   2                       3                      4                5                   6                       7               8                   9                       10                  11                  12                  
+            
         }
     } else {
         echo "none//";

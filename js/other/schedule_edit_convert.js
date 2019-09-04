@@ -12,7 +12,7 @@ function addReplacementDay() {
     var remain_replacementdays_ammount = document.getElementById("replacementDays_datarow").getElementsByTagName("div")[2].innerHTML;
     var remain_curunit = document.getElementById("replacementDays_datarow").getElementsByTagName("div")[1].innerHTML;
 
-    if (selected_cur_unit != -1 && selected_day != -1 && (remain_replacementdays_ammount * 1) > 0&&inserted_hour_ammount > 0) {
+    if (selected_cur_unit != -1 && selected_day != -1 &&inserted_hour_ammount > 0) {
         for (var i = 0, max = replacementdays.length; i < max; i++) {
 
             if (replacementdays[i].getdatum() == selected_day) {
@@ -258,10 +258,15 @@ function loadTeacherselects(start, kulonbseg, load) {
         //console.log(document.getElementById("scTable").getElementsByTagName("tr")[start + 1 - kulonbseg]);
 
         modal.style.display = "block";
-
+        if(!actday.isVizsga()){
+             console.log("normal");
+        
+        console.log(sc.getUtemtervNap(start));
         searchTeacher(actday.getTanegysegVizsgaid())
                 .then(data => {
+                     console.log(data);
                     setTimeout(function () {
+                        
                         if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
                         document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.backgroundColor = "yellow";
                         document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.color = "black";
@@ -288,7 +293,35 @@ function loadTeacherselects(start, kulonbseg, load) {
 
                 });
 
+        }else{
+             console.log("vizsga");
+        
+        console.log(sc.getUtemtervNap(start));
+            searchTeacherExam(actday.getModul())
+                .then(data => {
+                     console.log(data);
+                    setTimeout(function () {
+                        if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
+                        document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.backgroundColor = "yellow";
+                        document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.color = "black";
+                        } 
+                            var options = makeOptionsForteacherselect(data);
+                            loadOptions(start + 1 - kulonbseg, options,"scTable");
 
+                            
+                            loadTeacherselects(start + 1, kulonbseg, load);
+
+                         
+                       
+                    }, 300);
+                })
+                .catch(error => {
+
+                    modal.style.display = "none";
+
+                });
+
+        }
     } else {
 
         modal.style.display = "none";
@@ -306,6 +339,8 @@ function loadOptions(rowno, options,table) {
 }
 function loadTeacher(actdate, curUnitId, isReplacement,indexReplacement,anyagname,oraszam,start) {
     var kulonbseg = 0;
+    
+    if(!Array.isArray(curUnitId)){
     for (var i = 0, max = sc.getUtemterv().length; i < max; i++) {
         var actday = sc.getUtemtervNap(i);
         if (actday.isTartalekNap()) {
@@ -322,6 +357,23 @@ function loadTeacher(actdate, curUnitId, isReplacement,indexReplacement,anyagnam
             }
             actday.setOktato(oktatoid);
         }
+    }
+    }else{
+        var spcurunitid = curUnitId.split("_");
+    
+       for (var i = 0, max = sc.getUtemterv().length; i < max; i++) {
+        var actday = sc.getUtemtervNap(i);
+        if (actday.isTartalekNap()) {
+            kulonbseg++;
+
+        }
+
+        if (actday.getdatum() == actdate && actday.getModul() == spcurunitid[0] && actday.isVizsga()&&actday.getTanegysegVizsgaid()==spcurunitid[1]) {
+            var oktatoid = 0;
+             oktatoid = solveTeacherselectValue(i + 1 - kulonbseg);
+            actday.setOktato(oktatoid);
+        }
+    }  
     }
 }
 function makeOptionsFromObjects(objects) {

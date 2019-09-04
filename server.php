@@ -126,6 +126,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(passschedule(kapcsolodas()));
 }else if ($muv == "searchTeacher") {
     lekapcsolodas(searchTeacher(kapcsolodas()));
+}else if ($muv == "searchTeacherExam") {
+    lekapcsolodas(searchTeacherExam(kapcsolodas()));
 } else if($muv =="cur_units_without_this_course"){
     lekapcsolodas(curUnitsWithoutThisCourse(kapcsolodas()));
 }else if($muv =="list_active_course"){
@@ -213,9 +215,9 @@ if ($muv == "new_modul") {
 
 
 function kapcsolodas() {
-    $szerverneve = "mysql.nethely.hu";
-    $felhasznalonev = "oktat";
-    $password = 'corvin2019';
+    $szerverneve = "localhost";//"mysql.nethely.hu";
+    $felhasznalonev = 'root';//"oktat";
+    $password = "";//'corvin2019';
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 

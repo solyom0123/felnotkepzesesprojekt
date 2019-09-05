@@ -96,7 +96,7 @@ function loadNameAndDatesInputs(spNameAndDates, id) {
         document.getElementById("form-row-exam-date").value = NameAndDates[8];
     }
 }
-function loadModulNames(spModulNames) {
+function loadModulNames(spModulNames,target) {
     var inputs = '';
     var span_head = '<span class="col-md-4">';
     var span_end = '</span>';
@@ -110,7 +110,7 @@ function loadModulNames(spModulNames) {
 
         }
     }
-    document.getElementById("modul-order-place").innerHTML = inputs;
+    document.getElementById(target).innerHTML = inputs;
 }
 function loadUsedReplacementDays(usedReplacementDays) {
     for (var i = 0, max = usedReplacementDays.length; i < max; i++) {

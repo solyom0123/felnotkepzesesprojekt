@@ -40,6 +40,20 @@ function makeModul_ModelsfromData(dataArray, schedule) {
         }
     }
 }
+function makeFinishedModul_ModelsfromData(dataArray, schedule) {
+    for (var i = 0, max = dataArray.length; i < max; i++) {
+        if (!checkEmptyString(dataArray[i])) {
+            var spModulData = dataArray[i].split(";");
+            let modul = new Modul_Model(spModulData[1], spModulData[0], spModulData[2], spModulData[3], spModulData[4]);
+
+            makeExamForModul_Models(modul, 1, spModulData[5]);
+            makeExamForModul_Models(modul, 2, spModulData[6]);
+            makeExamForModul_Models(modul, 3, spModulData[7]);
+
+            schedule.addBefejezettModul(modul);
+        }
+    }
+}
 function makeUnusableUtemterv_bejegyzes_ModelfromData(dataArray, schedule) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
         if (!checkEmptyString(dataArray[i])) {
@@ -219,6 +233,8 @@ function collectDatainArray(targetArray) {
     targetArray[8] = hasznalt;
     targetArray[9] = document.getElementById("form-row-help-day").value;
     targetArray[10] = calc("_el_dec");
+    targetArray[11] = ftiltotta;
+    targetArray[12] = fhasznalt;
 
 
 

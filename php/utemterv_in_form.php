@@ -79,7 +79,7 @@
             <input class="form-control-plaintext" name="form-row-help-day" id="form-row-help-day" type="hidden" min="0" >
 
     <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének :</label>
+        <label  class="col-md-4 col-form-label">Képzési modulok sorrendje :</label>
 
         <div class="col-md-8 ">
             <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
@@ -87,6 +87,16 @@
     </div>
     <div id="modul-order-place" >
 
+    </div>
+                <div class="form-group row">
+        <label  class="col-md-4 col-form-label">Teljesített képzési modulok sorrendje:</label>
+        
+        <div class="col-md-8 ">
+            <a href="#" data-toggle="tooltip" title="Válassza ki a teljesített modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
+    <div id="finished-modul-order-place" >
+        
     </div>
     <div class="form-group row">
         <div onclick="editActiveEducation()"><input type="button" name="log-form" class="btn col-md-12 btn option-button" value="Módosít"></div>

@@ -92,6 +92,7 @@ function backLoadeditschedule() {
                             setTimeout(
                                     function () {
                                         solveModulsAndOrderBack(sc);
+                                        solveFinishedModulsAndOrderBack(sc);
                                         checkEnoughDay();
                                     }
                             , 1000);
@@ -133,15 +134,13 @@ function makeScFormDataAdapter(data, id) {
     document.getElementsByTagName("id")[0].innerHTML = id;
     var spNameAndDates = data.split("/;/")[0];
     var spModulNames = data.split("/;/")[1];
+    var spfModulNames = data.split("/;/")[5];
     makeScFromDataNAMES(spNameAndDates, id);
     var modulsArray = makeCorrectModulStringInArray(spModulNames);
     makeModul_ModelsfromData(modulsArray, sc);
-
-
-
-
-
-}
+    var fmodulsArray = makeCorrectModulStringInArray(spfModulNames);
+    makeFinishedModul_ModelsfromData(fmodulsArray, sc);
+  }
 function loadAnActiveSchedule() {
     var id = document.getElementsByTagName("id")[0].innerHTML;
     kiiras = "";
@@ -180,11 +179,14 @@ function loadActiveScheduleFrom(data, id) {
     var spSchedule = data.split("/;/")[2];
     var spUnusable = data.split("/;/")[3].split("//");
     var spDates = data.split("/;/")[4].split("//");
-
+    var spfmodul = data.split("/;/")[5];
     loadNameAndDatesInputs(spNameAndDates, id);
-    loadModulNames(spModulNames);
+    loadModulNames(spModulNames,"modul-order-place");
+    loadModulNames(spfmodul,"finished-modul-order-place");
     var modulsArray = makeCorrectModulStringInArray(spModulNames);
     makeModul_ModelsfromData(modulsArray, sc);
+    var fmodulsArray = makeCorrectModulStringInArray(spfmodul);
+    makeFinishedModul_ModelsfromData(fmodulsArray, sc);
     makeUnusableUtemterv_bejegyzes_ModelfromData(spUnusable, sc);
     makeDayUtemterv_bejegyzes_ModelfromData(spDates, sc);
     SPSCHEDULEDATA = spSchedule;

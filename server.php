@@ -54,9 +54,9 @@ if ($muv == "new_modul") {
 } else if ($muv == "modulEdit") {
     lekapcsolodas(editModul(kapcsolodas()));
 }else if ($muv == "modulget") {
-    lekapcsolodas(getModul(kapcsolodas()));
+    lekapcsolodas(getModul(kapcsolodas(),0));
 }else if ($muv == "modulgetCalc") {
-    lekapcsolodas(getModul(kapcsolodas()));
+    lekapcsolodas(getModul(kapcsolodas(),1));
     echo ';,;,;';
     lekapcsolodas(getCalcModulNeeded(kapcsolodas()));
 
@@ -215,8 +215,8 @@ if ($muv == "new_modul") {
 
 
 function kapcsolodas() {
-    $szerverneve = "localhost";//"mysql.nethely.hu";
-    $felhasznalonev = 'root';//"oktat";
+    $szerverneve = "localhost";//"mysql.nethely.hu";;
+    $felhasznalonev = 'root';//"oktat";;
     $password = "";//'corvin2019';
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);

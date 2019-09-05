@@ -207,6 +207,12 @@ function solveModulsAndOrderBack(sc) {
         document.getElementById("form-row-modul-" + (i + 1)).value = actmodul.getId();
     }
 }
+function solveFinishedModulsAndOrderBack(sc) {
+    for (var i = 0, max = sc.getBefejezettModuls(); i < max; i++) {
+        var actmodul = sc.getBefejezettModul(i);
+        document.getElementById("form-row-finished-modul-" + (i + 1)).value = actmodul.getId();
+    }
+}
 function solveUtemTerv_ModelTypeForHuman(type) {
     var returnValue = '';
     var numbertype = type * 1;

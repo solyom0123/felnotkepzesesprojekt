@@ -113,6 +113,7 @@ function backLoadUpdateschedule() {
                             setTimeout(
                                     function () {
                                         solveModulsAndOrderBack(sc);
+                                        solveFinishedModulsAndOrderBack(sc);
                                         checkEnoughDay();
                                     }
                             , 1000);
@@ -180,12 +181,15 @@ function gettingupdateStart() {
         var spCurUnits = spReplyData[3].split("/;/");
         var spDateInfos = spReplyData[4].split("/;/");
         var spCaleInfos = spReplyData[5].split("/;/");
+        var spFinisHedModuls = spReplyData[6].split("/;/");
         var spCourse = spReplyData[1].split(";");
         var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
         var cur_unitArray = new Array();
         ////console.log(schedule);
         var schedule = makeSchedule(formDataArray, spReplyData, course);
         makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
+        makeFinishedModul_ModelsfromData(spFinisHedModuls, schedule);
+           
         makeModul_ModelsfromData(spModuls, schedule);
         makeUnusableUtemterv_bejegyzes_ModelfromData(spDateInfos, schedule);
         connectCurUnitsForModuls(schedule, cur_unitArray);

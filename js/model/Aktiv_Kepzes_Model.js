@@ -32,6 +32,7 @@ class Aktiv_Kepzes_Model{
        this.utemterv = new Array();
        this.kizart_napok = new Array();
        this.naptar = new Array();
+       this.befejezett_modul = new Array();
     }
    
     getBelsoAzonosito(){
@@ -40,11 +41,22 @@ class Aktiv_Kepzes_Model{
     getNaptar(){
         return this.naptar.length;
     }
+    
     addNapNaptarhoz(nap){
             this.naptar[this.naptar.length]= nap;
     } 
     getNapNaptarhoz(int){
           return  this.naptar[int];
+    }
+    getBefejezettModuls(){
+        return this.befejezett_modul.length;
+    }
+    
+    addBefejezettModul(no){
+            this.befejezett_modul[this.befejezett_modul.length]= no;
+    } 
+    getBefejezettModul(int){
+          return  this.befejezett_modul[int];
     }
     
     getKepzes(){

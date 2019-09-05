@@ -32,6 +32,11 @@ function makeSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
+
+    for ($index = 0; $index < count($value[11]); $index++) {
+        lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+    }
+    
 }
 
 function makeUpdateSchedulePlan() {
@@ -49,6 +54,11 @@ function makeUpdateSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
+  
+    for ($index = 0; $index < count($value[11]); $index++) {
+        lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+    }
+    
 }
 
 function searchTeacher($conn) {
@@ -208,9 +218,11 @@ function insertSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
+    $used_finished_module = arraytoString($value[11]);
+    $used_finished_module_place = arraytoString($value[12]);
     $replace = $value[9];
-    $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,elearn_week_plan,exercise_week_plan,used_modul_id,used_modul_place,replace_days)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_elearn . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "'," . $replace . ");";
+    $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,elearn_week_plan,exercise_week_plan,used_modul_id,used_modul_place,replace_days,used_finished_modul,used_finished_modul_place)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_elearn . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "'," . $replace . ",'" . $used_finished_module . "','" . $used_finished_module_place . "');";
     if ($conn->query($sql) === TRUE) {
         // echo 'ok';
     } else {
@@ -237,8 +249,10 @@ function updateSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
+     $used_finished_module = arraytoString($value[11]);
+    $used_finished_module_place = arraytoString($value[12]);
     $replace = $value[9];
-    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . " where id = " . $value[11] . ";";
+    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . ",,used_finished_modul='" . $used_finished_module . "',used_finished_modul_place='" . $used_finished_module_place . "'  where id = " . $value[11] . " ;";
     if ($conn->query($sql) === TRUE) {
         //  echo 'ok';
     } else {
@@ -246,7 +260,7 @@ function updateSchedule($conn) {
         //  echo $conn->error;
     }
 
-    echo $value[11] . "//";
+    echo $value[13] . "//";
     return $conn;
 }
 
@@ -290,7 +304,8 @@ function select_all_dataforAnActiveEducation($conn) {
     $moduls = '';
     $start = "";
     $end = "";
-    $sql = "select sc.`name` as n,e.education_name as e,e.okj_number as o,sc.start_day as s,sc.sign_day as si, sc.used_modul_id as mi, sc.used_modul_place as mp, sc.replace_days as r,sc.exam_date as ex , sc.course_id as cid, sc.doctrine_week_plan as dp, sc.elearn_week_plan as elp, sc.exercise_week_plan as exp  from schedule_plan_data sc, education e where e.education_id= sc.course_id and sc.id =" . $value;
+    $fmodul ='';
+    $sql = "select sc.`name` as n,e.education_name as e,e.okj_number as o,sc.start_day as s,sc.sign_day as si, sc.used_modul_id as mi, sc.used_modul_place as mp, sc.replace_days as r,sc.exam_date as ex , sc.course_id as cid, sc.doctrine_week_plan as dp, sc.elearn_week_plan as elp, sc.exercise_week_plan as exp, used_finished_modul as ufm, used_finished_modul_place as ufmp  from schedule_plan_data sc, education e where e.education_id= sc.course_id and sc.id =" . $value;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -300,6 +315,7 @@ function select_all_dataforAnActiveEducation($conn) {
             $moduls = $row['mi'];
             $start = $row["s"];
             $end = $row["si"];
+            $fmodul = $row['ufm'];
         }
     } else {
         echo "none//";
@@ -359,6 +375,24 @@ function select_all_dataforAnActiveEducation($conn) {
 
     foreach ($period as $dt) {
         echo $dt->format("Y-m-d") . "//";
+    }
+     echo '/;/';
+    $spmoduls = explode(";", $fmodul);
+
+    for ($index = 0; $index < count($spmoduls); $index++) {
+        if ($spmoduls[$index] != '' && $spmoduls[$index] != ';') {
+            $sql = "select m.modul_name as n, m.modul_number as nu from modul m where m.modul_id=" . $spmoduls[$index];
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    echo $spmoduls[$index] . ";" . $row["n"] . ";" . $row["nu"] . "//";
+                }
+            } else {
+                echo "none//";
+                echo $conn->error;
+            }
+        }
     }
     return $conn;
 }

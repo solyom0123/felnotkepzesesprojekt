@@ -18,7 +18,7 @@ function gettingStart() {
             param: formDataArray
 
         }, function (data, status) {
-            //console.log(data);
+            console.log(data);
             kiiras = "";
             sc = null;
             objects = null;
@@ -27,6 +27,7 @@ function gettingStart() {
             var spCurUnits = spReplyData[3].split("/;/");
             var spDateInfos = spReplyData[4].split("/;/");
             var spCaleInfos = spReplyData[5].split("/;/");
+            var spFinisHedModuls = spReplyData[6].split("/;/");
             var spCourse = spReplyData[1].split(";");
             var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
             var cur_unitArray = new Array();
@@ -34,6 +35,7 @@ function gettingStart() {
             var schedule = makeSchedule(formDataArray, spReplyData, course);
             makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
             makeModul_ModelsfromData(spModuls, schedule);
+            makeFinishedModul_ModelsfromData(spFinisHedModuls, schedule);
             makeUnusableUtemterv_bejegyzes_ModelfromData(spDateInfos, schedule);
             connectCurUnitsForModuls(schedule, cur_unitArray);
             makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[5], schedule, 1);
@@ -53,12 +55,15 @@ function gettingStart() {
     }
 }
 function scanDates(schedule) {
+    var hasznalt = false;
     for (var i = 0, max = schedule.getNaptar(); i < max; i++) {
         var actdate = schedule.getNapNaptarhoz(i).getdatum();
         if (!tiltottnap(schedule, actdate)) {
             var dayno = getMonthStartWeekDaysNo(actdate);
             var hourscanuse = checkEnableHoursAtDate(schedule, dayno);
             if (hourscanuse.length > 0) {
+                
+                if(hasznalt){
                 var moduls = searchModul(schedule, hourscanuse);
 
                 if (moduls.length > 0) {
@@ -68,10 +73,48 @@ function scanDates(schedule) {
 
                     useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno);
                 }
+                }else{
+                    if(schedule.getBefejezettModuls()>0){
+                     useFinishedModuls(schedule,actdate,dayno);   
+                    }
+                    hasznalt= true;
+                }
             }
         }
         ////console.log("_____nextday___");
     }
+}
+function  useFinishedModuls(schedule,actdate,dayno){
+     var actModulNoInArray = 0;
+   
+    var usedHoursAmmount = 0;
+    //var end = false;
+    for (actModulNoInArray = 0; actModulNoInArray < schedule.getBefejezettModuls();actModulNoInArray++) {
+        var actModul = schedule.getBefejezettModul(actModulNoInArray);
+        for(var actExamNoInArray = 0; actExamNoInArray<actModul.getVizsgak().length;actExamNoInArray++){ 
+        var foundExam =  actModul.getVizsga(actExamNoInArray);
+            if (foundExam != null) {
+                var hourAmmmountByHoursType = (foundExam.getOraszam() * 1);
+                var type = 0; 
+                if((foundExam.getTipus()*1)==1||(foundExam.getTipus()*1)==2){
+                    type=1;
+                }else{
+                    type=2;
+                }
+                var actHour=new Utemterv_bejegyzes_Model(0, actdate, false, 0, 0, type, false, 0, 0, 0);
+                var modulstarthourAmmmountByHoursType = calcmodulstarthourAmmmountByHoursType(actModul, actHour );
+                var data = new Array(actdate, solveUtemTerv_ModelExamTypeForHuman(foundExam.getTipus()), actModul.getModul_neve() + " " + actModul.getModul_azon(), hourAmmmountByHoursType, modulstarthourAmmmountByHoursType, (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), solveUtemTerv_ModelTypeForHuman(actHour.getTipus()),  actdate, actModul.getId()+"_"+foundExam.getTipus() );
+                makeTableForShow(3, data);
+                schedule.addUtemtervhez(new Utemterv_bejegyzes_Model(dayno, actdate, false, foundExam.getTipus(), hourAmmmountByHoursType, actHour.getTipus(), true, (modulstarthourAmmmountByHoursType), (modulstarthourAmmmountByHoursType + hourAmmmountByHoursType), actModul.getId()));
+                usedHoursAmmount += hourAmmmountByHoursType;
+                calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType);
+                foundExam.setUsed(true);
+            }
+
+        }
+    }
+
+    
 }
 function useFoundModulsAndHours(moduls, schedule, hourscanuse, actdate, dayno) {
     var actModulNoInArray = 0;
@@ -170,6 +213,7 @@ function backLoadschedule(needName, again) {
                             setTimeout(
                                     function () {
                                         solveModulsAndOrderBack(sc);
+                                        solveFinishedModulsAndOrderBack(sc);
                                         checkEnoughDay();
                                         if (again) {
                                             setTimeout(function () {

@@ -47,7 +47,7 @@ function collectDataForScPrint($id) {
     $ep = '';
     $exp = '';
     $mi = '';
-    
+      $ufm= '';
 
     $sql = "select (select sc.used_hours_type from schedule_plan sc where sc.id = sc_plan_row_id ) as dt, "
             . "(select sc.exam from schedule_plan sc where sc.id = sc_plan_row_id ) as exam ,"
@@ -88,7 +88,7 @@ function collectDataForScPrint($id) {
     } else {
         
     }
-    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
+    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -103,6 +103,7 @@ function collectDataForScPrint($id) {
             $mi = $row['mi'];
             $dp = $row['dp'];
             $ep = $row['ep'];
+            $ufm = $row['ufm'];
             $exp = $row['exp'];
         }
     } else {
@@ -123,6 +124,38 @@ function collectDataForScPrint($id) {
             while ($row = $result->fetch_assoc()) {
                 //$loc_array = array(, $row['s'], $row['n'],$row['n']);
                  $sumcalc += intval($row["d"]);
+                $dsum += intval($row["d"]);
+                $sumcalc += intval($row["e"]);
+                $esum += intval($row["e"]);
+                if (intval($row["w"]) > 0) {
+                    $sumcalc += intval($row["w"]);
+                    $dsum += intval($row["w"]);
+                }
+                if (intval($row["p"]) > 0) {
+                    $sumcalc += intval($row["p"]);
+                    $esum += intval($row["p"]);
+                }
+                if (intval($row["v"]) > 0) {
+                    $sumcalc += intval($row["v"]);
+                    $dsum += intval($row["v"]);
+                }
+            }
+        } else {
+            echo $sql;
+            echo $conn->error;
+        }
+    }
+     $spufm = explode(";", $ufm);
+    
+    for ($index = 0; $index < count($spufm) - 1; $index++) {
+
+        $sql = "select  doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+                $sumcalc += intval($row["d"]);
                 $dsum += intval($row["d"]);
                 $sumcalc += intval($row["e"]);
                 $esum += intval($row["e"]);
@@ -169,6 +202,55 @@ function collectDataForScPrint($id) {
     for ($index = 0; $index < count($spMi) - 1; $index++) {
 
         $sql = "select  concat( modul_number,' modul ',modul_name )as mn,doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spMi[$index] . ";";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                $esum = 0;
+                $sumcalc = 0;
+                $dsum = 0;
+                //$loc_array = array(, $row['s'], $row['n'],$row['n']);
+                $sumcalc += intval($row["d"]);
+                $dsum += intval($row["d"]);
+                $sumcalc += intval($row["e"]);
+                $esum += intval($row["e"]);
+                if (intval($row["w"]) > 0) {
+                    $sumcalc += intval($row["w"]);
+                    $dsum += intval($row["w"]);
+                }
+                if (intval($row["p"]) > 0) {
+                    $sumcalc += intval($row["p"]);
+                    $esum += intval($row["p"]);
+                }
+                if (intval($row["v"]) > 0) {
+                    $sumcalc += intval($row["v"]);
+                    $dsum += intval($row["v"]);
+                }
+                $text = "";
+                if ($esum > 0) {
+                    $text .= "gyakorlat:" . $esum . " óra";
+                }
+
+                if ($dsum > 0) {
+                    if (strlen($text) == 0) {
+                        $text .= "elmélet: " . $dsum . " óra";
+                    } else {
+                        $text .= ", elmélet: " . $dsum . " óra";
+                    }
+                }
+                $locarray = array($row["mn"], $text, $sumcalc . " óra");
+                array_push($sumtable, $locarray);
+            }
+        } else {
+            echo $sql;
+            echo $conn->error;
+        }
+    }
+         $spufm = explode(";", $ufm);
+
+    for ($index = 0; $index < count($spufm) - 1; $index++) {
+
+        $sql = "select  concat( modul_number,' modul ',modul_name )as mn,doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // output data of each row

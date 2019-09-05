@@ -19,6 +19,8 @@
  */
 var tiltotta = new Array();
 var hasznalt = new Array();
+var ftiltotta = new Array();
+var fhasznalt = new Array();
 var hiba = false;
 function getActiveEduScheme() {
 
@@ -51,6 +53,7 @@ function backloadActiveEduSchema() {
     var value = document.getElementById("form-row-sema").value;
     if (value != -1) {
         document.getElementsByTagName("id")[0].innerHTML = value;
+        clearUsedSelectChooseArrays();
         makeScFromSchema();
         backLoadschedule(false, true);
         // document.getElementById("form-row-name").value="";
@@ -67,6 +70,7 @@ function modulSelectorsMake() {
         }, function (data, status) {
             //////console.log(data);
             var value = "";
+            var value2= "";
             var spStudents = data.split("//");
             var emptyModulList = false;
             document.getElementById("modul_length_of_course").value = spStudents[0];
@@ -75,11 +79,20 @@ function modulSelectorsMake() {
                 if (!checkEmptyString(spStudents[i])) {
                     value += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
                             '<div class="col-md-4"><select  class="form-control" id="form-row-modul-' + i + '" onchange="modulChange()">' +
-                            '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. modult modult!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
+                            '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. modult !"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
+                            ' </div></div>';
+                }
+            }
+            for (var i = 1; i < spStudents.length; i++) {
+                if (!checkEmptyString(spStudents[i])) {
+                    value2 += '<div class="form-group row"><label for="form-row-name" class="col-md-4 col-form-label">' + i + '.</label>' +
+                            '<div class="col-md-4"><select  class="form-control" id="form-row-finished-modul-' + i + '" onchange="modulChange()">' +
+                            '</select></div><div class="col-md-4 "><a href="#" data-toggle="tooltip" title="Válassza ki a ' + i + '. teljesített modult !"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a> ' +
                             ' </div></div>';
                 }
             }
             document.getElementById("modul-order-place").innerHTML = value;
+            document.getElementById("finished-modul-order-place").innerHTML = value2;
             var modullist = "";
             modulRefeshwithParametersAJAXCALL(id, true)
                     .then(moduls => {
@@ -90,8 +103,12 @@ function modulSelectorsMake() {
                                 ////console.log(i);
                                 let atadandotiltott = Object.assign(new Array(), tiltotta);
                                 let atadandohely = Object.assign(new Array(), hasznalt);
+                                let fatadandotiltott = Object.assign(new Array(), ftiltotta);
+                                let fatadandohely = Object.assign(new Array(), fhasznalt);
                                 let index = "form-row-modul-" + i;
                                 modulRefeshwithParametersSELECTION(modullist, id, index, atadandotiltott, atadandohely)
+                                index = "form-row-finished-modul-" + i;
+                                modulRefeshwithParametersSELECTION(modullist, id, index, fatadandotiltott, fatadandohely)
                                 //tiltotta[tiltotta.length] = spStudents[i];
                             }
                         }
@@ -160,6 +177,7 @@ function checkEnoughDay() {
     }
     param[7] = id;
     param[8] = tiltotta;
+    param[9] = ftiltotta;
     var slink = 'server.php';
     $.post(slink, {
         muv: "enough_day",
@@ -357,16 +375,27 @@ function lockAllModulSelector(lock) {
 function clearUsedSelectChooseArrays() {
     tiltotta = new Array();
     hasznalt = new Array();
+     ftiltotta = new Array();
+    fhasznalt = new Array();
 }
 function collectModulSelectorsData() {
     var osszesdb = (document.getElementById("modul_length_of_course").value * 1) + 1;
     tiltotta = new Array();
     hasznalt = new Array();
+    ftiltotta = new Array();
+    fhasznalt = new Array();
     for (var i = 1, max = osszesdb; i < max; i++) {
         var ertek = document.getElementById("form-row-modul-" + i).value;
         if (ertek != -1) {
             hasznalt[hasznalt.length] = i;
             tiltotta[tiltotta.length] = ertek;
+        }
+    }
+     for (var i = 1, max = osszesdb; i < max; i++) {
+        var ertek = document.getElementById("form-row-finished-modul-" + i).value;
+        if (ertek != -1) {
+            fhasznalt[fhasznalt.length] = i;
+            ftiltotta[ftiltotta.length] = ertek;
         }
     }
 }

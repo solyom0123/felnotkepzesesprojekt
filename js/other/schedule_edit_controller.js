@@ -213,7 +213,7 @@ function showResultUpdate(schedule) {
                 document.getElementById("resultTable").innerHTML = kiiras;
                 sc = schedule;
                 loadTeacherselects(0, 0, false);
-
+                
                 searchForCurUnits(sc.getKepzes().getId())
                         .then(data => {
                             objects = makeObjectFromReturnValue(data);

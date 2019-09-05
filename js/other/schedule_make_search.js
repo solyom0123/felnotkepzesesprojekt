@@ -32,25 +32,26 @@ function searchExam(modul, hour, hourammount) {
 
     for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
         var actExam = modul.getVizsga(i);
+        if (modul.getFelhasznaltElmeletiOraszam() >= modul.getElmeleti_oraszam()&&modul.getFelhasznaltGyakorlatiOraszam() >= modul.getGyakorlati_oraszam()){ 
         if (hour.getTipus() == 1) {
-            if (modul.getFelhasznaltElmeletiOraszam() >= modul.getElmeleti_oraszam()) {
+            
                 if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
                     if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
                         return actExam;
                     }
                 }
-            }
+            
         } else if (hour.getTipus() == 2) {
-            if (modul.getFelhasznaltGyakorlatiOraszam() >= modul.getGyakorlati_oraszam()) {
+        
                 if (modul.getVizsga(i).getTipus() == 3) {
                     if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
                         return actExam;
                     }
                 }
-            }
+            
         }
     }
-
+    }
     return returnExam;
 }
 

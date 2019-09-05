@@ -47,6 +47,7 @@ function gettingStart() {
             scanDates(schedule);
             makeTableForShow(4, null);
             //console.log(schedule);
+            
             showResult(schedule);
         });
     } else {
@@ -171,7 +172,7 @@ function showResult(schedule) {
                 document.getElementById("resultTable").innerHTML = kiiras;
                 sc = schedule;
                 loadTeacherselects(0, 0, false);
-
+                
                 searchForCurUnits(sc.getKepzes().getId())
                         .then(data => {
                             replacementdays = collectSCReplacmentDays(sc);
@@ -186,13 +187,56 @@ function showResult(schedule) {
                         .catch(error => {
                             ////console.log(error)
                         });
-
+               
             })
             .catch(error => {
                 ////console.log(error)
             });
 
     //document.getElementById("resultTable").innerHTML= kiiras;
+}
+function  alertMessageMake(notwork){
+    var massege='<div class="alert alert-danger">';
+    var sumdoc =0;
+    var sumexe = 0;
+    for (var i = 0, max = notwork.length; i < max; i++) {
+        if(notwork[i][1]==1&&notwork[i][1]==2){
+        sumdoc=notwork[i][2];
+        }else{
+        sumexe=notwork[i][2];
+            
+        }
+    }
+    if(sumdoc>0){
+     massege +="meg kell növelni az elméleti óraszámot az egyik napon, mert ennyi elméleti vizsga nem fért bele az ütemtervbe:"+sumdoc+",";   
+    }
+    if(sumexe>0){
+     massege +="meg kell növelni az gyakorlati óraszámot az egyik napon, mert ennyi gyakorlati vizsga nem fért bele az ütemtervbe:"+sumexe+".";    
+    }
+    massege += "</div>";
+    return massege;
+}
+function checkSc(sc){
+    var returnValue = new Array();
+    for (var i = 0, max = sc.getKepzes().getModulok().length; i < max; i++) {
+        var actModul = sc.getKepzes().getModulok()[i];
+        for (var j = 0, max1 = actModul.getVizsgak().length; j < max1; j++) {
+            if(!actModul.getVizsga(j).getUsed()){
+                returnValue[returnValue.length] = new Array(actModul.getModul_neve(),actModul.getVizsga(j).getTipus(),actModul.getVizsga(j).getOraszam()) ;
+                
+            }
+        }
+    }
+     for (var i = 0, max = sc.getBefejezettModuls(); i < max; i++) {
+        var actModul = sc.getBefejezettModul(i);
+        for (var j = 0, max1 = actModul.getVizsgak().length; j < max1; j++) {
+            if(!actModul.getVizsga(j).getUsed()){
+                returnValue[returnValue.length] = new Array(actModul.getModul_neve(),actModul.getVizsga(j).getTipus(),actModul.getVizsga(j).getOraszam()) ;
+                
+            }
+        }
+    }
+    return  returnValue;
 }
 function backLoadschedule(needName, again) {
     link("course_start")

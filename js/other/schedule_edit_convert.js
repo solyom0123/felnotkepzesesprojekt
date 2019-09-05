@@ -331,6 +331,12 @@ function loadTeacherselects(start, kulonbseg, load) {
     } else {
 
         modal.style.display = "none";
+         var notwork =checkSc(sc);
+                if(notwork.length>0){
+                    document.getElementById("pass-btn").style.display="none";
+                      document.getElementById("pass-btn-b").style.display="none";
+                    document.getElementById("alert").innerHTML = alertMessageMake(notwork);
+                }
         if (load) {
             loadBackSecondHalf();
         }

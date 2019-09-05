@@ -7,7 +7,11 @@
 
 <div id="delete" class="tabcontent">
     <div class="row "><h2 class="col-md-12 h2-default">Ütemterv</h2></div>
-<div class="col-md-12 "id="resultTable">
+<div id="alert">
+        
+    </div>
+    
+    <div class="col-md-12 "id="resultTable">
     </div>
    <div class="form-group row col-md-12">
         <div class="option-button col-md-12" onclick="passschedule(0)" id="pass-btn">Elfogad!</div></a>
@@ -47,7 +51,7 @@
                     
     </table>
     <div class="form-group row col-md-12">
-        <div class="option-button col-md-12" onclick="passschedule(0)" id="pass-btn">Elfogad!</div></a>
+        <div class="option-button col-md-12" onclick="passschedule(0)" id="pass-btn-b">Elfogad!</div></a>
     </div>
     <div class="form-group row col-md-12">
         <div onclick="backLoadschedule(true,false);deleteEditedSchedule()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>

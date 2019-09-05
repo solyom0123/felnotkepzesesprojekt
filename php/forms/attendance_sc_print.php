@@ -12,7 +12,15 @@ $headtable = array();
 $maintable = array();
 $sumtable = array();
 $alma = array();
-
+function bennevanUFM($array,$value){
+    $returnValue = false;
+    for ($index = 0; $index < count($array); $index++) {
+        if ($array[$index]==$value) {
+         $returnValue=true;   
+        }
+    }
+    return $returnValue;
+}
 function collectDataForScPrint($id) {
     global $headtable, $maintable, $sumtable,$alma;
     $conn = kapcsolodas();
@@ -139,12 +147,14 @@ function collectDataForScPrint($id) {
     $plan .= solvebackDaysPrint($expweek, 1);
     array_push($headtable, $plan);
 
-    $sql = "select sp.`date`,(select m.modul_number from modul m  where m.modul_id = sp.used_modul_id) as ei,sp.used_hours_type as t,sp.replace_day as r ,(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END)  as te,sp.modul_start_hour as s,sp.modul_end_hour as ed  from schedule_plan sp where schedule_plan_data_id=" . $id;
+    $sql = "select sp.`date`,(select m.modul_number from modul m  where m.modul_id = sp.used_modul_id) as ei,sp.used_hours_type as t,sp.replace_day as r ,(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END)  as te,sp.modul_start_hour as s,sp.modul_end_hour as ed, sp.used_modul_id as us  from schedule_plan sp where schedule_plan_data_id=" . $id;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+            if(!bennevanUFM($spufm, $row['us'])){
             $locarray = array();
+            
             array_push($locarray, $row['date']);
 
             if ($row["r"] == "false") {
@@ -173,6 +183,7 @@ function collectDataForScPrint($id) {
             array_push($locarray, $row['ei']);
             array_push($locarray, $row['te']);
             array_push($maintable, $locarray);
+        }
         }
     } else {
         echo $sql;

@@ -35,7 +35,7 @@ function makeModul_ModelsfromData(dataArray, schedule) {
             makeExamForModul_Models(modul, 1, spModulData[5]);
             makeExamForModul_Models(modul, 2, spModulData[6]);
             makeExamForModul_Models(modul, 3, spModulData[7]);
-
+           
             schedule.getKepzes().addModul(modul);
         }
     }
@@ -233,9 +233,17 @@ function collectDatainArray(targetArray) {
     targetArray[8] = hasznalt;
     targetArray[9] = document.getElementById("form-row-help-day").value;
     targetArray[10] = calc("_el_dec");
+    if(ftiltotta.length==0){
+    targetArray[11] = new Array("none","none");
+    targetArray[12] = new Array("none","none");
+    
+    }else{
     targetArray[11] = ftiltotta;
     targetArray[12] = fhasznalt;
 
+    }
+    
+    
 
 
 }

@@ -189,11 +189,22 @@ function loadActiveScheduleFrom(data, id) {
     makeFinishedModul_ModelsfromData(fmodulsArray, sc);
     makeUnusableUtemterv_bejegyzes_ModelfromData(spUnusable, sc);
     makeDayUtemterv_bejegyzes_ModelfromData(spDates, sc);
+    for (var i = 0, max = sc.getKepzes().getModulok().length; i < max; i++) {
+        setALLExamUsed(sc.getKepzes().getModul(i));
+    }
+    for (var i = 0, max = sc.getBefejezettModuls(); i < max; i++) {
+        setALLExamUsed(sc.getBefejezettModul(i));
+    }
     SPSCHEDULEDATA = spSchedule;
+    
 
 
 
-
+}
+function setALLExamUsed(modul){
+ for (var j = 0, max1 = modul.getVizsgak().length; j < max1; j++) {
+                modul.getVizsga(j).setUsed(true);
+            }    
 }
 function startLoadSchedulePlan() {
     if (!VOLT) {

@@ -37,7 +37,7 @@ function setTeacherOptionsValue(index, kulonbsegteacher) {
 
 
     } else {
-        openDefultTab();
+        //openDefultTab();
        
         modal.style.display = "none";
 

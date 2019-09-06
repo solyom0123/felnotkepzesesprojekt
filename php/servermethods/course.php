@@ -33,7 +33,7 @@ function getCourse($conn) {
 
 function editCourse($conn) {
     global $value;
-    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' , education_center ='" . $value[4] . "',  image ='" . $value[5] . "' where education_id=" . $value[3];
+    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' , education_center ='" . $value[5] . "',  image ='" . $value[4] . "' where education_id=" . $value[3];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';

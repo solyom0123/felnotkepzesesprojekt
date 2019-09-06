@@ -324,7 +324,7 @@ function calcDiff(modul_data, calc_data) {
     var lochibatext = '';
     var spModul_data = modul_data.split('/;/');
     var spCalc_data = calc_data.split('/;/');
-    if (((spCalc_data[0] * 1) + (spCalc_data[1] * 1) + (spCalc_data[2] * 1)) != ((spModul_data[3] * 1) + (spModul_data[4] * 1))) {
+    if (((spCalc_data[0] * 1) + (spCalc_data[1] * 1) + (spCalc_data[2] * 1)) != ((spModul_data[3] * 1) + (spModul_data[4] * 1))&&(spModul_data[3] * 1)>=0&&(spModul_data[4] * 1)>=0) {
         hiba = true;
         lochibatext += "nincs elég/túl sok tananyagegység van hozzárendelve a modulhoz"
     }

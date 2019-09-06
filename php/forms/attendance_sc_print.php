@@ -48,7 +48,7 @@ function collectDataForScPrint($id) {
             $exp = $row['exp'];
         }
     } else {
-        echo $sql;
+        //echo $sql;
         echo $conn->error;
     }
     $sql = "select `name`, address from kepzokozpont ";
@@ -61,7 +61,7 @@ function collectDataForScPrint($id) {
             array_push($alma, $row["address"]);
         }
     } else {
-        echo $sql;
+        //echo $sql;
         echo $conn->error;
     }
     $spMi = explode(";", $mi);

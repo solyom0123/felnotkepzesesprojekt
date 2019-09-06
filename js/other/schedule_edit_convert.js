@@ -352,7 +352,7 @@ function loadOptions(rowno, options,table) {
 function loadTeacher(actdate, curUnitId, isReplacement,indexReplacement,anyagname,oraszam,start) {
     var kulonbseg = 0;
     
-    if(!Array.isArray(curUnitId)){
+    if(!curUnitId.includes("_")){
     for (var i = 0, max = sc.getUtemterv().length; i < max; i++) {
         var actday = sc.getUtemtervNap(i);
         if (actday.isTartalekNap()) {

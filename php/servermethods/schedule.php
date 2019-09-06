@@ -32,11 +32,11 @@ function makeSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
-
+  if( $value[11][0]!='none'){
     for ($index = 0; $index < count($value[11]); $index++) {
         lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
     }
-    
+  }    
 }
 
 function makeUpdateSchedulePlan() {
@@ -54,11 +54,11 @@ function makeUpdateSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
-  
+  if( $value[11][0]!='none'){
     for ($index = 0; $index < count($value[11]); $index++) {
         lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
     }
-    
+  }
 }
 
 function searchTeacher($conn) {
@@ -218,8 +218,15 @@ function insertSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
+     if( $value[11][0]!='none'){
     $used_finished_module = arraytoString($value[11]);
     $used_finished_module_place = arraytoString($value[12]);
+    
+  }else{
+     $used_finished_module = '';
+    $used_finished_module_place = '';
+      
+  }
     $replace = $value[9];
     $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,elearn_week_plan,exercise_week_plan,used_modul_id,used_modul_place,replace_days,used_finished_modul,used_finished_modul_place)
 VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_elearn . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "'," . $replace . ",'" . $used_finished_module . "','" . $used_finished_module_place . "');";
@@ -249,17 +256,26 @@ function updateSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
+    if( $value[11][0]!='none'){
      $used_finished_module = arraytoString($value[11]);
     $used_finished_module_place = arraytoString($value[12]);
+    
+  }else{
+     $used_finished_module = '';
+    $used_finished_module_place = '';
+      
+  }
     $replace = $value[9];
-    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . ",,used_finished_modul='" . $used_finished_module . "',used_finished_modul_place='" . $used_finished_module_place . "'  where id = " . $value[11] . " ;";
+    //var_dump($value);
+    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . ",,used_finished_modul='" . $used_finished_module . "',used_finished_modul_place='" . $used_finished_module_place . "'  where id = " . $value[13] . " ;";
+   // echo $sql ;
     if ($conn->query($sql) === TRUE) {
         //  echo 'ok';
     } else {
-        //  echo 'error';
-        //  echo $conn->error;
+      //    echo 'error';
+      //    echo $conn->error;
     }
-
+    
     echo $value[13] . "//";
     return $conn;
 }

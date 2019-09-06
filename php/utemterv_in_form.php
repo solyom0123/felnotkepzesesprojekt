@@ -21,7 +21,11 @@
     <button class="tablinks" onclick="startLoadSchedulePlan();openCity(event, 'delete')">Ütemterv</button>
     <button class="tablinks" onclick=" startLoadSchedulePlan();openCity(event, 'bonus')">Bónusz napok</button>
 </div>
+<div id="alert">
+        
+    </div>
 <div id="add" class="tabcontent">
+    
     <div class="row "><h2 class="col-md-12 h2-default">Aktív képzés adatai</h2></div>
     <id style="display: none"></id>
     <div class="form-group row">
@@ -147,7 +151,7 @@
                     
     </table>
     <div class="form-group row col-md-12">
-        <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn">Elfogad!</div></a>
+        <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn-b">Elfogad!</div></a>
     </div>
     <div class="form-group row col-md-12">
         <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>

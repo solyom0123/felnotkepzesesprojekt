@@ -27,7 +27,7 @@ function send_active_course($conn) {
 
 function insertorUpdateMissing($conn) {
     global $value;
-    $sql = "select  id  from missing_table where sc_plan_row_id=".$value[2]."  and active_education_id =  " . $value[3] . "  and student_id=" . $value[4] . " ;";
+    $sql = "select  id  from missing_table where sc_plan_row_id=" . $value[2] . "  and active_education_id =  " . $value[3] . "  and student_id=" . $value[4] . " ;";
     echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -57,7 +57,7 @@ function insertorUpdateMissing($conn) {
 
 function getMissing($conn) {
     global $value;
-    $sql = "select missing_hour_ammount as mh  from missing_table where  sc_plan_row_id=".$value[2]." and active_education_id = " . $value[3] . "  and student_id=" . $value[4] . " ;";
+    $sql = "select missing_hour_ammount as mh  from missing_table where  sc_plan_row_id=" . $value[2] . " and active_education_id = " . $value[3] . "  and student_id=" . $value[4] . " ;";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -71,9 +71,10 @@ function getMissing($conn) {
 
     return $conn;
 }
+
 function insertorUpdateExam($conn) {
     global $value;
-    $sql = "select  id  from exam_table where schedule_plan_row_id=".$value[2]."  and schedule_plan_data_id =  " . $value[3] . "  and student_id=" . $value[4] . " ;";
+    $sql = "select  id  from exam_table where schedule_plan_row_id=" . $value[2] . "  and schedule_plan_data_id =  " . $value[3] . "  and student_id=" . $value[4] . " ;";
     echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -103,12 +104,12 @@ function insertorUpdateExam($conn) {
 
 function getFinalExam($conn) {
     global $value;
-    $sql = "select certificate_no as no,certificate_date as cdate,grade as mh  from finalexam_table where date='".$value[0]."' and schedule_plan_data_id = " . $value[1] . "  and student_id=" . $value[2] . " ;";
+    $sql = "select certificate_no as no,certificate_date as cdate,grade as mh  from finalexam_table where date='" . $value[0] . "' and schedule_plan_data_id = " . $value[1] . "  and student_id=" . $value[2] . " ;";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["mh"]."_;_".$row["no"]."_;_".$row["cdate"];
+            echo $row["mh"] . "_;_" . $row["no"] . "_;_" . $row["cdate"];
         }
     } else {
         echo '0_;_nincs_;_';
@@ -117,15 +118,16 @@ function getFinalExam($conn) {
 
     return $conn;
 }
+
 function insertorUpdateFinalExam($conn) {
     global $value;
-    $sql = "select  id  from finalexam_table where `date`='".$value[0]."'  and schedule_plan_data_id =  " . $value[1] . "  and student_id=" . $value[2] . " ;";
+    $sql = "select  id  from finalexam_table where `date`='" . $value[0] . "'  and schedule_plan_data_id =  " . $value[1] . "  and student_id=" . $value[2] . " ;";
     echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            $sql = "Update finalexam_table set grade=" . $value[3] . ",certificate_no ='".$value[4]."', certificate_date='".$value[5]."' where id=" . $row["id"] . "; ";
+            $sql = "Update finalexam_table set grade=" . $value[3] . ",certificate_no ='" . $value[4] . "', certificate_date='" . $value[5] . "' where id=" . $row["id"] . "; ";
 
             if ($conn->query($sql) === TRUE) {
                 echo 'update';
@@ -149,7 +151,7 @@ function insertorUpdateFinalExam($conn) {
 
 function getExam($conn) {
     global $value;
-    $sql = "select grade as mh  from exam_table where  schedule_plan_row_id=".$value[2]." and schedule_plan_data_id = " . $value[3] . "  and student_id=" . $value[4] . " ;";
+    $sql = "select grade as mh  from exam_table where  schedule_plan_row_id=" . $value[2] . " and schedule_plan_data_id = " . $value[3] . "  and student_id=" . $value[4] . " ;";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -163,6 +165,7 @@ function getExam($conn) {
 
     return $conn;
 }
+
 function delete_active_course($conn) {
     global $value;
     $spids = explode("_", $value[1]);
@@ -264,17 +267,14 @@ function list_students_for_active($conn) {
     return $conn;
 }
 
-function list_dates_for_active($conn,$type) {
+function list_dates_for_active($conn, $type) {
     global $value;
-    if($type==0){
-    $sql = "select `date` from schedule_plan where schedule_plan_data_id=" . $value . " group by date";
-        
-    }else if($type==1){
-    $sql = "select `date` from schedule_plan where exam ='true'  and schedule_plan_data_id=" . $value . " group by date";
-        
-    }else {
-    $sql = "select exam_date as date from schedule_plan_data where id=" . $value . " ";
-        
+    if ($type == 0) {
+        $sql = "select `date` from schedule_plan where schedule_plan_data_id=" . $value . " group by date";
+    } else if ($type == 1) {
+        $sql = "select `date` from schedule_plan where exam ='true'  and schedule_plan_data_id=" . $value . " group by date";
+    } else {
+        $sql = "select exam_date as date from schedule_plan_data where id=" . $value . " ";
     }
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -317,7 +317,7 @@ function table_for_date($conn) {
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
         echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
-            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] .  "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
+            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] . "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                             1-mod                               2-cur                                   3_uh                              4-rep                                           5-exam                           6-type                       7-aid                 8-date
         }
         echo '//';
@@ -346,7 +346,7 @@ function table_for_student($conn) {
             echo $row['id'] . ";" . $row['date'] . ";" . $row['hour'] . ";" . $row['mn'] . ";" . $row['sn'] . "//";
         }
     } else {
-        
+
         echo "-1;Nincs;Nincs;Nincs;Nincs;";
         echo $conn->error;
     }
@@ -368,7 +368,7 @@ function table_for_date_exam($conn) {
             array_push($course_date, $loc_array);
         }
     }
-    
+
     $sql = "select s.student_full_name as fn,birth_date as br, es.student_id as id from education_students es, students s where es.student_id=s.student_id and es.active_education=" . $value[0];
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -384,32 +384,123 @@ function table_for_date_exam($conn) {
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
         echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
-            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] .  "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
+            echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] . "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                                                         5-exam                           6-type                       7-aid                 8-date
         }
         echo '//';
     }
     return $conn;
-}function table_for_date_final_exam($conn) {
+}
+
+function table_for_date_exam_sum($conn) {
     global $value;
     $student_data = array();
     $course_date = array();
 
-   
-            $loc_array = array("Záróvizsga","", "", "", "", "","");
+    $sql = "select used_hours as uh, used_modul_id as m, used_studymaterials_id as s, replace_day as r, exam as e,used_hours_type as uht, id as id from schedule_plan where schedule_plan_data_id=" . $value[0] . "  and  exam ='true';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $loc_array = array($row["m"], $row['s'], $row['uh'], $row['r'], $row['e'], $row['uht'], $row['id']);
             array_push($course_date, $loc_array);
-    
+        }
+    }
+
     $sql = "select s.student_full_name as fn,birth_date as br, es.student_id as id from education_students es, students s where es.student_id=s.student_id and es.active_education=" . $value[0];
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-               $sql1 = "select"
+            $loc_array = array($row["id"], $row['fn'], $row['br']);
+            array_push($student_data, $loc_array);
+        }
+    }
+    if (count($course_date) > 0) {
+        echo   "Vizsgák/Tanulók;" . solveBackCurUnitNameModulName($course_date) . "Záróvizsgára alkalmas/eredmény//";
+    }
+    for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
+        echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
+        for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
+            $sql = "select grade from exam_table where schedule_plan_data_id=" . $value[0] . " and student_id=" . $student_data[$actstudent][0] . " and schedule_plan_row_id=" . $course_date[$actcourse][6] . ";";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+
+                    echo $row['grade'] . "_,_";
+                }
+            } else {
+                //echo $conn->error;
+                
+                echo 'Nem' . "_,_";
+            }
+        }
+        $sql1 = "select"
+                . " sc.id as id,"
+                . " sc.`date`,"
+                . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
+                . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
+                . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $student_data[$actstudent][0] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+                . "from schedule_plan sc "
+                . "where sc.schedule_plan_data_id=" . $value[0] . ""
+                . " and sc.exam='true' "
+                . "and sc.id not in "
+                . "(select mc.schedule_plan_row_id "
+                . "from exam_table mc"
+                . " where mc.schedule_plan_data_id=" . $value[0] . " "
+                . "and mc.student_id=" . $student_data[$actstudent][0] . " and mc.grade >1);";
+        $result1 = $conn->query($sql1);
+        if ($result1->num_rows > 0) {
+            echo "Nem" . ';';
+        } else {
+            //echo $conn->error;
+               $sql2 = "select"
+                    . " mc.grade as g"
+                    . " from finalexam_table mc"
+                    . " where mc.schedule_plan_data_id=" . $value[0] . " "
+                    . "and mc.student_id=" . $student_data[$actstudent][0] . ";";
+             //echo $sql2;
+               $result2 = $conn->query($sql2);
+            if ($result2->num_rows > 0) {
+                 while ($row = $result2->fetch_assoc()) {
+
+                echo $row["g"] . ';';
+                
+                 }
+                
+            } else {
+               
+               // echo $conn->error;
+                echo "Igen" . ';';
+            }
+           
+        }
+        echo '//';
+    }
+    return $conn;
+}
+
+function table_for_date_final_exam($conn) {
+    global $value;
+    $student_data = array();
+    $course_date = array();
+
+
+    $loc_array = array("Záróvizsga", "", "", "", "", "", "");
+    array_push($course_date, $loc_array);
+
+    $sql = "select s.student_full_name as fn,birth_date as br, es.student_id as id from education_students es, students s where es.student_id=s.student_id and es.active_education=" . $value[0];
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $sql1 = "select"
                     . " sc.id as id,"
                     . " sc.`date`,"
                     . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
                     . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
-                    . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" .$row["id"] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+                    . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $row["id"] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
                     . "from schedule_plan sc "
                     . "where sc.schedule_plan_data_id=" . $value[0] . ""
                     . " and sc.exam='true' "
@@ -420,13 +511,12 @@ function table_for_date_exam($conn) {
                     . "and mc.student_id=" . $row["id"] . " and mc.grade >1);";
             $result1 = $conn->query($sql1);
             if ($result1->num_rows > 0) {
+                
             } else {
-            //    echo $conn->error;
-            $loc_array = array($row["id"], $row['fn'], explode(" ", $row['br'])[0]);
-            array_push($student_data, $loc_array);
-            
+                //    echo $conn->error;
+                $loc_array = array($row["id"], $row['fn'], explode(" ", $row['br'])[0]);
+                array_push($student_data, $loc_array);
             }
-            
         }
     }
     if (count($course_date) > 0) {
@@ -464,13 +554,14 @@ function table_for_student_exam($conn) {
             echo $row['id'] . ";" . $row['date'] . ";" . $row['hour'] . ";" . $row['mn'] . ";" . $row['sn'] . "//";
         }
     } else {
-        
+
         echo "-1;Nincs;Nincs;Nincs;Nincs;";
         echo $conn->error;
     }
 
     return $conn;
 }
+
 function table_for_student_final_exam($conn) {
     global $value;
 
@@ -492,7 +583,7 @@ function table_for_student_final_exam($conn) {
             echo $row['id'] . ";" . $row['date'] . ";" . $row['hour'] . ";" . $row['mn'] . ";" . $row['sn'] . "//";
         }
     } else {
-        
+
         echo "-1;Nincs;Nincs;Nincs;Nincs;";
         echo $conn->error;
     }
@@ -523,7 +614,7 @@ function solveBackCurUnitNameModulName($course_date) {
             if ($result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                    $returnText .= " __ " . $row["sn"] ;
+                    $returnText .= " __ " . $row["sn"];
                     switch ($course_date[$index][5]) {
                         case "1":
                             $returnText .= " __ elmélet;";
@@ -534,10 +625,10 @@ function solveBackCurUnitNameModulName($course_date) {
                         case "3":
                             $returnText .= "__ elarn;";
                             break;
-                        
+
                         default:
                             $returnText .= "__ alkalmi;";
-                        
+
                             break;
                     }
                 }

@@ -34,6 +34,12 @@ function startPrinting(type) {
              case 9:
             listnamePrint(type);
             break;
+            case 10:
+            examsum(type);
+            break;
+            case 11:
+            missingPrint(type);
+            break;
         default:
             
             break;
@@ -222,6 +228,15 @@ function  makeformForsendattendstudent(date, mainhead_array, maintable_array, li
     document.getElementById("help_div").innerHTML = form;
     document.getElementById(button_id).click();
 }
+function  makeformForsendExamsum(id, link) {
+    var button_id="passToPrint";
+    var form = form_head("./php/forms/"+link,true,"POST");
+    form += one_variable_input("id",id);
+    form+=submit_button(button_id);
+    form+=form_end();
+    document.getElementById("help_div").innerHTML = form;
+    document.getElementById(button_id).click();
+}
 function attendforteacher(type){
     var date = document.getElementById("form-row-date").value;
     var course = document.getElementById("form-row-aktiv-kepzes").value;
@@ -251,6 +266,24 @@ function attendforteacher(type){
             date = spData[2];
             var link = spData[3];
             makeformForsendattendstudent(date, mainhead_array, maintable_array, link);
+            
+        
+    });
+}
+}
+function examsum(type){
+    var course = document.getElementById("form-row-aktiv-kepzes-es").value;
+    if (course != -1 ) {
+        var value = new Array(type, new Array(course, "date"))
+        var slink = 'server.php';
+        $.post(slink, {
+            muv: "print",
+            param: value
+
+        }, function (data, status) {
+            console.log(data);
+            var link = data;
+            makeformForsendExamsum(course, link);
             
         
     });

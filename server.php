@@ -189,6 +189,8 @@ if ($muv == "new_modul") {
     printForm();
 }else if ($muv == "table_dates_exam") {
     lekapcsolodas(table_for_date_exam(kapcsolodas()));
+}else if ($muv == "table_dates_exam_sum") {
+    lekapcsolodas(table_for_date_exam_sum(kapcsolodas()));
 }else if ($muv == "table_student_exam") {
     lekapcsolodas(table_for_student_exam(kapcsolodas()));
 }else if ($muv == "insertExam") {
@@ -215,9 +217,9 @@ if ($muv == "new_modul") {
 
 
 function kapcsolodas() {
-    $szerverneve = "localhost";//"mysql.nethely.hu";;
-    $felhasznalonev = 'root';//"oktat";;
-    $password = "";//'corvin2019';
+    $szerverneve = "mysql.nethely.hu";//"localhost";;;
+    $felhasznalonev = "oktat";//'root';//
+    $password = 'corvin2019';//"";
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 

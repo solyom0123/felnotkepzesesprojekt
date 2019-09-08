@@ -308,8 +308,12 @@ function activeCourseListOptions(type, target) {
     });
 }
 function getMissingTable(type, target, sourceCourse, sourceItem) {
-    var item = document.getElementById(sourceItem).value;
+    if (type != 6) {
+        var item = document.getElementById(sourceItem).value;
+    } else {
+        var item = "0";
 
+    }
     var course = document.getElementById(sourceCourse).value;
     var value = new Array(course, item);
     console.log(value);
@@ -328,6 +332,8 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
             muv = "table_dates_final_exam";
         } else if (type == 5) {
             muv = "table_student_final_exam";
+        } else if (type == 6) {
+            muv = "table_dates_exam_sum";
         }
         var slink = 'server.php';
         $.post(slink, {
@@ -338,7 +344,7 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
             console.log(data);
             var value = "";
             if (type == 0) {
-                value = makeTablefromDataDate(data.split("//"));
+                value = makeTablefromDataDate(data.split("//"), false);
                 document.getElementById(target).innerHTML = value;
 
                 missingget(1, 1, 0);
@@ -349,7 +355,7 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
                 document.getElementById(target).innerHTML = value;
 
             } else if (type == 2) {
-                value = makeTablefromDataDate(data.split("//"));
+                value = makeTablefromDataDate(data.split("//"), true);
                 document.getElementById(target).innerHTML = value;
 
                 missingget(1, 1, 1);
@@ -366,6 +372,11 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
                 document.getElementById(target).innerHTML = value;
                 missingget(1, 1, 2);
                 document.getElementById("buttonSend").style.display = "block";
+
+            } else if (type == 6) {
+
+                value = makeTablefromDataDateExamSum(data.split("//"));
+                document.getElementById(target).innerHTML = value;
 
             } else {
                 value = makeTablefromDataStudentFinalExam(data.split("//"));
@@ -513,8 +524,8 @@ function  missingget(i, j, type) {
 
                     inputs[0].value = data;
                 } else {
-                   var spdata = data.split("_;_");
-                     inputs[0].style.backgroundColor = "yellow";
+                    var spdata = data.split("_;_");
+                    inputs[0].style.backgroundColor = "yellow";
                     inputs[0].style.color = "black";
                     columns[2].getElementsByTagName("input")[0].style.backgroundColor = "yellow";
                     columns[2].getElementsByTagName("input")[0].style.color = "black";
@@ -524,7 +535,7 @@ function  missingget(i, j, type) {
                     inputs[0].value = spdata[0];
                     columns[2].getElementsByTagName("input")[0].value = spdata[1];
                     columns[3].getElementsByTagName("input")[0].value = spdata[2];
-                    
+
                 }
             });
 
@@ -575,7 +586,7 @@ function listOptionsWithTargetAndSource(type, target, source) {
 
     });
 }
-function makeTablefromDataDate(data) {
+function makeTablefromDataDate(data, grade) {
     var spdatafirstrow = data[0].split(";");
     var td = "<td>";
     var data_mod_head = 'data-scprid="';
@@ -621,9 +632,14 @@ function makeTablefromDataDate(data) {
                     var spStudentRow = spStudent[j].split("_,_");
 
                     value += td +
-                            input_head +
-                            max_tag + spStudentRow[2] + max_tag_end +
-                            data_stu_head + spStudentRow[0] + data_stu_end +
+                            input_head;
+                    if (!grade) {
+                        value += max_tag + spStudentRow[2] + max_tag_end;
+                    } else {
+                        value += max_tag + "5" + max_tag_end;
+
+                    }
+                    value += data_stu_head + spStudentRow[0] + data_stu_end +
                             data_mod_head + spStudentRow[1] + data_mod_end +
                             data_act_head + spStudentRow[3] + data_act_end +
                             data_date_head + spStudentRow[4] + data_date_end +
@@ -638,6 +654,67 @@ function makeTablefromDataDate(data) {
 
     return value;
 }
+function makeTablefromDataDateExamSum(data) {
+    var spdatafirstrow = data[0].split(";");
+    var td = "<td>";
+    var data_mod_head = 'data-scprid="';
+    var data_mod_end = '" ';
+    var data_stu_head = 'data-stu="';
+    var data_stu_end = '" ';
+    var data_act_head = 'data-act="';
+    var data_act_end = '" ';
+    var data_date_head = 'data-date="';
+    var data_date_end = '" ';
+    var max_tag = 'max="';
+    var max_tag_end = '" ';
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    var input_head = '<input type="number" min="0" ';
+    var input_end = '>';
+    var th_end = '</th>';
+    var value = tr +
+            th_head +
+            spdatafirstrow[0] +
+            th_end;
+    for (var i = 1, max = spdatafirstrow.length; i < max; i++) {
+        if (!checkEmptyString(spdatafirstrow[i])) {
+            value += th_head +
+                    spdatafirstrow[i] +
+                    th_end;
+        }
+    }
+    value += tr_end;
+
+
+    for (var i = 1; i < data.length; i++) {
+        if (!checkEmptyString(data[i])) {
+            var spStudent = data[i].split(";");
+            value += tr +
+                    td +
+                    spStudent[0] +
+                    td_end;
+            for (var j = 1, max1 = spStudent.length; j < max1; j++) {
+                if (!checkEmptyString(spStudent[j])) {
+
+                    var spStudentRow = spStudent[j].split("_,_");
+                    for (var x = 0, max2 = spStudentRow.length; x < max2; x++) {
+                        value += td +
+                                spStudentRow[x]
+                                +
+                                td_end;
+                    }
+                }
+            }
+            value += tr_end;
+
+        }
+    }
+
+    return value;
+}
+
 function makeTablefromDataDateFinalExam(data) {
     var spdatafirstrow = data[0].split(";");
     var td = "<td>";
@@ -657,7 +734,7 @@ function makeTablefromDataDateFinalExam(data) {
     var input_end = '>';
     var txt_input_head = '<input type="text"  ';
     var date_input_head = '<input type="date"  ';
-   
+
     var th_end = '</th>';
     var value = tr +
             th_head +
@@ -691,11 +768,11 @@ function makeTablefromDataDateFinalExam(data) {
                             data_act_head + spStudentRow[1] + data_act_end +
                             data_date_head + spStudentRow[2] + data_date_end +
                             input_end +
-                            td_end+
+                            td_end +
                             td +
                             txt_input_head +
                             input_end +
-                            td_end+
+                            td_end +
                             td +
                             date_input_head +
                             input_end +

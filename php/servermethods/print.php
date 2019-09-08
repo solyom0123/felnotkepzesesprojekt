@@ -52,6 +52,12 @@ function printForm() {
             echo '/;/';
             echo 'list_name_print.php';
             break;
+        case 10:
+            echo 'exam_sum_print.php';
+            break;
+        case 11:
+            echo 'personal_notes_print.php';
+            break;
         default:
 
             break;

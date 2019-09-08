@@ -5,21 +5,23 @@ include_once '../../server.php';
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-$value = isset($_POST['param']) ? $_POST['param'] : null;
+
+ *  */
+$id = isset($_POST['id']) ? $_POST['id'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
-$name = '';
+$name = date("Y/m/d");
 $summissing = 0;
 $sumdocm = 0;
 $sumexm = 0;
 $sumexamm = 0;
-$sumother =0;
+$sumother = 0;
 
 $alma = array();
-function alma(){
-     global $alma;
+
+function alma() {
+    global $alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -40,55 +42,98 @@ function alma(){
     }
     lekapcsolodas($conn);
 }
+
+function solveBackCurUnitNameModulName($course_date) {
+    $returnText = array();
+    $loc_array = array();
+    for ($index = 0; $index < count($course_date); $index++) {
+        $loc_array = array();
+        $conn = kapcsolodas();
+        array_push($loc_array, $course_date[$index][7]);
+
+        array_push($loc_array, $course_date[$index][2] . " óra :");
+
+
+        if ($course_date[$index][3] != "true") {
+            $sql = "select modul_name as mn, modul_number as m from modul where modul_id=" . $course_date[$index][0];
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    array_push($loc_array, $row["mn"] . " - " . $row['m']);
+                }
+            }
+        } else {
+            $returnText .= " Alkalmi:";
+        }
+        if ($course_date[$index][4] != "true") {
+            $sql = "select study_materials_name as sn  from studymaterials where studymaterials_id=" . $course_date[$index][1];
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    array_push($loc_array, $row["sn"]);
+
+                    switch ($course_date[$index][5]) {
+                        case "1":
+                            array_push($loc_array, "elmélet");
+
+                            break;
+                        case "2":
+                            array_push($loc_array, "gyakorlat");
+
+
+                            break;
+                        case "3":
+                            array_push($loc_array, "elearn");
+                            break;
+
+                        default:
+                            array_push($loc_array, "alkalmi");
+
+                            break;
+                    }
+                }
+            }
+        } else {
+            switch ($course_date[$index][1]) {
+                case "1":
+                    array_push($loc_array, "szóbeli vizsga");
+
+                    break;
+                case "2":
+                    array_push($loc_array, "irásbeli vizsga");
+
+                    break;
+                case "3":
+                    array_push($loc_array, "gyakorlati vizsga");
+
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+        lekapcsolodas($conn);
+        array_push($returnText, $loc_array);
+    }
+    return $returnText;
+}
+
 function collectDataForScPrint($id) {
-    global $headtable, $name, $maintable, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm,$sumother;
+    global $headtable, $maintable, $sumtable,$name;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-      $ufm= '';
-
-    $sql = "select (select sc.used_hours_type from schedule_plan sc where sc.id = sc_plan_row_id ) as dt, "
-            . "(select sc.exam from schedule_plan sc where sc.id = sc_plan_row_id ) as exam ,"
-            . "(select student_full_name from students s where s.student_id = mc.student_id) as sname, "
-            . "mc.id as id,"
-            . "(select sc.`date` from schedule_plan sc where sc.id = sc_plan_row_id )  as date,"
-            . " mc.missing_hour_ammount as hour, "
-            . "(select (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end) from schedule_plan sc where sc.id = sc_plan_row_id )  as mn,"
-            . "(select (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_hours_type) end) from schedule_plan sc where sc.id = sc_plan_row_id ) as sn  "
-            . "from missing_table mc "
-            . "where mc.active_education_id=" . $id[0] . " "
-            . "and mc.student_id=" . $id[1] . ";";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            //echo $row['date'].";".$row['hour'].";".$row['mn'].";".$row['sn']."//";
-            $locarray = array();
-            array_push($locarray, $row['date']);
-            array_push($locarray, $row['mn']);
-            array_push($locarray, $row["sn"]);
-            array_push($locarray, $row["hour"]);
-            $name = $row['sname'];
-            $summissing+= intval($row["hour"]);
-            if ($row["exam"] == "true") {
-                $sumexamm += intval($row["hour"]);
-            } else {
-                if ($row["dt"] == "1" || $row["dt"] == "3") {
-                    $sumdocm += intval($row["hour"]);
-                } else  if ($row["dt"] == "2" ){
-                    $sumexm += intval($row["hour"]);
-                }else{
-                    $sumother += intval($row["hour"]);
-                }
-            }
-            array_push($maintable, $locarray);
-        }
-    } else {
-        
-    }
-    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
+    $ufm = '';
+    $student_data = array();
+    $course_date = array();
+    $course_head = array();
+    $fdate = '';
+    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -99,17 +144,104 @@ function collectDataForScPrint($id) {
             array_push($headtable, $row["e"]);
             array_push($headtable, 'cim');
             array_push($headtable, $row["s"] . "-" . $row["ex"] . ':' . $row["n"]);
-
+            $name= $name. " - ".$row["n"];
             $mi = $row['mi'];
             $dp = $row['dp'];
             $ep = $row['ep'];
             $ufm = $row['ufm'];
             $exp = $row['exp'];
+            $fdate = $row['ex'];
         }
     } else {
         echo $sql;
         echo $conn->error;
     }
+
+    $sql = "select `date` as d,used_hours as uh, used_modul_id as m, used_studymaterials_id as s, replace_day as r, exam as e,used_hours_type as uht, id as id from schedule_plan where schedule_plan_data_id=" . $id . "  and  exam ='true';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $loc_array = array($row["m"], $row['s'], $row['uh'], $row['r'], $row['e'], $row['uht'], $row['id'], $row['d']);
+            array_push($course_date, $loc_array);
+        }
+    }
+
+    $sql = "select s.student_full_name as fn,birth_date as br, es.student_id as id from education_students es, students s where es.student_id=s.student_id and es.active_education=" . $id;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $loc_array = array($row["id"], $row['fn'], $row['br']);
+            array_push($student_data, $loc_array);
+        }
+    }
+    if (count($course_date) > 0) {
+        $course_head = solveBackCurUnitNameModulName($course_date);
+        array_push($course_head, array($fdate, "", "Záróvizsgára alkalmas/erdemény", ""));
+    }
+    for ($actcourse = 0; $actcourse < count($course_head); $actcourse++) {
+        array_push($maintable, array($course_head[$actcourse], 0));
+
+        for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
+            $loc_array = array();
+
+            array_push($loc_array, $student_data[$actstudent][1] . "-" . explode(" ", $student_data[$actstudent][2])[0]);
+            if (count($course_head) - 1 > $actcourse) {
+                $sql = "select grade from exam_table where schedule_plan_data_id=" . $id . " and student_id=" . $student_data[$actstudent][0] . " and schedule_plan_row_id=" . $course_date[$actcourse][6] . ";";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($loc_array, $row['grade']);
+                    }
+                } else {
+                    echo $conn->error;
+                    array_push($loc_array, 'Nem');
+                }
+            } else {
+                $sql1 = "select"
+                        . " sc.id as id,"
+                        . " sc.`date`,"
+                        . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
+                        . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
+                        . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $id . " and mc.student_id=" . $student_data[$actstudent][0] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+                        . "from schedule_plan sc "
+                        . "where sc.schedule_plan_data_id=" . $id . ""
+                        . " and sc.exam='true' "
+                        . "and sc.id not in "
+                        . "(select mc.schedule_plan_row_id "
+                        . "from exam_table mc"
+                        . " where mc.schedule_plan_data_id=" . $id . " "
+                        . "and mc.student_id=" . $student_data[$actstudent][0] . " and mc.grade >1);";
+                $result1 = $conn->query($sql1);
+                if ($result1->num_rows > 0) {
+                    array_push($loc_array, 'Nem');
+                } else {
+                    //echo $conn->error;
+                    $sql2 = "select"
+                            . " mc.grade as g"
+                            . " from finalexam_table mc"
+                            . " where mc.schedule_plan_data_id=" . $id . " "
+                            . "and mc.student_id=" . $student_data[$actstudent][0] . ";";
+                    //echo $sql2;
+                    $result2 = $conn->query($sql2);
+                    if ($result2->num_rows > 0) {
+                        while ($row = $result2->fetch_assoc()) {
+                            array_push($loc_array, $row["g"]);
+                        }
+                    } else {
+
+                        // echo $conn->error;
+                        array_push($loc_array, 'Igen');
+                    }
+                }
+            }
+            array_push($maintable, array($loc_array, 1));
+        }
+    }
+
+
     $sumcalc = 0;
     $dsum = 0;
     $esum = 0;
@@ -123,7 +255,7 @@ function collectDataForScPrint($id) {
             // output data of each row
             while ($row = $result->fetch_assoc()) {
                 //$loc_array = array(, $row['s'], $row['n'],$row['n']);
-                 $sumcalc += intval($row["d"]);
+                $sumcalc += intval($row["d"]);
                 $dsum += intval($row["d"]);
                 $sumcalc += intval($row["e"]);
                 $esum += intval($row["e"]);
@@ -145,8 +277,8 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-     $spufm = explode(";", $ufm);
-    
+    $spufm = explode(";", $ufm);
+
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
         $sql = "select  doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
@@ -246,7 +378,7 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-         $spufm = explode(";", $ufm);
+    $spufm = explode(";", $ufm);
 
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
@@ -297,6 +429,7 @@ function collectDataForScPrint($id) {
     }
     lekapcsolodas($conn);
 }
+
 function calcweekplan($spd) {
     $dweek = array(0, 0, 0, 0, 0, 0, 0);
     for ($index = 0; $index < count($spd) - 1; $index++) {
@@ -394,9 +527,9 @@ class PDF extends tFPDF {
         $this->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
         $this->SetFont('DejaVu', '', 14);
         // Move to the right
-        $this->Cell(80);
+        $this->Cell(20);
         // Title
-        $this->Cell(30, 10, 'Hiányzás összegző - '.$name, 0, 0);
+        $this->Cell(30, 10, 'Vizsga összegző  - ' . $name, 0, 0);
         // Line break
         $this->Ln(20);
     }
@@ -410,13 +543,13 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, $this->PageNo() . '/{nb}' . ' oldal ', 0, 0);
+        $this->Cell(0, 10,   $this->PageNo() . '/{nb}'.' oldal ', 0, 0);
     }
 
 }
 
-if ($value != null) {
-    collectDataForScPrint($value);
+if ($id != null) {
+    collectDataForScPrint($id);
 }
 //var_dump($sumtable);
 $pdf = new PDF();
@@ -449,41 +582,38 @@ $pdf->Ln(5);
 //$pdf->MultiCell(100, 6, $headtable[6]);
 //$pdf->Ln(5);
 $pdf->SetFont('DejaVuB', '', 10);
-$pdf->Cell(20, 10, "Dátum", 1, 0);
+$pdf->Cell(40, 10, "dátum", 1, 0);
+$pdf->Cell(20, 10, "Óra", 1, 0);
 $pdf->Cell(60, 10, "Modul ", 1, 0);
-$pdf->Cell(60, 10, "Tanegység", 1, 0);
-$pdf->Cell(20, 10, "Óraszám", 1, 0);
+$pdf->Cell(40, 10, "Vizsga típus", 1, 0);
+$pdf->Ln();
+$pdf->Cell(20, 10, "", 0, 0);
+$pdf->Cell(60, 10, "Tanuló adatai", 1, 0);
+$pdf->Cell(40, 10, "érdemjegy ", 1, 0);
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 8);
 $pdf->SetFillColor(224, 235, 255);
 $pdf->SetTextColor(0);
 $fill = true;
 for ($index = 0; $index < count($maintable); $index++) {
-    $pdf->Cell(20, 6, $maintable[$index][0], 1, 0, "", $fill);
-    $pdf->Cell(60, 6, $maintable[$index][1], 1, 0, "", $fill);
-    $pdf->Cell(60, 6, $maintable[$index][2], 1, 0, "", $fill);
-    $pdf->Cell(20, 6, $maintable[$index][3], 1, 0, "", $fill);
+    if ($maintable[$index][1] == 0) {
+        $pdf->SetFillColor(211, 211, 211);
+
+        $fill = true;
+        $pdf->Cell(40, 10, $maintable[$index][0][0], 1, 0, "", $fill);
+        $pdf->Cell(20, 10, $maintable[$index][0][1], 1, 0, "", $fill);
+        $pdf->Cell(60, 10, $maintable[$index][0][2], 1, 0, "", $fill);
+        $pdf->Cell(40, 10, $maintable[$index][0][3], 1, 0, "", $fill);
+    } else {
+        $pdf->SetFillColor(224, 235, 255);
+
+        $pdf->Cell(20, 6, "", 0, 0, "", false);
+        $pdf->Cell(60, 6, $maintable[$index][0][0], 1, 0, "", $fill);
+        $pdf->Cell(40, 6, $maintable[$index][0][1], 1, 0, "", $fill);
+    }
     $pdf->Ln();
     $fill = !$fill;
 }
-$pdf->Ln(10);
-$pdf->Cell(100, 6, "A hiányzás összes óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $summissing, 0, 0);
-$pdf->Ln(5);
-
-$pdf->Cell(100, 6, "A hiányzás elméleti óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumdocm, 0, 0);
-$pdf->Ln(5);
-
-$pdf->Cell(100, 6, "A hiányzás gyakorlati óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumexm, 0, 0);
-$pdf->Ln(5);
-
-$pdf->Cell(100, 6, "A hiányzás vizsga óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumexamm, 0, 0);
-$pdf->Ln(5);
-$pdf->Cell(100, 6, "A hiányzás alkalmi óraszáma:", 0, 0);
-$pdf->Cell(100, 6, $sumother, 0, 0);
 $pdf->Ln(10);
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);

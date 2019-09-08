@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Adminisztrációs feladatok: Képezéssel kapcsolatos: Adat kezelés</h2>
+                    <h2 class="h2-default">Adminisztrációs feladatok: Tanulókkal kapcsolatos: Adat kezelés</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -31,7 +31,7 @@
                         <table class="table-default">
                             <tbody>
                                 <tr>
-                                    <td><div class="span-half-corner-wrapper">
+                                   <!-- <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('missing_in_form');setElozo('form_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Hiányzások kezelése</span></td>
@@ -44,8 +44,9 @@
                                             <div onclick="link('final_exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Záróvizsgák kezelése</span></td>
+                                   -->
                                    </tr>
-                                   
+                                  
                             </tbody>
                         </table>
                         

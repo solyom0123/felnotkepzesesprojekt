@@ -429,7 +429,7 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0);
+        $this->Cell(0, 10, $this->PageNo() . '/{nb}' . ' oldal ', 0, 0);
     }
 
 }
@@ -525,7 +525,7 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
 
 $pdf->Ln(10);
 $pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(60, 6, $sumtable[0][0], 0, 0);
+$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
 $pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
 $pdf->Ln(5);
 

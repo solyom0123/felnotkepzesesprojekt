@@ -11,6 +11,7 @@ include_once './php/servermethods/date.php';
 include_once './php/servermethods/active_courses.php';
 include_once './php/servermethods/schedule.php';
 include_once './php/servermethods/print.php';
+include_once './php/servermethods/push.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,13 +23,13 @@ $muv = isset($_POST['muv']) ? $_POST['muv'] : null;
 if ($muv == "new_modul") {
     lekapcsolodas(felvitelmodul(kapcsolodas()));
 } else if ($muv == "login") {
-    lekapcsolodas(login(kapcsolodas()));
+    lekapcsolodas(login(kapcsolodas2()));
 } else if ($muv == "logged") {
     $_SESSION["uid"] = $value[0];
 } else if ($muv == "session") {
     lookUpSession();
 } else if ($muv == "user_name") {
-    lekapcsolodas(user_name(kapcsolodas()));
+    lekapcsolodas(user_name(kapcsolodas2()));
 } else if ($muv == "list_student") {
     lekapcsolodas(list_student(kapcsolodas()));
 } else if ($muv == "studentSend") {
@@ -49,6 +50,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(list_bonus(kapcsolodas()));
 }else if ($muv == "modulSend") {
     lekapcsolodas(insertModul(kapcsolodas()));
+}else if ($muv == "pushSend") {
+    lekapcsolodas(insertPush(kapcsolodas2()));
 } else if ($muv == "list_modul") {
     lekapcsolodas(list_modul(kapcsolodas()));
 } else if ($muv == "modulEdit") {
@@ -132,6 +135,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(curUnitsWithoutThisCourse(kapcsolodas()));
 }else if($muv =="list_active_course"){
     lekapcsolodas(list_active_course(kapcsolodas()));
+}else if($muv =="list_push_notice"){
+    lekapcsolodas(list_push_notice(kapcsolodas2()));
 }else if($muv =="active_course_get"){
     lekapcsolodas(get_active_course(kapcsolodas()));
 }else if($muv =="activeCourseDelete"){
@@ -158,9 +163,9 @@ if ($muv == "new_modul") {
     uploadFileNew();
     echo "<script>window.close();</script>";
 }else if($muv =="userEdit"){
-    lekapcsolodas(userEdit(kapcsolodas()));    
+    lekapcsolodas(userEdit(kapcsolodas2()));    
 }else if ($muv == "getUser") {
-    lekapcsolodas(getLoginData(kapcsolodas()));
+    lekapcsolodas(getLoginData(kapcsolodas2()));
 }else if ($muv == "getUsedName") {
     getUsedNames();
 }else if ($muv == "getActiveEduSchemee") {
@@ -217,9 +222,23 @@ if ($muv == "new_modul") {
 
 
 function kapcsolodas() {
-    $szerverneve = "mysql.nethely.hu";//"localhost";;;
-    $felhasznalonev = "oktat";//'root';//
-    $password = 'corvin2019';//"";
+    $szerverneve = "localhost";//"mysql.nethely.hu";//;;
+    $felhasznalonev = 'root';//"oktat";//
+    $password = "";//'corvin2019';//
+    $dbname = 'oktat';
+    $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
+
+    mysqli_query($conn, "SET NAMES 'UTF8'");
+// Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    return $conn;
+}
+function kapcsolodas2() {
+    $szerverneve = "localhost";//"mysql.nethely.hu";//;;
+    $felhasznalonev = 'root';//"oktat";//
+    $password = "";//'corvin2019';//
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 

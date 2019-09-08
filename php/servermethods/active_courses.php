@@ -251,6 +251,7 @@ function list_active_course($conn) {
     return $conn;
 }
 
+
 function list_students_for_active($conn) {
     global $value;
 

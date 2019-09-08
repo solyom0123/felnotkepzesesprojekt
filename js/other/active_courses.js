@@ -291,6 +291,23 @@ function activeCourseList(order, type) {
 
     });
 }
+function pushNoticeList(order, type) {
+
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "list_push_notice",
+        param: order + "_" + type
+
+    }, function (data, status) {
+        //console.log(data);
+        var value = makeTableForPushNotice(data);
+        document.getElementById('push').innerHTML = value;
+
+
+
+    });
+}
+
 function activeCourseListOptions(type, target) {
 
     var slink = 'server.php';
@@ -1016,6 +1033,74 @@ function makeTableFromActiveCourses(data) {
                 td +
                 'Nincs' +
                 td_end +
+                td +
+                'Nincs' +
+                td_end +
+                td +
+                'Nincs' +
+                td_end +
+                td +
+                'Nincs' +
+                td_end +
+                tr_end;
+
+    }
+    return value;
+}
+function makeTableForPushNotice(data) {
+    var td = "<td>";
+    var tr_end = "</tr>";
+    var td_end = "</td>";
+    var tr = '<tr>';
+    var th_head = '<th  >';
+    var down_arrow_start = '<span style="cursor: pointer;"  onclick="pushNoticeList(';
+    var down_arrow_end = ',1)"><img src="./img/down_arrow.png" width="20px" height="20px"></span>';
+    var up_arrow_start = '<span   style="cursor: pointer;" onclick="pushNoticeList(';
+    var up_arrow_end = ',2)"><img src="./img/up_arrow.png" width="20px" height="20px"></span>';
+
+    var th_end = '</th>';
+    var value = tr +
+            th_head +
+            "dátum " +
+            down_arrow_start + 1 + down_arrow_end +
+            up_arrow_start + 1 + up_arrow_end +
+            th_end +
+            th_head +
+            "Képzés neve " +
+            down_arrow_start + 2 + down_arrow_end +
+            up_arrow_start + 2 + up_arrow_end +
+            th_end +
+            th_head +
+            "Üzenet " +
+            down_arrow_start + 3 + down_arrow_end +
+            up_arrow_start + 3 + up_arrow_end +
+            th_end +
+            tr_end;
+
+    if (data != "none;//") {
+        var spStudents = data.split("//");
+
+        for (var i = 0; i < spStudents.length; i++) {
+            if (!checkEmptyString(spStudents[i])) {
+                var spStudent = spStudents[i].split(";");
+                tr = '<tr style="cursor: pointer;" onMouseOver="this.style.color=\'red\'" onMouseOut="this.style.color=\'black\'" >';
+                value += tr +
+                        td +
+                        spStudent[0] +
+                        td_end +
+                        td +
+                        spStudent[1] +
+                        td_end +
+                        td +
+                        spStudent[2] +
+                        td_end +
+                        tr_end;
+
+            }
+        }
+
+    } else {
+        value += tr +
                 td +
                 'Nincs' +
                 td_end +

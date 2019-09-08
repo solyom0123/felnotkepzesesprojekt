@@ -57,10 +57,9 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/schedule_edit_convert.js"></script>
         <script type="text/javascript" src="./js/other/schedule_edit_search.js"></script>
         <script type="text/javascript" src="./js/other/form_builder_for_printing.js"></script>
-        
         <script type="text/javascript" src="./js/other/printing.js"></script>
         <script type="text/javascript" src="./js/other/tabs.js"></script>
-        
+        <script type="text/javascript" src="./js/other/push.js"></script>
         <script>
            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

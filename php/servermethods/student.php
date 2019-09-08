@@ -154,10 +154,12 @@ function getNewUserid() {
 function getUsedNames() {
     global $value;
     
-    $conn = kapcsolodas();
+   
    if($value[0]==1){
+        $conn = kapcsolodas2();
     $sql = "select user_name as n  from `user` where user_name like '".$value[1]."%';";
    }else{
+        $conn = kapcsolodas();
         $sql = "select `name`  as n  from schedule_plan_data where `name` like '".$value[1]."%';";
    
    }

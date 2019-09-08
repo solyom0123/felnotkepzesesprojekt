@@ -58,10 +58,44 @@ function printForm() {
         case 11:
             echo 'personal_notes_print.php';
             break;
+        case 12:
+            collectDataForScMissingForm($value[1]);
+            echo 'attendance_missing_sc_print.php';
+            break;
         default:
 
             break;
     }
+}
+function collectDataForScMissingForm($dataArray) {
+    $conn = kapcsolodas();
+    
+        $sql = "select "
+                . "s.student_full_name as fn,"
+                . "birth_date as br,"
+                . " es.student_id as id, "
+                . "s.home_address as ad,"
+                . "'false' as r "
+                . "from "
+                . "education_students es, "
+                . "students s "
+                . "where "
+                . "es.student_id=s.student_id "
+                . "and "
+                . "es.active_education=" . $dataArray[0].' group by es.student_id';
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo $row['id'].";".$row['fn']."//";
+        }
+    } else {
+        echo $conn->error;
+    }
+
+    echo '/;/';
+    
+    lekapcsolodas($conn);
 }
 
 function collectDataForMissingForm($dataArray) {

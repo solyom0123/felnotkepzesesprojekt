@@ -10,24 +10,27 @@ $value = isset($_POST['param']) ? $_POST['param'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
+$sumunused = array();
 $alma = array();
-function bennevanUFM($array,$value){
+
+function bennevanUFM($array, $value) {
     $returnValue = false;
     for ($index = 0; $index < count($array); $index++) {
-        if ($array[$index]==$value) {
-         $returnValue=true;   
+        if ($array[$index] == $value) {
+            $returnValue = true;
         }
     }
     return $returnValue;
 }
+
 function collectDataForScPrint($id) {
-    global $headtable, $maintable, $sumtable,$alma;
+    global $headtable, $sumunused, $maintable, $sumtable, $alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-    $ufm= '';
+    $ufm = '';
     $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -63,7 +66,7 @@ function collectDataForScPrint($id) {
         echo $sql;
         echo $conn->error;
     }
-   
+
     $spMi = explode(";", $mi);
     $sumcalc = 0;
     $dsum = 0;
@@ -99,7 +102,7 @@ function collectDataForScPrint($id) {
         }
     }
     $spufm = explode(";", $ufm);
-    
+
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
         $sql = "select  doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
@@ -152,15 +155,15 @@ function collectDataForScPrint($id) {
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if(!bennevanUFM($spufm, $row['us'])){
-            $locarray = array();
-            array_push($locarray, $row['date']);
-            array_push($locarray, $row['ei']);
-            array_push($locarray, $row["s"] . "-" . $row["ed"]);
-            array_push($locarray, $row["cn"] );       
-            array_push($locarray, $row['te']);
-            array_push($locarray, "");
-            array_push($maintable, $locarray);
+            if (!bennevanUFM($spufm, $row['us'])) {
+                $locarray = array();
+                array_push($locarray, $row['date']);
+                array_push($locarray, $row['ei']);
+                array_push($locarray, $row["s"] . "-" . $row["ed"]);
+                array_push($locarray, $row["cn"]);
+                array_push($locarray, $row['te']);
+                array_push($locarray, "");
+                array_push($maintable, $locarray);
             }
         }
     } else {
@@ -219,7 +222,7 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-      $spufm = explode(";", $ufm);
+    $spufm = explode(";", $ufm);
 
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
@@ -261,7 +264,7 @@ function collectDataForScPrint($id) {
                     }
                 }
                 $locarray = array($row["mn"], $text, $sumcalc . " óra");
-                array_push($sumtable, $locarray);
+                array_push($sumunused, $locarray);
             }
         } else {
             echo $sql;
@@ -367,9 +370,9 @@ class PDF extends tFPDF {
         $this->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
         $this->SetFont('DejaVu', '', 14);
         // Move to the right
-        $this->Cell(80);
+        $this->Cell(60);
         // Title
-        $this->Cell(30, 10, 'Ütemterv ', 0, 0);
+        $this->Cell(30, 10, 'Haladási napló ', 0, 0);
         // Line break
         $this->Ln(20);
     }
@@ -441,16 +444,28 @@ $pdf->SetFillColor(224, 235, 255);
 $pdf->SetTextColor(0);
 $fill = true;
 for ($index = 0; $index < count($maintable); $index++) {
-    $pdf->Cell(20, 6, $maintable[$index][0], 1, 0, "", $fill);
-    $pdf->Cell(20, 6, $maintable[$index][1], 1, 0, "", $fill);
-    $pdf->Cell(20, 6, $maintable[$index][2], 1, 0, "", $fill);
-    $pdf->Cell(50, 6, $maintable[$index][3], 1, 0, "", $fill);
-    $pdf->Cell(40, 6, $maintable[$index][4], 1, 0, "", $fill);
-    $pdf->Cell(40, 6, $maintable[$index][5], 1, 0, "", $fill);
+    $pdf->Cell(20, 6, $maintable[$index][0], "LTR", 0, "", $fill);
+    $pdf->Cell(20, 6, $maintable[$index][1], "LTR", 0, "", $fill);
+    $pdf->Cell(20, 6, $maintable[$index][2], "LTR", 0, "", $fill);
+    $pdf->Cell(50, 6, $maintable[$index][3], "LTR", 0, "", $fill);
+    $pdf->Cell(40, 6, $maintable[$index][4], "LTR", 0, "", $fill);
+    $pdf->Cell(40, 6, $maintable[$index][5], "LTR", 0, "", $fill);
+    $pdf->Ln();
+
+    $pdf->Cell(20, 6, "", "LBR", 0, "", $fill);
+    $pdf->Cell(20, 6, "", "LBR", 0, "", $fill);
+    $pdf->Cell(20, 6, "", "LBR", 0, "", $fill);
+    $pdf->Cell(50, 6, "", "LBR", 0, "", $fill);
+    $pdf->Cell(40, 6, "", "LBR", 0, "", $fill);
+    $pdf->Cell(40, 6, "", "LBR", 0, "", $fill);
+
     $pdf->Ln();
     $fill = !$fill;
 }
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
@@ -458,9 +473,20 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Ln();
 }
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
 $pdf->Ln(5);
 
 $pdf->Output();

@@ -117,14 +117,14 @@ function searchforcurunitcourseid($conn){
 }
 function list_cur_unit_filter($conn) {
     global $value;
-    $sql = "select studymaterials_id as id, study_materials_name as name, modul_id as eid"
-            . " from studymaterials where modul_id=".$value." and bonus='false';  ";
+    $sql = "select studymaterials_id as id, s.study_materials_name as name, s.modul_id as eid, s.doctrine as sem, s.elearn as sel, s.exercise as sex, (select doctrine from modul where modul_id=s.modul_id) as med,(select exercise from modul where modul_id=s.modul_id) as mex "
+            . " from studymaterials s where s.modul_id=".$value." and s.bonus='false';  ";
     
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . "//";
+            echo $row["name"] . ";" . $row['eid'] . ";" . $row['id'] . ";".(intval($row["sem"])+intval($row["sex"])+intval($row["sel"]))."/".(intval($row["med"])+intval($row["mex"]))."//";
         }
     } else {
         echo "none;//";

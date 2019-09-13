@@ -44,7 +44,7 @@ class PDF extends tFPDF {
         $this->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
         $this->SetFont('DejaVu', '', 14);
         // Move to the right
-        $this->Cell(80);
+        $this->Cell(110);
         // Title
         $this->Cell(30, 10, 'Névsor - ' . $date, 0, 0, 'C');
         // Line break
@@ -65,7 +65,7 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, $this->PageNo() . '/{nb}'. ' oldal ' , 0, 0, 'C');
     }
 
 }
@@ -75,39 +75,60 @@ $pdf->AliasNbPages();
 //$pdf->BasicTable('$header',true);
 
 alma();
-$pdf->AddPage();
+$pdf->AddPage("l","A4");
 $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
-$pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
-$pdf->Cell(100, 6, $alma[0], 0, 0);
+$pdf->Cell(150, 6, "A képző megnevezése:", 0, 0);
+$pdf->Cell(150, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
-$pdf->Cell(100, 6, $headtable[1], 0, 0);
+$pdf->Cell(150, 6, "A képzési program neve, OKJ száma", 0, 0);
+$pdf->Cell(150, 6, $headtable[0], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
-$pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Cell(150, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
+$pdf->Cell(150, 6, $headtable[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
-$pdf->Cell(100, 6, $alma[1], 0, 0);
+$pdf->Cell(150, 6, "A képzési helyszíne:", 0, 0);
+$pdf->Cell(150, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
-$pdf->Cell(100, 6, $headtable[3], 0, 0);
-$pdf->Ln(5);
+$pdf->Cell(150, 6, "A képzés dátum:", 0, 0);
+$pdf->Cell(150, 6, $headtable[3], 0, 0);
+$pdf->Ln(10);
 
-$pdf->SetFont('DejaVuB', '', 10);
-$pdf->Cell(60, 6, "Név", 1, 0);
-$pdf->Cell(40, 6, "Születési dátum", 1, 0);
-$pdf->Cell(80, 6, "Cím", 1, 0);
+$pdf->SetFont('DejaVuB', '', 6);
+$pdf->Cell(30, 6, "Név", 1, 0);
+$pdf->Cell(30, 6, "Születési név", 1, 0);
+$pdf->Cell(30, 6, "Anyja neve", 1, 0);
+$pdf->Cell(20, 6, "Születési hely", 1, 0);
+$pdf->Cell(20, 6, "Születési dátum", 1, 0);
+
+$pdf->Cell(10, 6, "Neme", 1, 0);
+$pdf->Cell(20, 6, "Állampolgárság", 1, 0);
+
+$pdf->Cell(40, 6, "Cím", 1, 0);
+$pdf->Cell(20, 6, "Telefonszám", 1, 0);
+$pdf->Cell(15, 6, "Végzetség", 1, 0);
+$pdf->Cell(30, 6, "Képzésbe történő felvétel", 1, 0);
+$pdf->Cell(15, 6, "Tajszám", 1, 0);
+
+
 
 
 $pdf->Ln();
-$pdf->SetFont('DejaVu', '', 10);
+$pdf->SetFont('DejaVu', '', 5);
 for ($index = 0; $index < count($maintable); $index++) {
-$pdf->Cell(60, 6, $maintable[$index][0], 1, 0);
-$pdf->Cell(40, 6, $maintable[$index][1], 1, 0);
-$pdf->Cell(80, 6,  $maintable[$index][2], 1, 0);
-
+$pdf->Cell(30, 6, $maintable[$index][0], 1, 0);
+$pdf->Cell(30, 6, $maintable[$index][1], 1, 0);
+$pdf->Cell(30, 6, $maintable[$index][2], 1, 0);
+$pdf->Cell(20, 6, $maintable[$index][3], 1, 0);
+$pdf->Cell(20, 6,  $maintable[$index][4], 1, 0);
+$pdf->Cell(10, 6, $maintable[$index][5], 1, 0);
+$pdf->Cell(20, 6, $maintable[$index][6], 1, 0);
+$pdf->Cell(40, 6,  $maintable[$index][7], 1, 0);
+$pdf->Cell(20, 6, $maintable[$index][8], 1, 0);
+$pdf->Cell(15, 6, $maintable[$index][9], 1, 0);
+$pdf->Cell(30, 6,  $maintable[$index][10], 1, 0);
+$pdf->Cell(15, 6, $maintable[$index][11], 1, 0);
 $pdf->Ln();
 }
 $pdf->Output();

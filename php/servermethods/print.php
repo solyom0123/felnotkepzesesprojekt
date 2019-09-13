@@ -349,7 +349,7 @@ function collectDataForMissingFormListName($dataArray) {
     $date = '';
     $kepzes = '';
 
-    $sql = "select  exam_date as ed,(select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,`name` as n from schedule_plan_data where id=" . $dataArray[0] . ";";
+    $sql = "select  exam_date as ed,(select CONCAT(education_name, '( ',okj_number , ')') from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,`name` as n from schedule_plan_data where id=" . $dataArray[0] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -372,9 +372,18 @@ function collectDataForMissingFormListName($dataArray) {
     if ($dataArray[1] == 2) {
         $sql = "select "
                 . "s.student_full_name as fn,"
-                . "birth_date as br,"
-                . " es.student_id as id, "
+                . "s.birth_name as bn,"
+                . "s.mothers_name as mn,"
+                . "s.birth_place as bp,"
+                . "s.birth_date as br,"
+                . "s.gender as g,"
+                . "s.nationality as n,"
                 . "s.home_address as ad,"
+                . "s.phone_number as pn,"
+                . "s.educational_attainment as ea,"
+                . "s.enrollment_to_course as ec,"
+                . "s.taj,"
+                . " es.student_id as id, "
                 . "'false' as r "
                 . "from "
                 . "education_students es, "
@@ -386,10 +395,21 @@ function collectDataForMissingFormListName($dataArray) {
     } else {
         $sql = "select "
                 . "s.teacher_full_name as fn,"
-                . "birth_date as br,"
-                . " s.teacher_id as id,"
-                . "s.home_address as ad ,"
+                . "s.birth_name as bn,"
+                . "s.mothers_name as mn,"
+                . "s.birth_place as bp,"
+                . "s.birth_date as br,"
+                . "s.gender as g,"
+                . "s.nationality as n,"
+                . "s.home_address as ad,"
+                . "s.phone_number as pn,"
+                . "'nincs' as ea,"
+                . "'nincs' as ec,"
+                . "s.taj,"
+               . " s.teacher_id as id,"
+                
                 . "es.replace_day as r"
+                . ""
                 . " from "
                 . "schedule_plan es, "
                 . "teachers s "
@@ -403,9 +423,10 @@ function collectDataForMissingFormListName($dataArray) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
             if ($row["r"] != "false") {
-                echo $row['fn'] . '(külsős) ;' . explode(" ", $row['br'])[0] . ';//';
-            } else {
-                echo $row['fn'] . ' ;' . explode(" ", $row['br'])[0] . ';' . $row["ad"] . '//';
+                echo $row['fn'] . '(külsős) ;' .$row['bn'] . ' ;'.$row['mn'] . ' ;'.$row['bp'] . ' ;'. explode(" ", $row['br'])[0] . ';'.$row['g'] . ' ;'.$row['n'] . ' ;'.$row['ad'] . ' ;'.$row['pn'] . ' ;'.$row['ea'] . ' ;'.$row['ec'] . ' ;'.$row['taj'] . '//';
+       
+              } else {
+                echo $row['fn'] . ' ;' .$row['bn'] . ' ;'.$row['mn'] . ' ;'.$row['bp'] . ' ;'. explode(" ", $row['br'])[0] . ';'.$row['g'] . ' ;'.$row['n'] . ' ;'.$row['ad'] . ' ;'.$row['pn'] . ' ;'.$row['ea'] . ' ;'.$row['ec'] . ' ;'.$row['taj'] . '//';
             }
         }
     } else {

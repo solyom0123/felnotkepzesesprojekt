@@ -51,11 +51,13 @@ function loadSchedule(spSchedule) {
                     lastDays[lastDays.length] = actrow;
                 }
                 if (actrow[5] == "true") {
-                    var data = new Array(actrow[0], solveUtemTerv_ModelExamTypeForHuman(actrow[2]), actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]),actrow[0], actrow[8]+"_"+actrow[2]);
+                     var dayno = getMonthStartWeekDaysNo(actrow[0]);
+                    var data = new Array(actrow[0]+"||"+solveDayForShow(dayno), solveUtemTerv_ModelExamTypeForHuman(actrow[2]), actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]),actrow[0], actrow[8]+"_"+actrow[2]);
                     makeTableForShow(3, data);
                 }
                 if (actrow[5] == "false" && actrow[1] == "false") {
-                    var data = new Array(actrow[0], actrow[10], actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]), actrow[0], actrow[2]);
+                    var dayno = getMonthStartWeekDaysNo(actrow[0]);
+                    var data = new Array(actrow[0]+"||"+solveDayForShow(dayno), actrow[10], actrow[9], actrow[3], actrow[6], actrow[7], solveUtemTerv_ModelTypeForHuman(actrow[4]), actrow[0], actrow[2]);
                     makeTableForShow(2, data);
                 }
             }

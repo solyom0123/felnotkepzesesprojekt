@@ -131,7 +131,39 @@
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy születési idejének napját!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
+        <div class="form-group row">
+            <label for="form-row-szulev" class="col-md-12 col-form-label">Képzésbevétel napja:</label>
+        </div>
+        <div class="form-group row">
+            <label for="form-row-szulev" class="col-md-4 col-form-label">Év:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-kepev" id="form-row-kepev" type="number" min="1900" max=""  placeholder="Év">
+            </div> 
 
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy képzésbevételi idejének évét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
+        <div class="form-group row">
+            <label for="form-row-szulho" class="col-md-4 col-form-label">Hónap:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-kepho" id="form-row-kepho" type="number" min="1" max="12"  placeholder="Hónap">
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy  képzésbevételi idejének havát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
+        <div class="form-group row">
+            <label for="form-row-szulnap" class="col-md-4 col-form-label">Nap:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-kepnap" id="form-row-kepnap" type="number" min="1" max="31" placeholder="Nap">
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy  képzésbevételi  idejének napját!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
         <div class="form-group row">
             <label for="form-row-lakir" class="col-md-12 col-form-label">Lakóhely:</label>
 
@@ -184,6 +216,16 @@
 
             <div class="col-md-4 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy lakhelyének lépcsőházát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
+         <div class="form-group row">
+            <label for="form-row-lakcity" class="col-md-4 col-form-label">Végzettség:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-veg" id="form-row-veg" type="text"  placeholder="Végzetség">
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy végzettségének nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="option-button-wrapper form-group row">

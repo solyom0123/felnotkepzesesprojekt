@@ -10,6 +10,7 @@ $value = isset($_POST['param']) ? $_POST['param'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
+$sumunused = array();
 $name = '';
 $summissing = false;
 $notfinishexam = array();
@@ -38,7 +39,7 @@ function alma(){
 }
 
 function collectDataForScPrint($id) {
-    global $headtable, $name, $maintable, $sumtable, $summissing,$notfinishexam;
+    global $headtable, $name,$sumunused, $maintable, $sumtable, $summissing,$notfinishexam;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -306,7 +307,7 @@ function collectDataForScPrint($id) {
                     }
                 }
                 $locarray = array($row["mn"], $text, $sumcalc . " óra");
-                array_push($sumtable, $locarray);
+                array_push($sumunused, $locarray);
             }
         } else {
             echo $sql;
@@ -515,18 +516,29 @@ for ($index = 0; $index < count($notfinishexam); $index++) {
 
 $pdf->Ln(10);
 
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
     $pdf->Cell(20, 6, $sumtable[$index1][2], 0, 0);
     $pdf->Ln();
 }
-
-
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
-$pdf->Ln(5);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
 
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
+$pdf->Ln(5);
 $pdf->Output();

@@ -87,15 +87,9 @@ url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 .calendar__day__cell {
   font-size: 4rem;
   position: relative;
+    color: var(--red);
 }
 
-tr:nth-child(odd) > .calendar__day__cell:nth-child(odd) {
-  color: var(--red);
-}
-
-tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
-  color: var(--red);
-}
 
 .calendar__day__cell[data-moon-phase] {
   background-color: var(--red);

@@ -22,8 +22,10 @@ and open the template in the editor.
         <link rel="stylesheet" href="./css/usefull.css">
         <link rel="stylesheet" href="./css/wrappers.css">
         <link rel="stylesheet" href="./css/bootstrap.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <script type="text/javascript" src="./js/jquery.js"></script>
+        <script type="text/javascript" src="./js/bootstrap.js"></script>
         <script type="text/javascript" src="./js/other/navigation.js"></script>
         <script type="text/javascript" src="./js/controller/felvitel.js"></script>
         <script type="text/javascript" src="./js/other/course.js"></script>

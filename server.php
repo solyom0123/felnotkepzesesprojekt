@@ -222,9 +222,9 @@ if ($muv == "new_modul") {
 
 
 function kapcsolodas() {
-    $szerverneve = "mysql.nethely.hu";//"localhost";//;;
-    $felhasznalonev = "oktat";//'root';//
-    $password = 'corvin2019';//"";//
+    $szerverneve = "localhost";//"mysql.nethely.hu";//;;
+    $felhasznalonev = 'root';//"oktat";//
+    $password = "";//'corvin2019';//
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 
@@ -236,9 +236,9 @@ function kapcsolodas() {
     return $conn;
 }
 function kapcsolodas2() {
-    $szerverneve = "mysql.nethely.hu";//"localhost";//;;
-    $felhasznalonev = "oktat";//'root';//
-    $password = 'corvin2019';//"";//
+    $szerverneve = "localhost";//"mysql.nethely.hu";//";;
+    $felhasznalonev = 'root';//"oktat";//
+    $password = "";//'corvin2019';//
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 

@@ -16,12 +16,91 @@
  <a href="#" data-toggle="tooltip" title="Válassza ki a xy. modult modult!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
  </div>                            
  </div>
+ timetable
+ <tr class="row">
+ <td class="col-md-3">
+ Hétfő
+ </td>
+ <td>
+ <input id="mon_plan_dec" onchange="checkEnoughDay(),timetableUpdate()" class="" type="number" min="0">
+ </td>
+ <td>
+ <input id="mon_el_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
+ </td>
+ <td>
+ <input  id="mon_plan_exe" class="" onchange="checkEnoughDay(),timetableUpdate()" type="number" min="0">
+ </td>
+ 
+ </tr>
+ 
  */
 var tiltotta = new Array();
 var hasznalt = new Array();
 var ftiltotta = new Array();
 var fhasznalt = new Array();
 var hiba = false;
+function solveday(i) {
+    var week_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+    return week_days[i];
+}
+function biggestHour(array) {
+    var max = 0;
+    for (var i = 0, max = array.length; i < max; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    return max;
+}
+function timetableUpdate() {
+    var tableTextHTML = '';
+    var tr = '<tr>';
+    var tr_end = '</tr>';
+    var td = '<td >';
+    var td_end = '</td>';
+    var input_start = '<input id="';
+    var input_middle = '" type="time" value="';
+    var input_end = '" >';
+    var th ="<th>";
+    var th_end ="</th>";
+    var plan_dec_number = calc("_plan_dec");
+    var plan_exe_number = calc("_plan_exe");
+    var dayHourArray = new Array();
+    for (var i = 0, max = 7; i < max; i++) {
+        var daysum = plan_dec_number[i] + plan_exe_number[i];
+        dayHourArray[dayHourArray.length] = daysum;
+    }
+    var biggestDayHour = biggestHour(dayHourArray);
+        tableTextHTML+=tr+th+"Hétfő"+th_end;
+    tableTextHTML+=th+"Kedd"+th_end;
+    tableTextHTML+=th+"Szerda"+th_end;
+    tableTextHTML+=th+"Csütörtök"+th_end;
+    tableTextHTML+=th+"Péntek"+th_end;
+    tableTextHTML+=th+"Szombat"+th_end;
+    tableTextHTML+=th+"Vasárnap"+th_end+tr_end;
+    for (var i = 0, max = biggestDayHour; i < max; i++) {
+        
+        tableTextHTML += tr;
+
+        for (var j = 0, max1 = 7; j < max1; j++) {
+            
+
+            if (dayHourArray[j] >= (i-1)&&dayHourArray[j]>0) {
+
+                tableTextHTML += td + input_start + (solveday(i) + "_start_" + i) + input_middle + input_end + input_start + (solveday(i) + "_end_" + i) + input_middle + input_end + td_end;
+
+
+
+            }else{
+                tableTextHTML += td +"Nincs óra megadva"+ td_end;
+
+            }
+        }
+        tableTextHTML += tr_end;
+
+    }
+    document.getElementById("timetable").innerHTML = tableTextHTML;
+}
 function getActiveEduScheme() {
 
     var slink = 'server.php';
@@ -70,7 +149,7 @@ function modulSelectorsMake() {
         }, function (data, status) {
             //////console.log(data);
             var value = "";
-            var value2= "";
+            var value2 = "";
             var spStudents = data.split("//");
             var emptyModulList = false;
             document.getElementById("modul_length_of_course").value = spStudents[0];
@@ -375,7 +454,7 @@ function lockAllModulSelector(lock) {
 function clearUsedSelectChooseArrays() {
     tiltotta = new Array();
     hasznalt = new Array();
-     ftiltotta = new Array();
+    ftiltotta = new Array();
     fhasznalt = new Array();
 }
 function collectModulSelectorsData() {
@@ -391,7 +470,7 @@ function collectModulSelectorsData() {
             tiltotta[tiltotta.length] = ertek;
         }
     }
-     for (var i = 1, max = osszesdb; i < max; i++) {
+    for (var i = 1, max = osszesdb; i < max; i++) {
         var ertek = document.getElementById("form-row-finished-modul-" + i).value;
         if (ertek != -1) {
             fhasznalt[fhasznalt.length] = i;

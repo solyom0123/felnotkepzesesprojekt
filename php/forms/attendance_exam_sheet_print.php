@@ -109,10 +109,10 @@ $pdf->Cell(100, 6, "Óra óraszáma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[5], 0, 0);
 $pdf->Ln(20);
 $pdf->SetFont('DejaVuB', '', 10);
-$pdf->Cell(40, 6, "Tanuló neve", 1, 0);
+$pdf->Cell(40, 6, "Résztvevő neve", 1, 0);
 $pdf->Cell(40, 6, "Születési dátum", 1, 0);
 $pdf->Cell(20, 6, "Osztályzat", 1, 0);
-$pdf->Cell(70, 6, " Diák aláírása", 1, 0);
+$pdf->Cell(70, 6, " Résztvevő aláírása", 1, 0);
 
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 10);

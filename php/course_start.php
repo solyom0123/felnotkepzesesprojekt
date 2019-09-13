@@ -9,6 +9,10 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 <div class="row "><h2 class="col-md-12 h2-default">Képzés(tanfolyam) indítása</h2></div>
 <id style="display: none"></id>
 <form >
+    <div id="loadedSc">
+       
+    </div>
+        
     <div class="form-group row">
         <label for="form-row-sema" class="col-md-4 col-form-label">Betölthető már mentett aktív képzések:</label>
         <div class="col-md-4">
@@ -16,7 +20,6 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                 
             </select>
         </div>
-
         <div class="col-md-4 ">
             <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
@@ -126,7 +129,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 
         <div class="form-group row">
             
-            <table class="col-md-12  ">
+            <table   >
                 <tr class="row">
                     <th class="col-md-3">
                         Nap:
@@ -147,13 +150,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Hétfő
                     </td>
                     <td>
-                        <input id="mon_plan_dec" onchange="checkEnoughDay()" class="" type="number" min="0">
+                        <input id="mon_plan_dec" onchange="checkEnoughDay(),timetableUpdate()" class="" type="number" min="0">
                     </td>
 					<td>
                         <input id="mon_el_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
                     <td>
-                        <input  id="mon_plan_exe" class="" onchange="checkEnoughDay()" type="number" min="0">
+                        <input  id="mon_plan_exe" class="" onchange="checkEnoughDay(),timetableUpdate()" type="number" min="0">
                     </td>
 
                 </tr>
@@ -162,13 +165,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Kedd
                     </td>
                     <td>
-                        <input id="tue_plan_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
+                        <input id="tue_plan_dec" class="" onchange="checkEnoughDay(),timetableUpdate()" type="number" min="0">
                     </td>
 					<td>
                         <input id="tue_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="tue_plan_exe"  class="" type="number" min="0" onchange="checkEnoughDay()">
+                        <input id="tue_plan_exe"  class="" type="number" min="0" onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -176,13 +179,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szerda
                     </td>
                   <td>
-                        <input id="wed_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="wed_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 					<td>
                         <input id="wed_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="wed_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="wed_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -190,13 +193,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Csütörtök
                     </td>
                   <td>
-                        <input id="thu_plan_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
+                        <input id="thu_plan_dec" class="" type="number" min="0" onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 					<td>
                         <input id="thu_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="thu_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="thu_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 
                 </tr>
@@ -205,13 +208,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Péntek
                     </td>
                     <td>
-                        <input id="fri_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="fri_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 					<td>
-                        <input id="fri_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="fri_el_dec" class="" type="num" min="0"  onchange="checkEnoughDay()">
                     </td>
                      <td>
-                        <input id="fri_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="fri_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 
                 </tr>
@@ -220,13 +223,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szombat
                     </td>
                     <td>
-                        <input id="sat_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="sat_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 					<td>
                         <input id="sat_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                         <td>
-                        <input id="sat_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="sat_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 
                 </tr>
@@ -235,17 +238,34 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Vasárnap
                     </td>
                     <td>
-                        <input id="sun_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="sun_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 					<td>
                         <input id="sun_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="sun_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
+                        <input id="sun_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
                     </td>
 
                 </tr>
 
+
+            </table>
+        </div>
+  <div class="form-group row">
+        <label  class="col-md-4 col-form-label">Órarend a tervezett napok szerint:</label>
+        <div class="co-md-5"></div>
+        <div class="col-md-1 ">
+            <a href="#" data-toggle="tooltip" title="Adja meg az elmélet és a gyakorlati oktatás óraszámait napokra bontva!"><img src="img/help.png" class="img-circle" alt="Súgó" width="15" height="15"></a>
+        </div>                            
+    </div>
+   <div class="form-group row">
+            
+            <table class="col-md-12  ">
+              
+                
+                <tbody id="timetable"></tbody>
+                
 
             </table>
         </div> 

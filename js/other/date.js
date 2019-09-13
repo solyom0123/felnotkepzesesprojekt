@@ -87,11 +87,8 @@ function monthGet(date) {
 
             if (benneVan(aktnap, datesFromServer)) {
 
-                if (i % 2 == 0) {
                     value += '<td class="calendar__day__cell" data-bank-holiday="tiltott" onclick="dateEdit(' + "'" + aktnap + "'" + ')" style="cursor: pointer">' + i + ' </td>';
-                } else {
-                    value += '<td class="calendar__day__cell" data-moon-phase="tiltott" onclick="dateEdit(' + "'" + aktnap + "'" + ')" style="cursor: pointer">' + i + ' </td>';
-                }
+               
 
             } else {
                 value += '<td class="calendar__day__cell" onclick="dateEdit(' + "'" + aktnap + "'" + ')" style="cursor: pointer">' + i + ' </td>';

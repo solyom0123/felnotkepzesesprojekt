@@ -11,6 +11,7 @@ $id = isset($_POST['id']) ? $_POST['id'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
+$sumunused =array();
 $name = date("Y/m/d");
 $summissing = 0;
 $sumdocm = 0;
@@ -122,7 +123,7 @@ function solveBackCurUnitNameModulName($course_date) {
 }
 
 function collectDataForScPrint($id) {
-    global $headtable, $maintable, $sumtable,$name;
+    global $headtable, $maintable,$sumunused, $sumtable,$name;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -420,7 +421,7 @@ function collectDataForScPrint($id) {
                     }
                 }
                 $locarray = array($row["mn"], $text, $sumcalc . " óra");
-                array_push($sumtable, $locarray);
+                array_push($sumunused, $locarray);
             }
         } else {
             echo $sql;
@@ -588,7 +589,7 @@ $pdf->Cell(60, 10, "Modul ", 1, 0);
 $pdf->Cell(40, 10, "Vizsga típus", 1, 0);
 $pdf->Ln();
 $pdf->Cell(20, 10, "", 0, 0);
-$pdf->Cell(60, 10, "Tanuló adatai", 1, 0);
+$pdf->Cell(60, 10, "Résztvevő adatai", 1, 0);
 $pdf->Cell(40, 10, "érdemjegy ", 1, 0);
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 8);
@@ -615,6 +616,9 @@ for ($index = 0; $index < count($maintable); $index++) {
     $fill = !$fill;
 }
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
@@ -622,9 +626,19 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Ln();
 }
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
-$pdf->Ln(5);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
 
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
+$pdf->Ln(5);
 $pdf->Output();

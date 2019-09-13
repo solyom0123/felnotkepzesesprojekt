@@ -11,6 +11,7 @@ $shour = isset($_POST['hour']) ? $_POST['hour'] : null;
 $headtable = array();
 $maintable = array();
 $sumtable = array();
+$sumunused = array();
 $alma = array();
 function bennevanUFM($array,$value){
     $returnValue = false;
@@ -22,7 +23,7 @@ function bennevanUFM($array,$value){
     return $returnValue;
 }
 function collectDataForScPrint($id) {
-    global $headtable, $maintable, $sumtable,$alma;
+    global $headtable,$sumunused, $maintable, $sumtable,$alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -283,7 +284,7 @@ function collectDataForScPrint($id) {
                     }
                 }
                 $locarray = array($row["mn"], $text, $sumcalc . " óra");
-                array_push($sumtable, $locarray);
+                array_push($sumunused, $locarray);
             }
         } else {
             echo $sql;
@@ -485,6 +486,9 @@ for ($index = 0; $index < count($maintable); $index++) {
     $fill = !$fill;
 }
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
@@ -492,9 +496,19 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Ln();
 }
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
-$pdf->Ln(5);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
 
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
+$pdf->Ln(5);
 $pdf->Output();

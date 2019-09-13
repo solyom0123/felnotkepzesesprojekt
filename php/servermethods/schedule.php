@@ -171,7 +171,7 @@ function collectNeededModulsData($conn, $modulid) {
             echo $row["name"] . " ;" . $row["id"] . ";" . $row['inId'] . ";" . $row['d'] . ";" . $row['e'] . ";" . $row['vt'] . ";" . $row['wt'] . ";" . $row['pt'] . "/;/";
         }
     } else {
-        echo "none;/;/";
+     //   echo "none;/;/";
     }
     return $conn;
 }

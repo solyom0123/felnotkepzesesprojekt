@@ -53,12 +53,17 @@ function studentSend() {
     var szulev = document.getElementById("form-row-szulev").value;
     var szulho = document.getElementById("form-row-szulho").value;
     var szulnap = document.getElementById("form-row-szulnap").value;
+    
+    var kepev = document.getElementById("form-row-kepev").value;
+    var kepho = document.getElementById("form-row-kepho").value;
+    var kepnap = document.getElementById("form-row-kepnap").value;
     var irszam = document.getElementById("form-row-lakir").value;
     var city = document.getElementById("form-row-lakcity").value;
     var utca = document.getElementById("form-row-lakstreet").value;
     var hz = document.getElementById("form-row-lakhs").value;
     var lepcsohz = document.getElementById("form-row-laklp").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz);
+    var veg = document.getElementById("form-row-veg").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,kepev, kepho, kepnap,veg);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentSend",
@@ -115,7 +120,11 @@ function studentGet() {
             document.getElementById("form-row-lakhs").value = spDataa[3];
             document.getElementById("form-row-laklp").value = spDataa[4];
             document.getElementById("form-row-uid").value = spData[10];
-
+              spDate = spData[11].split('-');
+            document.getElementById("form-row-kepev").value = spDate[0];
+            document.getElementById("form-row-kepho").value = spDate[1];
+            document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
+            document.getElementById("form-row-veg").value = spData[12];
 
         } else {
             link("user_in_form");
@@ -156,6 +165,11 @@ function studentGetWithParam(value) {
             document.getElementById("form-row-lakhs").value = spDataa[3];
             document.getElementById("form-row-laklp").value = spDataa[4];
             document.getElementById("form-row-uid").value = spData[10];
+            spDate = spData[11].split('-');
+            document.getElementById("form-row-kepev").value = spDate[0];
+            document.getElementById("form-row-kepho").value = spDate[1];
+            document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
+            document.getElementById("form-row-veg").value = spData[12];
 
         } else {
             link("user_in_form");
@@ -212,19 +226,23 @@ function studentEdit(id) {
     var szulev = document.getElementById("form-row-szulev").value;
     var szulho = document.getElementById("form-row-szulho").value;
     var szulnap = document.getElementById("form-row-szulnap").value;
+    var kepev = document.getElementById("form-row-kepev").value;
+    var kepho = document.getElementById("form-row-kepho").value;
+    var kepnap = document.getElementById("form-row-kepnap").value;
     var irszam = document.getElementById("form-row-lakir").value;
     var city = document.getElementById("form-row-lakcity").value;
     var utca = document.getElementById("form-row-lakstreet").value;
     var hz = document.getElementById("form-row-lakhs").value;
     var lepcsohz = document.getElementById("form-row-laklp").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz, id);
+    var veg = document.getElementById("form-row-veg").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,id,kepev, kepho, kepnap,veg);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentEdit",
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';

@@ -16,6 +16,7 @@ $name = '';
 $final_exam = array();
 $summissing = 0;
 $sumdocm = 0;
+$sumunused = array();
 $sumexm = 0;
 $sumexamm = 0;
 $sumother = 0;
@@ -50,7 +51,7 @@ function alma() {
 }
 
 function collectDataForScPrint($id) {
-    global $headtable,$final,$final_exam, $notfinishexam, $summissing1, $name, $basic_data_table, $exam_data_table, $maintable, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm, $sumother;
+    global $headtable,$final,$final_exam,$sumunused, $notfinishexam, $summissing1, $name, $basic_data_table, $exam_data_table, $maintable, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm, $sumother;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
@@ -398,7 +399,7 @@ function collectDataForScPrint($id) {
                     }
                 }
                 $locarray = array($row["mn"], $text, $sumcalc . " óra");
-                array_push($sumtable, $locarray);
+                array_push($sumunused, $locarray);
             }
         } else {
             echo $sql;
@@ -538,7 +539,7 @@ $pdf->AddPage();
 $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
-$pdf->Cell(100, 6, "A tanuló neve:", 0, 0);
+$pdf->Cell(100, 6, "A résztvevő neve:", 0, 0);
 $pdf->Cell(100, 6, $basic_data_table[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Anyja neve:", 0, 0);
@@ -629,6 +630,9 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A hiányzás alkalmi óraszáma:", 0, 0);
 $pdf->Cell(100, 6, $sumother, 0, 0);
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
     $pdf->Cell(80, 6, $sumtable[$index1][1], 0, 0);
@@ -636,9 +640,20 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Ln();
 }
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
 $pdf->Ln(5);
 $pdf->AddPage();
 $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
@@ -730,6 +745,8 @@ if ($summissing1) {
 }
 
 $pdf->Ln(10);
+$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
 
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(80, 6, $sumtable[$index1][0], 0, 0);
@@ -737,12 +754,21 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Cell(20, 6, $sumtable[$index1][2], 0, 0);
     $pdf->Ln();
 }
-
-
 $pdf->Ln(10);
-$pdf->Cell(80, 6, "Összesen:", 0, 0);
-$pdf->Cell(80, 6, $sumtable[0][0], 0, 0);
-$pdf->Cell(20, 6, $sumtable[0][1], 0, 0);
+$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Ln(10);
+
+
+for ($index1 = 0; $index1 < count($sumunused); $index1++) {
+    $pdf->Cell(80, 6, $sumunused[$index1][0], 0, 0, "", true);
+    $pdf->Cell(80, 6, $sumunused[$index1][1], 0, 0, "", true);
+    $pdf->Cell(20, 6, $sumunused[$index1][2], 0, 0, "", true);
+    $pdf->Ln();
+}
+$pdf->Ln(10);
+$pdf->Cell(80, 6, "Összesen:", "BT", 0);
+$pdf->Cell(80, 6, $sumtable[0][0], "BT", 0);
+$pdf->Cell(20, 6, $sumtable[0][1], "BT", 0);
 $pdf->Ln(5);
 
 $pdf->Output();

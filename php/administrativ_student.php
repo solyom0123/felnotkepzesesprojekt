@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Tanulókhoz kapcsolódó adminisztráció</h2>
+                    <h2 class="h2-default">Résztvevőkhoz kapcsolódó adminisztráció</h2>
 
                     <div class="table-wrapper">
                         

@@ -75,7 +75,7 @@
         </div>                            
     </div>
     <div class="form-group row">
-        <label for="form-row-student" class="col-md-4 col-form-label">Diák:</label>
+        <label for="form-row-student" class="col-md-4 col-form-label">Résztvevő:</label>
         <div class="col-md-4">
             <select onclick="getMissingTable(5,'mhour-student','form-row-aktiv-kepzes-list','form-row-student')" id="form-row-student" >
                 

@@ -1,12 +1,12 @@
 <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Tanuló alapadatai</button>
+    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Résztvevő alapadatai</button>
    <?php if(isset($_POST['param'])){ ?>
-    <button class="tablinks" onclick="openCity(event, 'edit');getLoginData()" >Tanuló felhasználói adatai</button>
+    <button class="tablinks" onclick="openCity(event, 'edit');getLoginData()" >Résztvevő felhasználói adatai</button>
    <?php } ?> 
 </div>
 <div id="add" class="tabcontent">
 
-    <div class="row "><h2 class="col-md-12 h2-default">Tanuló alapadatai</h2>
+    <div class="row "><h2 class="col-md-12 h2-default">Résztvevő alapadatai</h2>
     </div>
     <?php
     if (isset($_POST['param']) && $_POST['muv'] == "load") {
@@ -228,6 +228,16 @@
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy végzettségének nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
+          <div class="form-group row">
+            <label for="form-row-lakcity" class="col-md-4 col-form-label">Email:</label>
+            <div class="col-md-4">
+                <input class="form-control-plaintext" name="form-row-veg" id="form-row-email" type="email"  placeholder="Email">
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy email címét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
         <div class="option-button-wrapper form-group row">
 
             <?php
@@ -256,7 +266,7 @@
 </div>
 <?php if(isset($_POST['param'])){ ?>
 <div id="edit" class="tabcontent">
-    <div class="row "><h2 class="col-md-12 h2-default">Tanuló felhasználói adatai</h2>
+    <div class="row "><h2 class="col-md-12 h2-default">Résztvevő felhasználói adatai</h2>
     </div>
     <?php
     if (isset($_POST['param']) && $_POST['muv'] == "load") {
@@ -286,29 +296,18 @@
                         </div>
                     </div>
                 </div>
-
-            <div class="col-md-4 ">
+                <div class="col-md-3 ">
+            <?php        if (isset($_POST['param']) && $_POST['muv'] == "edit") {
+                ?>
+                <div onclick="sendPassword(<?= $_POST['param'] ?>,1)" class="btn col-md-5 btn option-button">Jelszó küldése</div>
+                <?php
+            } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
+                ?>
+                <div onclick="sendPassword(<?= $_POST['param'][1] ?>,1)" class="btn col-md-5 btn option-button">Jelszó küldése</div>
+            <?php } ?>
+                </div>    
+            <div class="col-md-1 ">
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy felhasználó nevét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-            </div>                            
-        </div>
-        <div class="form-group row">
-            <label for="form-row-ps" class="col-md-4 col-form-label">Jelszó:</label>
-            <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-ps" id="form-row-ps" type="password"  placeholder="Jelszó">
-            </div> 
-
-            <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy jelszavát!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-            </div>                            
-        </div>
-        <div class="form-group row">
-            <label for="form-row-ps-ag" class="col-md-4 col-form-label">Jelszó:</label>
-            <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-ps-ag" id="form-row-ps-ag" type="password"  placeholder="Jelszó újra">
-            </div> 
-
-            <div class="col-md-4 ">
-                <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy jelszavát még egyszer!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
         <div class="option-button-wrapper form-group row">

@@ -2,7 +2,7 @@
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Hiányzás felvitele</button>
     <button class="tablinks" onclick="openCity(event, 'edit')" id="defaultOpen">Hiányzás listázása</button>
-    <button class="tablinks" onclick="openCity(event, 'delete')" id="defaultOpen">Hiányzás listázása egész képzés alatt diákonként</button>
+    <button class="tablinks" onclick="openCity(event, 'delete')" id="defaultOpen">Hiányzás listázása egész képzésre vonatkozóan(minden résztvevőnek)</button>
 </div>
 <div id="add" class="tabcontent">
     <div class="row "><h2 class="col-md-12 h2-default">Hiányzás felvitele: </h2></div>
@@ -76,7 +76,7 @@
         </div>                            
     </div>
     <div class="form-group row">
-        <label for="form-row-student" class="col-md-4 col-form-label">Diák:</label>
+        <label for="form-row-student" class="col-md-4 col-form-label">Résztvevő:</label>
         <div class="col-md-4">
             <select onclick="getMissingTable(1,'mhour-student','form-row-aktiv-kepzes-list','form-row-student')" id="form-row-student" >
                 
@@ -111,7 +111,7 @@
      <div id="help_div" style="display: none"></div>
 </div>
 <div id="delete" class="tabcontent">
-     <div class="row "><h2 class="col-md-12 h2-default">Hiányzás listázása egész képzés alatt diákonként : </h2></div>
+     <div class="row "><h2 class="col-md-12 h2-default">Hiányzás listázása egész képzésre vonatkozóan (minden résztvevőnek)  : </h2></div>
     <div id="alertdiv">
         
     </div>

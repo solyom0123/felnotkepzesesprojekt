@@ -46,7 +46,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('print_attendance_in_form');setElozo('show_page')"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Tanuló<br>jelenléti</span></td>
+                                        </div><span>Résztvevő<br>jelenléti</span></td>
                                    <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('print_sc_in_form');setElozo('show_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

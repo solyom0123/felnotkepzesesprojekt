@@ -62,6 +62,7 @@ and open the template in the editor.
         <script type="text/javascript" src="./js/other/printing.js"></script>
         <script type="text/javascript" src="./js/other/tabs.js"></script>
         <script type="text/javascript" src="./js/other/push.js"></script>
+        <script type="text/javascript" src="./js/other/passwordjs.js"></script>
         <script>
            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

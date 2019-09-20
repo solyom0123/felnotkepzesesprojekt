@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<h2 class="h2-default">Tanulók listája</h2>
+<h2 class="h2-default">Résztvevők listája</h2>
 <form class="form-wrapper">
     <div class="list-wrapper">
         <ul>

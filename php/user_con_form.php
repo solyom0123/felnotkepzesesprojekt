@@ -39,23 +39,23 @@
     </div>                            
 </div>
 <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Tanuló hozzárendelése</button>
-    <button class="tablinks" onclick="openCity(event, 'delete')">Tanuló eltávolítása</button>
+    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Résztvevő hozzárendelése</button>
+    <button class="tablinks" onclick="openCity(event, 'delete')">Résztvevő eltávolítása</button>
 
 </div>
 
 <!-- Tab content -->
 <div id="add" class="tabcontent">
-    <div class="row "><h2 class="col-md-12 h2-default">Tanuló Hozzáadása</h2></div>
+    <div class="row "><h2 class="col-md-12 h2-default">Résztvevő Hozzáadása</h2></div>
     <div class="form-group row">
-        <label for="form-row-student" class="col-md-4 col-form-label">Tanulók:</label>
+        <label for="form-row-student" class="col-md-4 col-form-label">Résztvevők:</label>
         <div class="col-md-4">
             <table  class="col-md-12" id="form-row-student">
 
             </table>
         </div> 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki, mely diákot szeretné hozzárendelni!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Válassza ki, mely résztvevőot szeretné hozzárendelni!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -71,16 +71,16 @@
 </div>
 
 <div id="delete" class="tabcontent">
-    <div class="row "><h2 class="col-md-12 h2-default">Tanuló Eltávolítása</h2></div>
+    <div class="row "><h2 class="col-md-12 h2-default">Résztvevő Eltávolítása</h2></div>
     <div class="form-group row">
-        <label for="form-row-student" class="col-md-4 col-form-label">Tanulók:</label>
+        <label for="form-row-student" class="col-md-4 col-form-label">Résztvevők:</label>
         <div class="col-md-4">
             <table  class="col-md-12" id="studentTable">
 
             </table>
         </div> 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki, mely diákot szeretné hozzárendelni!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Válassza ki, mely résztvevőot szeretné hozzárendelni!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">

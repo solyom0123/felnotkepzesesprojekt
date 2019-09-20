@@ -34,7 +34,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <img onclick="link('user_con_form');setElozo('act-course-page')" src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            
-                                        </div><span>Tanulók képzéshez kapcsolása</span></td>
+                                        </div><span>Résztvevők képzéshez kapcsolása</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <img onclick="link('utemterv_in_form');setElozo('act-course-page')" src="img/hal_ig.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             

@@ -23,7 +23,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="studentList();link('student_r_list'),setElozo('main_admin')"><img src="img/team.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div> <span>Tanulók kezelése</span></td>
+                                        </div> <span>Résztvevők kezelése</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="teacherList();link('teacher_list'),setElozo('main_admin')"><img src="img/szemely.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

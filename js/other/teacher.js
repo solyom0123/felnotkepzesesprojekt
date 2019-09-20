@@ -65,7 +65,8 @@ function teacherSend() {
     var utca = document.getElementById("form-row-lakstreet").value;
     var hz = document.getElementById("form-row-lakhs").value;
     var lepcsohz = document.getElementById("form-row-laklp").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz);
+     var email = document.getElementById("form-row-email").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,email);
     var slink = 'server.php';
     $.post(slink, {
         muv: "teacherSend",
@@ -128,6 +129,7 @@ function teacherGet() {
                 otherfilemodal(0, value, spData[0]);
                 document.getElementById("form-row-oktato").value = value;
                  document.getElementById("form-row-uid").value = spData[10];
+                 document.getElementById("form-row-email").value= spData[11];
                 teacher_cur_unit_List(-2, 1, 1, false);
 
             } else {
@@ -173,6 +175,7 @@ function teacherGetWithParam(value) {
             otherfilemodal(0, value[1], spData[0]);
             document.getElementById("form-row-oktato").value = value[1];
             document.getElementById("form-row-uid").value = spData[10];
+            document.getElementById("form-row-email").value= spData[11];
             teacher_cur_unit_List(-2, 1, 1, false);
         } else {
             link("teacher_in_form");
@@ -198,7 +201,8 @@ function teacherEdit(id) {
     var utca = document.getElementById("form-row-lakstreet").value;
     var hz = document.getElementById("form-row-lakhs").value;
     var lepcsohz = document.getElementById("form-row-laklp").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz, id);
+    var email = document.getElementById("form-row-email").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz, id,email);
     var slink = 'server.php';
     $.post(slink, {
         muv: "teacherEdit",
@@ -443,10 +447,10 @@ function teacherListOption() {
 function userEdit(aid, type) {
     var uid = document.getElementById("form-row-uid").value;
     var uname = document.getElementById("form-row-uname").value;
-    var ps = document.getElementById("form-row-ps").value;
-    var ps2 = document.getElementById("form-row-ps-ag").value;
+    //var ps = document.getElementById("form-row-ps").value;
+   // var ps2 = document.getElementById("form-row-ps-ag").value;
     var slink = 'server.php';
-    if (ps != ps2) {
+    /*if (ps != ps2) {
         var value = '<div class="alert alert-warning">A két jelszó nem egyezik!</div>';
         var data = new Array(value, aid);
          if (type == 2) {
@@ -454,11 +458,11 @@ function userEdit(aid, type) {
             } else {
                 studentGetWithParam(data);
             }
-    } else {
+    } else {*/
         if(checkEmptyString(uid)){
            uid=0; 
         }
-        var data = new Array(aid, type,uid,uname,ps);
+        var data = new Array(aid, type,uid,uname);
  
         $.post(slink, {
             muv: "userEdit",
@@ -476,7 +480,7 @@ function userEdit(aid, type) {
             }
 
         });
-    }
+    //}
 }
 function getLoginData() {
     var uid = document.getElementById("form-row-uid").value;

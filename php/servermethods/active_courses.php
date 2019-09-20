@@ -263,7 +263,7 @@ function list_students_for_active($conn) {
             echo $row["id"] . ";" . $row['fn'] . "//";
         }
     } else {
-        echo "-1;Nincs diák hozzá//";
+        echo "-1;Nincs résztvevő hozzá//";
     }
     return $conn;
 }
@@ -418,7 +418,7 @@ function table_for_date_exam_sum($conn) {
         }
     }
     if (count($course_date) > 0) {
-        echo   "Vizsgák/Tanulók;" . solveBackCurUnitNameModulName($course_date) . "Záróvizsgára alkalmas/eredmény//";
+        echo   "Vizsgák/Résztvevők;" . solveBackCurUnitNameModulName($course_date) . "Záróvizsgára alkalmas/eredmény//";
     }
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
         echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";

@@ -16,8 +16,8 @@ function list_student($conn) {
 
 function insertStudent($conn) {
     global $value;
-    $sql = "INSERT INTO students (student_full_name, birth_name, mothers_name,birth_place,gender,nationality,phone_number,taj,birth_date,home_address,enrollment_to_course,educational_attainment)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "." . $value[9] . "." . $value[10] . "','" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "','".$value[16] . "." . $value[17] . "." . $value[18] . "','" . $value[19] . "')";
+    $sql = "INSERT INTO students (student_full_name, birth_name, mothers_name,birth_place,gender,nationality,phone_number,taj,birth_date,home_address,enrollment_to_course,educational_attainment,email)
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "." . $value[9] . "." . $value[10] . "','" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "','".$value[16] . "." . $value[17] . "." . $value[18] . "','" . $value[19] . "','" . $value[20] . "')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -51,12 +51,12 @@ function getStudentId() {
 function getStudent($conn) {
     global $value;
 
-    $sql = "select student_full_name as nev,birth_name as bnev,mothers_name as anev,birth_date as bd,birth_place as bp,gender as g,home_address as ha,nationality as n,phone_number as pn,taj,userid,enrollment_to_course as ec, educational_attainment as ea  from students where student_id=" . $value . ";  ";
+    $sql = "select student_full_name as nev,birth_name as bnev,mothers_name as anev,birth_date as bd,birth_place as bp,gender as g,home_address as ha,nationality as n,phone_number as pn,taj,userid,enrollment_to_course as ec, educational_attainment as ea, email  from students where student_id=" . $value . ";  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["nev"] . "/;/" . $row['bnev'] . "/;/" . $row['anev'] . "/;/" . $row['bd'] . "/;/" . $row['bp'] . "/;/" . $row['g'] . "/;/" . $row['ha'] . "/;/" . $row['n'] . "/;/" . $row['pn'] . "/;/" . $row['taj'] . "/;/" . $row['userid'] . "/;/". $row['ec'] . "/;/". $row['ea'] ;
+            echo $row["nev"] . "/;/" . $row['bnev'] . "/;/" . $row['anev'] . "/;/" . $row['bd'] . "/;/" . $row['bp'] . "/;/" . $row['g'] . "/;/" . $row['ha'] . "/;/" . $row['n'] . "/;/" . $row['pn'] . "/;/" . $row['taj'] . "/;/" . $row['userid'] . "/;/". $row['ec'] . "/;/". $row['ea']."/;/". $row['email'] ;
         }
     } else {
         echo "none/;/";
@@ -67,7 +67,7 @@ function getStudent($conn) {
 
 function editStudent($conn) {
     global $value;
-    $sql = "UPDATE students SET student_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "',enrollment_to_course='" . $value[17] . "." . $value[18] . "." . $value[19] . "',educational_attainment='" . $value[20] . "' where student_id=" . $value[16];
+    $sql = "UPDATE students SET email='".$value[21]."',student_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "',enrollment_to_course='" . $value[17] . "." . $value[18] . "." . $value[19] . "',educational_attainment='" . $value[20] . "' where student_id=" . $value[16];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -92,7 +92,7 @@ function userEdit($conn) {
         while ($row = $result->fetch_assoc()) {
             if ($row["u"] != ""&&$row["u"]!="0") {
 
-                $sql = "UPDATE `user` SET user_name='" . $value[3] . "', password='" .  password_hash($value[4], PASSWORD_DEFAULT) . "' where user_id=" . $row["u"] . ";";
+                $sql = "UPDATE `user` SET user_name='" . $value[3] . "' where user_id=" . $row["u"] . ";";
 
                 if ($conn->query($sql) === TRUE) {
                     echo 'ok';
@@ -101,9 +101,9 @@ function userEdit($conn) {
                 }
             } else {
                 if ($value[1] == 1) {
-                    $sql = "INSERT INTO `user` (user_name, password, permission_id) VALUES ('" . $value[3] . "','" . password_hash($value[4], PASSWORD_DEFAULT) . "',4)";
+                    $sql = "INSERT INTO `user` (user_name, permission_id) VALUES ('" . $value[3] . "',4)";
                 } else {
-                    $sql = "INSERT INTO `user` (user_name, password, permission_id) VALUES ('" . $value[3] . "','" . password_hash($value[4], PASSWORD_DEFAULT). "',3)";
+                    $sql = "INSERT INTO `user` (user_name, permission_id) VALUES ('" . $value[3] . "',3)";
                 }
 
                 if ($conn->query($sql) === TRUE) {

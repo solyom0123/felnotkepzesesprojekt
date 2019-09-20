@@ -21,7 +21,7 @@ if(!isset($_SESSION["uid"])){
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Oktató</a></li>
-                            <li><a href="#">Tanuló</a></li>
+                            <li><a href="#">Résztvevő</a></li>
                             <li><a href="#">Adminisztrátor</a></li>
                         </ul>
                     </li>

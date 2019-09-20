@@ -19,7 +19,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="studentList();link('student_r_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
                                            </div>
-                                        </div><span>Tanulók</span></td>
+                                        </div><span>Résztvevők</span></td>
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="teacherList();link('teacher_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            </div>

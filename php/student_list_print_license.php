@@ -12,7 +12,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class=" row col-md-12 h2-default">Tanulók névsora</h2></div>
+<div class="row "><h2 class=" row col-md-12 h2-default">Résztvevők névsora</h2></div>
 <form >
     <div class="row col-md-12 list-wrapper">
         <ul>

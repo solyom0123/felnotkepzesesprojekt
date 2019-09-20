@@ -437,7 +437,7 @@ function collectDataForMissingFormListName($dataArray) {
     if ($dataArray[1] == 1) {
         echo "Oktatói";
     } else {
-        echo "Tanulói";
+        echo "Résztvevői";
     }
 
     lekapcsolodas($conn);

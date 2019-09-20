@@ -41,7 +41,7 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('student_print_form');setElozo('show_page')"><img src="img/student.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Tanuló</span></td>
+                                        </div><span>Résztvevő</span></td>
                                          
                                    </tr>
                             </tbody>

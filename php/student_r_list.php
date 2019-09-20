@@ -1,5 +1,5 @@
 
-<h2 class="h2-default">Tanulók névsora</h2>
+<h2 class="h2-default">Résztvevők névsora</h2>
 <form >
     <div class="row col-md-12 list-wrapper">
         <ul>

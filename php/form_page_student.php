@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Adminisztrációs feladatok: Tanulókkal kapcsolatos: Adat kezelés</h2>
+                    <h2 class="h2-default">Adminisztrációs feladatok: Résztvevőkkal kapcsolatos: Adat kezelés</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 

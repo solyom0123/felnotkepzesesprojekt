@@ -18,7 +18,7 @@
                         <img  src="img/cour_edit.png" class="img-circle img-circle-zindex-0" alt="bell" width="200" height="200">
 
                         <div class="span-half-corner-large">
-                            <span>Tanulók képzéshez kapcsolása</span>
+                            <span>Résztvevők képzéshez kapcsolása</span>
                         </div>
                     </div></div></td>
             <td><div class="span-half-corner-wrapper-large">

@@ -247,7 +247,7 @@ function deleteConnectteacherAndCurUnit() {
                 param: value
 
             }, function (data, status) {
-                ////console.log(data);
+                console.log(data);
 
                 teacher_cur_unit_get(1, 1, 1, 1);
             });

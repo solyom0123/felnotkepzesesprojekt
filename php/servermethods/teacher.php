@@ -212,11 +212,12 @@ VALUES ('" . $spids[$index] . "','" . $value[1] . "')";
 function deleteConnection($conn, $reverse) {
     global $value;
     if (!$reverse) {
-        if (!teacherIsUsed($value[0], $conn)) {
 
-            $spids = explode("_", $value[1]);
-            for ($index = 0; $index < count($spids); $index++) {
-                if ($spids[$index] != "") {
+        $spids = explode("_", $value[1]);
+        for ($index = 0; $index < count($spids); $index++) {
+            if ($spids[$index] != "") {
+                if (!teacherIsUsedAtCurUnit($value[0], $spids[$index], $conn)) {
+
                     $sql = "DELETE from studymaterials_teacher where teacher= " . $value[0] . "  and studymaterials =   " . $spids[$index];
 
                     if ($conn->query($sql) === TRUE) {
@@ -224,16 +225,18 @@ function deleteConnection($conn, $reverse) {
                     } else {
                         echo 'error' . $conn->error;
                     }
+                } else {
+                    //echo  $value[0];
+                    //var_dump($spids);
+                    echo 'error';
                 }
             }
-        } else {
-            echo 'error';
         }
     } else {
         $spids = explode("_", $value[0]);
         for ($index = 0; $index < count($spids); $index++) {
             if ($spids[$index] != "") {
-                if (!teacherIsUsed($spids[$index], $conn)) {
+                if (!teacherIsUsedAtCurUnit($spids[$index],$value[1], $conn)) {
 
                     $sql = "DELETE from studymaterials_teacher where teacher= " . $spids[$index] . "  and studymaterials =   " . $value[1];
 
@@ -242,7 +245,7 @@ function deleteConnection($conn, $reverse) {
                     } else {
                         echo 'error' . $conn->error;
                     }
-                }else{
+                } else {
                     echo error;
                 }
             }

@@ -47,13 +47,13 @@ function deletecontroller($conn) {
                 //echo $conn->error;
                 break;
             }
-            case 7: {
-                 deleteTeacherForDelete($conn);
+        case 7: {
+                deleteTeacherForDelete($conn);
                 echo $conn->error;
                 break;
             }
-            case 8: {
-                 deleteTeacherForDelete($conn);
+        case 8: {
+                deleteTeacherForDelete($conn);
                 echo $conn->error;
                 break;
             }
@@ -167,12 +167,11 @@ function deleteTeacherForDelete($conn) {
     global $value;
     if (!teacherIsUsed($value[1], $conn)) {
         $sql = "DELETE from teachers where teacher_id =   " . $value[1];
-        
+
         $conn->query($sql);
         $sql = "DELETE from teacher_files where teacher_id =   " . $value[1];
-        
+
         $conn->query($sql);
-    
     }
 
 
@@ -187,7 +186,7 @@ function teacherIsUsed($id, $conn) {
         // output data of each row
         $used = true;
     } else {
-        echo $conn->error;   
+        echo $conn->error;
     }
     return $used;
 }
@@ -248,5 +247,27 @@ function curUnitIsUsed($id, $conn) {
             }
         }
     }
+    return $used;
+}
+
+function teacherIsUsedAtCurUnit($id, $CurId, $conn) {
+    $used = false;
+    $sql = "select used_studymaterials_id as id from schedule_plan where teacher_id = " . $id." and exam='false' ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        echo $id;
+        echo $CurId;
+        while ($row = $result->fetch_assoc()) {
+            if ($row["id"] == $CurId) {
+                echo $row["id"];
+        
+                $used = true;
+            }
+            // output data of each row
+        }
+    } else {
+        echo $conn->error;
+    }
+    echo $used;
     return $used;
 }

@@ -1115,3 +1115,98 @@ function makeTableForPushNotice(data) {
     }
     return value;
 }
+function deleteData(param) {
+    var value = collectDataFromCorrectFormForDelete(param);
+    console.log(value);        
+    $.post("server.php", {
+                muv: "delete",
+                param: value
+
+            }, function (data, status) {
+                console.log(data);
+                callCorrectFormAgainForDelete(param);
+            });
+
+}
+function deleteData(param,id) {
+    var value = new Array(param,id);
+    console.log(value);        
+    $.post("server.php", {
+                muv: "delete",
+                param: value
+
+            }, function (data, status) {
+                console.log(data);
+                callCorrectFormAgainForDelete(param);
+            });
+
+}
+function collectDataFromCorrectFormForDelete(param) {
+    var returnArray = new Array();
+    returnArray[0]=param;
+    switch (param) {
+        case 0:
+        {
+            returnArray[1]=document.getElementsByTagName("id")[0].innerHTML;
+            break;
+        }
+        case 1:
+        {
+            returnArray[1]=document.getElementsByTagName("id")[0].innerHTML;
+            break;
+        }
+        
+    }
+    return returnArray;
+}
+function   callCorrectFormAgainForDelete(param){
+    switch (param) {
+        case 0:
+        {
+            link("actually_course");
+            break;
+        }
+        case 1:
+        {
+            loadAnActiveSchedule();
+            break;
+        }
+        case 2:
+        {
+            link("course_basic_datas");
+            break;
+        }
+        case 3:
+        {
+            link("modul_r_list");
+            break;
+        }
+        case 4:
+        {
+            link("cur_unit_list");
+            break;
+        }
+        case 5:
+        {
+            link("bonus_unit_list");
+            break;
+        }
+        case 6:
+        {
+            link("student_r_list") ;
+            break;
+        }
+        case 7:
+        {
+            link("teacher_list") ;
+            break;
+        }
+        case 8:
+        {
+            link("bonus_teacher_list");
+
+
+            break;
+        }
+    }
+}

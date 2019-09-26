@@ -147,7 +147,7 @@ function bonusunitList(targetDiv) {
         param: "value"
 
     }, function (data, status) {
-        //////console.log(data);
+       console.log(data);
         var returnSelectorOptions = '';
         if (data != "none;//") {
             var spReturnDataList = data.split("//");
@@ -158,15 +158,16 @@ function bonusunitList(targetDiv) {
                     returnSelectorOptions += '<option value="' + spStudent[2] + '">' + spStudent[0] + '</option>';
                 }
             }
-            linkWithData(targetDiv, returnSelectorOptions, "load", 'tartalom-wrapper');
+            document.getElementById(targetDiv).innerHTML=returnSelectorOptions;
+           // linkWithData(targetDiv, returnSelectorOptions, "load", 'tartalom-wrapper');
 
 
 
 
         } else {
             var returnSelectorOptions = '<option value="-1" ><p class="col-md-6">Nincs még bónusz egység felvive!</p></li>';
-            linkWithData(targetDiv, returnSelectorOptions, "load", 'tartalom-wrapper');
-
+           // linkWithData(targetDiv, returnSelectorOptions, "load", 'tartalom-wrapper');
+            document.getElementById(targetDiv).innerHTML=returnSelectorOptions;
         }
 
 

@@ -160,6 +160,7 @@ function writeErrorMessageAndTowardToGenerate() {
     var massege = '<tr><td colspan="8"><div style="cursor: pointer;" onclick="backLoadeditschedule()" class="alert alert-danger"><h1>Ehhez az aktív képzéshez nem készült ütemterv!<br> Kérem kattintson erre az üzenetre a generáláshoz</h1></div></td></tr>';
     document.getElementById("resultTable").innerHTML = massege;
     document.getElementById("pass-btn").style.display = "none";
+     document.getElementById("pass-btn-delete").style.display = "none";
     document.getElementById("bonus").innerHTML = massege;
 }
 function makeScFromDataNAMES(spNameAndDates, id) {

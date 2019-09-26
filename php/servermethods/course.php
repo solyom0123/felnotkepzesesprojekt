@@ -33,14 +33,17 @@ function getCourse($conn) {
 
 function editCourse($conn) {
     global $value;
-    $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' , education_center ='" . $value[5] . "',  image ='" . $value[4] . "' where education_id=" . $value[3];
+    if (!courseIsUsed($value[3], $conn)) {
+        $sql = "UPDATE education SET education_name='" . $value[0] . "', okj_number='" . $value[1] . "', education_inhouse_id ='" . $value[2] . "' , education_center ='" . $value[5] . "',  image ='" . $value[4] . "' where education_id=" . $value[3];
 
-    if ($conn->query($sql) === TRUE) {
-        echo 'ok';
-    } else {
+        if ($conn->query($sql) === TRUE) {
+            echo 'ok';
+        } else {
+            echo 'error';
+        }
+    }else{
         echo 'error';
     }
-
     return $conn;
 }
 
@@ -58,6 +61,7 @@ function list_course($conn) {
     }
     return $conn;
 }
+
 function list_bonus($conn) {
 
     $sql = "select studymaterials_id as id, study_materials_name as name,'image' as image  from studymaterials where bonus='true' ;  ";
@@ -72,6 +76,7 @@ function list_bonus($conn) {
     }
     return $conn;
 }
+
 function uploadImage() {
     $target_dir = "img/";
     $target_file = $target_dir . basename($_FILES["form-row-kep"]["name"]);

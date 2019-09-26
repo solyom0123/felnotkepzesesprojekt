@@ -2,7 +2,7 @@
 <h2 class="h2-default">Résztvevők névsora</h2>
 <form >
     <div class="row col-md-12 list-wrapper">
-        <ul>
+        <ul id="list_items">
            <?php echo $_POST['param'];?>
         </ul>
 

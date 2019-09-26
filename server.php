@@ -12,6 +12,7 @@ include_once './php/servermethods/active_courses.php';
 include_once './php/servermethods/schedule.php';
 include_once './php/servermethods/print.php';
 include_once './php/servermethods/push.php';
+include_once './php/servermethods/delete.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -214,6 +215,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(getFinalExam(kapcsolodas()));
 }else if ($muv == "list_dates_for_active_final_exam") {
     lekapcsolodas(list_dates_for_active(kapcsolodas(),2));
+}else if ($muv == "delete") {
+    lekapcsolodas(deletecontroller(kapcsolodas()));
 }
 
 

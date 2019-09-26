@@ -150,13 +150,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Hétfő
                     </td>
                     <td>
-                        <input id="mon_plan_dec" onchange="checkEnoughDay(),timetableUpdate()" class="" type="number" min="0">
+                        <input id="mon_plan_dec" onchange="checkEnoughDay()" class="" type="number" min="0">
                     </td>
 					<td>
                         <input id="mon_el_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
                     <td>
-                        <input  id="mon_plan_exe" class="" onchange="checkEnoughDay(),timetableUpdate()" type="number" min="0">
+                        <input  id="mon_plan_exe" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
 
                 </tr>
@@ -165,13 +165,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Kedd
                     </td>
                     <td>
-                        <input id="tue_plan_dec" class="" onchange="checkEnoughDay(),timetableUpdate()" type="number" min="0">
+                        <input id="tue_plan_dec" class="" onchange="checkEnoughDay()" type="number" min="0">
                     </td>
 					<td>
                         <input id="tue_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="tue_plan_exe"  class="" type="number" min="0" onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="tue_plan_exe"  class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -179,13 +179,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szerda
                     </td>
                   <td>
-                        <input id="wed_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="wed_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
                         <input id="wed_el_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="wed_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="wed_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                 </tr>
                 <tr class="row">
@@ -193,13 +193,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Csütörtök
                     </td>
                   <td>
-                        <input id="thu_plan_dec" class="" type="number" min="0" onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="thu_plan_dec" class="" type="number" min="0" onchange="checkEnoughDay()">
                     </td>
 					<td>
                         <input id="thu_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="thu_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="thu_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -208,13 +208,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Péntek
                     </td>
                     <td>
-                        <input id="fri_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="fri_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
                         <input id="fri_el_dec" class="" type="num" min="0"  onchange="checkEnoughDay()">
                     </td>
                      <td>
-                        <input id="fri_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="fri_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -223,13 +223,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Szombat
                     </td>
                     <td>
-                        <input id="sat_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="sat_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
                         <input id="sat_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                         <td>
-                        <input id="sat_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="sat_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -238,13 +238,13 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                         Vasárnap
                     </td>
                     <td>
-                        <input id="sun_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="sun_plan_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 					<td>
                         <input id="sun_el_dec" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
                     <td>
-                        <input id="sun_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay(),timetableUpdate()">
+                        <input id="sun_plan_exe" class="" type="number" min="0"  onchange="checkEnoughDay()">
                     </td>
 
                 </tr>
@@ -252,7 +252,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
 
             </table>
         </div>
-  <div class="form-group row">
+ <!-- <div class="form-group row">
         <label  class="col-md-4 col-form-label">Órarend a tervezett napok szerint:</label>
         <div class="co-md-5"></div>
         <div class="col-md-1 ">
@@ -268,7 +268,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                 
 
             </table>
-        </div> 
+        </div>--> 
     <div class="form-group row">
         <div onclick="saveSchedule()" ><input type="button" name="log-form" class="btn col-md-4 btn option-button" value="Mentés"></div>
          <div class="col-md-2"></div>

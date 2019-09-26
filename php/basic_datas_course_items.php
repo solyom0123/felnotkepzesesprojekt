@@ -17,7 +17,7 @@
                                             </div></div><span>Tananyagegységek</span>
                                         </td>
                                         <td><div class="span-half-corner-wrapper">
-                                                <div onclick="bonusunitList('bonus_unit_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                                <div onclick="link('bonus_unit_list');setElozo('basic_datas_course_items')" ><img src="img/kepzes.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Alkalmi<br>tananyagegységek</span>
                                         </td>
                                            <td><div class="span-half-corner-wrapper">

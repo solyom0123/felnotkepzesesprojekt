@@ -36,12 +36,10 @@ function teacherList() {
                     value += '<li ><div class="row"><input id="teacher" name="teacher" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
                 }
             }
-            linkWithData("teacher_list", value, "load", 'tartalom-wrapper');
-
+             document.getElementById("list_items").innerHTML=value;
         } else {
             var value = '<li ><div class="row"><input id="teacher" name="teacher" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még oktató felvive a rendszerbe!</p></div></li>';
-            linkWithData("teacher_list", value, "load", 'tartalom-wrapper');
-
+             document.getElementById("list_items").innerHTML=value;
         }
 
 

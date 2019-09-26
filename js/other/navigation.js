@@ -36,7 +36,7 @@ function loadingModuls(linkfr) {
         modulEducation(true);
     }
     if(linkfr == "bonus_unit_list"){
-        bonusunitList('bonus_unit_list');
+        bonusunitList('form-row-cur-unit');
     }
     if (linkfr == "course_start"||linkfr == "course_start_edit") {
         modulEducation(false);
@@ -82,6 +82,17 @@ function loadingModuls(linkfr) {
     }
     if (linkfr == "actually_course") {
         activeCourseList(1,1);
+    }
+    if (linkfr == "student_r_list") {
+        studentList();
+    }
+    
+    if (linkfr == "teacher_list") {
+        teacherList();
+    }
+    
+    if (linkfr == "bonus_teacher_list") {
+        bonusteacherList();
     }
     if (linkfr == "push_notice") {
         pushNoticeList(1,1);
@@ -313,7 +324,7 @@ function loggedIn() {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        console.log(data);
         if (data == "true") {
 
             link("main_admin");
@@ -322,7 +333,11 @@ function loggedIn() {
         } else {
             //linkhead();
             linkside("");
-            link("login");
+            link("login").then(data => {
+               })
+            .catch(error => {
+                console.log(error)
+            });;
         }
 
 

@@ -33,7 +33,7 @@ function insertTeacher($conn, $bonus) {
     }
     global $value;
     $sql = "INSERT INTO teachers (teacher_full_name, birth_name, mothers_name,birth_place,gender,nationality,phone_number,taj,birth_date,home_address,bonus,email)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "." . $value[9] . "." . $value[10] . "','" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "','" . $bonus . "','".$value[16]."')";
+VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "." . $value[9] . "." . $value[10] . "','" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "','" . $bonus . "','" . $value[16] . "')";
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -65,7 +65,7 @@ function getTeacher($conn) {
 
 function editTeacher($conn) {
     global $value;
-    $sql = "UPDATE teachers SET teacher_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "', email='".$value[17]."' where teacher_id=" . $value[16];
+    $sql = "UPDATE teachers SET teacher_full_name='" . $value[0] . "', birth_name='" . $value[1] . "', mothers_name ='" . $value[2] . "',birth_place='" . $value[3] . "',gender='" . $value[4] . "',nationality='" . $value[5] . "',phone_number='" . $value[6] . "',taj='" . $value[7] . "',birth_date='" . $value[8] . "." . $value[9] . "." . $value[10] . "',home_address='" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "', email='" . $value[17] . "' where teacher_id=" . $value[16];
 
     if ($conn->query($sql) === TRUE) {
         echo 'ok';
@@ -92,30 +92,29 @@ function getLoginData($conn) {
     return $conn;
 }
 
-function list_teacher_cur_unit($conn, $reverse,$bonus) {
+function list_teacher_cur_unit($conn, $reverse, $bonus) {
     global $value;
-     if (!$reverse) {
-    if($bonus){
-      $bonus ="true";  
-    }else{
-     $bonus ="false";  
-        
-    }     
-    $id = $value[0];
-    $spOrder = explode("_", $value[1]);
-    $order = solveOrderCurunit($spOrder[0]);
-    $ordertype = solveOrderTypeCurunit($spOrder[1]);
-    $sql = "select s.studymaterials_id as id, s.study_materials_name as name ,(select modul_name from modul where modul_id = s.modul_id) as mname from studymaterials s where s.studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=" . $id . ")  and s.bonus='".$bonus."' order by " . $order . " " . $ordertype . ";  ";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            echo $row["name"] . ";" . $row['id'] . ";" . $row["mname"] . "//";
+    if (!$reverse) {
+        if ($bonus) {
+            $bonus = "true";
+        } else {
+            $bonus = "false";
         }
-    } else {
-        echo $conn->error;
-        echo "none;//";
-    }
+        $id = $value[0];
+        $spOrder = explode("_", $value[1]);
+        $order = solveOrderCurunit($spOrder[0]);
+        $ordertype = solveOrderTypeCurunit($spOrder[1]);
+        $sql = "select s.studymaterials_id as id, s.study_materials_name as name ,(select modul_name from modul where modul_id = s.modul_id) as mname from studymaterials s where s.studymaterials_id in (select studymaterials from studymaterials_teacher where teacher=" . $id . ")  and s.bonus='" . $bonus . "' order by " . $order . " " . $ordertype . ";  ";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                echo $row["name"] . ";" . $row['id'] . ";" . $row["mname"] . "//";
+            }
+        } else {
+            echo $conn->error;
+            echo "none;//";
+        }
     } else {
         $id = $value[0];
         $spOrder = explode("_", $value[1]);
@@ -130,7 +129,6 @@ function list_teacher_cur_unit($conn, $reverse,$bonus) {
             }
         } else {
             echo "none;//";
-        
         }
     }
     return $conn;
@@ -151,9 +149,8 @@ function list_teacher_cur_without_unit($conn, $reverse) {
                 echo $row["name"] . ";" . $row['id'] . ";" . $row["mname"] . "//";
             }
         } else {
-             
+
             echo "none;//";
-                 
         }
     } else {
         $id = $value[0];
@@ -169,7 +166,6 @@ function list_teacher_cur_without_unit($conn, $reverse) {
             }
         } else {
             echo "none;//";
-               
         }
     }
     return $conn;
@@ -189,7 +185,7 @@ VALUES ('" . $value[0] . "','" . $spids[$index] . "')";
                 if ($conn->query($sql) === TRUE) {
                     echo 'ok';
                 } else {
-                         echo 'error' . $conn->error;
+                    echo 'error' . $conn->error;
                 }
             }
         }
@@ -205,7 +201,7 @@ VALUES ('" . $spids[$index] . "','" . $value[1] . "')";
                 if ($conn->query($sql) === TRUE) {
                     echo 'ok';
                 } else {
-                        echo 'error' . $conn->error;
+                    echo 'error' . $conn->error;
                 }
             }
         }
@@ -216,28 +212,38 @@ VALUES ('" . $spids[$index] . "','" . $value[1] . "')";
 function deleteConnection($conn, $reverse) {
     global $value;
     if (!$reverse) {
-        $spids = explode("_", $value[1]);
-        for ($index = 0; $index < count($spids); $index++) {
-            if ($spids[$index] != "") {
-                $sql = "DELETE from studymaterials_teacher where teacher= " . $value[0] . "  and studymaterials =   " . $spids[$index];
+        if (!teacherIsUsed($value[0], $conn)) {
 
-                if ($conn->query($sql) === TRUE) {
-                    echo 'ok';
-                } else {
-                    echo 'error' . $conn->error;
+            $spids = explode("_", $value[1]);
+            for ($index = 0; $index < count($spids); $index++) {
+                if ($spids[$index] != "") {
+                    $sql = "DELETE from studymaterials_teacher where teacher= " . $value[0] . "  and studymaterials =   " . $spids[$index];
+
+                    if ($conn->query($sql) === TRUE) {
+                        echo 'ok';
+                    } else {
+                        echo 'error' . $conn->error;
+                    }
                 }
             }
+        } else {
+            echo 'error';
         }
     } else {
         $spids = explode("_", $value[0]);
         for ($index = 0; $index < count($spids); $index++) {
             if ($spids[$index] != "") {
-                $sql = "DELETE from studymaterials_teacher where teacher= " . $spids[$index] . "  and studymaterials =   " . $value[1];
+                if (!teacherIsUsed($spids[$index], $conn)) {
 
-                if ($conn->query($sql) === TRUE) {
-                    echo 'ok';
-                } else {
-                    echo 'error' . $conn->error;
+                    $sql = "DELETE from studymaterials_teacher where teacher= " . $spids[$index] . "  and studymaterials =   " . $value[1];
+
+                    if ($conn->query($sql) === TRUE) {
+                        echo 'ok';
+                    } else {
+                        echo 'error' . $conn->error;
+                    }
+                }else{
+                    echo error;
                 }
             }
         }

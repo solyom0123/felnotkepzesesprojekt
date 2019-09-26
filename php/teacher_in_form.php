@@ -216,11 +216,15 @@
         if (isset($_POST['param']) && $_POST['muv'] == "edit") {
             ?>
             <div onclick="teacherEdit(<?= $_POST['param'] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-            <?php
+              <div onclick="deleteData(7,<?= $_POST['param'] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+    
+         <?php
         } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
             ?>
             <div onclick="teacherEdit(<?= $_POST['param'][1] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-            <?php
+                               <div onclick="deleteData(7,<?= $_POST['param'][1] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+           
+ <?php
         } else {
             ?>
             <div onclick="teacherSend()" class="btn col-md-5 btn option-button">Felvitel</div>
@@ -228,7 +232,7 @@
         }
         ?>
         <div class="col-md-2"> </div>
-        <div onclick="megsem();teacherList()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+        <div onclick="megsem();" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>
@@ -261,7 +265,7 @@
     <div class="option-button-wrapper form-group row">
 
 
-        <div onclick="megsem();teacherList()" ><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+        <div onclick="megsem();" ><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
 
 
 
@@ -394,10 +398,12 @@
                 if (isset($_POST['param']) && $_POST['muv'] == "edit") {
                     ?>
                     <div onclick="userEdit(<?= $_POST['param'] ?>, 2)" class="btn col-md-5 btn option-button">Felvitel</div>
+                  
                     <?php
                 } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
                     ?>
                     <div onclick="userEdit(<?= $_POST['param'][1] ?>, 2)" class="btn col-md-5 btn option-button">Felvitel</div>
+    
                 <?php } ?>
                 <div class="col-md-2"> </div>
                 <div onclick="megsem();teacherList();" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>

@@ -17,20 +17,20 @@
                             <tbody>
                                 <tr>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="studentList();link('student_r_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
+                                            <div onclick="link('student_r_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="szemelyek" width="100" height="100">
                                            </div>
                                         </div><span>Résztvevők</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="teacherList();link('teacher_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('teacher_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            </div>
                                         </div><span>Oktatók</span></td>
                                     <td><div class="span-half-corner-wrapper">
-                                            <div onclick="bonusteacherList();link('bonus_teacher_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            <div onclick="link('bonus_teacher_list');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                            </div>
                                         </div><span>Alkalmi<br>Oktatók</span></td>
                                         <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('teacher_connect_in_form');setElozo('person_cathegory_page')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            </div></div><span>Tananyagegység oktatóhoz rendelése</span>
+                                            </div></div><span>Tananyagegység<br> oktatóhoz <br>rendelése</span>
                                         </td>
                                         
                                 </tr>

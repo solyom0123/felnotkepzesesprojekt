@@ -92,11 +92,15 @@
             if (isset($_POST['param']) && $_POST['muv'] == "edit") {
                 ?>
                 <div onclick="curunitEdit(<?= $_POST['param'] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
+                <div onclick="deleteData(4,<?= $_POST['param'] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+    
+                 <?php
             } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
                 ?>
                 <div onclick="curunitEdit(<?= $_POST['param'][1] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
+                <div onclick="deleteData(4,<?= $_POST['param'][1] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+   
+                 <?php
             } else {
                 ?>
                 <div onclick="curunitSend();" class="btn col-md-5 btn option-button">Felvitel</div>

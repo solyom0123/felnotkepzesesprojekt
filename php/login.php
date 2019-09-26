@@ -7,8 +7,6 @@
 //var_dump($_POST);
 ?>
 
-<html>
-<head>
 	<style type="text/css">
 	.login-form {
 		width: 450px;
@@ -32,8 +30,6 @@
         font-weight: bold;
     }
 </style>
-</head>
-<body>
 <div class="login-form">
 <h2 class="center">Bejelentkezés</h2>
 
@@ -82,5 +78,4 @@
         </div>
     </form>
 	</div>
-	</body>
-  </html>               
+              

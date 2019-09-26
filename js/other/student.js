@@ -29,12 +29,10 @@ function studentList() {
                     value += '<li ><div class="row"><input id="student" name="student" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
                 }
             }
-            linkWithData("student_r_list", value, "load", 'tartalom-wrapper');
-
+           document.getElementById("list_items").innerHTML=value;
         } else {
             var value = '<li ><div class="row"><input id="student" name="student" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még résztvevő felvive a rendszerbe!</p></div></li>';
-            linkWithData("student_r_list", value, "load", 'tartalom-wrapper');
-
+           document.getElementById("list_items").innerHTML=value;
         }
 
 

@@ -59,15 +59,19 @@
             if (isset($_POST['param']) && $_POST['muv'] == "edit") {
                 ?>
                 <div onclick="bonusunitEdit(<?= $_POST['param'] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
+                         <div onclick="deleteData(5,<?= $_POST['param'] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+            
+                    <?php
             } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
                 ?>
                 <div onclick="bonusunitEdit(<?= $_POST['param'][1] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
+                 <div onclick="deleteData(5,<?= $_POST['param'][1] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+   
+        <?php
             } else {
                 ?>
                 <div onclick="bonusunitSend();" class="btn col-md-5 btn option-button">Felvitel</div>
-                <?php
+                 <?php
             }
             ?>
             <div class="col-md-2"> </div>
@@ -85,7 +89,8 @@
         <div id="mod1" class="tabcontent">
               <?php
         if (isset($_POST['param']) && $_POST['muv'] == "edit") {
-                ?>
+               
+            ?>
             <input type="hidden" class="form-control" id="form-row-anyag" value="<?= $_POST['param'] ?>">
         
                 
@@ -93,7 +98,8 @@
             } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
                 ?>
             <input type="hidden" class="form-control" id="form-row-anyag" value="<?= $_POST['param'][1] ?>">
-                <?php
+   
+              <?php
             } else {
                 ?>
              <input type="hidden" class="form-control" id="form-row-anyag" value="-1">

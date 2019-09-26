@@ -42,10 +42,14 @@
         if (isset($_POST['param']) && $_POST['muv'] == "edit") {
             ?>
             <div onclick="bonusteacherEdit(<?= $_POST['param'] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+              <div onclick="deleteData(8,<?= $_POST['param'] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+    
             <?php
         } else if (isset($_POST['param']) && $_POST['muv'] == "editafter") {
             ?>
             <div onclick="bonusteacherEdit(<?= $_POST['param'][1] ?>)" class="btn col-md-5 btn option-button">Felvitel</div>
+              <div onclick="deleteData(8,<?= $_POST['param'][1] ?>)"><input type="button" class="btn col-md-5 option-button" value="Törlés"></div>
+    
             <?php
         } else {
             ?>
@@ -54,7 +58,7 @@
         }
         ?>
         <div class="col-md-2"> </div>
-        <div onclick="megsem();bonusteacherList()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+        <div onclick="megsem();" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
 
 
     </div>
@@ -77,7 +81,7 @@
     <div class="option-button-wrapper form-group row">
 
 
-        <div onclick="megsem();bonusteacherList()" ><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+        <div onclick="megsem();" ><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
 
 
 

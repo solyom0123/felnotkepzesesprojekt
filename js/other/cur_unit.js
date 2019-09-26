@@ -45,7 +45,7 @@ function curunitEdit(id) {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';

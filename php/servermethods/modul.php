@@ -8,9 +8,9 @@
 
 function insertModul($conn) {
     global $value;
-    $calcdoc = $value[3]-($value[5]+$value[6]);
-    $calcexe = $value[4]-($value[7]);
-    
+    $calcdoc = $value[3] - ($value[5] + $value[6]);
+    $calcexe = $value[4] - ($value[7]);
+
     $sql = "INSERT INTO modul (modul_name,            modul_number,         education_id,      doctrine,        exercise,              doct_origin,       ex_origin,writting_test,verbal_test,practical_test,mod_date)
                        VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $calcdoc . "','" . $calcexe . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "',NOW()) ";
 
@@ -59,16 +59,19 @@ function list_modul_filter($conn) {
 
 function editModul($conn) {
     global $value;
-     $calcdoc = $value[3]-($value[5]+$value[6]);
-    $calcexe = $value[4]-($value[7]);
-    $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $calcdoc . "',exercise='" . $calcexe . "',doct_origin='" . $value[3] . "',ex_origin='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "',mod_date = NOW() where modul_id=" . $value[8];
+    $calcdoc = $value[3] - ($value[5] + $value[6]);
+    $calcexe = $value[4] - ($value[7]);
+    if (!checkModulinUsedForDelete($value[8], $conn)) {
+        $sql = "UPDATE modul SET modul_name='" . $value[0] . "', modul_number='" . $value[1] . "', education_id ='" . $value[2] . "', doctrine='" . $calcdoc . "',exercise='" . $calcexe . "',doct_origin='" . $value[3] . "',ex_origin='" . $value[4] . "',writting_test='" . $value[5] . "',verbal_test='" . $value[6] . "',practical_test='" . $value[7] . "',mod_date = NOW() where modul_id=" . $value[8];
 
-    if ($conn->query($sql) === TRUE) {
-        echo 'ok';
-    } else {
-        echo 'error' . $conn->error;
+        if ($conn->query($sql) === TRUE) {
+            echo 'ok';
+        } else {
+            echo 'error' . $conn->error;
+        }
+    }else{
+        echo 'error';
     }
-
     return $conn;
 }
 
@@ -138,13 +141,12 @@ function getNameModul($id) {
     return $pass;
 }
 
-function getModul($conn,$type) {
+function getModul($conn, $type) {
     global $value;
-    if($type==0){
-    $sql = "select modul_name as nev,modul_number as okj,education_id as id,doct_origin as d, ex_origin as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
-    }else{
-    $sql = "select modul_name as nev,modul_number as okj,education_id as id,doctrine as d, exercise as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
-        
+    if ($type == 0) {
+        $sql = "select modul_name as nev,modul_number as okj,education_id as id,doct_origin as d, ex_origin as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
+    } else {
+        $sql = "select modul_name as nev,modul_number as okj,education_id as id,doctrine as d, exercise as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
     }
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -230,15 +232,15 @@ function enough_day($conn) {
             $i++;
         }
     }
-    $haveFinished =false;
+    $haveFinished = false;
     if (count($value[9]) > 0) {
         $i = 0;
-        $haveFinished =true;
+        $haveFinished = true;
         foreach ($value[9] as $modulnumber) {
             if (!ispassModul($modulnumber)) {
                 array_push($badmodul, $modulnumber);
             }
-            
+
             $i++;
         }
     }
@@ -394,9 +396,9 @@ function enough_day($conn) {
 
 
     //var_dump($unusedweekdays);
-    $sumgetnumberofclassdoc = sumclassnumber($unusedweekdays, $value, "doc",$haveFinished);
-    $sumgetnumberofclassexec = sumclassnumber($unusedweekdays, $value, "exec",$haveFinished);
-    $sumgetnumberofclassel = sumclassnumber($unusedweekdays, $value, "el",$haveFinished);
+    $sumgetnumberofclassdoc = sumclassnumber($unusedweekdays, $value, "doc", $haveFinished);
+    $sumgetnumberofclassexec = sumclassnumber($unusedweekdays, $value, "exec", $haveFinished);
+    $sumgetnumberofclassel = sumclassnumber($unusedweekdays, $value, "el", $haveFinished);
 
     if (($sumgetnumberofclassdoc) != $moduls_needed_plan_dec) {
         echo (($sumgetnumberofclassdoc) - $moduls_needed_plan_dec) . "//";
@@ -517,7 +519,7 @@ function calcIndexType($type) {
     return $index;
 }
 
-function sumclassnumber($unusedweekdays, $datedata, $type,$havefinished) {
+function sumclassnumber($unusedweekdays, $datedata, $type, $havefinished) {
     $begin = new DateTime($datedata[3]);
     $end = new DateTime($datedata[5]);
     $used = false;
@@ -531,11 +533,10 @@ function sumclassnumber($unusedweekdays, $datedata, $type,$havefinished) {
         $actdat = $dt->format("Y-m-d");
         if (!array_key_exists($actdat, $unusedweekdays)) {
             //var_dump($dt->format("Y-m-d"));
-            if($havefinished&&!$used){
-              $used=true;
-            }else{
+            if ($havefinished && !$used) {
+                $used = true;
+            } else {
                 $sum += $datedata[$index][$actdayno - 1];
-            
             }
             //  var_dump($sum);
         }

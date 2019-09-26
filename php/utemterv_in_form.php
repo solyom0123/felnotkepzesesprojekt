@@ -105,6 +105,10 @@
     <div class="form-group row">
         <div onclick="editActiveEducation()"><input type="button" name="log-form" class="btn col-md-12 btn option-button" value="Módosít"></div>
     </div>
+     <div class="form-group row">
+        <div class="option-button col-md-12" onclick="deleteData(0)" >Töröl!</div></a>
+      </div>
+         
       <div class="form-group row">
         <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>
     </div>
@@ -115,6 +119,9 @@
     </div>
     <div class="form-group row">
         <div class="option-button col-md-12" onclick="editschedule(0)" id="pass-btn">Elfogad!</div></a>
+    </div>
+    <div class="form-group row">
+        <div class="option-button col-md-12" onclick="deleteData(1)" id="pass-btn-delete">Töröl!</div></a>
     </div>
     <div class="form-group row">
         <div onclick="backtotheMenu()"><input type="button" class="btn col-md-12 option-button"  value="Mégsem"></div>

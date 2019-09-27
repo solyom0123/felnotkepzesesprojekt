@@ -1,0 +1,458 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.25., 20:42:09
+    Author     : user
+*/
+
+html{
+    -webkit-font-smoothing: antialiased;
+}
+
+
+body{
+	
+    
+        background-color: var(--rozsaszin);
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
+    
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.tooltip-s {
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    color: var(--szurke);
+    height: 50px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted var(--szurke);
+}
+.tooltip-l {
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: var(--szurke);
+    height: 100px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted var(--szurke);
+}
+.tooltip-xl {
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: var(--szurke);
+    height: 150px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted var(--szurke);
+}
+
+.tooltip-s .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: var(--tooltipback);
+    color: var(--tooltipcolor);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip-l .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: var(--tooltipback);
+    color: var(--tooltipcolor);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip-xl .tooltiptext {
+    font-size: 20px;
+    visibility: hidden;
+    width: auto;
+    background-color: var(--tooltipback);
+    color: var(--tooltipcolor);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip-s .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltipback) transparent transparent transparent;
+}
+.tooltip-l .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltipback) transparent transparent transparent;
+}
+.tooltip-xl .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltipback) transparent transparent transparent;
+}
+
+.tooltip-s:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-l:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-xl:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.logo{
+    width: 20px;
+    height: 20px;
+}
+
+.h2-default{
+    background-color: var(--sotetvalami);
+    color: wheat;
+    margin: 10px
+  }
+.lapozo-button{
+    float: left;
+    background-color: var(--szurke);
+    color: var(--narancs);
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button:hover{
+    float: left;
+    border: 5px var(--narancs);
+    background-color: var(--bordo2);
+    color: var(--narancs);
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50px;
+}
+.lapozo-button-active{
+    float: left;
+    border: 5px var(--szurke) dashed;
+    background-color: var(--narancs);
+    color: var(--szurke);
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px; /*50px volt*/
+}
+.option-button{
+    float: left;
+    background-color: var(--lightnarancs);
+    color: var(--bordo);
+    text-align: center;
+	text-decoration:bold;
+    padding: 10px;
+    border-radius: 5px;  /*25px volt*/
+}
+.option-button:hover{
+    float: left;
+    background-color: var(--piros);
+    border: 5px var(--narancs);
+    color: smokewhite;
+    text-align: center;
+	text-decoration:bold;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu-button{
+    /*ez mar a corvinos css-bol van atemelve a stilushoz*/
+    background-color: var(--lightnarancs);
+    border-color: var(--borszin);
+    color: var(--sotetvalami2);
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+	text-decoration:bold;
+    padding: 10px;
+    border-radius: 5px; /*25 volt minden btn-nél*/
+    box-shadow: 0 2px 2px 0 var(--arnyek1), 0 3px 1px -2px var(--arnyek2), 0 1px 5px 0 var(--arnyek3);
+}
+.menu-button:hover{
+    background-color: var(--piros);
+    border: 2px var(--narancs);
+    color: smokewhite;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+	text-decoration:none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 var(--arnyek1), 0 3px 1px -2px var(--arnyek2), 0 1px 5px 0 var(--arnyek3);
+}
+
+.menu-button-active{
+
+    border: 5px var(--darknarancs);
+    background-color: var(--lila);
+    color: white;
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 var(--arnyek1), 0 3px 1px -2px var(--arnyek2), 0 1px 5px 0 var(--arnyek3);
+}
+.span-half-corner {
+    position: absolute;
+    margin-top: 50px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background-color: var(--sotetvalami);
+    text-align: center;
+	text-decoration:bold;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 50px; 
+    opacity: 0.8;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+}
+.span-half-corner:hover {
+    opacity: 1;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+
+}
+.span-half-corner-large {
+    position: absolute;
+    margin-top: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background-color: var(--sotetvalami);
+    text-align: center;
+	text-decoration:bold;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 100px; 
+    opacity: 0.8;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+}
+.span-half-corner-large:hover {
+    opacity: 1;
+    /*color: var(--sotetvalami);*/
+	color:white;
+
+
+}
+.order-list-arrow{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    display: inline;
+    margin-right:  5px;
+}
+.table-default{
+    border: 0px none;
+}
+.setting-list li{
+    list-style-type: none;
+}
+.table-default td{
+    padding: 5px;
+}
+
+.input-default{
+  
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 400px;
+    height: 50px;
+   
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.input-default-s{
+  
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 50px;
+    height: 50px;
+   
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-m{
+  
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 200px;
+    height: 50px;
+   
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-l{
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 400px;
+    height: 100px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.input-default-xl{
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 400px;
+    height: 150px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.label-default-s{
+    font-size: 20px;
+    color: var(--bordo);
+    margin-top: 10px;
+    height: 50px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.label-default-l{
+    font-size: 20px;
+    color: var(--bordo);
+    margin-top: 10px;
+    height: 100px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.label-default-xl{
+    font-size: 20px;
+    color: var(--bordo);
+    margin-top: 10px;
+    height: 150px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.img-circle-zindex-0{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+}
+
+.date-circle{
+    width: 100px;
+    height: 100px;
+    padding: 40px;
+    color: black;
+}
+.img-circle-zindex-0_clicked{
+    border: 5px black dashed;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+}
+.input-table{
+    font-size: 20px;
+    color: var(--szurke);
+    border: none;
+    border-bottom: 2px var(--szurke) solid;
+    float: left;
+    width: 300px;
+    height: 100px;
+    background-color: whitesmoke;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.label-default-s-table{
+    font-size: 20px;
+    color: var(--bordo);
+    margin-top: 10px;
+    height: 100px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}

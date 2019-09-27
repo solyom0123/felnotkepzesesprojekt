@@ -63,13 +63,13 @@ function loadingModuls(linkfr) {
         activeCourseListOptions(0,"form-row-aktiv-kepzes-es");
     
     }
-    if(linkfr == "print_personal_in_form"||linkfr == "push_in_form"){
+    if(linkfr == "print_edu_cont_in_form"||linkfr == "print_personal_in_form"||linkfr == "push_in_form"){
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
         
     }
     
-     if (linkfr == "list_names_in_form"||linkfr == "print_attendance_in_form"||linkfr == "print_final_exam_attendance_in_form"||linkfr=="print_exam_attendance_in_form"|linkfr == "print_attendance_in_form_teacher") {
+     if (linkfr == "list_names_in_form"|linkfr == "print_attendance_in_form"||linkfr == "print_final_exam_attendance_in_form"||linkfr=="print_exam_attendance_in_form"|linkfr == "print_attendance_in_form_teacher") {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
      

@@ -62,7 +62,8 @@ function studentSend() {
     var lepcsohz = document.getElementById("form-row-laklp").value;
     var veg = document.getElementById("form-row-veg").value;
     var email = document.getElementById("form-row-email").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,kepev, kepho, kepnap,veg,email);
+     var paymode = document.getElementById("form-row-paymode").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,kepev, kepho, kepnap,veg,email,paymode);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentSend",
@@ -119,12 +120,15 @@ function studentGet() {
             document.getElementById("form-row-lakhs").value = spDataa[3];
             document.getElementById("form-row-laklp").value = spDataa[4];
             document.getElementById("form-row-uid").value = spData[10];
-              spDate = spData[11].split('-');
+             document.getElementById("form-row-veg").value = spData[12];
+              document.getElementById("form-row-email").value = spData[13];
+              document.getElementById("form-row-paymode").value = spData[14];  
+            spDate = spData[11].split('-');
+              
             document.getElementById("form-row-kepev").value = spDate[0];
             document.getElementById("form-row-kepho").value = spDate[1];
             document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
-            document.getElementById("form-row-veg").value = spData[12];
-              document.getElementById("form-row-email").value = spData[13];
+           
    
         } else {
             link("user_in_form");
@@ -165,12 +169,14 @@ function studentGetWithParam(value) {
             document.getElementById("form-row-lakhs").value = spDataa[3];
             document.getElementById("form-row-laklp").value = spDataa[4];
             document.getElementById("form-row-uid").value = spData[10];
+            document.getElementById("form-row-veg").value = spData[12];
+            document.getElementById("form-row-email").value = spData[13];
+            document.getElementById("form-row-paymode").value = spData[14];
             spDate = spData[11].split('-');
             document.getElementById("form-row-kepev").value = spDate[0];
             document.getElementById("form-row-kepho").value = spDate[1];
             document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
-            document.getElementById("form-row-veg").value = spData[12];
-            document.getElementById("form-row-email").value = spData[13];
+           
    
 
         } else {
@@ -238,8 +244,9 @@ function studentEdit(id) {
     var lepcsohz = document.getElementById("form-row-laklp").value;
     var veg = document.getElementById("form-row-veg").value;
      var email = document.getElementById("form-row-email").value;
+   var paymode =document.getElementById("form-row-paymode").value; 
    
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,id,kepev, kepho, kepnap,veg,email);
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,id,kepev, kepho, kepnap,veg,email,paymode);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentEdit",

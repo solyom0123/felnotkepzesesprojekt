@@ -62,6 +62,9 @@ function printForm() {
             collectDataForScMissingForm($value[1]);
             echo 'attendance_missing_sc_print.php';
             break;
+        case 13:
+            echo 'edu_cont_print.php';
+            break;
         default:
 
             break;

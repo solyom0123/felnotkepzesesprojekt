@@ -238,6 +238,19 @@
                 <a href="#" data-toggle="tooltip" title="Írja be a felvintendő személy email címét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
             </div>                            
         </div>
+         <div class="form-group row">
+            <label for="form-row-paymode" class="col-md-4 col-form-label">Fizetési mód:</label>
+            <div class="col-md-4">
+                <select class="form-control-plaintext" name="form-row-paymode" id="form-row-paymode" >
+                    <option value="1">Részlet</option>
+                    <option value="0">Egyben</option>
+                </select>    
+            </div> 
+
+            <div class="col-md-4 ">
+                <a href="#" data-toggle="tooltip" title="Válassza ki, hogy milyen módon fizeti a résztvevő a képzés díját!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            </div>                            
+        </div>
         <div class="option-button-wrapper form-group row">
 
             <?php

@@ -43,6 +43,9 @@ function startPrinting(type) {
         case 12:
             missingPrintStudent(type);
             break;
+        case 13:
+            missingPrint(type);
+            break;
         default:
 
             break;

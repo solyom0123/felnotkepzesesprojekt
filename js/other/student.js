@@ -87,6 +87,28 @@ function studentSend() {
 
     });
 }
+function exportUser() {
+    var value = document.getElementById("form-row-aktiv-kepzes-list");
+    var slink = 'server.php';
+    
+    $.post(slink, {
+        muv: "exportUser",
+        param: value
+
+    }, function (data, status) {
+        //console.log(data);
+       /* if (data.contains("alert")) {
+          
+            document.getElementById("alert").innerHTML='<div class="alert alert-warning">'+data+"</div>";
+   
+        } else {
+             document.getElementById("alert").innerHTML='<div class="alert alert-success">Minden sikerült!</div>';
+   
+        }
+        */
+
+    });
+}
 function studentGet() {
     var value = $("input[name=student]:checked").val();
     var slink = 'server.php';

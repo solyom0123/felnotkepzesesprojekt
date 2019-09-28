@@ -217,6 +217,8 @@ if ($muv == "new_modul") {
     lekapcsolodas(list_dates_for_active(kapcsolodas(),2));
 }else if ($muv == "delete") {
     lekapcsolodas(deletecontroller(kapcsolodas()));
+}else if ($muv == "exportUser") {
+    lekapcsolodas(exportUser(kapcsolodas()));
 }
 
 
@@ -241,7 +243,7 @@ function kapcsolodas() {
 function kapcsolodas2() {
     $szerverneve = "mysql.nethely.hu";//"localhost"; //";;
     $felhasznalonev = "oktat";//'root'; //
-    $password = 'corvin2019';//""; //
+    $password ='corvin2019';// ""; //
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
 

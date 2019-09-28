@@ -31,12 +31,12 @@
                         <table class="table-default">
                             <tbody>
                                 <tr>
-                                   <!-- <td><div class="span-half-corner-wrapper">
-                                            <div onclick="link('missing_in_form');setElozo('form_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                   <td><div class="span-half-corner-wrapper">
+                                            <div onclick="link('user_export_in_form');setElozo('form_page_student')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Hiányzások kezelése</span></td>
+                                       </div><span>Felhasználó <br>adatok  <br>kimentése<br> excelbe</span></td>
                                          
-                                    <td><div class="span-half-corner-wrapper">
+                                   <!--  <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Vizsgák kezelése</span></td>

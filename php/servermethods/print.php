@@ -352,7 +352,7 @@ function collectDataForMissingFormListName($dataArray) {
     $date = '';
     $kepzes = '';
 
-    $sql = "select  exam_date as ed,(select CONCAT(education_name, '( ',okj_number , ')') from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,`name` as n from schedule_plan_data where id=" . $dataArray[0] . ";";
+    $sql = "select  exam_date as ed,(select CONCAT(education_name, '( ',okj_number , ')') from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=" . $dataArray[0] . ")as ed,`name` as n from schedule_plan_data where id=" . $dataArray[0] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -361,7 +361,7 @@ function collectDataForMissingFormListName($dataArray) {
             echo $row["c"] . ';';
             echo $row["e"] . ';';
             echo 'cim' . ';';
-            echo $row["s"] . "-" . $row["n"] . ';';
+            echo $row["s"] . "-" .$row["ed"].'-'. $row["n"] . ';';
         }
     } else {
         echo $conn->error;
@@ -395,33 +395,8 @@ function collectDataForMissingFormListName($dataArray) {
                 . "es.student_id=s.student_id "
                 . "and "
                 . "es.active_education=" . $dataArray[0].' group by es.student_id order by s.student_full_name asc';
-    } else {
-        $sql = "select "
-                . "s.teacher_full_name as fn,"
-                . "s.birth_name as bn,"
-                . "s.mothers_name as mn,"
-                . "s.birth_place as bp,"
-                . "s.birth_date as br,"
-                . "s.gender as g,"
-                . "s.nationality as n,"
-                . "s.home_address as ad,"
-                . "s.phone_number as pn,"
-                . "'nincs' as ea,"
-                . "'nincs' as ec,"
-                . "s.taj,"
-               . " s.teacher_id as id,"
-                
-                . "es.replace_day as r"
-                . ""
-                . " from "
-                . "schedule_plan es, "
-                . "teachers s "
-                . "where "
-                . "es.teacher_id=s.teacher_id "
-                . "and "
-                . "es.schedule_plan_data_id=" . $dataArray[0].' group by es.teacher_id order by s.teacher_full_name asc';
-    }
-    $result = $conn->query($sql);
+    
+        $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
@@ -435,6 +410,49 @@ function collectDataForMissingFormListName($dataArray) {
     } else {
         echo $conn->error;
     }
+
+    } else {
+        $sql = "select "
+                . "s.teacher_full_name as fn,"
+                . "s.birth_name as bn,"
+                . "s.mothers_name as mn,"
+                . "s.birth_place as bp,"
+                . "s.birth_date as br,"
+                . "s.gender as g,"
+                . "s.nationality as n,"
+                . "s.home_address as ad,"
+                . "s.phone_number as pn,"
+                . "(select GROUP_CONCAT(DISTINCT ms.modul_name order by ms.modul_name asc) from studymaterials_teacher st,studymaterials sti, modul ms, schedule_plan_data sci, education eaa where es.teacher_id=st.teacher and sti.modul_id=ms.modul_id and sti.studymaterials_id=st.studymaterials and ms.education_id=eaa.education_id and eaa.education_id= sci.course_id and sci.id = " . $dataArray[0].")  as ea,"
+                . "'nincs' as ec,"
+                . "s.taj,"
+               . " s.teacher_id as id,"
+                
+                . "es.replace_day as r"
+                . ""
+                . " from "
+                . "schedule_plan es, "
+                . "teachers s "
+                . "where "
+                . "es.teacher_id=s.teacher_id "
+                . "and "
+                . "es.schedule_plan_data_id=" . $dataArray[0].' group by es.teacher_id order by s.teacher_full_name asc';
+     $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            if ($row["r"] != "false") {
+                echo $row['fn'] . '(külsős)  ;'.$row['ea'] . '//';
+       
+              } else {
+                echo $row['fn'] .  ' ;'.$row['ea'] . '//';
+            }
+        }
+    } else {
+        echo $conn->error;
+    }
+        
+    }
+   
 
     echo '/;/';
     if ($dataArray[1] == 1) {

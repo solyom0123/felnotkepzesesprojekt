@@ -171,16 +171,18 @@ function collectDataForScPrint($id) {
 
     $plan = "";
     $spd = explode(";", $ep);
-    $eweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($eweek, 2);
+    $calcUseType = calcweekplantype($spd, array(array(), array(), array(), array(), array(), array(), array()), 2);
+    $eweek = calcweekplan($spd, array(0, 0, 0, 0, 0, 0, 0));
 
     $spd = explode(";", $dp);
-    $dweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($dweek, 0);
+    $dweek = calcweekplan($spd, $eweek);
+    $calcUseType = calcweekplantype($spd, $calcUseType, 0);
+
 
     $spd = explode(";", $exp);
-    $expweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($expweek, 1);
+    $expweek = calcweekplan($spd, $dweek);
+    $calcUseType = calcweekplantype($spd, $calcUseType, 1);
+    $plan .= solvebackDaysPrint($expweek, $calcUseType);
     array_push($headtable, $plan);
 
 
@@ -286,8 +288,20 @@ function collectDataForScPrint($id) {
     }
     lekapcsolodas($conn);
 }
-function calcweekplan($spd) {
-    $dweek = array(0, 0, 0, 0, 0, 0, 0);
+function calcweekplantype($spd, $startvalue, $type) {
+    $dweek = $startvalue;
+    for ($index = 0; $index < count($spd) - 1; $index++) {
+
+        if (intval($spd[$index]) > 0) {
+            array_push($dweek[$index], $type);
+        }
+    }
+    return $dweek;
+}
+
+function calcweekplan($spd, $startvalue) {
+
+    $dweek = $startvalue;
     for ($index = 0; $index < count($spd) - 1; $index++) {
 
         if (intval($spd[$index]) > 0) {
@@ -297,31 +311,18 @@ function calcweekplan($spd) {
     return $dweek;
 }
 
-function solvebackDaysPrint($eweek, $type) {
+function solvebackDaysPrint($eweek, $typearray) {
     $returnValue = '';
     for ($index = 0; $index < count($eweek); $index++) {
         if ($eweek[$index] > 0) {
-            $returnValue .= solveDaynamePrint($index, $type, $eweek[$index]) . "\n";
+            $returnValue .= solveDaynamePrint($index, $typearray[$index], $eweek[$index]) . "\n";
         }
     }
     return $returnValue;
 }
 
 ;
-function solveBackNumberHungarianName($num){
-    switch ($num){
-        case 1:{ return "egy";break;}
-        case 2:{ return "kettő";break;}
-        case 3:{ return "három";break;}
-        case 4:{ return "négy";break;}
-        case 5:{ return "öt";break;}
-        case 6:{ return "hat";break;}
-        case 7:{ return "hét";break;}
-        case 8:{ return "nyolc";break;}
-        case 9:{ return "kilenc";break;}
-        case 10:{ return "tíz";break;}
-    }
-}
+
 function solveDaynamePrint($index, $type, $value) {
     $dweek = '';
 
@@ -359,18 +360,39 @@ function solveDaynamePrint($index, $type, $value) {
         default:
             break;
     }
-    if ($type == 0) {
-        $dweek .= "-elmélet:";
-    } else if ($type == 1) {
-        $dweek .= "-gyakorlat:";
-    } else {
-        $dweek .= "-elearning:";
+    for ($index = 0; $index < count($type); $index++) {
+        if ($type[$index] == 0) {
+            $dweek .= " elmélet";
+        } else if ($type[$index] == 1) {
+            $dweek .= " gyakorlat";
+        } else {
+            $dweek .= " e-learning";
+        }
+        if(count($type)>1&&$index !=count($type)-1){
+        $dweek.=",";
+        }
     }
+    $dweek.=":";
     $dweek .= " " . getclock($value);
-    $dweek .= "  (" . $value . " óra)";
+    $dweek .= "  (" . $value . " tanóra)";
     return $dweek;
-}
 
+    
+    }
+    function solveBackNumberHungarianName($num){
+    switch ($num){
+        case 1:{ return "egy";break;}
+        case 2:{ return "kettő";break;}
+        case 3:{ return "három";break;}
+        case 4:{ return "négy";break;}
+        case 5:{ return "öt";break;}
+        case 6:{ return "hat";break;}
+        case 7:{ return "hét";break;}
+        case 8:{ return "nyolc";break;}
+        case 9:{ return "kilenc";break;}
+        case 10:{ return "tíz";break;}
+    }
+}
 function getclock($value) {
     $returnValue = "08:00";
     $hour = (($value * 45) / 60);

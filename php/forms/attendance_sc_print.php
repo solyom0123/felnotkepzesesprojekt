@@ -13,24 +13,26 @@ $maintable = array();
 $sumtable = array();
 $sumunused = array();
 $alma = array();
-function bennevanUFM($array,$value){
+
+function bennevanUFM($array, $value) {
     $returnValue = false;
     for ($index = 0; $index < count($array); $index++) {
-        if ($array[$index]==$value) {
-         $returnValue=true;   
+        if ($array[$index] == $value) {
+            $returnValue = true;
         }
     }
     return $returnValue;
 }
+
 function collectDataForScPrint($id) {
-    global $headtable,$sumunused, $maintable, $sumtable,$alma;
+    global $headtable, $sumunused, $maintable, $sumtable, $alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-    $ufm= '';
-    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=".$id.") as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id . ";";
+    $ufm = '';
+    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=" . $id . ") as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -99,8 +101,8 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-     $spufm = explode(";", $ufm);
-    
+    $spufm = explode(";", $ufm);
+
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
         $sql = "select  doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
@@ -136,16 +138,18 @@ function collectDataForScPrint($id) {
 
     $plan = "";
     $spd = explode(";", $ep);
-    $eweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($eweek, 2);
+    $calcUseType = calcweekplantype($spd, array(array(), array(), array(), array(), array(), array(), array()), 2);
+    $eweek = calcweekplan($spd, array(0, 0, 0, 0, 0, 0, 0));
 
     $spd = explode(";", $dp);
-    $dweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($dweek, 0);
+    $dweek = calcweekplan($spd, $eweek);
+    $calcUseType = calcweekplantype($spd, $calcUseType, 0);
+
 
     $spd = explode(";", $exp);
-    $expweek = calcweekplan($spd);
-    $plan .= solvebackDaysPrint($expweek, 1);
+    $expweek = calcweekplan($spd, $dweek);
+    $calcUseType = calcweekplantype($spd, $calcUseType, 1);
+    $plan .= solvebackDaysPrint($expweek, $calcUseType);
     array_push($headtable, $plan);
 
     $sql = "select sp.`date`,(select m.modul_number from modul m  where m.modul_id = sp.used_modul_id) as ei,sp.used_hours_type as t,sp.replace_day as r ,(case when sp.teacher_id=0 then 'Nincs oktató kiválasztva' else (select  t.teacher_full_name  from teachers t where t.teacher_id =sp.teacher_id) END)  as te,sp.modul_start_hour as s,sp.modul_end_hour as ed, sp.used_modul_id as us  from schedule_plan sp where schedule_plan_data_id=" . $id;
@@ -153,38 +157,38 @@ function collectDataForScPrint($id) {
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            if(!bennevanUFM($spufm, $row['us'])){
-            $locarray = array();
-            
-            array_push($locarray, $row['date']);
+            if (!bennevanUFM($spufm, $row['us'])) {
+                $locarray = array();
 
-            if ($row["r"] == "false") {
-                if ($row["t"] == "1") {
-                    array_push($locarray, $row["s"] . "-" . $row["ed"]);
-                    array_push($locarray, "");
-                    array_push($locarray, "");
-                    array_push($locarray, "");
-                } else if ($row["t"] == "2") {
-                    array_push($locarray, "");
-                    array_push($locarray, "");
-                    array_push($locarray, $row["s"] . "-" . $row["ed"]);
-                    array_push($locarray, "");
+                array_push($locarray, $row['date']);
+
+                if ($row["r"] == "false") {
+                    if ($row["t"] == "1") {
+                        array_push($locarray, $row["s"] . "-" . $row["ed"]);
+                        array_push($locarray, "");
+                        array_push($locarray, "");
+                        array_push($locarray, "");
+                    } else if ($row["t"] == "2") {
+                        array_push($locarray, "");
+                        array_push($locarray, "");
+                        array_push($locarray, $row["s"] . "-" . $row["ed"]);
+                        array_push($locarray, "");
+                    } else {
+                        array_push($locarray, "");
+                        array_push($locarray, $row["s"] . "-" . $row["ed"]);
+                        array_push($locarray, "");
+                        array_push($locarray, "");
+                    }
                 } else {
                     array_push($locarray, "");
+                    array_push($locarray, "");
+                    array_push($locarray, "");
                     array_push($locarray, $row["s"] . "-" . $row["ed"]);
-                    array_push($locarray, "");
-                    array_push($locarray, "");
                 }
-            } else {
-                array_push($locarray, "");
-                array_push($locarray, "");
-                array_push($locarray, "");
-                array_push($locarray, $row["s"] . "-" . $row["ed"]);
+                array_push($locarray, $row['ei']);
+                array_push($locarray, $row['te']);
+                array_push($maintable, $locarray);
             }
-            array_push($locarray, $row['ei']);
-            array_push($locarray, $row['te']);
-            array_push($maintable, $locarray);
-        }
         }
     } else {
         echo $sql;
@@ -242,7 +246,7 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-     $spufm = explode(";", $ufm);
+    $spufm = explode(";", $ufm);
 
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
@@ -294,8 +298,20 @@ function collectDataForScPrint($id) {
     lekapcsolodas($conn);
 }
 
-function calcweekplan($spd) {
-    $dweek = array(0, 0, 0, 0, 0, 0, 0);
+function calcweekplantype($spd, $startvalue, $type) {
+    $dweek = $startvalue;
+    for ($index = 0; $index < count($spd) - 1; $index++) {
+
+        if (intval($spd[$index]) > 0) {
+            array_push($dweek[$index], $type);
+        }
+    }
+    return $dweek;
+}
+
+function calcweekplan($spd, $startvalue) {
+
+    $dweek = $startvalue;
     for ($index = 0; $index < count($spd) - 1; $index++) {
 
         if (intval($spd[$index]) > 0) {
@@ -305,11 +321,11 @@ function calcweekplan($spd) {
     return $dweek;
 }
 
-function solvebackDaysPrint($eweek, $type) {
+function solvebackDaysPrint($eweek, $typearray) {
     $returnValue = '';
     for ($index = 0; $index < count($eweek); $index++) {
         if ($eweek[$index] > 0) {
-            $returnValue .= solveDaynamePrint($index, $type, $eweek[$index]) . "\n";
+            $returnValue .= solveDaynamePrint($index, $typearray[$index], $eweek[$index]) . "\n";
         }
     }
     return $returnValue;
@@ -354,37 +370,41 @@ function solveDaynamePrint($index, $type, $value) {
         default:
             break;
     }
-    if ($type == 0) {
-        $dweek .= "-elmélet:";
-    } else if ($type == 1) {
-        $dweek .= "-gyakorlat:";
-    } else {
-        $dweek .= "- e-learning:";
+    for ($index = 0; $index < count($type); $index++) {
+        if ($type[$index] == 0) {
+            $dweek .= " elmélet";
+        } else if ($type[$index] == 1) {
+            $dweek .= " gyakorlat";
+        } else {
+            $dweek .= " e-learning";
+        }
+        if(count($type)>1&&$index !=count($type)-1){
+        $dweek.=",";
+        }
     }
+    $dweek.=":";
     $dweek .= " " . getclock($value);
-    $dweek .= "  (" . $value . " óra)";
+    $dweek .= "  (" . $value . " tanóra)";
     return $dweek;
 }
 
 function getclock($value) {
     global $shour;
-    $returnValue = $shour.":00";
+    $returnValue = $shour . ":00";
     $hour = (($value * 45) / 60);
     $min = 0;
     if (is_int($hour)) {
-        if(($shour + $hour)<24){
-        $returnValue .= "-" . ($shour + $hour) . ":00";
-        }else{
-        $returnValue .= "-" . (($shour + $hour)-24) . ":00";
-            
+        if (($shour + $hour) < 24) {
+            $returnValue .= "-" . ($shour + $hour) . ":00";
+        } else {
+            $returnValue .= "-" . (($shour + $hour) - 24) . ":00";
         }
     } else {
         $minutes = $hour - intval($hour);
-        if(($shour +  intval($hour))<24){
-        $returnValue .= "-" . ($shour + intval($hour)) . ":00";
-        }else{
-        $returnValue .= "-" . (($shour + intval($hour))-24) . ":".(60 * $minutes);
-            
+        if (($shour + intval($hour)) < 24) {
+            $returnValue .= "-" . ($shour + intval($hour)) . ":00";
+        } else {
+            $returnValue .= "-" . (($shour + intval($hour)) - 24) . ":" . (60 * $minutes);
         }
     }
     return $returnValue;

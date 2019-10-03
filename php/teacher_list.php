@@ -18,9 +18,7 @@
 
 
     </div>
-    <div id="buttons">
-        
-    </div>
+
     <div class="col-md-12 list-wrapper ">
         <div onclick="teacherGet();" ><div class="col-md-4 option-button">Kiválasztás</div></div>
         <div onclick="link('teacher_in_form');setElozo('teacher_list');teacher_cur_unit_List(-1)" ><div class="col-md-4 option-button">Új hozzáadása</div></div>

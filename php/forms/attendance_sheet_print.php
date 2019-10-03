@@ -65,7 +65,7 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Oldal ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 
 }
@@ -81,11 +81,14 @@ $pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
 $pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
 $pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
-$pdf->Cell(100, 6, $headtable[1], 0, 0);
+$pdf->Cell(100, 6, "A képzési program neve, OKJ száma: ", 0, 0);
+$pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Ln(5);
+$pdf->Cell(100, 6, "A képzési program belső azonosítója: ", 0, 0);
+$pdf->Cell(100, 6, $headtable[2], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
-$pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Cell(100, 6, $headtable[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
@@ -97,18 +100,18 @@ $pdf->Cell(100, 6, "Óra óraszáma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[5], 0, 0);
 $pdf->Ln(20);
 $pdf->SetFont('DejaVuB', '', 10);
-$pdf->Cell(40, 6, "Résztvevő neve", 1, 0);
-$pdf->Cell(40, 6, "Születési dátum", 1, 0);
+$pdf->Cell(60, 6, "Képzésben résztvevő neve", 1, 0);
+//$pdf->Cell(40, 6, "Születési dátum", 1, 0);
 $pdf->Cell(40, 6, "Hiányzás Óraszáma", 1, 0);
-$pdf->Cell(70, 6, "Aláírás", 1, 0);
+$pdf->Cell(80, 6, "Aláírás", 1, 0);
 
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 10);
 for ($index = 0; $index < count($maintable); $index++) {
-$pdf->Cell(40, 6, $maintable[$index][0], 1, 0);
-$pdf->Cell(40, 6, $maintable[$index][1], 1, 0);
+$pdf->Cell(60, 6, $maintable[$index][0], 1, 0);
+//$pdf->Cell(40, 6, $maintable[$index][1], 1, 0);
 $pdf->Cell(40, 6, '', 1, 0);
-$pdf->Cell(70, 6, "", 1, 0);
+$pdf->Cell(80, 6, "", 1, 0);
 $pdf->Ln();
 }
 $pdf->Output();

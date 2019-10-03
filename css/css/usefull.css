@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2018.11.25., 20:43:31
+    Author     : user
+*/
+
+
+.wd-1250{
+    /*width: 1250px;*/
+}
+.pd-r-100{
+    padding-right: 100px;
+}
+.pd-t-20{
+    padding-top: 100px;
+}
+.date-good{
+    background-color: lightgreen;
+    
+    
+}
+.date-bad{
+    background-color: lightcoral;
+    
+}

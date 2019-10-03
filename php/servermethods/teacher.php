@@ -12,7 +12,7 @@ function list_teacher($conn, $bonus) {
     } else {
         $bonus = "false";
     }
-    $sql = "select teacher_id as id, teacher_full_name as name  from teachers where bonus = '" . $bonus . "' ;  ";
+    $sql = "select teacher_id as id, teacher_full_name as name  from teachers where bonus = '" . $bonus . "' order by teacher_full_name asc;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -226,8 +226,8 @@ function deleteConnection($conn, $reverse) {
                         echo 'error' . $conn->error;
                     }
                 } else {
-                    //echo  $value[0];
-                    //var_dump($spids);
+                    echo  $value[0];
+                    var_dump($spids);
                     echo 'error';
                 }
             }

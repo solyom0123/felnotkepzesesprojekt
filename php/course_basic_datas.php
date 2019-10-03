@@ -10,8 +10,15 @@
 
 
                     <h2 class="h2-default">Képzések alapadatai</h2>
-
-                    <div class="table-wrapper">
+						
+						
+						<div class="col-md-2"></div>
+						<!--<div class="col-md-7">
+						
+						<button type="button" onclick="link('course_in_form');setElozo('course_basic_datas')"><figure><img src="img/plusz1.png" alt="bell" width="100" height="100"><figcaption>Új képzés  létrehozása<br><br></figcaption></figure></button>
+						
+						</div>-->
+                    <div class="table-wrapper col-md-7">
                         
                         <table class="table-default">
                             <tbody>
@@ -25,280 +32,16 @@
                                         </div> <span>Új képzés hozzáadása </span></td>
 								
 								
-                                    <!--<td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=course_in_form"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Képzések </span>
-                                            </div></a>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=modul_in_form"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Modul </span>
-                                            </div></a>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=cur_unit_in_form"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Tananyag- egység </span>
-                                            </div></a>
-                                        </div></td>-->
-<!--                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=modul_treat"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Modulok kezelése</span>
-                                            </div></a>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=course_start"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Képzések indítása</span>
-                                            </div></a>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="index.php?page=checking"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>Ellenőrzések</span>
-                                            </div></a>
-                                        </div></td>-->
-                                </tr>
-                              <!--  <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <a href="datum.html"><img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100"></a>
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                    <td><div class="span-half-corner-wrapper">
-                                            <img src="img/bell.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
-                                            <div class="span-half-corner">
-                                                <span>alma</span>
-                                            </div>
-                                        </div></td>
-                                </tr>-->
+                                    
                             </tbody>
                         </table>
                         
                     </div>
                     
-                        <div class="form-group row">
+                        <div class="form-group col-md-3">
 
         <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Vissza a képzés alapadatokhoz"></div>
 
         <div class="col-md-1"></div>
        

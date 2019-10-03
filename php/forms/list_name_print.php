@@ -95,6 +95,11 @@ $pdf->Cell(150, 6, "A képzés dátum:", 0, 0);
 $pdf->Cell(150, 6, $headtable[3], 0, 0);
 $pdf->Ln(10);
 
+$pdf->AddPage("l","A4");
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
+$pdf->SetFont('DejaVu', '', 10);
+$pdf->AddFont('DejaVuB', '', 'DejaVuSansCondensed-Bold.ttf', true);
+
 $pdf->SetFont('DejaVuB', '', 6);
 $pdf->Cell(30, 6, "Név", 1, 0);
 $pdf->Cell(30, 6, "Születési név", 1, 0);
@@ -107,7 +112,7 @@ $pdf->Cell(20, 6, "Állampolgárság", 1, 0);
 
 $pdf->Cell(40, 6, "Cím", 1, 0);
 $pdf->Cell(20, 6, "Telefonszám", 1, 0);
-$pdf->Cell(15, 6, "Végzetség", 1, 0);
+$pdf->Cell(15, 6, "Végzettség", 1, 0);
 $pdf->Cell(30, 6, "Képzésbe történő felvétel", 1, 0);
 $pdf->Cell(15, 6, "Tajszám", 1, 0);
 

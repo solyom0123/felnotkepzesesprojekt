@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Adminisztrációs feladatok: Képezéssel kapcsolatos: Adat kezelés</h2>
+                    <h2 class="h2-default">Képzésekhez kapcsolódó adminisztrációs feladatok -- Jelenlétek és vizsga adatok kezelés</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -34,20 +34,20 @@
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('missing_in_form');setElozo('form_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Hiányzások kezelése</span></td>
+                                        </div><span>Hiányzások rögzítése</span></td>
                                          
                                     <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Vizsgák kezelése</span></td>
+                                        </div><span>Modulzáró vizsgák <br>adminisztrációja</span></td>
                                    <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('final_exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Záróvizsgák kezelése</span></td>
+                                        </div><span>Záróvizsgák <br>adminisztrációja</span></td>
                                    <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('push_notice');setElozo('form_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Üzenet küldés</span></td>
+                                        </div><span>Üzenet küldés képzésben <br>résztvevők számára</span></td>
                                   
                                    </tr>
                                    
@@ -59,14 +59,14 @@
                         <div class="form-group row">
 
         <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Vissza az előző menübe"></div>
 
         <div class="col-md-1"></div>
        
 
 
     </div>
-                   <!-- <div class="lapozo-whapper container-fluid">
+                   <!-- <div class="lapozo-wrapper container-fluid">
                         <div class="lapozo-button-active">1</div>
                         <div class="lapozo-button">2</div>
                         <div class="lapozo-button">3</div>

@@ -1,7 +1,7 @@
 <?php
 
 function list_student($conn) {
-    $sql = "select student_id as id, student_full_name as name  from students ;  ";
+    $sql = "select student_id as id, student_full_name as name  from students order by student_full_name asc ;  ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row

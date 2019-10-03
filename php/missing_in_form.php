@@ -1,17 +1,17 @@
 
 <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Hiányzás felvitele</button>
-    <button class="tablinks" onclick="openCity(event, 'edit')" id="defaultOpen">Hiányzás listázása</button>
-    <button class="tablinks" onclick="openCity(event, 'delete')" id="defaultOpen">Hiányzás listázása egész képzésre vonatkozóan(minden résztvevőnek)</button>
+    <button class="tablinks" onclick="openCity(event, 'add')" id="defaultOpen">Hiányzás beírása</button>
+    <button class="tablinks" onclick="openCity(event, 'edit')" id="defaultOpen">Hiányzások listázása</button>
+    <button class="tablinks" onclick="openCity(event, 'delete')" id="defaultOpen">Jelenléti ív teljes képzésre vonatkozóan(minden résztvevőnek)</button>
 </div>
 <div id="add" class="tabcontent">
-    <div class="row "><h2 class="col-md-12 h2-default">Hiányzás felvitele: </h2></div>
+    <div class="row "><h2 class="col-md-12 h2-default">Hiányzás beírása: </h2></div>
     <div id="alertdiv">
         
     </div>
 
     <div class="form-group row">
-        <label for="form-row-aktiv-kepzes" class="col-md-4 col-form-label">Aktív Képzések:</label>
+        <label for="form-row-aktiv-kepzes" class="col-md-4 col-form-label">Választható képzések:</label>
         <div class="col-md-4">
             <select id="form-row-aktiv-kepzes" onchange="listOptionsWithTargetAndSource(0, 'form-row-date','form-row-aktiv-kepzes')">
 
@@ -29,11 +29,11 @@
             </select>
         </div> 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki, melyik modulengedélyezné!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Válassza ki, ....!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
-        <label for="form-row-ahour" class="col-md-4 col-form-label">Hiányzás táblázat:</label>
+        <label for="form-row-ahour" class="col-md-4 col-form-label">Hiányzások:</label>
         <div class="col-md-4">
             <table id="mhour">
             </table>
@@ -47,9 +47,9 @@
 
     <div class="option-button-wrapper form-group row">
 
-        <div onclick="missingsend(1,1,0)" id="buttonSend" class="btn col-md-5 btn option-button">Elküld</div>
+        <div onclick="missingsend(1,1,0)" id="buttonSend" class="btn col-md-5 btn option-button">Mentés!</div>
         <div class="col-md-2"> </div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-5 option-button" value="Vissza (mentés nélkül)"></div>
 
 
     </div>
@@ -111,13 +111,13 @@
      <div id="help_div" style="display: none"></div>
 </div>
 <div id="delete" class="tabcontent">
-     <div class="row "><h2 class="col-md-12 h2-default">Hiányzás listázása egész képzésre vonatkozóan (minden résztvevőnek)  : </h2></div>
+     <div class="row "><h2 class="col-md-12 h2-default">Jelenléti ív teljes képzés időtartamra (minden résztvevőnek)  : </h2></div>
     <div id="alertdiv">
         
     </div>
 
     <div class="form-group row">
-        <label for="form-row-aktiv-kepzes-list" class="col-md-4 col-form-label">Aktív Képzések:</label>
+        <label for="form-row-aktiv-kepzes-list" class="col-md-4 col-form-label">Választható képzések:</label>
         <div class="col-md-4">
             <select id="form-row-aktiv-kepzes-es" onchange="listOptionsWithTargetAndSource(1, 'form-row-student','form-row-aktiv-kepzes-list')">
 
@@ -132,9 +132,9 @@
      <div class="option-button-wrapper form-group row">
 
        <!-- <div onclick="missingsend()"  class="btn col-md-5 btn option-button">Elküld</div>-->
-        <div onclick="startPrinting(12)" id="buttonSend" class="btn col-md-5 btn option-button">Nyomtatás</div>
+        <div onclick="startPrinting(12)" id="buttonSend" class="btn col-md-5 btn option-button">Jelenléti ívek nyomtatása</div>
        <!-- <div class="col-md-2"> </div>-->
-        <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-12 option-button" value="Vissza"></div>
 
 
     </div>

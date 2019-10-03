@@ -54,7 +54,7 @@ class PDF extends tFPDF {
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30, 10, 'Vizsga jelenléti ív - ' . $date, 0, 0, 'C');
+        $this->Cell(30, 10, 'Modulzáró vizsga jelenléti ív - ' . $date, 0, 0, 'C');
         // Line break
         $this->Ln(20);
     }
@@ -73,7 +73,7 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Oldal ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 
 }
@@ -99,7 +99,7 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
+$pdf->Cell(100, 6, "A képzés dátuma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[3], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Óra megnevezése:", 0, 0);
@@ -111,8 +111,8 @@ $pdf->Ln(20);
 $pdf->SetFont('DejaVuB', '', 10);
 $pdf->Cell(40, 6, "Résztvevő neve", 1, 0);
 $pdf->Cell(40, 6, "Születési dátum", 1, 0);
-$pdf->Cell(20, 6, "Osztályzat", 1, 0);
-$pdf->Cell(70, 6, " Résztvevő aláírása", 1, 0);
+$pdf->Cell(20, 6, "Eredmény(%)", 1, 0);
+$pdf->Cell(70, 6, "Résztvevő aláírása", 1, 0);
 
 $pdf->Ln();
 $pdf->SetFont('DejaVu', '', 10);

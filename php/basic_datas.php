@@ -8,7 +8,15 @@
 ?>
 
 <script>setElozo('basic_datas')</script>
-                    <h2 class="h2-default">Alapadatok</h2>
+                    <h2 class="h2-default">Alapadatok kezelése (képzések alapadatai/személyes alapadatok)</h2>
+						<div class="col-md-2"></div>
+						<div class="col-md-7">
+						<button type="button" onclick="link('basic_datas_course_items');setElozo('basic_datas')"><figure><img src="img/kepzes.png" alt="bell" width="100" height="100"><figcaption>Képzések, modulok, <br>tananyagegységek, <br>naptár adatok, <br>modulok ellenőrzése</figcaption></figure></button>
+                        <button type="button" onclick="link('person_cathegory_page');setElozo('basic_datas')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption>Képzésben résztvevők, <br>képzés oktatóinak <br>személyes adatai<br><br></figcaption></figure></button>
+						</div>
+					
+					
+					
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -27,7 +35,7 @@
                         
                     </div>
                     -->
-                    <div class="table-wrapper">
+                   <!-- <div class="table-wrapper">
                         
                         <table class="table-default">
                             <tbody>
@@ -40,15 +48,15 @@
                                             <div onclick="link('person_cathegory_page');setElozo('basic_datas')" ><img src="img/szemely2.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div></div><span>Személyes adatok</span>
                                         </td>
-<!--                                    
+                                    
                                         
                                 </tr>
                               
                                 </tr>
                             </tbody>
-                        </table>
+                        </table>-->
                         
-                    </div>
+                    <div class="col-md-3"></div>
                    <!-- <div class="lapozo-whapper container-fluid">
                         <div class="lapozo-button-active">1</div>
                         <div class="lapozo-button">2</div>
@@ -61,9 +69,3 @@
                         <div class="lapozo-button">9</div>
                         <div class="lapozo-button">10</div>
                     </div>-->
-<!--                     <div class="option-button-wrapper">
-                <div class="option-button">Funkcio1</div>
-                <div class="option-button">Funkcio2</div>
-                        
-                
-                 </div>-->

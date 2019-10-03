@@ -49,13 +49,13 @@
 
 
 <div id="edit" class="tabcontent">
-     <div class="row "><h2 class="col-md-12 h2-default">Vizsga eredmények listázása személyenként: </h2></div>
+     <div class="row "><h2 class="col-md-12 h2-default">Vizsga eredmények listázása résztvevőnként: </h2></div>
     <div id="alertdiv">
         
     </div>
 
     <div class="form-group row">
-        <label for="form-row-aktiv-kepzes-list" class="col-md-4 col-form-label">Aktív Képzések:</label>
+        <label for="form-row-aktiv-kepzes-list" class="col-md-4 col-form-label">Aktív képzések:</label>
         <div class="col-md-4">
             <select id="form-row-aktiv-kepzes-list" onchange="listOptionsWithTargetAndSource(1, 'form-row-student','form-row-aktiv-kepzes-list')">
 
@@ -66,14 +66,14 @@
         </div>                            
     </div>
     <div class="form-group row">
-        <label for="form-row-student" class="col-md-4 col-form-label">Résztvevő:</label>
+        <label for="form-row-student" class="col-md-4 col-form-label">Képzésben résztvevő:</label>
         <div class="col-md-4">
             <select onclick="getMissingTable(3,'mhour-student','form-row-aktiv-kepzes-list','form-row-student')" id="form-row-student" >
                 
             </select>
         </div> 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki, melyik modulengedélyezné!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="Válassza ki, melyik modult engedélyezi!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
     <div class="form-group row">
@@ -84,7 +84,7 @@
         </div> 
 
         <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="A hiányzás táblázat az adott napra!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
+            <a href="#" data-toggle="tooltip" title="A hiányzás táblázat az adott napra"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
 

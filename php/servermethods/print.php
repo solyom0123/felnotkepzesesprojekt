@@ -394,7 +394,7 @@ function collectDataForMissingFormListName($dataArray) {
                 . "where "
                 . "es.student_id=s.student_id "
                 . "and "
-                . "es.active_education=" . $dataArray[0].' group by es.student_id';
+                . "es.active_education=" . $dataArray[0].' group by es.student_id order by s.student_full_name asc';
     } else {
         $sql = "select "
                 . "s.teacher_full_name as fn,"
@@ -419,7 +419,7 @@ function collectDataForMissingFormListName($dataArray) {
                 . "where "
                 . "es.teacher_id=s.teacher_id "
                 . "and "
-                . "es.schedule_plan_data_id=" . $dataArray[0].' group by es.teacher_id';
+                . "es.schedule_plan_data_id=" . $dataArray[0].' group by es.teacher_id order by s.teacher_full_name asc';
     }
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

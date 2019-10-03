@@ -22,14 +22,8 @@ function studentList() {
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
-            for (var i = 0; i < spStudents.length; i++) {
-                if (!checkEmptyString(spStudents[i])) {
-                    var spStudent = spStudents[i].split(";");
-
-                    value += '<li ><div class="row"><input id="student" name="student" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
-                }
-            }
-           document.getElementById("list_items").innerHTML=value;
+            
+           document.getElementById("list_items").innerHTML=createPage('stduent',spStudents);
         } else {
             var value = '<li ><div class="row"><input id="student" name="student" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még résztvevő felvive a rendszerbe!</p></div></li>';
            document.getElementById("list_items").innerHTML=value;
@@ -38,7 +32,35 @@ function studentList() {
 
     });
 }
+function createPage(name,listArray){
+    var returnPages="";
+    var buttonData="";
+    var buttonsArrays = new Array();
+    
+    var buttons = "";
+    for (var i = 0; i < listArray.length; i++) {
+                if (!checkEmptyString(listArray[i])) {
+                    var spStudent = listArray[i].split(";");
 
+                     buttonData+= '<li ><div class="row"><input id="student" name="'+name+'" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
+                     
+                }
+                if(i>0&&i%20==0){
+                   buttonsArrays.push(buttonData);
+                   buttonData="";
+                   
+                }
+                
+            }
+            returnPages=createPageButtons(buttonsArrays);
+    return returnPages;
+}
+function createPageButtons(dataArray){
+    var buttons="";
+    for (var i = 0, max = dataArray.length; i < max; i++) {
+        
+    }
+}
 function studentSend() {
     var name = document.getElementById("form-row-name").value;
     var szulnev = document.getElementById("form-row-szul-nev").value;

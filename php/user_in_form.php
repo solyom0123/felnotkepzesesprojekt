@@ -221,7 +221,7 @@
          <div class="form-group row">
             <label for="form-row-lakcity" class="col-md-4 col-form-label">Végzettség:</label>
             <div class="col-md-4">
-                <input class="form-control-plaintext" name="form-row-veg" id="form-row-veg" type="text"  placeholder="Végzetség">
+                <input class="form-control-plaintext" name="form-row-veg" id="form-row-veg" type="text"  placeholder="Végzetség" value="érettségi">
             </div> 
 
             <div class="col-md-4 ">

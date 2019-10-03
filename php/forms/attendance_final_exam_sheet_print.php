@@ -65,7 +65,7 @@ class PDF extends tFPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Oldal ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 
 }
@@ -91,7 +91,7 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
+$pdf->Cell(100, 6, "A képzés dátuma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[3], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Vizsga megnevezése:", 0, 0);

@@ -89,7 +89,7 @@ function collectDataForScPrint($id) {
     } else {
         
     }
-    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,exam_date as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
+    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=".$id[0].") as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -363,7 +363,7 @@ function solveDaynamePrint($index, $type, $value) {
     } else if ($type == 1) {
         $dweek .= "-gyakorlat:";
     } else {
-        $dweek .= "-elearn:";
+        $dweek .= "-e-learning:";
     }
     $dweek .= " " . getclock($value);
     $dweek .= "  (" . $value . " óra)";
@@ -397,7 +397,7 @@ class PDF extends tFPDF {
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30, 10, 'Hiányzás összegző - '.$name, 0, 0);
+        $this->Cell(30, 10, 'Hiányzás összesítő - '.$name, 0, 0);
         // Line break
         $this->Ln(20);
     }
@@ -440,7 +440,7 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
+$pdf->Cell(100, 6, "A képzés dátuma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[4], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzés óraszáma:", 0, 0);
@@ -486,7 +486,7 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A hiányzás alkalmi óraszáma:", 0, 0);
 $pdf->Cell(100, 6, $sumother, 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(100, 6, "A nem előre teljesített modulok: ", "B", 0);
+$pdf->Cell(100, 6, "A képzés keretében teljesített modulok: ", "B", 0);
 $pdf->Ln(10);
 
 for ($index1 = 1; $index1 < count($sumtable); $index1++) {
@@ -496,7 +496,7 @@ for ($index1 = 1; $index1 < count($sumtable); $index1++) {
     $pdf->Ln();
 }
 $pdf->Ln(10);
-$pdf->Cell(100, 6, "Az előre teljesített modulok: ", "B", 0);
+$pdf->Cell(100, 6, "Az előzetes tudásmérés alapján teljesített modulok: ", "B", 0);
 $pdf->Ln(10);
 
 

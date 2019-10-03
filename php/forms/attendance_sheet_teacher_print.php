@@ -87,7 +87,7 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
-$pdf->Cell(100, 6, "A képzés dátum:", 0, 0);
+$pdf->Cell(100, 6, "A képzés dátuma:", 0, 0);
 $pdf->Cell(100, 6, $headtable[3], 0, 0);
 $pdf->Ln(5);
 $pdf->SetFont('DejaVuB', '', 10);

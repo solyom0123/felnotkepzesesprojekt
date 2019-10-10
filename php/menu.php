@@ -21,44 +21,56 @@ $active_menu = 0;
 
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav list-unstyled">
-            <li class="nav-item active">
-                <div onclick="link('basic_datas')" class="menu-button<?php
+	<!--<div class="col-md-12" id="navbarNav">-->
+	
+	
+        <!--<ul class="navbar-nav list-unstyled">
+            <li class="nav-item active">-->
+			
+			
+                <button onclick="link('basic_datas')" class="btn btn-primary btn-lg btn-block
+				<?php
                 if ($active_menu == 1) {
                     echo '-active';
                 }
-                ?>"> Alapadatok kezelése</div>
-            </li>
+                ?>"> Alapadatok kezelése</button>
+            <!--</li>-->
 
-            <li class="nav-item">
-                <div onclick="link('course_start')" class="menu-button<?php
+            <!--<li class="nav-item">-->
+			
+                <button onclick="link('course_start')" class="btn btn-primary btn-lg btn-block<?php
                 if ($active_menu == 2) {
                     echo '-active';
                 }
-                ?>" >Tanfolyam indítása</div>
-            </li>
-            <li class="nav-item">
-                <div onclick="link('actually_course')" class="menu-button<?php if ($active_menu == 3) {
+                ?>" >Tanfolyam indítása</button>
+            <!--</li>
+            <li class="nav-item">-->
+			
+                <button onclick="link('actually_course')" class="btn btn-primary btn-lg btn-block<?php if ($active_menu == 3) {
                     echo '-active';
-                } ?>" >Aktuális képzések</div></a>
+                } ?>" >Aktuális képzések</button>
 
-            </li>
-            <li class="nav-item">
-                <div onclick="link('administrativ')" class="menu-button<?php
+            <!--</li>
+            <li class="nav-item">-->
+			
+                <button onclick="link('administrativ')" class="btn btn-primary btn-lg btn-block<?php
                      if ($active_menu == 4) {
                          echo '-active';
                      }
-                     ?>" >Adminisztratív feladatok</div>
-            </li>
-            <li class="nav-item">
-                <div onclick="link('main_admin')" class="menu-button<?php
+                     ?>" >Adminisztratív feladatok</button>
+            <!--</li>
+            <li class="nav-item">-->
+			
+                <button onclick="link('main_admin')" class="btn btn-primary btn-lg btn-block<?php
                      if ($active_menu == 5) {
                          echo '-active';
                      }
-                     ?>" >GYORSMENÜ</div>             </li>
-            <li class="nav-item">
-                <div onclick="link('logout');link('login');linkhead();linkside('')" class="menu-button" >Kijelentkezés</div>
-            </li>
-        </ul>
+                     ?>" >GYORSMENÜ</button> 
+			<!--</li>
+            <li class="nav-item">-->
+			
+                <button onclick="link('logout');link('login');linkhead();linkside('')" class="btn btn-primary btn-lg btn-block" >Kijelentkezés</button>
+           <!-- </li>
+        </ul>-->
     </div>
 </nav>

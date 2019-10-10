@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Adminisztrációs feladatok</h2>
+                    <h2 class="h2">Adminisztrációs feladatok</h2>
 
                     
 					

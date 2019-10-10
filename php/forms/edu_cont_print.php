@@ -16,18 +16,19 @@ $summissing = 0;
 $sumdocm = 0;
 $sumexm = 0;
 $sumexamm = 0;
-$sumother =0;
+$sumother = 0;
 
 
 $alma = array();
-function alma(){
-     global $alma;
+
+function alma() {
+    global $alma;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-    $sql = "select `name`, address from kepzokozpont ";
+    $sql = "select `name`, address,phone as p, fax as f, eng_szam as en, kapcs_tart as kt,website as w,bank_acc_number as ban, kepviseli as kep,email as em,cegjegyzekszam as c, adoszam as a,stat_szam as stsz from kepzokozpont ";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -35,6 +36,17 @@ function alma(){
             //$loc_array = array(, $row['s'], $row['n'],$row['n']);
             array_push($alma, $row["name"]);
             array_push($alma, $row["address"]);
+            array_push($alma, $row["p"]);
+            array_push($alma, $row["f"]);
+            array_push($alma, $row["en"]);
+            array_push($alma, $row["kt"]);
+            array_push($alma, $row["w"]);
+            array_push($alma, $row["ban"]);
+            array_push($alma, $row["kep"]);
+            array_push($alma, $row["em"]);
+            array_push($alma, $row["c"]);
+            array_push($alma, $row["a"]);
+            array_push($alma, $row["stsz"]);
         }
     } else {
         echo $sql;
@@ -42,14 +54,15 @@ function alma(){
     }
     lekapcsolodas($conn);
 }
+
 function collectDataForScPrint($id) {
-    global $headtable, $name, $basic_data_table,$sumunused, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm,$sumother;
+    global $headtable, $name, $basic_data_table, $sumunused, $sumtable, $summissing, $sumdocm, $sumexm, $sumexamm, $sumother;
     $conn = kapcsolodas();
     $dp = '';
     $ep = '';
     $exp = '';
     $mi = '';
-      $ufm= '';
+    $ufm = '';
 
     $sql = " select paymode as py,email as em,phone_number as p,nationality as n,mothers_name as mn,home_address as ha,gender as g,birth_place as b,birth_name as bn,birth_date as bd,taj as t,student_full_name as fn from students"
             . " where "
@@ -72,12 +85,12 @@ function collectDataForScPrint($id) {
             array_push($basic_data_table, $row["t"]);
             array_push($basic_data_table, $row["em"]);
             array_push($basic_data_table, $row["py"]);
-            $name = "Felnőttképzési szerződés"  ;
+            $name = "Felnőttképzési szerződés";
         }
     } else {
         
     }
-    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=".$id[0].") as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
+    $sql = "select  (select CONCAT(education_name, '( ',okj_number , ')')  from education where education_id =course_id) as c,(select education_inhouse_id from education where education_id =course_id) as e, start_day as s,(select max(`date`) from schedule_plan where schedule_plan_data_id=" . $id[0] . ") as ex,`name` as n, used_modul_id as mi,used_finished_modul as ufm, doctrine_week_plan as dp,elearn_week_plan as ep,exercise_week_plan as exp from schedule_plan_data where id=" . $id[0] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -112,7 +125,7 @@ function collectDataForScPrint($id) {
             // output data of each row
             while ($row = $result->fetch_assoc()) {
                 //$loc_array = array(, $row['s'], $row['n'],$row['n']);
-                 $sumcalc += intval($row["d"]);
+                $sumcalc += intval($row["d"]);
                 $dsum += intval($row["d"]);
                 $sumcalc += intval($row["e"]);
                 $esum += intval($row["e"]);
@@ -134,8 +147,8 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-     $spufm = explode(";", $ufm);
-    
+    $spufm = explode(";", $ufm);
+
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
         $sql = "select  doctrine as d,exercise as e,writting_test as w,verbal_test as v,practical_test as p from modul where modul_id=" . $spufm[$index] . ";";
@@ -237,7 +250,7 @@ function collectDataForScPrint($id) {
             echo $conn->error;
         }
     }
-         $spufm = explode(";", $ufm);
+    $spufm = explode(";", $ufm);
 
     for ($index = 0; $index < count($spufm) - 1; $index++) {
 
@@ -288,6 +301,7 @@ function collectDataForScPrint($id) {
     }
     lekapcsolodas($conn);
 }
+
 function calcweekplantype($spd, $startvalue, $type) {
     $dweek = $startvalue;
     for ($index = 0; $index < count($spd) - 1; $index++) {
@@ -368,31 +382,61 @@ function solveDaynamePrint($index, $type, $value) {
         } else {
             $dweek .= " e-learning";
         }
-        if(count($type)>1&&$index !=count($type)-1){
-        $dweek.=",";
+        if (count($type) > 1 && $index != count($type) - 1) {
+            $dweek .= ",";
         }
     }
-    $dweek.=":";
+    $dweek .= ":";
     $dweek .= " " . getclock($value);
     $dweek .= "  (" . $value . " tanóra)";
     return $dweek;
+}
 
-    
-    }
-    function solveBackNumberHungarianName($num){
-    switch ($num){
-        case 1:{ return "egy";break;}
-        case 2:{ return "kettő";break;}
-        case 3:{ return "három";break;}
-        case 4:{ return "négy";break;}
-        case 5:{ return "öt";break;}
-        case 6:{ return "hat";break;}
-        case 7:{ return "hét";break;}
-        case 8:{ return "nyolc";break;}
-        case 9:{ return "kilenc";break;}
-        case 10:{ return "tíz";break;}
+function solveBackNumberHungarianName($num) {
+    switch ($num) {
+        case 1: {
+                return "egy";
+                break;
+            }
+        case 2: {
+                return "kettő";
+                break;
+            }
+        case 3: {
+                return "három";
+                break;
+            }
+        case 4: {
+                return "négy";
+                break;
+            }
+        case 5: {
+                return "öt";
+                break;
+            }
+        case 6: {
+                return "hat";
+                break;
+            }
+        case 7: {
+                return "hét";
+                break;
+            }
+        case 8: {
+                return "nyolc";
+                break;
+            }
+        case 9: {
+                return "kilenc";
+                break;
+            }
+        case 10: {
+                return "tíz";
+                break;
+            }
     }
 }
+
 function getclock($value) {
     $returnValue = "08:00";
     $hour = (($value * 45) / 60);
@@ -457,42 +501,43 @@ $pdf->Cell(100, 14, $alma[0], 0, 0);
 $pdf->Ln(20);
 $pdf->SetFont('DejaVu', '', 10);
 $pdf->Cell(100, 6, "Székhely/levelezési cím:", 0, 0);
-$pdf->Cell(100, 6, "cim", 0, 0);
+$pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Felnőttképzési engedély száma: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[4], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Bankszámla szám: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[7], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Tel.: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[2], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Képviseletre jogosult személy: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[8], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Elektronikus levelezési cím: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[9], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Cégjegyzékszám: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[10], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Adószám: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[11], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Statisztikai számjel: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[12], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Fax: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, $alma[3], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Kapcsolattartó személy: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, "$alma[5]", 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "Weblap: ", 0, 0);
-$pdf->Cell(100, 6, "szam", 0, 0);
+$pdf->Cell(100, 6, "$alma[6]", 0, 0);
 $pdf->Ln(13);
-$pdf->Cell(200, 8,"Melyet kötöttek egyrészről: a ".$alma[0].", valamint a képzésben résztvevő",0,0);
+   
+$pdf->Cell(200, 8, "Melyet kötöttek egyrészről: a " . $alma[0] . ", valamint a képzésben résztvevő", 0, 0);
 $pdf->Ln(10);
 $pdf->Cell(100, 6, "A résztvevő neve:", 0, 0);
 $pdf->Cell(100, 6, $basic_data_table[0], 0, 0);
@@ -527,22 +572,22 @@ $pdf->Ln(5);
 $pdf->Cell(100, 6, "Email:", 0, 0);
 $pdf->Cell(100, 6, $basic_data_table[10], 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(200,8, "között az ".$headtable[1]." ".$headtable[2]." szakképzés oktatására. ",0,0);
+$pdf->Cell(200, 8, "között az " . $headtable[1] . " " . $headtable[2] . " szakképzés oktatására. ", 0, 0);
 $pdf->Ln(10);
 
-$pdf->MultiCell(160,6, "Szerződő felek (továbbiakban: Felek) közösen megállapítják, és tudomásul veszik, hogy az Intézménynek saját képzési programja alapján – a felnőttképzésről szóló 2013. évi LXXVII. törvény 13. § (1) bekezdése szerint – a Résztvevő felnőttel [a törvény 13. § (3) bekezdése szerinti tartalom alapulvételével] felnőttképzési szerződést kell kötnie. ");
+$pdf->MultiCell(160, 6, "Szerződő felek (továbbiakban: Felek) közösen megállapítják, és tudomásul veszik, hogy az Intézménynek saját képzési programja alapján – a felnőttképzésről szóló 2013. évi LXXVII. törvény 13. § (1) bekezdése szerint – a Résztvevő felnőttel [a törvény 13. § (3) bekezdése szerinti tartalom alapulvételével] felnőttképzési szerződést kell kötnie. ");
 $pdf->Ln(10);
 $pdf->Cell(100, 6, "A képzési csoport megnevezése:", 0, 0);
 $pdf->Cell(100, 6, explode(":", $headtable[4])[1], 0, 0);
 $pdf->Ln(5);
 
-$sdate= explode("-",explode(":", $headtable[4])[0]);
+$sdate = explode("-", explode(":", $headtable[4])[0]);
 $pdf->Cell(100, 6, "A képzés kezdés dátuma:", 0, 0);
-$pdf->Cell(100, 6, $sdate[0].'-'.$sdate[1]."-".$sdate[2], 0, 0);
+$pdf->Cell(100, 6, $sdate[0] . '-' . $sdate[1] . "-" . $sdate[2], 0, 0);
 $pdf->Ln(5);
 
 $pdf->Cell(100, 6, "A képzés befejezés dátuma:", 0, 0);
-$pdf->Cell(100, 6, $sdate[3].'-'.$sdate[4]."-".$sdate[5], 0, 0);
+$pdf->Cell(100, 6, $sdate[3] . '-' . $sdate[4] . "-" . $sdate[5], 0, 0);
 $pdf->Ln(10);
 
 
@@ -576,31 +621,31 @@ $pdf->Cell(100, 6, $alma[1], 0, 0);
 $pdf->Ln(10);
 
 $pdf->Cell(100, 6, "A képzés elvégzésével megszerezhető dokumentum: ", 0, 0);
-$pdf->Cell(100, 6, "bizonyítvány (OKJ-s )" , 0, 0);
+$pdf->Cell(100, 6, "bizonyítvány (OKJ-s )", 0, 0);
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A Résztvevő -képzés során nyújtott teljesítményének ellenőrzési és értékelési módja: A jelentkező vállalja, hogy tudásáról hetente írásbeli dolgozat, vagy gyakorlati számonkérés formájában számot ad. A szintvizsgákon és a modulzáró vizsgákon részt vesz. A vizsgákat vizsgabizottság előtt teszi le. A gyakorlati képzés idejére és a vizsgákhoz, a szükséges számú modellt szervezi. ");
+$pdf->MultiCell(160, 6, "A Résztvevő -képzés során nyújtott teljesítményének ellenőrzési és értékelési módja: A jelentkező vállalja, hogy tudásáról hetente írásbeli dolgozat, vagy gyakorlati számonkérés formájában számot ad. A szintvizsgákon és a modulzáró vizsgákon részt vesz. A vizsgákat vizsgabizottság előtt teszi le. A gyakorlati képzés idejére és a vizsgákhoz, a szükséges számú modellt szervezi. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A szakképesítő vizsgára bocsátás feltételei: A kötelező óraszám dokumentált megléte. Az elméleti, gyakorlati és modulzáró vizsgák letétele. Az összes fizetési kötelezettség teljesítése.");
+$pdf->MultiCell(160, 6, "A szakképesítő vizsgára bocsátás feltételei: A kötelező óraszám dokumentált megléte. Az elméleti, gyakorlati és modulzáró vizsgák letétele. Az összes fizetési kötelezettség teljesítése.");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A megengedett hiányzás mértéke: az elméleti tanórákról, a gyakorlati foglalkozásokról, a bemutatókról és a konzultációkról (összegezve: a képzésről) az összes óraszám 20 %-a. A megengedett hiányzás túllépése estén a résztvevő eredményes vizsgája nem biztosított.
+$pdf->MultiCell(160, 6, "A megengedett hiányzás mértéke: az elméleti tanórákról, a gyakorlati foglalkozásokról, a bemutatókról és a konzultációkról (összegezve: a képzésről) az összes óraszám 20 %-a. A megengedett hiányzás túllépése estén a résztvevő eredményes vizsgája nem biztosított.
 A képzéstől való távolmaradás önmagában nem minősül a jelen Szerződés megszüntetésére irányuló nyilatkozatnak. (ld: felmondás/elállás)
 
 ");
 $pdf->Ln(10);
 $pdf->AddPage();
-$pdf->MultiCell(160,6, "A felnőttképzéshez kapcsolódó szolgáltatás formája: Az előzetes tudásszint felmérés során -a  kialakított folyamatleírásunkkal összhangban   a résztvevő által benyújtott képzési dokumentumok elemzését végezzük el. A résztvevő a díjmentes szolgáltatást");
+$pdf->MultiCell(160, 6, "A felnőttképzéshez kapcsolódó szolgáltatás formája: Az előzetes tudásszint felmérés során -a  kialakított folyamatleírásunkkal összhangban   a résztvevő által benyújtott képzési dokumentumok elemzését végezzük el. A résztvevő a díjmentes szolgáltatást");
 $pdf->Ln(10);
-$pdf->Cell(30,6,"",0,0);
-$pdf->Cell(30,6,"kérte",0,0);
-$pdf->Cell(30,6,"",0,0);
+$pdf->Cell(30, 6, "", 0, 0);
+$pdf->Cell(30, 6, "kérte", 0, 0);
+$pdf->Cell(30, 6, "", 0, 0);
 
-$pdf->Cell(30,6,"nem kérte",0,0);
+$pdf->Cell(30, 6, "nem kérte", 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(30,6,"További igényelhető szolgáltatás: elhelyezkedési tanácsadás.",0,0);
+$pdf->Cell(30, 6, "További igényelhető szolgáltatás: elhelyezkedési tanácsadás.", 0, 0);
 $pdf->Ln(10);
 
 $pdf->Cell(50, 6, "A képzés ütemezése: ", 0, 0);
-$pdf->Cell(100, 6, "figyelembe véve az előzetesen megszerzett tudás beszámítását",0,0);
+$pdf->Cell(100, 6, "figyelembe véve az előzetesen megszerzett tudás beszámítását", 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési napok megnevézese, óraszáma:", 0, 0);
 $pdf->MultiCell(100, 6, $headtable[6]);
@@ -608,107 +653,107 @@ $pdf->Ln(10);
 $pdf->Cell(100, 6, "Összes időtartama (tanóra):", 0, 0);
 $pdf->Cell(100, 6, $headtable[5], 0, 0);
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A gyakorlati foglalkozással összefüggésben biztosított juttatások: a tanműhelyi felszerelések 
+$pdf->MultiCell(160, 6, "A gyakorlati foglalkozással összefüggésben biztosított juttatások: a tanműhelyi felszerelések 
 díjmentes használata");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A vizsga szervezésének módja és formája: A modulzáró vizsgákat a Valamilyen Oktatási Központ szervezi. Az eredményes modulzáró vizsgáról igazolást állít ki. A képzést állami, OKJ-s szakmai záróvizsga zárja. A szakmai vizsgát a Valamilyen Oktatási Központ saját jogon szervezi a 305/2013. Kormányrendelet figyelembe vételével. Formája: írásbeli, gyakorlati, szóbeli vizsga");
+$pdf->MultiCell(160, 6, "A vizsga szervezésének módja és formája: A modulzáró vizsgákat a Valamilyen Oktatási Központ szervezi. Az eredményes modulzáró vizsgáról igazolást állít ki. A képzést állami, OKJ-s szakmai záróvizsga zárja. A szakmai vizsgát a Valamilyen Oktatási Központ saját jogon szervezi a 305/2013. Kormányrendelet figyelembe vételével. Formája: írásbeli, gyakorlati, szóbeli vizsga");
 $pdf->Ln(10);
 $pdf->Cell(20, 6, "A képzési díj: ", 0, 0);
-$pdf->Cell(100, 6, "........................., azaz...............................................................",0,0);
+$pdf->Cell(100, 6, "........................., azaz...............................................................", 0, 0);
 $pdf->Ln(10);
 $pdf->Cell(40, 6, "Szakképesítő vizsga díja: ", 0, 0);
-$pdf->Cell(100, 6, "........................., azaz...............................................................",0,0);
+$pdf->Cell(100, 6, "........................., azaz...............................................................", 0, 0);
 $pdf->Ln(5);
-$pdf->MultiCell(160,6, "(A javító vizsga díjak a 315/2013.(VIII.) Korm. rendelet 55. § alapján számítva.)");
+$pdf->MultiCell(160, 6, "(A javító vizsga díjak a 315/2013.(VIII.) Korm. rendelet 55. § alapján számítva.)");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A képzéshez nyújtott támogatás: uniós pályázati forrás, Mpa. alaprész, vállalati költség viselés.*
+$pdf->MultiCell(160, 6, "A képzéshez nyújtott támogatás: uniós pályázati forrás, Mpa. alaprész, vállalati költség viselés.*
 Állami, illetve európai uniós források terhére támogatásban részesülő képzés esetén a támogatás 
 megnevezése:……………………………………………összege:………………………..…….……Ft
 ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Jelen Szerződés aláírásával egyidejűleg az Intézmény a Résztvevő rendelkezésére bocsátja a képzési programot, amelynek átvételét Résztvevő jelen Szerződés aláírásával elimeri. ");
+$pdf->MultiCell(160, 6, "Jelen Szerződés aláírásával egyidejűleg az Intézmény a Résztvevő rendelkezésére bocsátja a képzési programot, amelynek átvételét Résztvevő jelen Szerződés aláírásával elimeri. ");
 $pdf->Ln(10);
 $pdf->AddPage();
-$pdf->MultiCell(160,6, "A szerződésszegés/ elállás következményei: ");
+$pdf->MultiCell(160, 6, "A szerződésszegés/ elállás következményei: ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Amennyiben a Résztvevő jelen Szerződéstől a képzési program megismerésére (2013. évi LXXVII. tv. 20. § (11) i pontja alapján) biztosított, a Szerződés megkötésétől számított 3 munkanapon belül a eláll, a Résztvevő jogosult az általa befizetett képzési díj visszatérítésére. ");
+$pdf->MultiCell(160, 6, "Amennyiben a Résztvevő jelen Szerződéstől a képzési program megismerésére (2013. évi LXXVII. tv. 20. § (11) i pontja alapján) biztosított, a Szerződés megkötésétől számított 3 munkanapon belül a eláll, a Résztvevő jogosult az általa befizetett képzési díj visszatérítésére. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Fentieken túl Szerződő felek a szerződéstől történő elállás esetére bánatpénzt kötnek ki, amelynek összegét 32 000 Ft-ban határozzák meg. ");
+$pdf->MultiCell(160, 6, "Fentieken túl Szerződő felek a szerződéstől történő elállás esetére bánatpénzt kötnek ki, amelynek összegét 32 000 Ft-ban határozzák meg. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Amennyiben az Intézmény jelen Szerződéstől eláll, a Résztvevő jogosult az általa befizetett képzési díj visszatérítésére és a bánatpénzre. ");
+$pdf->MultiCell(160, 6, "Amennyiben az Intézmény jelen Szerződéstől eláll, a Résztvevő jogosult az általa befizetett képzési díj visszatérítésére és a bánatpénzre. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Amennyiben a Résztvevő jelen Szerződéstől a képzési program megismerésére (2013. évi LXXVII. tv. 20. § (11) i pontja alapján) biztosított, a Szerződés megkötésétől számított 3 munkanapos határidőn túl, a képzés megkezdése előtt eláll, a Résztvevő jogosult az általa befizetett képzési díj bánatpénz összegével csökkentett összegének visszatérítésére. ");
+$pdf->MultiCell(160, 6, "Amennyiben a Résztvevő jelen Szerződéstől a képzési program megismerésére (2013. évi LXXVII. tv. 20. § (11) i pontja alapján) biztosított, a Szerződés megkötésétől számított 3 munkanapos határidőn túl, a képzés megkezdése előtt eláll, a Résztvevő jogosult az általa befizetett képzési díj bánatpénz összegével csökkentett összegének visszatérítésére. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Amennyiben a Résztvevő jelen Szerződéstől a képzés megkezdése után eláll, a Résztvevő jogosult az általa teljesített, a képzési díj elállásig számított időarányos részével és a bánatpénz összegével csökkentett befizetés összegének visszatérítésére. ");
+$pdf->MultiCell(160, 6, "Amennyiben a Résztvevő jelen Szerződéstől a képzés megkezdése után eláll, a Résztvevő jogosult az általa teljesített, a képzési díj elállásig számított időarányos részével és a bánatpénz összegével csökkentett befizetés összegének visszatérítésére. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "A Résztvevő szerződésszegése esetén –különösen amennyiben a Résztvevő a képzési díj esedékes részletének megfizetését felszólítás ellenére nem teljesíti- az Intézmény jogosult jelen Szerződést felmondani, Résztvevő pedig 20 000 Ft meghiúsulási kötbért köteles az Intézménynek megfizetni. A Résztvevő szerződészegése esetén legfeljebb az általa teljesített, a képzési díj szerződésszegésig számított időarányos részével és a meghiúsulási kötbér összegével csökkentett befizetés összegének visszatérítésére jogosult. ");
+$pdf->MultiCell(160, 6, "A Résztvevő szerződésszegése esetén –különösen amennyiben a Résztvevő a képzési díj esedékes részletének megfizetését felszólítás ellenére nem teljesíti- az Intézmény jogosult jelen Szerződést felmondani, Résztvevő pedig 20 000 Ft meghiúsulási kötbért köteles az Intézménynek megfizetni. A Résztvevő szerződészegése esetén legfeljebb az általa teljesített, a képzési díj szerződésszegésig számított időarányos részével és a meghiúsulási kötbér összegével csökkentett befizetés összegének visszatérítésére jogosult. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Jelen Szerződés megszűntetése (elállás, felmondás) csak írásban érvényes. Szerződő felek rögzítik, hogy az e-mail üzenet nem minősül írásbeli formának. ");
+$pdf->MultiCell(160, 6, "Jelen Szerződés megszűntetése (elállás, felmondás) csak írásban érvényes. Szerződő felek rögzítik, hogy az e-mail üzenet nem minősül írásbeli formának. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Az Intézmény – a Résztvevő kérésére – biztosítja az előzetesen megszerzett tudás mérését, értékelését, és ennek eredményét figyelembe veszi a képzés tartalmának, illetve folyamatának egyénre szabott alakításában, ezen belül különösen a képzés időtartamának, ütemezésének, továbbá a képzés díjának és a vizsgadíjának megállapításánál. ");
+$pdf->MultiCell(160, 6, "Az Intézmény – a Résztvevő kérésére – biztosítja az előzetesen megszerzett tudás mérését, értékelését, és ennek eredményét figyelembe veszi a képzés tartalmának, illetve folyamatának egyénre szabott alakításában, ezen belül különösen a képzés időtartamának, ütemezésének, továbbá a képzés díjának és a vizsgadíjának megállapításánál. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Az Intézmény kötelezettséget vállal arra, hogy a jelen Felnőttképzési szerződést, valamint a felnőttképzésről szóló 2013. évi LXXVII. törvény 16.§-ában részletezett képzési dokumentumokat – a vállalt képzés teljesítésével összefüggésben – vezeti, nyilvántartja és – a hatóság ellenőrzési jogköre gyakorlásának biztosítása érdekében – öt évig megőrzi. ");
+$pdf->MultiCell(160, 6, "Az Intézmény kötelezettséget vállal arra, hogy a jelen Felnőttképzési szerződést, valamint a felnőttképzésről szóló 2013. évi LXXVII. törvény 16.§-ában részletezett képzési dokumentumokat – a vállalt képzés teljesítésével összefüggésben – vezeti, nyilvántartja és – a hatóság ellenőrzési jogköre gyakorlásának biztosítása érdekében – öt évig megőrzi. ");
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Az Intézmény vállalja, hogy a felnőttképzésről szóló 2013. évi LXXVII. törvény 21. §-a alapján kezelt – Résztvevővel kapcsolatos – személyi adatokat, valamint a képzés megkezdéséhez és folytatásához – a Résztvevő oldaláról – szükséges feltételek meglétét igazoló dokumentumokat/felvilágosításokat – a törvényben meghatározott kivételtől eltekintve – harmadik személy számára csak a Résztvevő hozzájárulásával adja ki. ");
+$pdf->MultiCell(160, 6, "Az Intézmény vállalja, hogy a felnőttképzésről szóló 2013. évi LXXVII. törvény 21. §-a alapján kezelt – Résztvevővel kapcsolatos – személyi adatokat, valamint a képzés megkezdéséhez és folytatásához – a Résztvevő oldaláról – szükséges feltételek meglétét igazoló dokumentumokat/felvilágosításokat – a törvényben meghatározott kivételtől eltekintve – harmadik személy számára csak a Résztvevő hozzájárulásával adja ki. ");
 $pdf->Ln(10);
 $pdf->AddPage();
-$pdf->Cell(40,14,"",0,0);
-$pdf->Cell(100,14,"Kiegészítés, a tanfolyam díjának megfizetéséről.","B",0);
+$pdf->Cell(40, 14, "", 0, 0);
+$pdf->Cell(100, 14, "Kiegészítés, a tanfolyam díjának megfizetéséről.", "B", 0);
 $pdf->Ln(20);
-$pdf->Cell(100,6," *A tanfolyam díját magam fizetem részletekben.",0,0);
+$pdf->Cell(100, 6, " *A tanfolyam díját magam fizetem részletekben.", 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(100,6," Képzési díj első részlete, a képzésen való részvétel megerősítésére ",0,0);
-$pdf->Cell(20,6,"  ",0,0);
-$pdf->Cell(50,6,"..............................",0,0);
-$pdf->Ln(10);
-
-$pdf->Cell(100,6," további részletek: havonta (.......... x ............) ",0,0);
-$pdf->Cell(20,6,"  ",0,0);
-$pdf->Cell(50,6,"..............................",0,0);
-$pdf->Ln(10);
-$pdf->Cell(100,6," Összesen ",0,0);
-$pdf->Cell(20,6,"  ",0,0);
-$pdf->Cell(50,6,"..............................",0,0);
+$pdf->Cell(100, 6, " Képzési díj első részlete, a képzésen való részvétel megerősítésére ", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, "..............................", 0, 0);
 $pdf->Ln(10);
 
-$pdf->Cell(100,6," A szakképesítő vizsga díját a vizsgát megelőző 1 hónapon belül. ",0,0);
-$pdf->Cell(20,6,"  ",0,0);
-$pdf->Cell(50,6,"..............................",0,0);
+$pdf->Cell(100, 6, " további részletek: havonta (.......... x ............) ", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, "..............................", 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(100,6,"*A tanfolyam díját nem magam fizetem ",0,0);
-$pdf->Cell(20,6,"  ",0,0);
-$pdf->Cell(50,6,"",0,0);
+$pdf->Cell(100, 6, " Összesen ", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, "..............................", 0, 0);
+$pdf->Ln(10);
+
+$pdf->Cell(100, 6, " A szakképesítő vizsga díját a vizsgát megelőző 1 hónapon belül. ", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, "..............................", 0, 0);
+$pdf->Ln(10);
+$pdf->Cell(100, 6, "*A tanfolyam díját nem magam fizetem ", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, "", 0, 0);
 
 $pdf->Ln(10);
-$pdf->MultiCell(160,6, "Alulírott…………………………………………………………………………………………............
+$pdf->MultiCell(160, 6, "Alulírott…………………………………………………………………………………………............
 (cég, vagy költségviselő neve, címe, adószáma) kijelentem, hogy a szakképzésben résztvevő képzési díját a fentebb részletezett módon befizetem. Tudomásul veszem, hogy a szakképzésben résztvevő a szakképző vizsgára, csak az összes tandíj és a vizsgadíj befizetése után mehet.
  ");
 $pdf->Ln(20);
-$pdf->Cell(100,6," Budapest,".date("Y-m-d"),0,0);
+$pdf->Cell(100, 6, " Budapest," . date("Y-m-d"), 0, 0);
 $pdf->Ln(40);
-$pdf->Cell(50,6," ..........................................",0,0);
-$pdf->Cell(10,6,"  ",0,0);
-$pdf->Cell(50,6," ..........................................",0,0);
-$pdf->Cell(10,6,"  ",0,0);
-$pdf->Cell(50,6," ..........................................",0,0);
-$pdf->Cell(20,6,"  ",0,0);
+$pdf->Cell(50, 6, " ..........................................", 0, 0);
+$pdf->Cell(10, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, " ..........................................", 0, 0);
+$pdf->Cell(10, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, " ..........................................", 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
 
 $pdf->Ln(5);
-$pdf->Cell(50,6," szakképzésben résztvevő ",0,0);
-$pdf->Cell(10,6,"  ",0,0);
-$pdf->Cell(50,6," költségviselő",0,0);
-$pdf->Cell(10,6,"  ",0,0);
-$pdf->Cell(50,6, $alma[0],0,0);
-$pdf->Cell(20,6,"  ",0,0);
+$pdf->Cell(50, 6, " szakképzésben résztvevő ", 0, 0);
+$pdf->Cell(10, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, " költségviselő", 0, 0);
+$pdf->Cell(10, 6, "  ", 0, 0);
+$pdf->Cell(50, 6, $alma[0], 0, 0);
+$pdf->Cell(20, 6, "  ", 0, 0);
 $pdf->Ln(20);
-$pdf->Cell(100,6, "A szerződés aláírásával egyidőben megkaptam a képzési szabályzatot, melyet elolvastam és elfogadok." ,0,0);
+$pdf->Cell(100, 6, "A szerződés aláírásával egyidőben megkaptam a képzési szabályzatot, melyet elolvastam és elfogadok.", 0, 0);
 $pdf->Ln(10);
-$pdf->Cell(50,6," ..........................................",0,0);
+$pdf->Cell(50, 6, " ..........................................", 0, 0);
 
 $pdf->Ln(5);
-$pdf->Cell(50,6," szakképzésben résztvevő ",0,0);
+$pdf->Cell(50, 6, " szakképzésben résztvevő ", 0, 0);
 $pdf->Ln(20);
 
-$pdf->Cell(50,6," *A megfelelő részt szíveskedjen aláhúzni! ",0,0);
+$pdf->Cell(50, 6, " *A megfelelő részt szíveskedjen aláhúzni! ", 0, 0);
 $pdf->Ln(20);
 $pdf->Output();

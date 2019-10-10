@@ -15,6 +15,7 @@ and open the template in the editor.
         <title>Központi Képzés Adminisztráció</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="schortcut" type="image/png" href="./img/logo_icon.PNG">
         <link rel="stylesheet" href="./css/szin.css">
         
         <link rel="stylesheet" href="./css/index.css">
@@ -77,11 +78,11 @@ and open the template in the editor.
                     </nav>-->
             <main class=" row col-md-12 mt-1">
                 <div class="menu-wrapper ">
-                    <div class="menu-wrapper  col-md-2">
+                    <div class="menu-wrapper  col-md-3">
                     </div>   
                 </div>
 
-                <div class="col-md-10 ">
+                <div class="col-md-9 ">
                     <div class="tartalom-wrapper">
 
                     </div>
@@ -89,8 +90,8 @@ and open the template in the editor.
                 </div>
             </main>
             <script>loggedIn()</script>
-            <footer class=" row col-md-12 mt-1">
-                Copyright infó jön ide.<br>2018
+            <footer class=" col-md-12 mt-1">
+                Corvin köz Oktatási Központ Kft.<br>2019.
             </footer>
         </div>
     </body>

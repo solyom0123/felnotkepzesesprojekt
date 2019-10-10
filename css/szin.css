@@ -13,11 +13,11 @@ and open the template in the editor.
 --black: #4E4F4A;
 --cream: #F6E9DC;
 --thin-border: 2px solid var(--red);
---rozsaszin: #edeade;
+--rozsaszin: #F9F9FB;
 --bordo:#633c3d/*9d6264*/;
 --sotetvalami:#506c8b;
 --szurke:#8c92ac;
---menu: #edeade;
+--menu: #F9F9FB/*#C4AE78/*edeade*/;
 --tooltipback: #555;
 --tooltipcolor: #fff;
 --narancs:#9d5264;
@@ -32,5 +32,5 @@ and open the template in the editor.
 --arnyek2: rgba(254, 234, 203, 0.2);
 --arnyek3: rgba(254, 234, 203, 0.12);
 --ren_lis_back:  #8c92ac;
---valami: #edeade;
+--valami: #FFFFF5;
 }

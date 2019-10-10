@@ -8,10 +8,15 @@
 ?>
 
 
-                    <div class="row "><h2 class="col-md-9 h2-default">Alapadatok</h2>
-</div>
-
-                    <div class="table-wrapper">
+                    <div class="col-md-12 "><h2 class="col-md-9 h2-default">Alapadatok</h2></div>
+					<div class="col-md-2"></div>
+					<div class="col-md-7">
+						<button type="button" onclick="link('student_r_list');setElozo('person_cathegory_page')"><figure><img src="img/resztvevok.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzésben résztvevők<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('teacher_list');setElozo('person_cathegory_page')"><figure><img src="img/teacher_3.PNG" alt="bell" width="100" height="100"><figcaption><br><br>Oktatók<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('bonus_teacher_list');setElozo('person_cathegory_page')"><figure><img src="img/teacher_4.PNG" alt="bell" width="100" height="100"><figcaption><br><br>Alkalmi oktatók<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('teacher_connect_in_form');setElozo('person_cathegory_page')"><figure><img src="img/teacher_material.PNG" alt="bell" width="100" height="100"><figcaption><br>Tananyagegységek oktatóhoz<br> kapcsolása<br><br></figcaption></figure></button>
+						
+                    <!--<div class="table-wrapper">
                         
                         <table class="table-default">
                             <tbody>
@@ -35,14 +40,14 @@
                                         
                                 </tr>
                             </tbody>
-                        </table>
+                        </table>-->
                         
                     </div>
                     
-                        <div class="form-group row">
+        <div class="form-group col-md-3">
 
-        <div class="col-md-6"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-3 option-button" value="Mégsem"></div>
+        <div class="col-md-1"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Vissza "></div>
 
         <div class="col-md-1"></div>
        

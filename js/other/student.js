@@ -22,23 +22,86 @@ function studentList() {
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
-            for (var i = 0; i < spStudents.length; i++) {
-                if (!checkEmptyString(spStudents[i])) {
-                    var spStudent = spStudents[i].split(";");
-
-                    value += '<li ><div class="row"><input id="student" name="student" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
-                }
-            }
-           document.getElementById("list_items").innerHTML=value;
+            console.log(createPage('student', spStudents, "list_items"));
+            var buttons = createPage('student', spStudents, "list_items");
+            var spData = buttons.split(";/;/;");
+            document.getElementById("pagenerButtons").innerHTML = spData[0];
+            loadPagebyButton("list_items", 1, spData[1]);
         } else {
             var value = '<li ><div class="row"><input id="student" name="student" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még résztvevő felvive a rendszerbe!</p></div></li>';
-           document.getElementById("list_items").innerHTML=value;
+            document.getElementById("list_items").innerHTML = value;
         }
 
 
     });
 }
+function studentTestPage() {
 
+    var slink = 'server.php';
+    $.post(slink, {
+        muv: "testStudentPage",
+        param: "value"
+
+    }, function (data, status) {
+        console.log(data);
+        
+
+    });
+}
+//buttonData+= '<li ><div class="row"><input id="student" name="'+name+'" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
+
+function createPage(name, listArray, target) {
+    var returnPages = "";
+    var buttonData = "";
+    var buttonsArrays = new Array();
+    for (var i = 0; i < listArray.length; i++) {
+        if (!checkEmptyString(listArray[i])) {
+            var spStudent = listArray[i].split(";");
+            console.log("alma");
+            buttonData += name + ';' + spStudent[1] + ';' + spStudent[0] + '//';
+
+        }
+        if ((i + 1) % 10 == 0) {
+            buttonsArrays.push(buttonData);
+            buttonData = "";
+
+        }
+
+
+    }
+            if (!checkEmptyString(buttonData)) {
+            buttonsArrays.push(buttonData);
+        }
+
+    console.log(buttonsArrays);
+    returnPages = createPageButtons(buttonsArrays, target) + ";/;/;" + buttonsArrays[0];
+    return returnPages;
+}
+function createPageButtons(dataArray, target) {
+    var buttons = "";
+    for (var i = 0, max = dataArray.length; i < max; i++) {
+        buttons += '<div class="col-md-1 option-button" onclick="loadPagebyButton(\'' + target + '\',' + (i + 1) + ',\'' + dataArray[i] + '\')">' + (i + 1) + '</div>'
+
+    }
+    return buttons;
+}
+function loadPagebyButton(target, index, dataArray) {
+    var spdata = dataArray.split("//");
+    console.log(spdata);
+    var valueOfUl = document.getElementById(target).value;
+
+    var pagecontent = "";
+    for (var i = 0, max = spdata.length; i < max; i++) {
+
+        if (!checkEmptyString(spdata[i])) {
+            var student = spdata[i].split(";");
+            console.log(student);
+                pagecontent += '<li ><div class="row"><input id="' + student[0] + '" name="' + student[0] + '" type="radio"  checked class="col-md-6" value="' + student[1] + '"><p class="col-md-6">' + student[2] + '</p></div></li>';
+           
+        }
+    }
+    document.getElementById(target).innerHTML = pagecontent;
+}
 function studentSend() {
     var name = document.getElementById("form-row-name").value;
     var szulnev = document.getElementById("form-row-szul-nev").value;
@@ -51,7 +114,7 @@ function studentSend() {
     var szulev = document.getElementById("form-row-szulev").value;
     var szulho = document.getElementById("form-row-szulho").value;
     var szulnap = document.getElementById("form-row-szulnap").value;
-    
+
     var kepev = document.getElementById("form-row-kepev").value;
     var kepho = document.getElementById("form-row-kepho").value;
     var kepnap = document.getElementById("form-row-kepnap").value;
@@ -62,8 +125,8 @@ function studentSend() {
     var lepcsohz = document.getElementById("form-row-laklp").value;
     var veg = document.getElementById("form-row-veg").value;
     var email = document.getElementById("form-row-email").value;
-     var paymode = document.getElementById("form-row-paymode").value;
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,kepev, kepho, kepnap,veg,email,paymode);
+    var paymode = document.getElementById("form-row-paymode").value;
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz, kepev, kepho, kepnap, veg, email, paymode);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentSend",
@@ -90,22 +153,22 @@ function studentSend() {
 function exportUser() {
     var value = document.getElementById("form-row-aktiv-kepzes-list");
     var slink = 'server.php';
-    
+
     $.post(slink, {
         muv: "exportUser",
         param: value
 
     }, function (data, status) {
         //console.log(data);
-       /* if (data.contains("alert")) {
-          
-            document.getElementById("alert").innerHTML='<div class="alert alert-warning">'+data+"</div>";
-   
-        } else {
-             document.getElementById("alert").innerHTML='<div class="alert alert-success">Minden sikerült!</div>';
-   
-        }
-        */
+        /* if (data.contains("alert")) {
+         
+         document.getElementById("alert").innerHTML='<div class="alert alert-warning">'+data+"</div>";
+         
+         } else {
+         document.getElementById("alert").innerHTML='<div class="alert alert-success">Minden sikerült!</div>';
+         
+         }
+         */
 
     });
 }
@@ -142,16 +205,16 @@ function studentGet() {
             document.getElementById("form-row-lakhs").value = spDataa[3];
             document.getElementById("form-row-laklp").value = spDataa[4];
             document.getElementById("form-row-uid").value = spData[10];
-             document.getElementById("form-row-veg").value = spData[12];
-              document.getElementById("form-row-email").value = spData[13];
-              document.getElementById("form-row-paymode").value = spData[14];  
+            document.getElementById("form-row-veg").value = spData[12];
+            document.getElementById("form-row-email").value = spData[13];
+            document.getElementById("form-row-paymode").value = spData[14];
             spDate = spData[11].split('-');
-              
+
             document.getElementById("form-row-kepev").value = spDate[0];
             document.getElementById("form-row-kepho").value = spDate[1];
             document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
-           
-   
+
+
         } else {
             link("user_in_form");
         }
@@ -198,8 +261,8 @@ function studentGetWithParam(value) {
             document.getElementById("form-row-kepev").value = spDate[0];
             document.getElementById("form-row-kepho").value = spDate[1];
             document.getElementById("form-row-kepnap").value = spDate[2].split(' ')[0];
-           
-   
+
+
 
         } else {
             link("user_in_form");
@@ -226,7 +289,7 @@ function getUsedName(type) {
         console.log(data);
         if (data != "none;") {
             var spData = data.split(";");
-            var text ='';
+            var text = '';
             for (var i = 0; i < spData.length; i++) {
                 if (!checkEmptyString(spData[i])) {
                     text += '  <div class="dropdown-item col-md-12" >' + spData[i] + '</div>';
@@ -265,10 +328,10 @@ function studentEdit(id) {
     var hz = document.getElementById("form-row-lakhs").value;
     var lepcsohz = document.getElementById("form-row-laklp").value;
     var veg = document.getElementById("form-row-veg").value;
-     var email = document.getElementById("form-row-email").value;
-   var paymode =document.getElementById("form-row-paymode").value; 
-   
-    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz,id,kepev, kepho, kepnap,veg,email,paymode);
+    var email = document.getElementById("form-row-email").value;
+    var paymode = document.getElementById("form-row-paymode").value;
+
+    var value = new Array(name, szulnev, mothername, bcity, nem, szar, telszam, taj, szulev, szulho, szulnap, irszam, city, utca, hz, lepcsohz, id, kepev, kepho, kepnap, veg, email, paymode);
     var slink = 'server.php';
     $.post(slink, {
         muv: "studentEdit",

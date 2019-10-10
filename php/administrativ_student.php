@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Résztvevőkhöz kapcsolódó adminisztráció</h2>
+                    <h2 class="h2">Résztvevőkhöz kapcsolódó adminisztráció</h2>
 					
 					<div class="col-md-2"></div>
 					<div class="col-md-7">
@@ -37,7 +37,7 @@
                      <div class="form-group col-md-3">
 
 						<div class="col-md-1"></div>
-						<div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Vissza az adminisztrációs menübe"></div>
+						<div onclick="megsem()"><input type="button" class="btn col-md-10 btn-info btn-block btn-lg" value="Vissza az admin. menübe"></div>
 
 					<div class="col-md-1"></div>
        

@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Adminisztrációs feladatok: Résztvevőkkal kapcsolatos: Adat kezelés</h2>
+                    <h2 class="h2-default">Résztvevőkkal kapcsolatos adminisztrációs feladatok--Bejelentkezési adatok kezelése</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -26,7 +26,12 @@
                         
                     </div>
                     -->
-                    <div class="table-wrapper">
+					
+					<div class="col-md-2"></div>
+					<div class="col-md-7">
+					<button type="button" onclick="link('user_export_in_form');setElozo('form_page_student')"><figure><img src="img/lincense.png" alt="bell" width="100" height="100"><figcaption><br>Résztvevők <br>belépési adatainak <br>kezelése <br></figcaption></figure></button>
+                        <button type="button" onclick="window.open('http://elearning.narasoft.hu')"><figure><img src="img/elearning.png" alt="bell" width="100" height="100"><figcaption><br>E-learning belépés <br><br>adminisztráció</figcaption></figure></button>
+                    <!--<div class="table-wrapper">
                         
                         <table class="table-default">
                             <tbody>
@@ -44,18 +49,18 @@
                                             <div onclick="link('final_exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Záróvizsgák kezelése</span></td>
-                                   -->
+                                   
                                    </tr>
                                   
                             </tbody>
-                        </table>
+                        </table>-->
                         
                     </div>
                     
-                        <div class="form-group row">
+    <div class="form-group col-md-3">
 
         <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 btn-info btn-block btn-lg" value="Vissza"></div>
 
         <div class="col-md-1"></div>
        

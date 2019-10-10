@@ -106,7 +106,7 @@ function collectDataForScPrint($id) {
             . " sc.`date`,"
             . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
             . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
-            . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $id[0] . " and mc.student_id=" . $id[1] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+            . " (select (case when (EXISTS(select mc.grade =0  from exam_table mc where mc.schedule_plan_data_id=" . $id[0] . " and mc.student_id=" . $id[1] . " and mc.schedule_plan_row_id =sc.id))=0 then 'megbukott'  else 'megbukott'  end))  as grade  "
             . "from schedule_plan sc "
             . "where sc.schedule_plan_data_id=" . $id[0] . ""
             . " and sc.exam='true' "
@@ -114,7 +114,7 @@ function collectDataForScPrint($id) {
             . "(select mc.schedule_plan_row_id "
             . "from exam_table mc"
             . " where mc.schedule_plan_data_id=" . $id[0] . " "
-            . "and mc.student_id=" . $id[1] . " and mc.grade >1);";
+            . "and mc.student_id=" . $id[1] . " and mc.grade =1);";
     //echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -576,10 +576,10 @@ $pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
 $pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
-$pdf->Cell(100, 6, $headtable[1], 0, 0);
+$pdf->Cell(100, 6, $headtable[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
-$pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Cell(100, 6, $headtable[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);
@@ -663,10 +663,10 @@ $pdf->Cell(100, 6, "A képző megnevezése:", 0, 0);
 $pdf->Cell(100, 6, $alma[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program neve, OKJ száma", 0, 0);
-$pdf->Cell(100, 6, $headtable[1], 0, 0);
+$pdf->Cell(100, 6, $headtable[0], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési program nyilvántartásba vételi száma: ", 0, 0);
-$pdf->Cell(100, 6, $headtable[2], 0, 0);
+$pdf->Cell(100, 6, $headtable[1], 0, 0);
 $pdf->Ln(5);
 $pdf->Cell(100, 6, "A képzési helyszíne:", 0, 0);
 $pdf->Cell(100, 6, $alma[1], 0, 0);

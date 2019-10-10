@@ -28,15 +28,12 @@ function teacherList() {
         ////console.log(data);
         if (data != "none;//") {
             var value = "";
-            var spStudents = data.split("//");
-            for (var i = 0; i < spStudents.length; i++) {
-                if (!checkEmptyString(spStudents[i])) {
-                    var spStudent = spStudents[i].split(";");
-
-                    value += '<li ><div class="row"><input id="teacher" name="teacher" type="radio"  checked class="col-md-6" value="' + spStudent[1] + '"><p class="col-md-6">' + spStudent[0] + '</p></div></li>';
-                }
-            }
-             document.getElementById("list_items").innerHTML=value;
+             var spStudents = data.split("//");
+            console.log(createPage('teacher', spStudents, "list_items"));
+            var buttons = createPage('teacher', spStudents, "list_items");
+            var spData = buttons.split(";/;/;");
+            document.getElementById("pagenerButtons").innerHTML = spData[0];
+            loadPagebyButton("list_items", 1, spData[1]);
         } else {
             var value = '<li ><div class="row"><input id="teacher" name="teacher" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még oktató felvive a rendszerbe!</p></div></li>';
              document.getElementById("list_items").innerHTML=value;

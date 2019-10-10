@@ -2,12 +2,12 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-7">
 					
-						<button type="button" onclick="link('course_basic_datas');setElozo('basic_datas_course_items')"><figure><img src="img/kepzes.png" alt="bell" width="100" height="100"><figcaption>Képzések alapadatai<br><br></figcaption></figure></button>
-                        <button type="button" onclick="link('modul_r_list');setElozo('basic_datas_course_items')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption>Modulok alapadatai<br><br></figcaption></figure></button>
-						<button type="button" onclick="link('cur_unit_list');setElozo('basic_datas_course_items')"><figure><img src="img/kepzes.png" alt="bell" width="100" height="100"><figcaption>Tananyagegységek<br><br></figcaption></figure></button>
-                        <button type="button" onclick="link('bonus_unit_list');setElozo('basic_datas_course_items')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption>Alkalmi<br>tananyagegységek<br></figcaption></figure></button>
-						<button type="button" onclick="link('date_in_form');setElozo('basic_datas_course_items')"><figure><img src="img/kepzes.png" alt="bell" width="100" height="100"><figcaption>Ünnep napok,<br> munkaszüneti napok, <br>oktatásból kizárt napok</figcaption></figure></button>
-                        <button type="button" onclick="link('modul_access_in_form');setElozo('basic_datas_course_items')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption>Modul engedélyezés <br>óraszám ellenőrzés<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('course_basic_datas');setElozo('basic_datas_course_items')"><figure><img src="img/module.svg" alt="bell" width="100" height="100"><figcaption><br><br>Képzések alapadatai<br><br></figcaption></figure></button>
+                        <button type="button" onclick="link('modul_r_list');setElozo('basic_datas_course_items')"><figure><img src="img/modul1.jpg" alt="bell" width="100" height="100"><figcaption><br><br>Modulok alapadatai<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('cur_unit_list');setElozo('basic_datas_course_items')"><figure><img src="img/open_book.png" alt="bell" width="100" height="100"><figcaption><br><br>Tananyagegységek<br><br></figcaption></figure></button>
+                        <button type="button" onclick="link('bonus_unit_list');setElozo('basic_datas_course_items')"><figure><img src="img/open_book2.png" alt="bell" width="100" height="100"><figcaption><br><br>Alkalmi<br>tananyagegységek<br></figcaption></figure></button>
+						<button type="button" onclick="link('date_in_form');setElozo('basic_datas_course_items')"><figure><img src="img/calendar.png" alt="bell" width="100" height="100"><figcaption><br>Ünnep napok,<br> munkaszüneti napok, <br>oktatásból kizárt napok<br></figcaption></figure></button>
+                        <button type="button" onclick="link('modul_access_in_form');setElozo('basic_datas_course_items')"><figure><img src="img/module_check.png" alt="bell" width="100" height="100"><figcaption><br>Modul engedélyezés <br>óraszám ellenőrzés<br><br></figcaption></figure></button>
                     <!--<div class="table-wrapper">
                         
                         <table class="table-default">

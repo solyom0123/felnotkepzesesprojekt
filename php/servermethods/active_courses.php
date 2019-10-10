@@ -13,10 +13,16 @@ function send_active_course($conn) {
         if ($spids[$index] != "") {
 
             $sql = "INSERT INTO education_students (active_education,student_id) " .
-                    "VALUES ('" . $value[0] . "','" . $spids[$index] . "')";
+                    "VALUES ('" . $value[0] . "','" . $spids[$index] . "') ";
 
             if ($conn->query($sql) === TRUE) {
-                echo 'ok';
+                $sql = "Update students set enrollment_to_course = NOW() where  student_id= " . $spids[$index] . " ";
+
+                 if ($conn->query($sql) === TRUE) {
+                    echo 'ok';
+                } else {
+                    echo 'error';
+                }
             } else {
                 echo 'error';
             }
@@ -442,7 +448,7 @@ function table_for_date_exam_sum($conn) {
                 . " sc.`date`,"
                 . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
                 . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
-                . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $student_data[$actstudent][0] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+                . " (select (case when (EXISTS(select mc.grade =0  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $student_data[$actstudent][0] . " and mc.schedule_plan_row_id =sc.id))=0 then 'megbukott'  else 'megbukott'  end))  as grade  "
                 . "from schedule_plan sc "
                 . "where sc.schedule_plan_data_id=" . $value[0] . ""
                 . " and sc.exam='true' "
@@ -450,7 +456,7 @@ function table_for_date_exam_sum($conn) {
                 . "(select mc.schedule_plan_row_id "
                 . "from exam_table mc"
                 . " where mc.schedule_plan_data_id=" . $value[0] . " "
-                . "and mc.student_id=" . $student_data[$actstudent][0] . " and mc.grade >1);";
+                . "and mc.student_id=" . $student_data[$actstudent][0] . " and mc.grade =1);";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
             echo "Nem" . ';';
@@ -501,7 +507,7 @@ function table_for_date_final_exam($conn) {
                     . " sc.`date`,"
                     . " (case when sc.replace_day='false' then (select modul_name from modul where modul_id=sc.used_modul_id)  else 'Alkalmi'  end)  as mn,"
                     . " (case  when sc.exam='false' then (select study_materials_name  from studymaterials where studymaterials_id=sc.used_studymaterials_id) else (select realname from helper_exam_data where `type`=sc.used_studymaterials_id) end) as et,"
-                    . " (select (case when (EXISTS(select mc.grade =1  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $row["id"] . " and mc.schedule_plan_row_id =sc.id))=1 then 'megbukott'  else 'még nem vizsgázott'  end))  as grade  "
+                    . " (select (case when (EXISTS(select mc.grade =0  from exam_table mc where mc.schedule_plan_data_id=" . $value[0] . " and mc.student_id=" . $row["id"] . " and mc.schedule_plan_row_id =sc.id))=0 then 'megbukott'  else 'megbukott'  end))  as grade  "
                     . "from schedule_plan sc "
                     . "where sc.schedule_plan_data_id=" . $value[0] . ""
                     . " and sc.exam='true' "
@@ -509,7 +515,7 @@ function table_for_date_final_exam($conn) {
                     . "(select mc.schedule_plan_row_id "
                     . "from exam_table mc"
                     . " where mc.schedule_plan_data_id=" . $value[0] . " "
-                    . "and mc.student_id=" . $row["id"] . " and mc.grade >1);";
+                    . "and mc.student_id=" . $row["id"] . " and mc.grade =1);";
             $result1 = $conn->query($sql1);
             if ($result1->num_rows > 0) {
                 

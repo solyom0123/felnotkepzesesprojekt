@@ -16,14 +16,14 @@
 
 
 
-
+         <div id="pagenerButtons"></div>
     </div>
 
     <div class="col-md-12 list-wrapper ">
         <div onclick="bonusteacherGet();" ><div class="col-md-4 option-button">Kiválasztás</div></div>
         <div onclick="link('bonus_teacher_in_form');setElozo('bonus_teacher_list');teacher_cur_unit_List(-1)" ><div class="col-md-4 option-button">Új hozzáadása</div></div>
         
-        <div onclick="megsem()" ><div class="col-md-4 option-button">Mégsem</div></div>
+        <div onclick="megsem()" ><div class="col-md-4 option-button">Vissza</div></div>
 
 
     </div>

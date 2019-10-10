@@ -420,7 +420,13 @@ function  missingsend(i, j, type) {
     var timer = setInterval(function () {
         if (rows.length > 1) {
             var columns = rows[i].getElementsByTagName("td");
-            var inputs = columns[j].getElementsByTagName("input");
+            var inputs = null
+            if(type==1){
+             inputs= columns[j].getElementsByTagName("select");
+            }else{
+              inputs= columns[j].getElementsByTagName("input");
+           
+            }   
             var value = null;
             if (inputs[0].value != 0) {
                 if (type != 2) {
@@ -510,11 +516,13 @@ function  missingget(i, j, type) {
     var rows = document.getElementById("mhour").getElementsByTagName("tr");
     var timer = setInterval(function () {
         if (rows.length > 1) {
-            var inputs = columns[j].getElementsByTagName("input");
+            var inputs = null;
             var columns = rows[i].getElementsByTagName("td");
             if(type==1){
             inputs = columns[j].getElementsByTagName("select");
             
+            }else{
+                inputs =columns[j].getElementsByTagName("input");
             }
                 var value = null;
             if (type != 2) {

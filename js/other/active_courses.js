@@ -428,7 +428,6 @@ function  missingsend(i, j, type) {
            
             }   
             var value = null;
-            if (inputs[0].value != 0) {
                 if (type != 2) {
                     var hour = inputs[0].value;
                     var mod = inputs[0].getAttribute("data-scprid");
@@ -452,6 +451,7 @@ function  missingsend(i, j, type) {
                     param: value
 
                 }, function (data, status) {
+                    console.log(data);
                     if (type != 2) {
                         inputs[0].style.backgroundColor = "green";
                         inputs[0].style.color = "white";
@@ -465,21 +465,6 @@ function  missingsend(i, j, type) {
 
                     }
                 });
-            } else {
-                if (type != 2) {
-                    inputs[0].style.backgroundColor = "green";
-                    inputs[0].style.color = "white";
-                } else {
-                    inputs[0].style.backgroundColor = "green";
-                    inputs[0].style.color = "white";
-                    columns[2].getElementsByTagName("input")[0].style.backgroundColor = "green";
-                    columns[2].getElementsByTagName("input")[0].style.color = "white";
-                    columns[3].getElementsByTagName("input")[0].style.backgroundColor = "green";
-                    columns[3].getElementsByTagName("input")[0].style.color = "white";
-
-                }
-
-            }
             if ((j + 1) < columns.length && type != 2) {
                 j++;
 

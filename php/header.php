@@ -9,12 +9,12 @@ if(!isset($_SESSION["uid"])){
 ?>
 
 <div class="navbar-header" style="height: auto">
-                <div onclick="link('login')" class="navbar-brand" ><img width="100" src="img/logo_100x50.PNG" alt="COrvin Köz OKtatási Központ"></div>
-                <div onclick="link('login')" class="navbar-brand" >Corvin Köz Oktatási Központ</div>
+                <div onclick="link('login')" class="navbar-brand" ><img width="100" src="img/logo_100x50.PNG" alt="Corvin köz OKtatási Központ"></div>
+                <div onclick="link('login')" class="navbar-brand" >Corvin köz Oktatási Központ</div>
             </div>
 
             <div class="navbar-right pd-r-100">
-                <ul class="nav  navbar-nav ">
+               <!-- <ul class="nav  navbar-nav ">
 
                     <li class="dropdown  ">
                         <a class="dropdown-toggle" data-toggle="dropdown" >Bejelentkezés
@@ -26,7 +26,7 @@ if(!isset($_SESSION["uid"])){
                         </ul>
                     </li>
 
-                    </ul>
+                    </ul>-->
             </div>
 
 <?php }else{ ?>
@@ -38,7 +38,7 @@ if(!isset($_SESSION["uid"])){
             <div class="navbar-right pd-r-100">
                 <ul class="nav  navbar-nav ">
 
-                    <li class="dropdown  ">
+                    <!--<li class="dropdown  ">
                         <a class="dropdown-toggle" data-toggle="dropdown" ><img class="logo" src="img/bell.png">
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -46,9 +46,11 @@ if(!isset($_SESSION["uid"])){
                             <li><a href="#">Értesítés2</a></li>
                             <li><a href="#">értesítés3</a></li>
                         </ul>
-                    </li>
+                    </li>-->
 
                     <li class=""><div class="user_name"></div></li>
+					<li class=""><div></div></li>
+					
                     <li class=""> <div onclick="link('logout');linkhead();link('login');linkside('')"><img class="logo" src="img/logout.png"></div></li>
                 </ul>
             </div>

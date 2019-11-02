@@ -10,12 +10,13 @@
 	<style type="text/css">
 	.login-form {
 		width: 450px;
-    	margin: 50px auto;
+    	margin: auto;
 	}
     .login-form form {
     	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+		margin-top: 15px;
+        background: #F9F9FB;
+        <!--box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);-->
         padding: 30px;
     }
     .login-form h2 {
@@ -37,7 +38,7 @@
         <div class="form-group">
             <!--<label for="log-form-email" class="col-md-3 col-form-label">E-mail:</label>-->
             <!--<div class="col-md-6">-->
-                <input class="form-control" id="name" type="text"  placeholder="user123">
+                <input class="form-control" id="name" type="text"  placeholder="Felhasználónév">
             <!--</div> -->
 
            <!-- <div class="col-md-3 ">

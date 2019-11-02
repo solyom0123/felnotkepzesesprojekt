@@ -7,7 +7,7 @@
  */
 ?>
 
-                    <h2 class="h2-default">Képzésekhez kapcsolódó adminisztrációs feladatok -- Jelenlétek és vizsga adatok kezelés</h2>
+                    <h2>Képzésekhez kapcsolódó adminisztrációs feladatok -- Jelenlétek és vizsga adatok kezelés</h2>
 <!--                    <div class="szuro-wrapper">
                         <ul class="setting-list">
 
@@ -44,6 +44,10 @@
                                             <div onclick="link('final_exam_in_form');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
                                         </div><span>Záróvizsgák <br>adminisztrációja</span></td>
+									<td><div class="span-half-corner-wrapper">
+                                            <div onclick="link('exam_in_form_mod');setElozo('form_page')"><img src="img/teacher.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
+                                            </div>
+                                        </div><span>Modulzáró vizsgák <br>adminisztrációjához nyomtatvány<br>készítése</span></td>
                                    <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('push_notice');setElozo('form_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

@@ -56,6 +56,11 @@ function loadingModuls(linkfr) {
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
     }
+	if (linkfr == "exam_in_form_mod") {
+       // openDefultTab();
+        activeCourseListOptions(0,"form-row-aktiv-kepzes-es");
+        //activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
+    }
     if(linkfr == "missing_in_form"||linkfr == "exam_in_form"){
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
@@ -343,5 +348,83 @@ function loggedIn() {
 
     });
 }
+
+function nyomtat_sablon(){
+	
+	var kepzes_id=document.getElementById("form-row-aktiv-kepzes-es").value;
+	console.log(kepzes_id);
+	var hr = new XMLHttpRequest();
+	
+	var p_link="../php/forms/mod_exam_notes_print.php";
+	hr.open("POST", p_link+"?kepzes_id="+kepzes_id, true);
+	
+	
+	hr.onreadystatechange = function() {
+    if(hr.readyState == 4 && hr.status == 200) {
+        var return_data = hr.responseText;
+		console.log(return_data);
+        document.getElementById("div_nyomtatvany").innerHTML = return_data;
+		}
+	}
+	hr.send();
+	
+	
+	
+}
+
+function nyomtat_sablon_pdf(){
+	
+	var kepzes_id=document.getElementById("form-row-aktiv-kepzes-es").value;
+	console.log(kepzes_id);
+	var hr = new XMLHttpRequest();
+	
+	var p_link="../php/forms/mod_exam_notes_print_pdf.php";
+	hr.open("POST", p_link+"?kepzes_id="+kepzes_id, true);
+	
+	
+	hr.onreadystatechange = function() {
+    if(hr.readyState == 4 && hr.status == 200) {
+        var return_data = hr.responseText;
+		//console.log(return_data);
+        document.getElementById("div_nyomtatvany").innerHTML = return_data;
+		}
+	}
+	hr.send();
+	
+	
+	 
+	
+	
+}
+
+
+    function exportHTML(){
+		/*-----*/
+		
+		
+		
+		
+		
+		
+		
+		/*------*/
+		var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title><style> tr { page-break-inside:avoid; page-break-after:auto } .nopagebreak{page-break-inside: avoid;} table, td, th {padding:2px; border: 1px solid black; border-collapse: collapse; font-size:10px; page-break-inside:auto;}</style></head><body>";
+       var footer = "</body></html>";
+       var sourceHTML = header+document.getElementById("div_nyomtatvany").innerHTML+footer;
+       
+       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+       var fileDownload = document.createElement("a");
+       document.body.appendChild(fileDownload);
+       fileDownload.href = source;
+       fileDownload.download = 'modul_osszesito.doc';
+       fileDownload.click();
+       document.body.removeChild(fileDownload);
+       
+		
+    }
+
 
           

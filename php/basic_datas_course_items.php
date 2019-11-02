@@ -1,4 +1,4 @@
-                    <h2 class="h2-default">Képzés alapadatok kezelése</h2>
+                    <h2 >Képzés alapadatok kezelése</h2>
 					<div class="col-md-2"></div>
 					<div class="col-md-7">
 					
@@ -46,7 +46,7 @@
     <div class="form-group col-md-3">
 
         <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Vissza "></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 btn-md btn-block btn-info" value="Vissza "></div>
 
         <div class="col-md-1"></div>
        

@@ -31,7 +31,7 @@
                         <div class="form-group row">
 
         <div class="col-md-1"></div>
-        <div onclick="megsem()"><input type="button" class="btn col-md-10 option-button" value="Mégsem"></div>
+        <div onclick="megsem()"><input type="button" class="btn col-md-10 btn-info btn-md" value="Mégsem"></div>
 
         <div class="col-md-1"></div>
        

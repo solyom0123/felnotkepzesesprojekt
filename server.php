@@ -219,10 +219,17 @@ if ($muv == "new_modul") {
     lekapcsolodas(deletecontroller(kapcsolodas()));
 }else if ($muv == "exportUser") {
     lekapcsolodas(exportUser(kapcsolodas()));
+}else if($muv=="table_modul_exams"){
+	
+	lekapcsolodas(createModulPaper(kapcsolodas()));
 }
 
 
-
+$szerverneve = "mysql.nethely.hu";//"localhost"; //";;
+    $felhasznalonev = "oktat";//'root'; //
+    $password = 'corvin2019';//""; //
+    $dbname = 'oktat';
+    $conn1 = mysqli_connect($szerverneve, $felhasznalonev, $password, $dbname);
 
 
 
@@ -302,3 +309,10 @@ function user_name($conn) {
     return $conn;
 }
 
+function createModulPaper($conn){
+	
+	global $value;
+	
+	
+	return $conn;
+}

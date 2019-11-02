@@ -20,7 +20,7 @@ body{
 }
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-family: Georgia, serif/*"Roboto", "Helvetica", "Arial", sans-serif*/;
 }
 
 div .btn-primary{
@@ -161,34 +161,34 @@ width: 180px,
   }
 .lapozo-button{
     float: left;
-    background-color: var(--szurke);
-    color: var(--narancs);
+    background-color: var(--lapozobutton_alap);
+    color: var(--lapozobutton_text);
     width: 35px;
-    height: 35px;
+    height: 20px;
     margin: 5px;
     text-align: center;
     padding: 5px;
-    border-radius: 50px;
+    border-radius: 0px;
 }
 .lapozo-button:hover{
     float: left;
-    border: 5px var(--narancs);
-    background-color: var(--bordo2);
-    color: var(--narancs);
-    width: 35px;
-    height: 35px;
+    border: 5px var(--lapozobutton_keret);
+    background-color: var(--lapozobutton_alap);
+    color: var(--lapozobutton_text);
+    width: 40px;
+    height: 25px;
     margin: 5px;
     text-align: center;
     padding: 5px;
-    border-radius: 50px;
+    border-radius: 0px;
 }
 .lapozo-button-active{
     float: left;
-    border: 5px var(--szurke) dashed;
-    background-color: var(--narancs);
-    color: var(--szurke);
-    width: 35px;
-    height: 35px;
+    border: 5px var(--lapozobutton_keret) dashed;
+    background-color: var(--lapozobutton_alap);
+    color: var(--lapozobutton_text);
+    width: 40px;
+    height: 25px;
     margin: 5px;
     text-align: center;
     padding: 5px;
@@ -196,8 +196,8 @@ width: 180px,
 }
 .option-button{
     float: left;
-    background-color: var(--lightnarancs);
-    color: var(--bordo);
+    background-color: var(--lapozobutton_alap);
+    color: var(--lapozobutton_text);
     text-align: center;
 	text-decoration:bold;
     padding: 10px;
@@ -205,13 +205,14 @@ width: 180px,
 }
 .option-button:hover{
     float: left;
-    background-color: var(--piros);
-    border: 5px var(--narancs);
-    color: smokewhite;
+    background-color: var(--lapozobutton_hover);
+    border: 5px var(--lapozobutton_keret);
+    color: var(--lapozobutton_text);
     text-align: center;
 	text-decoration:bold;
     padding: 10px;
     border-radius: 5px;
+	cursor:pointer;
 }
 
 .menu-button{

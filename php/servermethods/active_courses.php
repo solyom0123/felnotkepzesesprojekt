@@ -91,7 +91,7 @@ function insertorUpdateExam($conn) {
             if ($conn->query($sql) === TRUE) {
                 echo 'update';
             } else {
-                echo 'error';
+                echo 'error' ;
             }
         }
     } else {
@@ -322,7 +322,7 @@ function table_for_date($conn) {
         echo $value[1] . ";" . solveBackCurUnitNameModulName($course_date) . "//";
     }
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
-        echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
+        echo $student_data[$actstudent][1]  . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
             echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] . "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                             1-mod                               2-cur                                   3_uh                              4-rep                                           5-exam                           6-type                       7-aid                 8-date
@@ -389,7 +389,7 @@ function table_for_date_exam($conn) {
         echo $value[1] . ";" . solveBackCurUnitNameModulName($course_date) . "//";
     }
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
-        echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
+        echo $student_data[$actstudent][1]  . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
             echo $student_data[$actstudent][0] . "_,_" . $course_date[$actcourse][6] . "_,_" . $course_date[$actcourse][2] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                                                         5-exam                           6-type                       7-aid                 8-date
@@ -427,7 +427,7 @@ function table_for_date_exam_sum($conn) {
         echo   "Vizsgák/Résztvevők;" . solveBackCurUnitNameModulName($course_date) . "Záróvizsgára alkalmas/eredmény//";
     }
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
-        echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
+        echo $student_data[$actstudent][1]  . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
             $sql = "select grade from exam_table where schedule_plan_data_id=" . $value[0] . " and student_id=" . $student_data[$actstudent][0] . " and schedule_plan_row_id=" . $course_date[$actcourse][6] . ";";
             $result = $conn->query($sql);
@@ -530,7 +530,7 @@ function table_for_date_final_exam($conn) {
         echo $value[1] . ";" . "Záróvizsga" . "//";
     }
     for ($actstudent = 0; $actstudent < count($student_data); $actstudent++) {
-        echo $student_data[$actstudent][1] . "-" . $student_data[$actstudent][2] . ";";
+        echo $student_data[$actstudent][1]  . ";";
         for ($actcourse = 0; $actcourse < count($course_date); $actcourse++) {
             echo $student_data[$actstudent][0] . "_,_" . $value[0] . "_,_" . $value[1] . ";";
             //              0-id                                                         5-exam                           6-type                       7-aid                 8-date
@@ -738,4 +738,11 @@ function solveOrderTypeStudent($order) {
             break;
     }
     return $returnValue;
+}
+
+
+function table_modul_exams($conn){
+	
+	
+	
 }

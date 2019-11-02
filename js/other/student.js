@@ -28,7 +28,7 @@ function studentList() {
             document.getElementById("pagenerButtons").innerHTML = spData[0];
             loadPagebyButton("list_items", 1, spData[1]);
         } else {
-            var value = '<li ><div class="row"><input id="student" name="student" type="radio" checked class="col-md-6" value="0"><p class="col-md-6">Nincs még résztvevő felvive a rendszerbe!</p></div></li>';
+            var value = '<li ><div class="row"><input id="student" name="student" type="radio" checked class="col-md-1" value="0"><p class="col-md-6">Nincs még résztvevő rögzítve a rendszerbe!</p></div></li>';
             document.getElementById("list_items").innerHTML = value;
         }
 
@@ -96,7 +96,7 @@ function loadPagebyButton(target, index, dataArray) {
         if (!checkEmptyString(spdata[i])) {
             var student = spdata[i].split(";");
             console.log(student);
-                pagecontent += '<li ><div class="row"><input id="' + student[0] + '" name="' + student[0] + '" type="radio"  checked class="col-md-6" value="' + student[1] + '"><p class="col-md-6">' + student[2] + '</p></div></li>';
+                pagecontent += '<li ><div class="col-md-2"></div><div class="row"><input id="' + student[0] + '" name="' + student[0] + '" type="radio"  checked class="col-md-1" value="' + student[1] + '"><p class="col-md-6">' + student[2] + '</p></div></li>';
            
         }
     }

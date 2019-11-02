@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="row "><h2 class="col-md-12 h2-default">Új dátum felvitele</h2>
+<div class="row "><h2 >Új dátum felvitele</h2>
 </div>
 <form >
     
@@ -38,7 +38,7 @@
           <div class="form-group row">
         <div class="col-md-12">
             <div class="col-md-3"> </div>
-        <div onclick="megsem()" ><input type="button" class="btn col-md-5 option-button" value="Mégsem"></div>
+        <div onclick="megsem()" ><input type="button" class="btn col-md-5 btn-info btn-md" value="Mégsem"></div>
 
         </div> 
              

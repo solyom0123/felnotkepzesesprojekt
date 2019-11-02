@@ -72,10 +72,12 @@ and open the template in the editor.
         </script>
     </head>
     <body class=" body-set ">
-        <div class="col-md-12">
-            <!--        <nav class=" row navbar navbar-inverse col-12 header-wrapper " style="height: 100px">
+	<div class="col-md-1"></div>
+	<div class="centered">
+        <div class="col-md-10">
+                    <nav class=" row navbar navbar-inverse col-12 header-wrapper " style="height: 100px">
             
-                    </nav>-->
+                    </nav>
             <main class=" row col-md-12 mt-1">
                 <div class="menu-wrapper ">
                     <div class="menu-wrapper  col-md-3">
@@ -94,5 +96,7 @@ and open the template in the editor.
                 Corvin köz Oktatási Központ Kft.<br>2019.
             </footer>
         </div>
+		<div class="col-md-1"></div>
+		</div>
     </body>
 </html>

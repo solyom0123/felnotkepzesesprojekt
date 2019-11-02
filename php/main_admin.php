@@ -8,8 +8,8 @@
 ?>
                     <h2 class="h2">Irányítópult</h2>
 					
-					<div class="col-md-2"></div>
-						<div class="col-md-7">
+					<div class="col-md-1"></div>
+						<div class="col-md-10">
 						<button type="button" onclick="link('basic_datas_course_items');setElozo('main_admin')"><figure><img src="img/kepzes.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzések, modulok, <br>tananyagegységek, <br>naptár adatok, <br>modulok ellenőrzése</figcaption></figure></button>
                         <button type="button" onclick="studentList();link('student_r_list'),setElozo('main_admin')"><figure><img src="img/resztvevok.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzésben résztvevők<br><br><br><br></figcaption></figure></button>
 						<button type="button" onclick="teacherList();link('teacher_list'),setElozo('main_admin')"><figure><img src="img/teacher_1.png" alt="bell" width="100" height="100"><figcaption><br><br>Oktatók<br><br><br><br></figcaption></figure></button>
@@ -17,7 +17,7 @@
 						<button type="button" onclick="link('course_start'),setElozo('main_admin')"><figure><img src="img/uj.jpg" alt="bell" width="100" height="100"><figcaption><br><br>Új képzés indítása<br><br><br><br></figcaption></figure></button>
 						<button type="button" onclick="link('administrativ'),setElozo('main_admin')"><figure><img src="img/adminisztracio.jpg" alt="bell" width="100" height="100"><figcaption><br><br>Adminisztráció<br><br><br><br></figcaption></figure></button>
 						</div>
-					<div class="col-md-7"></div>	
+					<div class="col-md-1"></div>	
 						
                     <!--<div class="table-wrapper">
                         

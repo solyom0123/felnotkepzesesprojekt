@@ -127,12 +127,18 @@ url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
     text-transform: uppercase;
   }
 }
+
 .body-set{
 	background-color: var(--rozsaszin);
 	color: var(--bordo);   /*ez legyen a feliratoik szine mindenhol, ami nem gomb*/
-
+	
+	margin: auto;
 }
 
+.centered{
+	/*max-width: 1900px;*/
+	margin: auto;
+}
 
 .menu{
        background-color: var(--menu);
@@ -145,22 +151,41 @@ url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 .navbar{
 	
-	background-color: var(--sotétvalami);
+	background-color: var(--menu);
 }
 
-.navbar-inverse{
-	background-color: var(--sotetvalami);
+.nav{
 	
+	background-color: var(--menu);
+	display:block;
+}
+.navbar-inverse{
+	background-color: var(--menu);
+	
+}
+.navbar-header{
+	
+	background-color: var(--headerhatter);
+	border-bottom-style: solid;
+	color:white;
 }
 main{
     background-color: var(--rozsaszin);
 }
 footer{
+	
     background-color: var(--sotetvalami);
    /* width: 1400px;*/
     text-align: center;
-    color: var(--szurke);
+    color: white/*var(--szurke)*/;
+	position: relative;
+    padding:0px;
+    margin-top:20px;
+    font-size:15px;
+	
 }
+
+
 td{
 }
 .wd-1250{
@@ -254,4 +279,9 @@ td{
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+.col-form-label{
+	float:left;
+	padding:5px;
 }

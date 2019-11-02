@@ -351,7 +351,9 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
             muv = "table_student_final_exam";
         } else if (type == 6) {
             muv = "table_dates_exam_sum";
-        }
+        } else if(type==7){
+			muv= "table_modul_exams";
+		}
         var slink = 'server.php';
         $.post(slink, {
             muv: muv,
@@ -395,7 +397,11 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
                 value = makeTablefromDataDateExamSum(data.split("//"));
                 document.getElementById(target).innerHTML = value;
 
-            } else {
+            } else if(type == 7){
+				value = makeTablefromDataStudentFinalExam(data.split("//"));
+                document.getElementById(target).innerHTML = value;
+				
+			}else {
                 value = makeTablefromDataStudentFinalExam(data.split("//"));
                 document.getElementById(target).innerHTML = value;
 
@@ -602,7 +608,7 @@ function listOptionsWithTargetAndSource(type, target, source) {
 }
 function makeTablefromDataDateForExam(data) {
     var spdatafirstrow = data[0].split(";");
-    var td = "<td>";
+    var td = "<td width='100px'>";
     var data_mod_head = 'data-scprid="';
     var data_mod_end = '" ';
     var data_stu_head = 'data-stu="';
@@ -617,7 +623,7 @@ function makeTablefromDataDateForExam(data) {
     var tr = '<tr>';
     var th_head = '<th  >';
     var select_head_begin = '<select  ';
-    var select_head_end = '><option  value="0">MEGBUKOTT</OPTION><option  value="1">ÁTMENT</OPTION></select>';
+    var select_head_end = '><option  value="0">Sikertelen</OPTION><option  value="1">SIKERES</OPTION></select>';
     var th_end = '</th>';
     var value = tr +
             th_head +

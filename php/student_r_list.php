@@ -16,7 +16,7 @@
  </div>   
 <div class="col-md-3">
 
-
+		<button type="button" class="btn btn-info btn-lg btn-block" onclick="megsem()">Vissza</button>
 		<button type="button" class="btn btn-info btn-lg btn-block" onclick="studentGet();setElozo('student_r_list')">Megmutat!</button>
         <button type="button" class="btn btn-info btn-lg btn-block" onclick="link('user_in_form');setElozo('student_r_list')">Új résztvevő</button>
     <!--<div class="col-md-12 list-wrapper ">

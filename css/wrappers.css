@@ -62,6 +62,10 @@ and open the template in the editor.
     background-color:var(--valami);
 
 }
+.list-wrapper2{
+    background-color:var(--menu);
+
+}
 .list-wrapper-s{
     background-color:var(--valami);
 
@@ -113,7 +117,14 @@ list-style-type: none;
 }
 .tartalom-wrapper{
     /*height: auto;*/
+	background-color: var(--menu);
 	
-    background-color:var(--valami);
-    text-align:center;
+    /*background-color:var(--valami);*/
+    /*text-align:center;*/
+	}
+	
+.tartalom-wrapper label{
+	text-align: left;
+	padding:3px;
+	
 }

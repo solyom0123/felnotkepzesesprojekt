@@ -9,7 +9,7 @@ if(!isset($_SESSION["uid"])){
 ?>
 
 <div class="navbar-header" style="height: auto">
-                <div onclick="link('login')" class="navbar-brand" ><img width="100" src="img/logo_100x50.PNG" alt="Corvin köz OKtatási Központ"></div>
+                <div onclick="link('login')" class="navbar-brand" ><img width="100" src="img/custom-logo.png" alt="Corvin köz Oktatási Központ"></div>
                 <div onclick="link('login')" class="navbar-brand" >Corvin köz Oktatási Központ</div>
             </div>
 
@@ -31,12 +31,12 @@ if(!isset($_SESSION["uid"])){
 
 <?php }else{ ?>
    <div class="navbar-header">
-                <div onclick="link('main_admin')" class="navbar-brand" ><img src="img/logo_100x50.PNG"></div>
+                <div onclick="link('main_admin')" class="navbar-brand" ><img width="100" src="img/custom-logo.png"></div>
                 <div onclick="link('main_admin')" class="navbar-brand" >Corvin Köz Oktatási Központ</div>
             </div>
 
             <div class="navbar-right pd-r-100">
-                <ul class="nav  navbar-nav ">
+                <!--<ul class="nav  navbar-nav ">
 
                     <!--<li class="dropdown  ">
                         <a class="dropdown-toggle" data-toggle="dropdown" ><img class="logo" src="img/bell.png">
@@ -48,10 +48,10 @@ if(!isset($_SESSION["uid"])){
                         </ul>
                     </li>-->
 
-                    <li class=""><div class="user_name"></div></li>
+                    <!--<li class=""><div class="user_name"></div></li>
 					<li class=""><div></div></li>
 					
                     <li class=""> <div onclick="link('logout');linkhead();link('login');linkside('')"><img class="logo" src="img/logout.png"></div></li>
-                </ul>
+                </ul>-->
             </div>
 <?php } ?>

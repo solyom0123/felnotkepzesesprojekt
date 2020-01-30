@@ -9,10 +9,10 @@
 
 <script>setElozo('basic_datas')</script>
                     <h2 class="h2">Alapadatok kezelése (képzések alapadatai/személyes alapadatok)</h2>
-						<div class="col-md-2"></div>
-						<div class="col-md-7">
-						<button type="button" onclick="link('basic_datas_course_items');setElozo('basic_datas')"><figure><img src="img/oktatas.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzések, modulok, <br>tananyagegységek, <br>naptár adatok, <br>modulok ellenőrzése</figcaption></figure></button>
-                        <button type="button" onclick="link('person_cathegory_page');setElozo('basic_datas')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzésben résztvevők, <br>képzés oktatóinak <br>személyes adatai<br><br></figcaption></figure></button>
+						<div class="col-md-1"></div>
+						<div class="col-md-10">
+						<button type="button" class="col-md-4" onclick="link('basic_datas_course_items');setElozo('basic_datas')"><figure><img src="img/oktatas.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzések, modulok, <br>tananyagegységek, <br>naptár adatok, <br>modulok ellenőrzése</figcaption></figure></button>
+                        <button type="button" class="col-md-4" onclick="link('person_cathegory_page');setElozo('basic_datas')"><figure><img src="img/szemely2.png" alt="bell" width="100" height="100"><figcaption><br><br>Képzésben résztvevők, <br>képzés oktatóinak <br>személyes adatai<br><br></figcaption></figure></button>
 						</div>
 					
 					
@@ -56,7 +56,7 @@
                             </tbody>
                         </table>-->
                         
-                    <div class="col-md-3"></div>
+                    <div class="col-md-1"></div>
                    <!-- <div class="lapozo-whapper container-fluid">
                         <div class="lapozo-button-active">1</div>
                         <div class="lapozo-button">2</div>

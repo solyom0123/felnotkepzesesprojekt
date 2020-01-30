@@ -16,9 +16,7 @@
 
             </select>
         </div> 
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki, melyik aktív képzéshez szeretne exportalast!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                   
     </div>
     <div class="form-group row">
         <label for="form-row-aktiv-kepzes" class="col-md-4 col-form-label">Típusa:</label>
@@ -29,9 +27,7 @@
                 <option value="2">Oktató</option>
             </select>
         </div> 
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Milyen típusú adatot szeretne exportálni!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                    
     </div>
     
 

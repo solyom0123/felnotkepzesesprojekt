@@ -15,18 +15,16 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
         
     <div class="form-group row">
         <label for="form-row-sema" class="col-md-4 col-form-label">Betölthető már mentett aktív képzések:</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <select onchange="backloadActiveEduSchema()" class="form-control-plaintext" name="form-row-sema" id="form-row-sema" >
                 
             </select>
         </div>
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                    
     </div>
     <div class="form-group row">
         <label for="form-row-name" class="col-md-4 col-form-label">Belső azonosító:</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
                     <div class=" dropup col-md-12">
                         <div class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                             <input autocomplete="new-password" onkeyup="getUsedName(2)" class="form-control-plaintext" name="form-row-name" id="form-row-name" type="text"  placeholder="Név">
@@ -37,9 +35,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
                     </div>
                 </div>
 
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Adja meg a kívánt belső azonosítót"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                    
     </div>
     <div class="form-group row">
         <label for="form-row-kepzes" class="col-md-4 col-form-label">Képzés kiválasztása:</label>
@@ -49,40 +45,31 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             </select>
         </div> 
         <input id="modul_length_of_course" type="hidden" >
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Itt megadhatja az akkreditációban szereplő képzs adatokat"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                   
     </div>
     <div class="form-group row">
         <label for="form-row-start" class="col-md-4 col-form-label">Kezdés dátuma:</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input class="form-control-plaintext" name="form-row-start" id="form-row-start"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
-
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Adja meg a képzés kezdő dátumát"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                            
     </div>
     <div class="form-group row">
         <label for="form-row-sign-date" class="col-md-4 col-form-label">Vizsga jelentkezés hatarideje:</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input class="form-control-plaintext" name="form-row-sign-date" id="form-row-sign-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
 
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Vizsgajelentkezés határideje"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                    
     </div>
  
        <div class="form-group row">
         <label for="form-row-exam-date" class="col-md-4 col-form-label">Vizsga időpontja:</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input class="form-control-plaintext" name="form-row-exam-date" id="form-row-exam-date"  onchange="checkEnoughDay()" type="date"  placeholder="ÉÉÉÉ.HH.NN.">
         </div> 
 
-        <div class="col-md-4 ">
-            <a href="#" data-toggle="tooltip" title="Adja meg a vizsga időpontját"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                   
     </div>
  <!--<div class="form-group row">
         <label for="form-row-machine" class="col-md-4 col-form-label">Tervezett befejezés (gépi kalkuláció):</label>
@@ -97,21 +84,17 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
   -->
   <input class="form-control-plaintext" name="form-row-help-day" id="form-row-help-day" type="hidden" min="0" value="0" >
      <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Képzési modulok sorrendjének beállítása:</label>
+        <label  class="col-md-8 col-form-label">Képzési modulok sorrendjének beállítása:</label>
         
-        <div class="col-md-8 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki a modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                    
     </div>
     <div id="modul-order-place" >
         
     </div>
      <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Teljesített képzési modulok sorrendjének beállítása:</label>
+        <label  class="col-md-8 col-form-label">Teljesített képzési modulok sorrendjének beállítása:</label>
         
-        <div class="col-md-8 ">
-            <a href="#" data-toggle="tooltip" title="Válassza ki a teljesített modulok sorrendjét!"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                  
     </div>
     <div id="finished-modul-order-place" >
         
@@ -120,11 +103,9 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
     
 </div>
     <div class="form-group row">
-        <label  class="col-md-4 col-form-label">Elméleti órák beosztása:</label>
+        <label  class="col-md-8 col-form-label">Oktatási órák beosztása:</label>
         <div class="co-md-5"></div>
-        <div class="col-md-1 ">
-            <a href="#" data-toggle="tooltip" title="Adja meg az elmélet és a gyakorlati oktatás óraszámait napokra bontva!"><img src="img/help.png" class="img-circle" alt="Súgó" width="15" height="15"></a>
-        </div>                            
+                                  
     </div>
 
         <div class="form-group row">
@@ -270,7 +251,7 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             </table>
         </div>--> 
     <div class="form-group row">
-        <div onclick="saveSchedule()" ><input type="button" name="log-form" class="btn col-md-4 btn option-button" value="Mentés"></div>
+        <div onclick="saveSchedule()" ><input type="button" name="log-form" class="btn col-md-4 btn btn-block btn-info" value="Mentés"></div>
          <div class="col-md-2"></div>
          <div onclick="gettingStart();setElozo('course_start')" ><input type="button" style="display: none" id="form-row-schedule-button"name="log-form" class="btn col-md-4 btn option-button" value="Mentés és generálás"></div>
 

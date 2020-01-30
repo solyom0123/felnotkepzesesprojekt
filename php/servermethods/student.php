@@ -185,7 +185,7 @@ function exportUser($conn) {
 
     if ($type == 0 || $type == 1) {
         $user_data = array();
-        $sql = "select si.student_full_name as sf,birth_date as ni ,us.user_name as n,us.password as p  from  `user` as us,schedule_plan_data sc ,education_students s, students si where sc.id='" . $value . "' and sc.id=s.active_education and si.student_id=s.student_id and si.userid = us.user_id;";
+        $sql = "select us.user_name as n,si.student_full_name as sf,birth_date as ni ,us.password as p,si.email  as e from  `user` as us,schedule_plan_data sc ,education_students s, students si where sc.id='" . $value . "' and sc.id=s.active_education and si.student_id=s.student_id and si.userid = us.user_id;";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // output data of each row
@@ -193,7 +193,7 @@ function exportUser($conn) {
                 if (strlen($row["p"]) > 0) {
                     $strch = "<tr><td>" . $row["sf"] . "</td><td>" . explode(" ", $row["ni"])[0] . "</td><td>(Résztvevő)</td></tr>";
 
-                    array_push($user_data, array($row["n"], $row["p"], $strch));
+                    array_push($user_data, array($row["n"], '361633153a464830a1fe85dec5efab17',$row["sf"],$row["sf"],$row["e"], $strch));
                     //          echo ;
                 }
             }
@@ -238,7 +238,7 @@ function exportUser($conn) {
             
         }
         foreach ($moduls as $valuesee) {
-            $sql = "select si.teacher_full_name as sf,si.birth_date as ni ,us.user_name as n,us.password as p  from  `user` as us,modul m,studymaterials sa, studymaterials_teacher s, teachers si where m.modul_id='" . $valuesee . "' and m.modul_id=sa.modul_id and sa.studymaterials_id=s.studymaterials and s.teacher=si.teacher_id and si.userid = us.user_id group by si.teacher_id;";
+            $sql = "select si.teacher_full_name as sf,si.birth_date as ni ,us.user_name as n,us.password as p,si.email as e  from  `user` as us,modul m,studymaterials sa, studymaterials_teacher s, teachers si where m.modul_id='" . $valuesee . "' and m.modul_id=sa.modul_id and sa.studymaterials_id=s.studymaterials and s.teacher=si.teacher_id and si.userid = us.user_id group by si.teacher_id;";
 
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
@@ -247,7 +247,7 @@ function exportUser($conn) {
                     if (strlen($row["p"]) > 0) {
                         $strch = "<tr><td>" . $row["sf"] . "</td><td>" . explode(" ", $row["ni"])[0] . "</td><td>(Oktató)</td></tr>";
 
-                        array_push($user_data, array($row["n"], $row["p"], $strch));
+                        array_push($user_data, array($row["n"], '5ace0b2afd7e22aa7533421def0e7f9c',$row["sf"],$row["sf"],$row["e"], $strch));
                         //          echo ;
                     }
                 }
@@ -284,10 +284,11 @@ function exportUser($conn) {
         //var_dump($user_data);
         header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="user_export_' . $value . '_' . date("Y-m-d") . '.csv";');
-
+          echo "username;password;firstname;lastname;email\n";
+        
         for ($index = 0; $index < count($user_data); $index++) {
 
-            echo $user_data[$index][0] . ";" . $user_data[$index][1];
+            echo $user_data[$index][0] . ";" . $user_data[$index][1]. ";" . $user_data[$index][2]. ";" . $user_data[$index][3]. ";" . $user_data[$index][4]."\n";
         }
     } else {
         echo 'Ezek az embereknek nincs felhasználó fiókjuk vagy jelszavuk nincs beállítva:' . "<br><table>";
@@ -302,7 +303,7 @@ function exportUser($conn) {
 function in_array_own($value, $array) {
     $returnValue = false;
     for ($index = 0; $index < count($array); $index++) {
-        if ($array[$index][2] == $value) {
+        if ($array[$index][5] == $value) {
             $returnValue = true;
         }
     }

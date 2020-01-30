@@ -17,6 +17,7 @@
 					
 						<button type="button" onclick="link('administrativ_course');setElozo('administrativ')"><figure><img src="img/cour_edit.png" alt="bell" width="100" height="100"><figcaption>Képzéssel kapcsolatos <br>adminisztráció</figcaption></figure></button>
                         <button type="button" onclick="link('administrativ_student');setElozo('administrativ')"><figure><img src="img/hal_ig.png" alt="bell" width="100" height="100"><figcaption>Résztvevőkkel kapcsolatos <br>adminisztráció</figcaption></figure></button>
+						<button type="button" onclick="link('administrative_system');setElozo('administrativ')"><figure><img src="img/hal_ig.png" alt="bell" width="100" height="100"><figcaption>Rendszer szintű feladatok<br>adminisztráció</figcaption></figure></button>
                        <!-- <div class="table-wrapper">
 						<table class="table-default">
                             <tbody>

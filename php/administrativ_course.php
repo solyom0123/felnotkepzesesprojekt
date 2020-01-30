@@ -11,7 +11,8 @@
 						<div class="col-md-2"></div>
 						<div class="col-md-7">
 						<button type="button" onclick="link('show_page');setElozo('administrativ_course')"><figure><img src="img/catalog.png" alt="bell" width="100" height="100"><figcaption>Nyomtatványok: <br>ütemterv, haladási napló,<br>névsor, jelenléti ív készítés</figcaption></figure></button>
-                        <button type="button" onclick="link('form_page');setElozo('administrativ_course')"><figure><img src="img/lincense.png" alt="bell" width="100" height="100"><figcaption>Jelenlét adatok kezelése,<br>vizsga adminisztráció,<br>üzenetküldés</figcaption></figure></button>
+                        <button type="button" onclick="link('osap_page');setElozo('administrativ_course')"><figure><img src="img/lincense.png" alt="bell" width="100" height="100"><figcaption>OSAP jelentés<br><br></figcaption></figure></button>
+						<button type="button" onclick="link('form_page');setElozo('administrativ_course')"><figure><img src="img/lincense.png" alt="bell" width="100" height="100"><figcaption>Jelenlét adatok kezelése,<br>vizsga adminisztráció,<br>üzenetküldés</figcaption></figure></button>
 						</div>
 						
 						

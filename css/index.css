@@ -166,7 +166,7 @@ url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 .navbar-header{
 	
 	background-color: var(--headerhatter);
-	border-bottom-style: solid;
+	/*border-bottom-style: solid;*/
 	color:white;
 }
 main{

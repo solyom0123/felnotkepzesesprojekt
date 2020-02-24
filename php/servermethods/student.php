@@ -16,7 +16,7 @@ function list_student($conn) {
 
 function insertStudent($conn) {
     global $value;
-    $sql = "INSERT INTO students (student_full_name, birth_name, mothers_name,birth_place,gender,nationality,phone_number,taj,birth_date,home_address,enrollment_to_course,educational_attainment,email)
+    $sql = "INSERT INTO students (student_full_name, birth_name, mothers_name,birth_place,gender,nationality,phone_number,taj,birth_date,home_address,enrollment_to_course,educational_attainment,email,paymode)
 VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $value[5] . "','" . $value[6] . "','" . $value[7] . "','" . $value[8] . "." . $value[9] . "." . $value[10] . "','" . $value[11] . "," . $value[12] . "," . $value[13] . "," . $value[14] . "," . $value[15] . "','" . $value[16] . "." . $value[17] . "." . $value[18] . "','" . $value[19] . "','" . $value[20] . "','" . $value[21] . "')";
 
     if ($conn->query($sql) === TRUE) {

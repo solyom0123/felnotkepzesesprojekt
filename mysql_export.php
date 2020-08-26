@@ -1,23 +1,11 @@
 <?php
-
-require_once "../server.php";
-
-
-$host=$szerverneve;//"mysql.nethely.hu";//$szerverneve;
-//echo $host;
-$user=$felhasznalonev;//"oktat";//$felhasznalonev;
-//echo $user;
-$pass=$password;//"corvin2019";//$password;
-$name=$dbname;//"oktat";//$dbname;
-//echo $dbname;
 function dbbackup($host,$user,$pass,$name,$tables=false, $backup_name=false)
 { 
 	set_time_limit(3000); 
 	$mysqli = new mysqli($host,$user,$pass,$name); 
 	$mysqli->select_db($name); 
 	$mysqli->query("SET NAMES 'utf8'");
-	$queryTables= mysqli_query($mysqli, 'SHOW TABLES');
-	//$queryTables = $mysqli->query('SHOW TABLES'); 
+	$queryTables = $mysqli->query('SHOW TABLES'); 
 	while($row = $queryTables->fetch_row()) 
 	{ 
 		$target_tables[] = $row[0]; 
@@ -82,7 +70,5 @@ function dbbackup($host,$user,$pass,$name,$tables=false, $backup_name=false)
 	header("Content-disposition: attachment; filename=\"".$backup_name."\""); 
 	echo $content; exit;
 }
-dbbackup("mysql.nethely.hu", "oktat", "corvin2019", "oktat" );
-
-
+dbbackup("host", "user", "password", "database" );
 ?>

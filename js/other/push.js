@@ -12,7 +12,7 @@ function pushSend() {
         param: value
 
     }, function (data, status) {
-        //////console.log(data);
+        ////////console.log(data);
         
             megsem();
 

@@ -18,11 +18,11 @@ function studentList() {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none;//") {
             var value = "";
             var spStudents = data.split("//");
-            console.log(createPage('student', spStudents, "list_items"));
+            //console.log(createPage('student', spStudents, "list_items"));
             var buttons = createPage('student', spStudents, "list_items");
             var spData = buttons.split(";/;/;");
             document.getElementById("pagenerButtons").innerHTML = spData[0];
@@ -43,7 +43,7 @@ function studentTestPage() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         
 
     });
@@ -57,7 +57,7 @@ function createPage(name, listArray, target) {
     for (var i = 0; i < listArray.length; i++) {
         if (!checkEmptyString(listArray[i])) {
             var spStudent = listArray[i].split(";");
-            console.log("alma");
+            //console.log("alma");
             buttonData += name + ';' + spStudent[1] + ';' + spStudent[0] + '//';
 
         }
@@ -73,7 +73,7 @@ function createPage(name, listArray, target) {
             buttonsArrays.push(buttonData);
         }
 
-    console.log(buttonsArrays);
+    //console.log(buttonsArrays);
     returnPages = createPageButtons(buttonsArrays, target) + ";/;/;" + buttonsArrays[0];
     return returnPages;
 }
@@ -87,7 +87,7 @@ function createPageButtons(dataArray, target) {
 }
 function loadPagebyButton(target, index, dataArray) {
     var spdata = dataArray.split("//");
-    console.log(spdata);
+    //console.log(spdata);
     var valueOfUl = document.getElementById(target).value;
 
     var pagecontent = "";
@@ -95,7 +95,7 @@ function loadPagebyButton(target, index, dataArray) {
 
         if (!checkEmptyString(spdata[i])) {
             var student = spdata[i].split(";");
-            console.log(student);
+            //console.log(student);
                 pagecontent += '<li ><div class="col-md-2"></div><div class="row"><input id="' + student[0] + '" name="' + student[0] + '" type="radio"  checked class="col-md-1" value="' + student[1] + '"><p class="col-md-6">' + student[2] + '</p></div></li>';
            
         }
@@ -133,7 +133,7 @@ function studentSend() {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var value;
         if (data != "error") {
             value = '<div class="alert alert-success">Sikeres felvitel!</div>';
@@ -159,7 +159,7 @@ function exportUser() {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         /* if (data.contains("alert")) {
          
          document.getElementById("alert").innerHTML='<div class="alert alert-warning">'+data+"</div>";
@@ -182,7 +182,7 @@ function studentGet() {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -231,7 +231,7 @@ function studentGetWithParam(value) {
         param: value[1]
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -286,7 +286,7 @@ function getUsedName(type) {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data != "none;") {
             var spData = data.split(";");
             var text = '';
@@ -338,7 +338,7 @@ function studentEdit(id) {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';

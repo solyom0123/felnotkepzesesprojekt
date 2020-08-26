@@ -6,6 +6,7 @@
 
 
 class Aktiv_Kepzes_Model{
+
     /*
      * osztályváltozók:
      * 
@@ -19,7 +20,7 @@ class Aktiv_Kepzes_Model{
      * @param {type} tartaleknapok
      * @returns {Aktiv_Kepzes_Model}
      */
-    constructor(id,belsoazon,kepzes,kezdes,vizsgakezdes,vizsgaJelentkezes,tartaleknapok){
+    constructor(id,belsoazon,kepzes,kezdes,vizsgakezdes,vizsgaJelentkezes,tartaleknapok,banStart,banEnd){
        this.id =id;
        this.belsoAzonosito= belsoazon;
        this.kepzes=kepzes;
@@ -33,6 +34,8 @@ class Aktiv_Kepzes_Model{
        this.kizart_napok = new Array();
        this.naptar = new Array();
        this.befejezett_modul = new Array();
+       this._banStart = banStart;
+       this._banEnd = banEnd;
     }
    
     getBelsoAzonosito(){
@@ -62,7 +65,13 @@ class Aktiv_Kepzes_Model{
     getKepzes(){
         return this.kepzes;
     }
-    
+    getBanStart(){
+        return this._banStart;
+    }
+    getBanEnd(){
+        return this._banEnd;
+    }
+
     setKepzes(kepzes){
          this.kepzes= kepzes;
     }
@@ -121,5 +130,5 @@ class Aktiv_Kepzes_Model{
     getWeekDay(int){
        return this.het[int];
     }
-    
+
 }

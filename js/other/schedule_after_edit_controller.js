@@ -63,7 +63,7 @@ function editscheduleAJAXPROMISE(param) {
             },
 
             success: function (data) {
-                //console.log(data);
+                ////console.log(data);
 
                 resolve(data);
             },
@@ -83,6 +83,8 @@ function backLoadeditschedule() {
                 document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
                 document.getElementById("form-row-exam-date").value = sc.getVizsgaKezdes();
                 document.getElementById("form-row-help-day").value = sc.getTartaleknapok();
+                document.getElementById("form-row-pract-ban-start-date").value = sc.getBanStart();
+                document.getElementById("form-row-pract-ban-end-date").value = sc.getBanEnd();
 
                 solveDaysAndWriteBack(sc);
                 setTimeout(
@@ -103,7 +105,7 @@ function backLoadeditschedule() {
 
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 
 }
@@ -118,7 +120,7 @@ function makeScFromSchema() {
         },
 
         success: function (data) {
-            //console.log(data);
+            ////console.log(data);
             makeScFormDataAdapter(data, id);
 
         },
@@ -155,7 +157,7 @@ function loadAnActiveSchedule() {
                     },
 
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                         loadActiveScheduleFrom(data, id);
 
                     },
@@ -166,7 +168,7 @@ function loadAnActiveSchedule() {
 
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 
 
@@ -211,8 +213,8 @@ function startLoadSchedulePlan() {
         VOLT = true;
         USEDREPLACEMENTDAYS = loadSchedule(SPSCHEDULEDATA);
         makeTableForShow(4, null);
-        //console.log(sc);
-        ////console.log(kiiras);
+        ////console.log(sc);
+        //////console.log(kiiras);
         if (!hiba) {
             document.getElementById("resultTable").innerHTML = kiiras;
             loadTeacherselects(0, 0, true);
@@ -240,7 +242,7 @@ function loadBackSecondHalf() {
 
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 
 }
@@ -259,7 +261,7 @@ function editActiveEducation() {
         },
 
         success: function (data) {
-            //console.log(data);
+            ////console.log(data);
             loadAnActiveSchedule();
         },
         error: function (err) {

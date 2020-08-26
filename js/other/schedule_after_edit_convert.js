@@ -75,18 +75,18 @@ function loadNameAndDatesInputs(spNameAndDates, id) {
     var NameAndDates = spNameAndDates.split("//")[0].split(";,;");
     var kepzes = new Kepzes_Model(NameAndDates[9], NameAndDates[1], NameAndDates[2]);
 
-    sc = new Aktiv_Kepzes_Model(id, NameAndDates[0], kepzes, NameAndDates[3], NameAndDates[8], NameAndDates[4], NameAndDates[7]);
+    sc = new Aktiv_Kepzes_Model(id, NameAndDates[0], kepzes, NameAndDates[3], NameAndDates[8], NameAndDates[4], NameAndDates[7],NameAndDates[13],NameAndDates[14]);
     var doctrina_days = makeArrayFomString(NameAndDates[10]);
     var elearn_days = makeArrayFomString(NameAndDates[11]);
     var exercise_days = makeArrayFomString(NameAndDates[12]);
-    //console.log(doctrina_days);
-    //console.log(elearn_days);
-    //console.log(exercise_days);
+    ////console.log(doctrina_days);
+    ////console.log(elearn_days);
+    ////console.log(exercise_days);
     makeWeekUtemterv_bejegyzes_ModelfromArray(doctrina_days, sc, 1);
     makeWeekUtemterv_bejegyzes_ModelfromArray(exercise_days, sc, 2);
     makeWeekUtemterv_bejegyzes_ModelfromArray(elearn_days, sc, 3);
 
-    //console.log(spNameAndDates);
+    ////console.log(spNameAndDates);
     makeTableForShow(1, null);
     document.getElementById("form-row-name").value = NameAndDates[0];
     document.getElementById("form-row-help-day").value = NameAndDates[7];
@@ -96,6 +96,12 @@ function loadNameAndDatesInputs(spNameAndDates, id) {
     document.getElementById("form-row-kepzes").value = NameAndDates[1] + "-" + NameAndDates[2];
     if (NameAndDates[8] != "0000-00-00") {
         document.getElementById("form-row-exam-date").value = NameAndDates[8];
+    }
+    if (NameAndDates[13] != "0000-00-00") {
+        document.getElementById("form-row-pract-ban-start-date").value = NameAndDates[13];
+    }
+    if (NameAndDates[14] != "0000-00-00") {
+        document.getElementById("form-row-pract-ban-end-date").value = NameAndDates[14];
     }
 }
 function loadModulNames(spModulNames,target) {
@@ -168,17 +174,17 @@ function makeScFromDataNAMES(spNameAndDates, id) {
     var NameAndDates = spNameAndDates.split("//")[0].split(";,;");
     var kepzes = new Kepzes_Model(NameAndDates[9], NameAndDates[1], NameAndDates[2]);
 
-    sc = new Aktiv_Kepzes_Model(id, NameAndDates[0], kepzes, NameAndDates[3], NameAndDates[8], NameAndDates[4], NameAndDates[7]);
+    sc = new Aktiv_Kepzes_Model(id, NameAndDates[0], kepzes, NameAndDates[3], NameAndDates[8], NameAndDates[4], NameAndDates[7],NameAndDates[13],NameAndDates[14]);
     var doctrina_days = makeArrayFomString(NameAndDates[10]);
     var elearn_days = makeArrayFomString(NameAndDates[11]);
     var exercise_days = makeArrayFomString(NameAndDates[12]);
-    //console.log(doctrina_days);
-    //console.log(elearn_days);
-    //console.log(exercise_days);
+    ////console.log(doctrina_days);
+    ////console.log(elearn_days);
+    ////console.log(exercise_days);
     makeWeekUtemterv_bejegyzes_ModelfromArray(doctrina_days, sc, 1);
     makeWeekUtemterv_bejegyzes_ModelfromArray(exercise_days, sc, 2);
     makeWeekUtemterv_bejegyzes_ModelfromArray(elearn_days, sc, 3);
 
-    //console.log(spNameAndDates);
+    ////console.log(spNameAndDates);
 
 }

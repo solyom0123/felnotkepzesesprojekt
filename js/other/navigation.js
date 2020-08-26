@@ -32,19 +32,25 @@ function megsem() {
     });
 }
 function loadingModuls(linkfr) {
+   console.log(linkfr);
     if (linkfr == "modul_in_form" || linkfr == "cur_unit_in_form" || linkfr == "modul_r_list" || linkfr == "cur_unit_list") {
         modulEducation(true);
     }
     if(linkfr == "bonus_unit_list"){
         bonusunitList('form-row-cur-unit');
     }
-    if (linkfr == "course_start"||linkfr == "course_start_edit") {
+    if (linkfr == "course_start") {
         modulEducation(false);
         getActiveEduScheme();
          lockAllFieldsCourseStartForm(false);
         lockAllModulSelector(false);
         //clearUsedSelectChooseArrays();
     }
+    if (linkfr == "course_start_edit") {
+        modulEducation(false);
+        lockAllFieldsCourseStartForm(false);
+        lockAllModulSelector(false);
+     }
     if (linkfr == "course_in_form") {
         coursekepmodal();
         coursefilemodal();
@@ -65,8 +71,7 @@ function loadingModuls(linkfr) {
         openDefultTab();
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-list");
-        activeCourseListOptions(0,"form-row-aktiv-kepzes-es");
-    
+
     }
     if(linkfr == "print_edu_cont_in_form"||linkfr == "print_personal_in_form"||linkfr == "push_in_form"){
         openDefultTab();
@@ -81,6 +86,7 @@ function loadingModuls(linkfr) {
     }
     if (linkfr=="print_sc_in_form") {
         openDefultTab();
+        activeCourseListOptions(0,"form-row-aktiv-kepzes-es");
         activeCourseListOptions(0,"form-row-aktiv-kepzes");
         activeCourseListOptions(0,"form-row-aktiv-kepzes-h");
      
@@ -131,7 +137,6 @@ function loadingModuls(linkfr) {
     if (linkfr == "date_in_form") {
         var date = new Date();
         var stringDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-01";
-        ////console.log(stringDate);
         monthGet(stringDate);
 
 
@@ -153,11 +158,11 @@ function checkEmptyString(string){
  * @returns {undefined}
  */
 function setElozo(elozo) {
-    ////console.log("elozo: " + elozo);
+    //////console.log("elozo: " + elozo);
     $.post("./php/elozmeny.php", {
         preva: elozo
     }, function (data, status) {
-        //  ////console.log(data);
+        //  //////console.log(data);
     });
 }
 /**
@@ -167,7 +172,7 @@ function setElozo(elozo) {
  */
 function link(link) {
     var slink = './php/' + link + '.php';
-    console.log(link);
+    //console.log(link);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: slink,
@@ -195,8 +200,8 @@ function link(link) {
  * @returns {undefined}
  */
 function serverdata(linkfr, value, muv, target) {
-    //////console.log(value);
-    //////console.log(target);
+    ////////console.log(value);
+    ////////console.log(target);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "server.php",
@@ -227,8 +232,8 @@ function serverdata(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkWithData(linkfr, value, muv, target) {
-    //////console.log(value);
-    //////console.log(target);
+    ////////console.log(value);
+    ////////console.log(target);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "./php/" + linkfr + ".php",
@@ -258,7 +263,7 @@ function linkWithData(linkfr, value, muv, target) {
  * @returns {undefined}
  */
 function linkside(link) {
-    // ////console.log(value);
+    // //////console.log(value);
     var slink = './php/' + link + '.php';
     if (!link == "") {
         $.get(slink, function (data, status) {
@@ -274,11 +279,11 @@ function linkside(link) {
  * @returns {undefined}
  */
 function linkhead() {
-    // ////console.log(value);
+    // //////console.log(value);
     var slink = './php/header.php';
 
     $.get(slink, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         document.getElementsByClassName('header-wrapper')[0].innerHTML = data;
     });
 }
@@ -293,14 +298,14 @@ function login(muv) {
     var name = document.getElementById("name").value;
     var pass = document.getElementById("pass").value;
     var value = new Array(name, pass);
-    //////console.log(muv + "," + name + "," + pass);
+    ////////console.log(muv + "," + name + "," + pass);
     var slink = 'server.php';
     $.post(slink, {
         muv: muv,
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var splited = data.split(";");
         if (splited[0] == "true") {
 
@@ -329,7 +334,7 @@ function loggedIn() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data == "true") {
 
             link("main_admin");
@@ -341,7 +346,7 @@ function loggedIn() {
             link("login").then(data => {
                })
             .catch(error => {
-                console.log(error)
+                //console.log(error)
             });;
         }
 
@@ -352,7 +357,7 @@ function loggedIn() {
 function nyomtat_sablon(){
 	
 	var kepzes_id=document.getElementById("form-row-aktiv-kepzes-es").value;
-	console.log(kepzes_id);
+	//console.log(kepzes_id);
 	var hr = new XMLHttpRequest();
 	
 	var p_link="../php/forms/mod_exam_notes_print.php";
@@ -362,7 +367,7 @@ function nyomtat_sablon(){
 	hr.onreadystatechange = function() {
     if(hr.readyState == 4 && hr.status == 200) {
         var return_data = hr.responseText;
-		console.log(return_data);
+		//console.log(return_data);
         document.getElementById("div_nyomtatvany").innerHTML = return_data;
 		}
 	}
@@ -375,7 +380,7 @@ function nyomtat_sablon(){
 function nyomtat_sablon_pdf(){
 	
 	var kepzes_id=document.getElementById("form-row-aktiv-kepzes-es").value;
-	console.log(kepzes_id);
+	//console.log(kepzes_id);
 	var hr = new XMLHttpRequest();
 	
 	var p_link="../php/forms/mod_exam_notes_print_pdf.php";
@@ -385,7 +390,7 @@ function nyomtat_sablon_pdf(){
 	hr.onreadystatechange = function() {
     if(hr.readyState == 4 && hr.status == 200) {
         var return_data = hr.responseText;
-		//console.log(return_data);
+		////console.log(return_data);
         document.getElementById("div_nyomtatvany").innerHTML = return_data;
 		}
 	}
@@ -400,7 +405,7 @@ function nyomtat_sablon_pdf(){
 
     function exportHTML(){
 		/*-----*/
-		
+		var p_link="../php/forms/mod_exam_notes_print_pdf.php";
 		
 		
 		
@@ -413,8 +418,8 @@ function nyomtat_sablon_pdf(){
             "xmlns='http://www.w3.org/TR/REC-html40'>"+
             "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title><style> tr { page-break-inside:avoid; page-break-after:auto } .nopagebreak{page-break-inside: avoid;} table, td, th {padding:2px; border: 1px solid black; border-collapse: collapse; font-size:10px; page-break-inside:auto;}</style></head><body>";
        var footer = "</body></html>";
+	   /*startPrinting(14);*/
        var sourceHTML = header+document.getElementById("div_nyomtatvany").innerHTML+footer;
-       
        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
        var fileDownload = document.createElement("a");
        document.body.appendChild(fileDownload);

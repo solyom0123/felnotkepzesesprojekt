@@ -13,7 +13,7 @@ function bonusunitSend() {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var value;
         if (data != "error") {
 
@@ -44,7 +44,7 @@ function bonusunitEdit(id) {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -76,7 +76,7 @@ function bonusunitGet() {
                                     param: value
 
                                 }, function (data, status) {
-                                    console.log(data);
+                                    //console.log(data);
                                     if (data != "none/;/") {
                                         var spData = data.split("/;/");
                                         document.getElementById("form-row-name").value = spData[0];
@@ -96,7 +96,7 @@ function bonusunitGet() {
 
                 })
                 .catch(error => {
-                    ////console.log(error)
+                    //////console.log(error)
                 });
 
     }
@@ -113,7 +113,7 @@ function bonusunitGetWithParam(value) {
                                     param: value[1]
 
                                 }, function (data, status) {
-                                    console.log(data);
+                                    //console.log(data);
                                     if (data != "none/;/") {
                                         var spData = data.split("/;/");
                                         document.getElementById("form-row-name").value = spData[0];
@@ -134,7 +134,7 @@ function bonusunitGetWithParam(value) {
 
                 })
                 .catch(error => {
-                    ////console.log(error)
+                    //////console.log(error)
                 });
 }
 
@@ -147,7 +147,7 @@ function bonusunitList(targetDiv) {
         param: "value"
 
     }, function (data, status) {
-       console.log(data);
+       //console.log(data);
         var returnSelectorOptions = '';
         if (data != "none;//") {
             var spReturnDataList = data.split("//");

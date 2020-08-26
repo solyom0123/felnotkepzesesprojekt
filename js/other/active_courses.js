@@ -24,7 +24,7 @@ function activeCourseSend() {
             param: value
 
         }, function (data, status) {
-            //console.log(data);
+            //////console.log(data);
             activeCourseGet(1, 1, 1, 1);
 
         });
@@ -53,7 +53,7 @@ function deleteStudentConnect() {
             param: value
 
         }, function (data, status) {
-            //console.log(data);
+            ////console.log(data);
             activeCourseGet();
 
         });
@@ -69,7 +69,7 @@ function activeCourseGet(ordernew, ordertypenew, orderold, ordertypeold) {
         param: value + "_" + ordernew + "_" + ordertypenew + "_" + orderold + "_" + ordertypeold
 
     }, function (date, status) {
-        //console.log(date);
+        ////console.log(date);
         link("user_con_form")
                 .then(data => {
                     document.getElementsByTagName("id")[0].innerHTML = value;
@@ -85,7 +85,7 @@ function activeCourseGet(ordernew, ordertypenew, orderold, ordertypeold) {
                     document.getElementById("studentTable").innerHTML = tableRowsOfUsedStudent;
                 })
                 .catch(error => {
-                    ////console.log(error)
+                    //////console.log(error)
                 });
 
 
@@ -153,7 +153,7 @@ function  makeRowsFromDataStudent(spUsedStudentsInfo) {
 
     }
 
-    //console.log(value);
+    ////console.log(value);
     return value;
 }
 function  makeOptionFromData(InArray) {
@@ -174,7 +174,7 @@ function  makeOptionFromData(InArray) {
     }
 
 
-    //console.log(value);
+    ////console.log(value);
     return options;
 }
 function backtotheMenu() {
@@ -197,7 +197,7 @@ function backtotheMenu() {
                 });
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 }
 function  makeTableFromDataNewStudent(spNewStudentsInfo) {
@@ -261,7 +261,7 @@ function  makeTableFromDataNewStudent(spNewStudentsInfo) {
 
     }
 
-    //console.log(value);
+    ////console.log(value);
     return value;
 }
 
@@ -271,7 +271,7 @@ function loadActiveMenu(id) {
                 document.getElementsByTagName("id")[0].innerHTML = id;
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 }
 
@@ -283,7 +283,7 @@ function activeCourseList(order, type) {
         param: order + "_" + type
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var value = makeTableFromActiveCourses(data);
         document.getElementById('active_courses').innerHTML = value;
 
@@ -299,7 +299,7 @@ function pushNoticeList(order, type) {
         param: order + "_" + type
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var value = makeTableForPushNotice(data);
         document.getElementById('push').innerHTML = value;
 
@@ -316,7 +316,7 @@ function activeCourseListOptions(type, target) {
         param: "1" + "_" + "1"
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var value = makeOptionFromData(data.split("//"));
         document.getElementById(target).innerHTML = value;
 
@@ -333,7 +333,7 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
     }
     var course = document.getElementById(sourceCourse).value;
     var value = new Array(course, item);
-    console.log(value);
+    //console.log(value);
     if (item != "-1" && course != "-1") {
         var muv = '';
         if (type == 0) {
@@ -360,7 +360,7 @@ function getMissingTable(type, target, sourceCourse, sourceItem) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var value = "";
             if (type == 0) {
                 value = makeTablefromDataDate(data.split("//"), false);
@@ -457,7 +457,7 @@ function  missingsend(i, j, type) {
                     param: value
 
                 }, function (data, status) {
-                    console.log(data);
+                    //console.log(data);
                     if (type != 2) {
                         inputs[0].style.backgroundColor = "green";
                         inputs[0].style.color = "white";
@@ -575,7 +575,7 @@ function  missingget(i, j, type) {
             document.getElementById("loadModal").style.display = "none";
             clearInterval(timer);
         }
-    }, 300);
+    }, 250);
 
 
 
@@ -598,7 +598,7 @@ function listOptionsWithTargetAndSource(type, target, source) {
         param: value
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
         var value = makeOptionFromData(data.split("//"));
         document.getElementById(target).innerHTML = value;
 
@@ -1183,48 +1183,42 @@ function makeTableForPushNotice(data) {
     }
     return value;
 }
-function deleteData(param) {
+function deleteDataWithOneParam(param) {
     var value = collectDataFromCorrectFormForDelete(param);
-    console.log(value);        
+    //console.log(value);
     $.post("server.php", {
                 muv: "delete",
                 param: value
 
             }, function (data, status) {
-                console.log(data);
+               // console.log(data);
                 callCorrectFormAgainForDelete(param);
             });
 
 }
 function deleteData(param,id) {
-    var value = new Array(param,id);
-    console.log(value);        
-    $.post("server.php", {
-                muv: "delete",
-                param: value
+    if(id != undefined) {
+        var value = new Array(param, id);
+       // console.log(value);
+        $.post("server.php", {
+            muv: "delete",
+            param: value
 
-            }, function (data, status) {
-                console.log(data);
-                callCorrectFormAgainForDelete(param);
-            });
-
+        }, function (data, status) {
+          //  console.log(data);
+            callCorrectFormAgainForDelete(param);
+        });
+    }else {
+        deleteDataWithOneParam(param);
+    }
 }
 function collectDataFromCorrectFormForDelete(param) {
     var returnArray = new Array();
     returnArray[0]=param;
-    switch (param) {
-        case 0:
-        {
+
             returnArray[1]=document.getElementsByTagName("id")[0].innerHTML;
-            break;
-        }
-        case 1:
-        {
-            returnArray[1]=document.getElementsByTagName("id")[0].innerHTML;
-            break;
-        }
-        
-    }
+           // console.log(returnArray);
+
     return returnArray;
 }
 function   callCorrectFormAgainForDelete(param){

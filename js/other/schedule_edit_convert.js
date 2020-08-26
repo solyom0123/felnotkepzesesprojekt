@@ -94,7 +94,7 @@ function insertInTable(utemterv,i) {
                 setTimeout(function () {
                     
     
-                    console.log(data);
+                    //console.log(data);
                     var options = makeOptionsForteacherselect(data);
                     
                      document.getElementById("bonustable").getElementsByTagName("tr")[searchforOptions(sdata[0],sdata[1],sdata[2],sdata[3])].style.backgroundColor = "yellow";
@@ -102,7 +102,7 @@ function insertInTable(utemterv,i) {
                     loadOptions(searchforOptions(sdata[0],sdata[1],sdata[2],sdata[3]), options,"bonustable");
 
 
-                }, 300);
+                }, 100);
             })
             .catch(error => {
 
@@ -213,6 +213,33 @@ function solveFinishedModulsAndOrderBack(sc) {
         document.getElementById("form-row-finished-modul-" + (i + 1)).value = actmodul.getId();
     }
 }
+function solveUtemTerv_ModelTypeForHumanExchangeExecToDoc(type,curUnit) {
+    var returnValue = '';
+    var numbertype = type * 1;
+    switch (numbertype) {
+        case 1:
+            returnValue = "elméleti";
+            break;
+        case 2:
+            if(curUnit.getElearn_oraszam()-curUnit.getFelhasznalt_elearn()>0){
+                returnValue = "elearn";
+            }else if(curUnit.getElmeleti_oraszam()-curUnit.getFelhasznalt_elmelet()>0){
+                returnValue = "elméleti";
+            }
+            break;
+        case 3:
+            returnValue = "elearn";
+            break;
+        case 0:
+            returnValue = "pótnap";
+            break;
+        default:
+
+            break;
+    }
+    return returnValue;
+}
+
 function solveUtemTerv_ModelTypeForHuman(type) {
     var returnValue = '';
     var numbertype = type * 1;
@@ -256,21 +283,22 @@ function solveUtemTerv_ModelExamTypeForHuman(type) {
     return returnValue;
 }
 function loadTeacherselects(start, kulonbseg, load) {
+
     var modal = document.getElementById("loadModal");
-    //console.log(start);
+    ////console.log(start);
     if (start < sc.getUtemterv().length) {
         var actday = sc.getUtemtervNap(start);
-        //console.log(sc.getUtemtervNap(start));
-        //console.log(document.getElementById("scTable").getElementsByTagName("tr")[start + 1 - kulonbseg]);
+        ////console.log(sc.getUtemtervNap(start));
+        ////console.log(document.getElementById("scTable").getElementsByTagName("tr")[start + 1 - kulonbseg]);
 
         modal.style.display = "block";
         if(!actday.isVizsga()){
-             console.log("normal");
+             //console.log("normal");
         
-        console.log(sc.getUtemtervNap(start));
+        //console.log(sc.getUtemtervNap(start));
         searchTeacher(actday.getTanegysegVizsgaid())
                 .then(data => {
-                     console.log(data);
+                     //console.log(data);
                     setTimeout(function () {
                         
                         if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
@@ -291,7 +319,7 @@ function loadTeacherselects(start, kulonbseg, load) {
 
                         }
                        
-                    }, 300);
+                    }, 250);
                 })
                 .catch(error => {
 
@@ -300,12 +328,12 @@ function loadTeacherselects(start, kulonbseg, load) {
                 });
 
         }else{
-             console.log("vizsga");
+             //console.log("vizsga");
         
-        console.log(sc.getUtemtervNap(start));
+        //console.log(sc.getUtemtervNap(start));
             searchTeacherExam(actday.getModul())
                 .then(data => {
-                     console.log(data);
+                     //console.log(data);
                     setTimeout(function () {
                         if(document.getElementById("scTable").getElementsByTagName("tr").length>start+1){
                         document.getElementById("scTable").getElementsByTagName("tr")[start+1].style.backgroundColor = "yellow";
@@ -319,7 +347,7 @@ function loadTeacherselects(start, kulonbseg, load) {
 
                          
                        
-                    }, 300);
+                    }, 100);
                 })
                 .catch(error => {
 
@@ -331,12 +359,6 @@ function loadTeacherselects(start, kulonbseg, load) {
     } else {
 
         modal.style.display = "none";
-         var notwork =checkSc(sc);
-                if(notwork.length>0){
-                    document.getElementById("pass-btn").style.display="none";
-                      document.getElementById("pass-btn-b").style.display="none";
-                    document.getElementById("alert").innerHTML = alertMessageMake(notwork);
-                }
         if (load) {
             loadBackSecondHalf();
         }

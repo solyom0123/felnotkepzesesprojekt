@@ -40,7 +40,7 @@ function searchTeacherExam(modul) {
             },
 
             success: function (data) {
-                // //console.log(data);
+                // ////console.log(data);
                 resolve(data);
             },
             error: function (err) {
@@ -62,7 +62,7 @@ function searchTeacher(curUnitId) {
             },
 
             success: function (data) {
-                // //console.log(data);
+                // ////console.log(data);
                 resolve(data);
             },
             error: function (err) {
@@ -83,7 +83,7 @@ function searchForCurUnits(param) {
             },
 
             success: function (data) {
-                //console.log(data);
+                ////console.log(data);
                 resolve(data);
             },
             error: function (err) {

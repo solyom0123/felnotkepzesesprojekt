@@ -25,11 +25,11 @@ function teacherList() {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none;//") {
             var value = "";
              var spStudents = data.split("//");
-            console.log(createPage('teacher', spStudents, "list_items"));
+            //console.log(createPage('teacher', spStudents, "list_items"));
             var buttons = createPage('teacher', spStudents, "list_items");
             var spData = buttons.split(";/;/;");
             document.getElementById("pagenerButtons").innerHTML = spData[0];
@@ -68,7 +68,7 @@ function teacherSend() {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var value;
         if (data != "error") {
             value = '<div class="alert alert-success">Sikeres felvitel!</div>';
@@ -98,7 +98,7 @@ function teacherGet() {
             param: value
 
         }, function (data, status) {
-            ////console.log(data);
+            //////console.log(data);
             if (data != "none/;/") {
                 var spData = data.split("/;/");
                 document.getElementById("form-row-name").value = spData[0];
@@ -144,7 +144,7 @@ function teacherGetWithParam(value) {
         param: value[1]
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -204,7 +204,7 @@ function teacherEdit(id) {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -244,7 +244,7 @@ function deleteConnectteacherAndCurUnit() {
                 param: value
 
             }, function (data, status) {
-                console.log(data);
+                //console.log(data);
 
                 teacher_cur_unit_get(1, 1, 1, 1);
             });
@@ -264,7 +264,7 @@ function connectionSend() {
                 param: value
 
             }, function (data, status) {
-                ////console.log(data);
+                //////console.log(data);
                 teacher_cur_unit_get(1, 1, 1, 1);
 
             });
@@ -341,7 +341,7 @@ function  makeRowsFromDataTeacher(spCurunits, cbName, type) {
 
     }
 
-    //console.log(value);
+    ////console.log(value);
     return value;
 }
 function teacher_cur_unit_get(order_new, ordertype_new, order_old, ordertype_old) {
@@ -372,7 +372,7 @@ function teacher_cur_unit_List(value, order, ordertype,bonus) {
             param: sendValue
 
         }, function (data, status) {
-           console.log(data);
+           //console.log(data);
             var table = "";
             var spStudents = null;
             if (data != "none;//") {
@@ -417,7 +417,7 @@ function teacherListOption() {
         param: "value"
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         if (data != "none;//") {
             var value = "";
             value += '<option name="teacher" value="-1">Kérem válasszon oktatót!</option>'
@@ -464,7 +464,7 @@ function userEdit(aid, type) {
             param: data
 
         }, function (dataa, status) {
-            //console.log(dataa);
+            ////console.log(dataa);
 
             var value = '<div class="alert alert-success">Sikeres felvitel</div>';
             var data = new Array(value, aid);
@@ -487,7 +487,7 @@ function getLoginData() {
             param: uid
 
         }, function (dataa, status) {
-            //console.log(dataa);
+            ////console.log(dataa);
 
            if(dataa!="none//"){
               document.getElementById("form-row-uname").value = dataa;
@@ -518,7 +518,7 @@ function deleteConnectCurUnitAndteacher() {
                 param: value
 
             }, function (data, status) {
-                ////console.log(data);
+                //////console.log(data);
 
                 cur_unit_teacher_get(1, 1, 1, 1);
             });
@@ -538,7 +538,7 @@ function connectionSendCur() {
                 param: value
 
             }, function (data, status) {
-                ////console.log(data);
+                //////console.log(data);
                 cur_unit_teacher_get(1, 1, 1, 1);
 
             });
@@ -615,7 +615,7 @@ function  makeRowsFromDataTeacherCur(spCurunits, cbName, type) {
 
     }
 
-    //console.log(value);
+    ////console.log(value);
     return value;
 }
 function cur_unit_teacher_get(order_new, ordertype_new, order_old, ordertype_old) {
@@ -643,7 +643,7 @@ function cur_unit_teacher_List(value, order, ordertype) {
             param: sendValue
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var table = "";
             var spStudents = null;
             if (data != "none;//") {

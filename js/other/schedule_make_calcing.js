@@ -12,6 +12,20 @@ function  sumHoursCanUse(hourscanuse) {
     }
     return hour;
 }
+function  calcAndSetFoundCurUnitUsedHourAmmountByHourTypeExchangeExecToDoc(actHour, foundCurUnit, hourAmmmountByHoursType,type) {
+    if (actHour.getTipus() == 1) {
+        foundCurUnit.setFelhasznalt_elmelet(foundCurUnit.getFelhasznalt_elmelet() + hourAmmmountByHoursType);
+    } else if (actHour.getTipus() == 2) {
+        if(type == 3){
+            foundCurUnit.setFelhasznalt_elearn(foundCurUnit.getFelhasznalt_elearn() + hourAmmmountByHoursType);
+        }else{
+            foundCurUnit.setFelhasznalt_elmelet(foundCurUnit.getFelhasznalt_elmelet() + hourAmmmountByHoursType);
+        }
+       } else if (actHour.getTipus() == 3) {
+        foundCurUnit.setFelhasznalt_elearn(foundCurUnit.getFelhasznalt_elearn() + hourAmmmountByHoursType);
+    }
+
+}
 function  calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit, hourAmmmountByHoursType) {
     if (actHour.getTipus() == 1) {
         foundCurUnit.setFelhasznalt_elmelet(foundCurUnit.getFelhasznalt_elmelet() + hourAmmmountByHoursType);
@@ -22,6 +36,15 @@ function  calcAndSetFoundCurUnitUsedHourAmmountByHourType(actHour, foundCurUnit,
     }
 
 }
+function calcAndSetActModulUsedHourAmmountByHourTypeExchangeExecToDoc(actHour, actModul, hourAmmmountByHoursType) {
+    if (actHour.getTipus() == 1 || actHour.getTipus() == 3) {
+        actModul.setFelhasznaltElmeletiOraszam(actModul.getFelhasznaltElmeletiOraszam() + hourAmmmountByHoursType);
+    } else if (actHour.getTipus() == 2) {
+        actModul.setFelhasznaltElmeletiOraszam(actModul.getFelhasznaltElmeletiOraszam() + hourAmmmountByHoursType);
+    }
+
+}
+
 function calcAndSetActModulUsedHourAmmountByHourType(actHour, actModul, hourAmmmountByHoursType) {
     if (actHour.getTipus() == 1 || actHour.getTipus() == 3) {
         actModul.setFelhasznaltElmeletiOraszam(actModul.getFelhasznaltElmeletiOraszam() + hourAmmmountByHoursType);
@@ -40,6 +63,46 @@ function calcmodulstarthourAmmmountByHoursType(actModul, actHour) {
     return returnValue;
 
 }
+function calcmodulstarthourAmmmountByHoursTypeExchangeExecToDoc(actModul, actHour) {
+    var returnValue = 0;
+    if (actHour.getTipus() == 1 || actHour.getTipus() == 3) {
+        returnValue = actModul.getFelhasznaltElmeletiOraszam();
+    } else if (actHour.getTipus() == 2) {
+        returnValue = actModul.getFelhasznaltElmeletiOraszam();
+    }
+    return returnValue;
+
+}
+function calchourAmmmountByHoursTypeExchangeExecToDoc(foundCurUnit, actHour, hourAmmount) {
+    var returnValue = 0;
+    if (actHour.getTipus() == 1) {
+        var elmHour = foundCurUnit.getElmeleti_oraszam() - foundCurUnit.getFelhasznalt_elmelet();
+        if ((elmHour) <= hourAmmount) {
+            returnValue = elmHour;
+        } else {
+            returnValue = hourAmmount;
+        }
+
+    } else if (actHour.getTipus() == 2) {
+        var gyakHour = foundCurUnit.getElearn_oraszam() - foundCurUnit.getFelhasznalt_elearn();
+        if(gyakHour<=0)
+            gyakHour = foundCurUnit.getElmeleti_oraszam() - foundCurUnit.getFelhasznalt_elmelet();
+        if ((gyakHour) <= hourAmmount) {
+            returnValue = gyakHour;
+        } else {
+            returnValue = hourAmmount;
+        }
+    } else if (actHour.getTipus() == 3) {
+        var elHour = foundCurUnit.getElearn_oraszam() - foundCurUnit.getFelhasznalt_elearn();
+        if ((elHour) <= hourAmmount) {
+            returnValue = elHour;
+        } else {
+            returnValue = hourAmmount;
+        }
+    }
+    return returnValue;
+}
+
 function calchourAmmmountByHoursType(foundCurUnit, actHour, hourAmmount) {
     var returnValue = 0;
     if (actHour.getTipus() == 1) {

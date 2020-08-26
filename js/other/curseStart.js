@@ -109,7 +109,7 @@ function getActiveEduScheme() {
         param: "value"
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         if (data != "none;") {
 
             var spData = data.split("/;/");
@@ -147,7 +147,7 @@ function modulSelectorsMake() {
             param: id
 
         }, function (data, status) {
-            //////console.log(data);
+            ////////console.log(data);
             var value = "";
             var value2 = "";
             var spStudents = data.split("//");
@@ -179,7 +179,7 @@ function modulSelectorsMake() {
                         modullist = moduls;
                         for (var i = 1; i < spStudents.length; i++) {
                             if (!checkEmptyString(spStudents[i])) {
-                                ////console.log(i);
+                                //////console.log(i);
                                 let atadandotiltott = Object.assign(new Array(), tiltotta);
                                 let atadandohely = Object.assign(new Array(), hasznalt);
                                 let fatadandotiltott = Object.assign(new Array(), ftiltotta);
@@ -203,7 +203,7 @@ function modulSelectorsMake() {
                         document.getElementById("error_place").innerHTML = message;
                     })
                     .catch(error => {
-                        ////console.log(error)
+                        //////console.log(error)
                     });
 
 
@@ -233,12 +233,15 @@ function checkEnoughDay() {
     var plan_dec_number = calc("_plan_dec");//;
     var plan_exe_number = calc("_plan_exe");
     var el_dec_number = calc("_el_dec");
-
+//pract-ban-end-date
     var startday = document.getElementById("form-row-start").value;
     var signDay = document.getElementById("form-row-sign-date").value;
     var id = document.getElementById("form-row-kepzes").value;
+    var banStart = document.getElementById("form-row-pract-ban-start-date").value;
+    var banEnd = document.getElementById("form-row-pract-ban-end-date").value;
 
     var param = new Array();
+    //console.log(plan_exe_number);
     param[0] = plan_dec_number;
     param[1] = plan_exe_number;
     param[2] = el_dec_number;
@@ -257,6 +260,8 @@ function checkEnoughDay() {
     param[7] = id;
     param[8] = tiltotta;
     param[9] = ftiltotta;
+    param[10] = banStart;
+    param[11] = banEnd;
     var slink = 'server.php';
     $.post(slink, {
         muv: "enough_day",
@@ -418,7 +423,6 @@ function checkEnoughDay() {
     });
 
 }
-
 
 
 function calc(type) {

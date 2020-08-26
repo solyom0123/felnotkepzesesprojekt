@@ -13,7 +13,7 @@ function curunitSend() {
         param: value
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var value;
         if (data != "error") {
 
@@ -45,7 +45,7 @@ function curunitEdit(id) {
         param: value
 
     }, function (data, status) {
-        console.log(data);
+        //console.log(data);
         var text;
         if (data != "error") {
             text = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -77,7 +77,7 @@ function curunitGet() {
                                     param: value
 
                                 }, function (data, status) {
-                                    console.log(data);
+                                    //console.log(data);
                                     if (data != "none/;/") {
                                         var spData = data.split("/;/");
                                         document.getElementById("form-row-name").value = spData[0];
@@ -86,7 +86,7 @@ function curunitGet() {
                                         ;
                                         searchForCurUnitCourseId(spData[2])
                                                 .then(id => {
-                                                    console.log(id);
+                                                    //console.log(id);
 
                                                     if (id != "none") {
                                                         id = (id * 1);
@@ -99,11 +99,11 @@ function curunitGet() {
                                                                 document.getElementById("form-row-mod").value = (spData[2] * 1);
                                                             })
                                                             .catch(error => {
-                                                                ////console.log(error)
+                                                                //////console.log(error)
                                                             });
                                                 })
                                                 .catch(error => {
-                                                    ////console.log(error)
+                                                    //////console.log(error)
                                                 });
                                         document.getElementById("form-row-elm").value = spData[3];
                                         ;
@@ -125,7 +125,7 @@ function curunitGet() {
 
                 })
                 .catch(error => {
-                    ////console.log(error)
+                    //////console.log(error)
                 });
 
     }
@@ -160,7 +160,7 @@ function curunitGetWithParam(value) {
                                     param: value[1]
 
                                 }, function (data, status) {
-                                    console.log(data);
+                                    //console.log(data);
                                     if (data != "none/;/") {
                                         var spData = data.split("/;/");
                                         document.getElementById("form-row-name").value = spData[0];
@@ -169,7 +169,7 @@ function curunitGetWithParam(value) {
                                         ;
                                         searchForCurUnitCourseId(spData[2])
                                                 .then(id => {
-                                                    console.log(id);
+                                                    //console.log(id);
 
                                                     if (id != "none") {
                                                         id = (id * 1);
@@ -182,11 +182,11 @@ function curunitGetWithParam(value) {
                                                                 document.getElementById("form-row-mod").value = (spData[2] * 1);
                                                             })
                                                             .catch(error => {
-                                                                ////console.log(error)
+                                                                //////console.log(error)
                                                             });
                                                 })
                                                 .catch(error => {
-                                                    ////console.log(error)
+                                                    //////console.log(error)
                                                 });
                                         document.getElementById("form-row-elm").value = spData[3];
                                         ;
@@ -207,7 +207,7 @@ function curunitGetWithParam(value) {
 
                 })
                 .catch(error => {
-                    ////console.log(error)
+                    //////console.log(error)
                 });
 }
 function listUploadedFile(type,id,order,ordertype) {
@@ -218,7 +218,7 @@ function listUploadedFile(type,id,order,ordertype) {
         param: new Array(type,id,order,ordertype)
 
     }, function (data, status) {
-       console.log(data);
+       //console.log(data);
             var spData = data.split("/;/");
             document.getElementById("form-row-file-list").innerHTML = makefiletable(type,id,spData);
 
@@ -282,7 +282,7 @@ function  makefiletable(type,id,spCurunits) {
 
     }
 
-    //console.log(value);
+    ////console.log(value);
     return value;
 }
 function tanegysegfrissit(id, hova) {
@@ -296,13 +296,13 @@ function tanegysegfrissit(id, hova) {
     }
     if (id != 'undefined') {
 
-        ////console.log(id);
+        //////console.log(id);
         $.post(slink, {
             muv: "list_cur_unit_filter",
             param: id
 
         }, function (data, status) {
-            ////console.log(data);
+            //////console.log(data);
             var value = "";
             var spStudents = data.split("//");
             for (var i = 0; i < spStudents.length; i++) {

@@ -28,7 +28,7 @@ function sendPassword(id,type){
             param: data
 
         }, function (dataa, status) {
-            console.log(dataa);
+            //console.log(dataa);
             var value = "";
             if(dataa=="ok"){
             value ='<div class="alert alert-success">Sikeres küldés</div>';

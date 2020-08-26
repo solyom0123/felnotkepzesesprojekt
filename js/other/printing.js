@@ -46,6 +46,10 @@ function startPrinting(type) {
         case 13:
             missingPrint(type);
             break;
+		case 14:
+			//missingPrintStudent(type);
+			 missingPrintStudentToNoName(type);
+			break;
         default:
 
             break;
@@ -70,7 +74,7 @@ function attendforStudent(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var mainhead_array = new Array();
             var date = '';
             var courses_datas = new Array();
@@ -121,7 +125,7 @@ function listnamePrint(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var mainhead_array = new Array();
             var date = '';
             var courses_datas = new Array();
@@ -176,7 +180,7 @@ function scprint(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var link = data;
             makeformForscprint(course, link, ido);
 
@@ -196,7 +200,7 @@ function missingPrint(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var link = data;
             makeformFormissingprint(new Array(course, student), link);
 
@@ -215,16 +219,17 @@ function missingPrintStudent(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var spData = data.split("/;/");
             var students = spData[0].split("//");
             var link = spData[1];
+			console.log(link);
             var i = 0;
-            console.log(students);
+            //console.log(students);
             var timer = setInterval(function () {
                 
                 if (i < students.length) {
-                    console.log(students[i])
+                    //console.log(students[i])
                     if (!checkEmptyString(students[i])) {
                         var spStudents = students[i].split(";");
                         makeformForsendscmissing(spStudents, course, link);
@@ -254,7 +259,9 @@ function  makeformForsendscmissing(spStudents, course, link) {
 
 function  makeformForscprint(value, link, ido) {
     var button_id = "passToPrint";
+	
     var form = form_head("./php/forms/" + link, true, "POST");
+	
     form += one_variable_input("param", value);
     form += one_variable_input("hour", ido);
     form += submit_button(button_id);
@@ -262,6 +269,7 @@ function  makeformForscprint(value, link, ido) {
     document.getElementById("help_div").innerHTML = form;
     document.getElementById(button_id).click();
 }
+
 function  makeformFormissingprint(value, link) {
     var button_id = "passToPrint";
     var form = form_head("./php/forms/" + link, true, "POST");
@@ -302,7 +310,7 @@ function attendforteacher(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var mainhead_array = new Array();
             var date = '';
             var courses_datas = new Array();
@@ -335,11 +343,43 @@ function examsum(type) {
             param: value
 
         }, function (data, status) {
-            console.log(data);
+            //console.log(data);
             var link = data;
             makeformForsendExamsum(course, link);
 
 
         });
     }
+}
+
+
+function missingPrintStudentToNoName(type){
+	var course = document.getElementById("form-row-aktiv-kepzes-es").value;
+   if (course != -1) {
+        var slink = 'server.php';
+        var value = new Array(type, new Array(course, "date"))
+
+        $.post(slink, {
+            muv: "print",
+            param: value
+
+        }, function (data, status) {
+            var link = data;
+            makeformForsendscmissingNN(course, link);
+        });
+		
+    }
+	
+}
+
+function  makeformForsendscmissingNN(course, link) {
+    var button_id = "passToPrint";
+	//console.log('valami');
+	//console.log(link);
+    var form = form_head("./php/forms/" + link, true, "POST");
+    form += one_variable_input("value", course);
+    form += submit_button(button_id);
+    form += form_end();
+    document.getElementById("help_div").innerHTML = form;
+    document.getElementById(button_id).click();
 }

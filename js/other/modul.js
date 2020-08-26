@@ -18,7 +18,7 @@ function modulSend() {
         param: value
 
     }, function (data, status) {
-        //////console.log(data);
+        ////////console.log(data);
         var value;
         if (data != "error") {
 
@@ -48,7 +48,7 @@ function modulGet() {
             param: value
 
         }, function (data, status) {
-            //  //////console.log(data);
+            //  ////////console.log(data);
             if (data != "none/;/") {
                 var spData = data.split("/;/");
                 document.getElementById("form-row-name").value = spData[0];
@@ -84,7 +84,7 @@ function modulGetWithParam(returnErrorInfoDataArray) {
         param: returnErrorInfoDataArray[1]
 
     }, function (data, status) {
-        // //////console.log(data);
+        // ////////console.log(data);
         if (data != "none/;/") {
             var spData = data.split("/;/");
             document.getElementById("form-row-name").value = spData[0];
@@ -134,7 +134,7 @@ function modulEdit(id) {
         param: sendModulDataArray
 
     }, function (data, status) {
-        //  //////console.log(data);
+        //  ////////console.log(data);
         var returnErrorTextMessage;
         if (data != "error") {
             returnErrorTextMessage = '<div class="alert alert-success">Sikeres módosítás!</div>';
@@ -158,7 +158,7 @@ function modulList(targetDiv) {
         param: "value"
 
     }, function (data, status) {
-        //////console.log(data);
+        ////////console.log(data);
         var returnSelectorOptions = '<option value="-1">Nincs képzéshez rendelve</option>';
         if (data != "none;//") {
             var spReturnDataList = data.split("//");
@@ -192,7 +192,7 @@ function modulEducation(list) {
         param: "value"
 
     }, function (data, status) {
-        //////console.log(data);
+        ////////console.log(data);
         var returnSelectorOptions = '<option value="-1">Kérem válasszon a listából!</option>';
         if (list) {
             returnSelectorOptions = '<option value="-1">Nincs képzéshez rendelve</option>';
@@ -274,7 +274,7 @@ function getAccessForModul() {
             },
 
             success: function (moduls) {
-                console.log(moduls);
+                //console.log(moduls);
                 var spmoduls = moduls.split(";,;,;");
                 modul_data = spmoduls[0];
                 calc_data = spmoduls[1];
@@ -417,9 +417,9 @@ function modulRefeshwithParametersSELECTION(modullist, id, targetDiv, unusableSe
     var spTargetDiv = targetDiv.split("-");
     var selectedSelectorListId = spTargetDiv[spTargetDiv.length - 1];
 
-    //////console.log("status:" + status);
-    ////console.log(modullist);
-    ////console.log("\n"+targetDiv);
+    ////////console.log("status:" + status);
+    //////console.log(modullist);
+    //////console.log("\n"+targetDiv);
     if (id != -1) {
         var returnSelectorOptions = '<option value="-1">Kérem válaszon modult!</option>';
     } else {
@@ -448,8 +448,8 @@ function modulRefeshwithParametersSELECTION(modullist, id, targetDiv, unusableSe
 function checkMatchWithListItemsWhenNotInSameSelectorList(placeList, samePlace, matchingItem, matchingvalueList) {
     for (var j = 0, innerforMaximum = placeList.length; j < innerforMaximum; j++) {
         if (placeList[j] != samePlace) {
-            //  //////console.log("tiltoot: "+tiltott[j]);
-            // //////console.log("jelenlegi: "+spStudent[2]);
+            //  ////////console.log("tiltoot: "+tiltott[j]);
+            // ////////console.log("jelenlegi: "+spStudent[2]);
             if (matchingvalueList[j] == matchingItem) {
                 return true;
             }

@@ -27,7 +27,7 @@ function one_dimension_input(name,array){
 }
 function two_dimension_input(name,array){
     var inputs='';
-    console.log(array);
+    //console.log(array);
     for (var rows = 0, max = array.length; rows < max; rows++) {
         for (var cells = 0, max_1 = array[rows].length; cells < max_1; cells++) {
         inputs += '<input type="hidden" name="'+name+'[' + rows + ']['+cells+']" value="' + array[rows][cells] + '">';

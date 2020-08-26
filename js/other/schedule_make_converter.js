@@ -6,7 +6,7 @@
 
 
 
-function makeSchedule(dataArrayFromInput, dataArrayFromServer, course) {
+function makeSchedule(dataArrayFromInput, dataArrayFromServer, course,banStart,banEnd) {
     return new Aktiv_Kepzes_Model(
             dataArrayFromServer[0],
             dataArrayFromInput[0],
@@ -15,7 +15,15 @@ function makeSchedule(dataArrayFromInput, dataArrayFromServer, course) {
             dataArrayFromInput[4],
             dataArrayFromInput[3],
             dataArrayFromInput[9],
+            banStart,
+            banEnd
             );
+}
+function betweenDate(start, end, date){
+    var startDate= new Date(start);
+    var endDate= new Date(end);
+    var actDate= new Date(date);
+    return actDate >= startDate && actDate <= endDate;
 }
 function makeTanegyseg_ModelFromData(dataArray, targetArray) {
     for (var i = 0, max = dataArray.length; i < max; i++) {
@@ -242,9 +250,8 @@ function collectDatainArray(targetArray) {
     targetArray[12] = fhasznalt;
 
     }
-    
-    
-
+    targetArray[13] = document.getElementById("form-row-pract-ban-start-date").value;
+    targetArray[14] = document.getElementById("form-row-pract-ban-end-date").value;
 
 }
 function connectCurUnitsForModuls(schedule, cur_unitArray) {

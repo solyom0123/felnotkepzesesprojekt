@@ -13,7 +13,7 @@ function dateEdit(date) {
         param: date
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var spdate = data.split("-");
         monthGet(spdate[0] + "-" + (spdate[1] * 1) + "-01");
     });
@@ -27,7 +27,7 @@ function checkmonth(date) {
         param: date
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
         var inputText= "";
           if (data=="true") {
               inputText ='<div style="float: right; display: inline-block" onclick="editcheckDate(\''+date+'\')"><img src="./img/green-check.jpg" width="40px" height="40px"></div>'; 
@@ -47,7 +47,7 @@ function editcheckDate(date){
         param: date
 
     }, function (data, status) {
-        console.log(date);
+        //console.log(date);
         checkmonth(date);
     });
 }
@@ -60,10 +60,10 @@ function monthGet(date) {
         param: date
 
     }, function (data, status) {
-        ////console.log(data);
+        //////console.log(data);
 
         var spStudents = data.split("//");
-        ////console.log(spStudents);
+        //////console.log(spStudents);
         var datesFromServer = spStudents[2].split("/-/");
         var spLastDateOfMonth = spStudents[0].split("-");
         var end = ((spLastDateOfMonth[2] * 1) + 1);
@@ -115,7 +115,7 @@ function monthBefore() {
     var ev = (spdate[0] * 1);
     var honap = 0;
     var nap = "01";
-    if (spdate[1] == 01) {
+    if (spdate[1] == "01") {
         honap = 12
         ev = (spdate[0] * 1) - 1;
     } else {

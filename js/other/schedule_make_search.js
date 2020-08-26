@@ -7,7 +7,7 @@
 
 function searchCurUnit(modul, hour) {
     var returnCurUnit = null;
-    // //console.log(modul);
+    // ////console.log(modul);
     for (var i = 0, max = modul.getTananyagegysegek().length; i < max; i++) {
         var actCurUnit = modul.getTanegyseg(i);
         if (hour.getTipus() == 1) {
@@ -27,6 +27,58 @@ function searchCurUnit(modul, hour) {
     }
     return returnCurUnit;
 }
+function searchCurUnitExchangeExecToDoc(modul, hour) {
+    var returnCurUnit = null;
+    //console.log("aktualis modul:")
+    //console.log(modul);
+    //console.log("aktualis naptipus:"+hour.getTipus())
+    for (var i = 0, max = modul.getTananyagegysegek().length; i < max; i++) {
+        var actCurUnit = modul.getTanegyseg(i);
+        if (hour.getTipus() == 1) {
+            if ((actCurUnit.getElmeleti_oraszam() - actCurUnit.getFelhasznalt_elmelet()) > 0) {
+                return actCurUnit;
+            }
+
+        } else if (hour.getTipus() == 2) {
+            if ((actCurUnit.getElearn_oraszam() - actCurUnit.getFelhasznalt_elearn()) > 0 || (actCurUnit.getElmeleti_oraszam() - actCurUnit.getFelhasznalt_elmelet()) > 0) {
+                return actCurUnit;
+            }
+        } else if (hour.getTipus() == 3) {
+            if ((actCurUnit.getElearn_oraszam() - actCurUnit.getFelhasznalt_elearn()) > 0) {
+                return actCurUnit;
+            }
+        }
+    }
+    return returnCurUnit;
+}
+function searchExamExchangeExecToDoc(modul, hour, hourammount) {
+    var returnExam = null;
+
+    for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
+        var actExam = modul.getVizsga(i);
+        if (modul.getFelhasznaltElmeletiOraszam() >= modul.getElmeleti_oraszam()){
+            if (hour.getTipus() == 1) {
+
+                if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
+                    if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
+                        return actExam;
+                    }
+                }
+
+            } else if (hour.getTipus() == 2) {
+
+                if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
+                    if (hourammount >= (modul.getVizsga(i).getOraszam() * 1) && !modul.getVizsga(i).getUsed()) {
+                        return actExam;
+                    }
+                }
+
+            }
+        }
+    }
+    return returnExam;
+}
+
 function searchExam(modul, hour, hourammount) {
     var returnExam = null;
 
@@ -64,6 +116,32 @@ function searchModul(schedule, hourscanuse) {
     }
     return returnArray;
 }
+function searchModulExchangeExecToDoc(schedule, hourscanuse) {
+    var returnArray = new Array();
+    for (var i = 0, max = schedule.getKepzes().getModulok().length; i < max; i++) {
+        if (canUseModulExchangeExecToDoc(schedule.getKepzes().getModul(i), hourscanuse)) {
+            returnArray[returnArray.length] = schedule.getKepzes().getModul(i);
+        }
+    }
+    return returnArray;
+}
+
+function canUseModulExchangeExecToDoc(modul, hourscanuse) {
+    for (var i = 0, max = hourscanuse.length; i < max; i++) {
+        if (hourscanuse[i].getTipus() == 1 || hourscanuse[i].getTipus() == 3) {
+            if ((modul.getElmeleti_oraszam() - modul.getFelhasznaltElmeletiOraszam()) > 0 || haveUnusedExamWithEnoughHourExchangeExecToDoc(modul, hourscanuse[i])) {
+                return true;
+            }
+
+        } else if (hourscanuse[i].getTipus() == 2) {
+            if ((modul.getElmeleti_oraszam() - modul.getFelhasznaltElmeletiOraszam()) > 0 || haveUnusedExamWithEnoughHourExchangeExecToDoc(modul, hourscanuse[i])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 function canUseModul(modul, hourscanuse) {
     for (var i = 0, max = hourscanuse.length; i < max; i++) {
         if (hourscanuse[i].getTipus() == 1 || hourscanuse[i].getTipus() == 3) {
@@ -78,6 +156,25 @@ function canUseModul(modul, hourscanuse) {
         }
     }
 
+    return false;
+}
+function haveUnusedExamWithEnoughHourExchangeExecToDoc(modul, day) {
+    for (var i = 0, max = modul.getVizsgak().length; i < max; i++) {
+        if (day.getTipus() == 1) {
+            if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
+                if (day.getOra() >= modul.getVizsga(i).getOraszam() && !modul.getVizsga(i).getUsed()) {
+                    return true;
+                }
+            }
+        } else if (day.getTipus() == 2) {
+            if (modul.getVizsga(i).getTipus() == 1 || modul.getVizsga(i).getTipus() == 2) {
+                if (day.getOra() >= modul.getVizsga(i).getOraszam() && !modul.getVizsga(i).getUsed()) {
+                    return true;
+                }
+            }
+        }
+
+    }
     return false;
 }
 function haveUnusedExamWithEnoughHour(modul, day) {

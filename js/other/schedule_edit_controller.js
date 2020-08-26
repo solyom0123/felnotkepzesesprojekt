@@ -8,8 +8,8 @@ function setTeacherOptionsValue(index, kulonbsegteacher) {
 
     if (index < sc.getUtemterv().length) {
         var actday = sc.getUtemtervNap(index);
-        //console.log(sc.getUtemtervNap(index));
-        //console.log(document.getElementById("scTable").getElementsByTagName("tr")[index + 1 - kulonbsegteacher]);
+        ////console.log(sc.getUtemtervNap(index));
+        ////console.log(document.getElementById("scTable").getElementsByTagName("tr")[index + 1 - kulonbsegteacher]);
 
         modal.style.display = "block";
 
@@ -104,6 +104,8 @@ function backLoadUpdateschedule() {
                 document.getElementById("form-row-sign-date").value = sc.getVizsgaJelentkezes();
                 document.getElementById("form-row-exam-date").value = sc.getVizsgaKezdes();
                 document.getElementById("form-row-help-day").value = sc.getTartaleknapok();
+                document.getElementById("form-row-pract-ban-start-date").value = sc.getBanStart();
+                document.getElementById("form-row-pract-ban-end-date").value = sc.getBanEnd();
 
                 solveDaysAndWriteBack(sc);
                 setTimeout(
@@ -124,7 +126,7 @@ function backLoadUpdateschedule() {
 
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 
 }
@@ -136,7 +138,7 @@ function deleteEditedSchedule() {
         param: sc.getId()
 
     }, function (data, status) {
-        //console.log(data);
+        ////console.log(data);
     });
 }
 function updateSchedule() {
@@ -146,14 +148,14 @@ function updateSchedule() {
     lockAllModulSelector(true);
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length] = id;
-    //console.log(formDataArray);
+    ////console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "update_schedule",
         param: formDataArray
 
     }, function (data, status) {
-        //console.log(data);
+      //  console.log(data);
         backtotheMenu();
     });
 }
@@ -165,14 +167,14 @@ function gettingupdateStart() {
     collectDatainArray(formDataArray);
     formDataArray[formDataArray.length] = id;
 
-    // //console.log(formDataArray);
+    // ////console.log(formDataArray);
     var slink = 'server.php';
     $.post(slink, {
         muv: "course_start_update",
         param: formDataArray
 
     }, function (data, status) {
-        // //console.log(data);
+        // ////console.log(data);
         kiiras = "";
         sc = null;
         objects = null;
@@ -185,8 +187,8 @@ function gettingupdateStart() {
         var spCourse = spReplyData[1].split(";");
         var course = new Kepzes_Model(spCourse[1], spCourse[0], spCourse[2]);
         var cur_unitArray = new Array();
-        ////console.log(schedule);
-        var schedule = makeSchedule(formDataArray, spReplyData, course);
+        //////console.log(schedule);
+        var schedule = makeSchedule(formDataArray, spReplyData, course,formDataArray[13],formDataArray[14]);
         makeTanegyseg_ModelFromData(spCurUnits, cur_unitArray);
         makeFinishedModul_ModelsfromData(spFinisHedModuls, schedule);
            
@@ -198,10 +200,10 @@ function gettingupdateStart() {
         makeWeekUtemterv_bejegyzes_ModelfromArray(formDataArray[10], schedule, 3);
         makeTableForShow(1, null);
         makeDayUtemterv_bejegyzes_ModelfromData(spCaleInfos, schedule);
-        ////console.log(schedule);
+        //////console.log(schedule);
         scanDates(schedule);
         makeTableForShow(4, null);
-        //console.log(schedule);
+        ////console.log(schedule);
         showResultUpdate(schedule);
     });
 }
@@ -212,9 +214,15 @@ function showResultUpdate(schedule) {
                 document.getElementsByTagName("id")[0].innerHTML = id;
                 document.getElementById("resultTable").innerHTML = kiiras;
                 sc = schedule;
-                loadTeacherselects(0, 0, false);
-                
-                searchForCurUnits(sc.getKepzes().getId())
+                var notwork =checkSc(sc);
+                if(notwork.length>0){
+                    document.getElementById("pass-btn").style.display="none";
+                    document.getElementById("pass-btn-b").style.display="none";
+                    document.getElementById("alert").innerHTML = alertMessageMake(notwork);
+                }else {
+                    loadTeacherselects(0, 0, false);
+
+                    searchForCurUnits(sc.getKepzes().getId())
                         .then(data => {
                             objects = makeObjectFromReturnValue(data);
                             options = makeOptionsFromObjects(objects);
@@ -226,12 +234,12 @@ function showResultUpdate(schedule) {
 
                         })
                         .catch(error => {
-                            ////console.log(error)
+                            //////console.log(error)
                         });
-
+                }
             })
             .catch(error => {
-                ////console.log(error)
+                //////console.log(error)
             });
 
     //document.getElementById("resultTable").innerHTML= kiiras;

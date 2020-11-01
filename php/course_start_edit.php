@@ -62,6 +62,24 @@ if(isset($_POST['param'])&&$_POST['muv']=="load"){
             <a href="#" data-toggle="tooltip" title="Adja meg a vizsga időpontját"><img src="img/help.png" class="img-circle " alt="Súgó" width="15" height="15"></a>
         </div>                            
     </div>
+    <div class="form-group row">
+        <label for="form-row-exam-date" class="col-md-4 col-form-label">Gyakorlat tiltás kezdőnap:</label>
+        <div class="col-md-8">
+            <input class="form-control-plaintext" name="form-row-pract-ban-start-date" id="form-row-pract-ban-start-date"
+                   type="date" placeholder="ÉÉÉÉ.HH.NN." value="1990-01-01">
+        </div>
+
+
+    </div>
+    <div class="form-group row">
+        <label for="form-row-exam-date" class="col-md-4 col-form-label">Gyakorlat tiltás vége:</label>
+        <div class="col-md-8">
+            <input class="form-control-plaintext" name="form-row-pract-ban-end-date" id="form-row-pract-ban-end-date"
+                   type="date" placeholder="ÉÉÉÉ.HH.NN." value="1990-01-01">
+        </div>
+
+
+    </div>
  <!--<div class="form-group row">
         <label for="form-row-machine" class="col-md-4 col-form-label">Tervezett befejezés (gépi kalkuláció):</label>
         <div class="col-md-4">

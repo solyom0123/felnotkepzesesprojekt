@@ -50,7 +50,7 @@
                                    <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('print_sc_in_form');setElozo('show_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>
-                                        </div><span>Ütemterv</span></td>
+                                        </div><span>Ütemterv, haladási napló<br>jelenléti ív tejes képzésre</span></td>
                                         <td><div class="span-half-corner-wrapper">
                                             <div onclick="link('list_names_in_form');setElozo('show_page')" ><img src="img/lincense.png" class="img-circle img-circle-zindex-0" alt="bell" width="100" height="100">
                                             </div>

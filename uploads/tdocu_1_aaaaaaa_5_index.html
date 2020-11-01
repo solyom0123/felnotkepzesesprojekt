@@ -1,0 +1,123 @@
+<script>
+    var szoveg = '<table id="myTable"><tr><th onclick="sortTable(0)">Cím</th><th onclick="sortTable(1)">régiár</th><th onclick="sortTable(2)">újár</th><th onclick="sortTable(3)">különbség</th></tr>';
+function gyűjt(teljes) {
+    var divek = document.getElementsByClassName("__desktop-presentation__grid-cell__base__0ba9f ember-view");
+//console.log(divek);
+     //var next_button = document.getElementsByClassName("paginator-control__next paginator-control__arrow-navigation internal-app-link ember-view")[0];
+     //console.log(next_button);
+      //  while(next_button != null&&next_button != undefined){
+      //  console.log(next_button);
+    
+    for (var i = 0, max = divek.length; i < max; i++) {
+        hibadiv = divek[i].getElementsByClassName("grid-cell__ineligible-reason");
+        if (hibadiv[0] === undefined) {
+            old_plus_price = divek[i].getElementsByClassName("price-display__strikethrough--is-plus");
+            old_price = divek[i].getElementsByClassName("price-display__strikethrough");
+            
+            if ((old_plus_price[0] != undefined&&(teljes==1||teljes==0))||(old_price[0] != undefined&&(teljes==1||teljes==0))) {
+
+                cimdiv = divek[i].getElementsByClassName("grid-cell__title");
+
+                // console.log(cimdiv);
+                cim = cimdiv[0].getElementsByTagName("span")[0].innerHTML;
+
+                //console.log(cim);
+                kep = divek[i].getElementsByClassName("product-image__img product-image__img--main")[0].getElementsByTagName("img")[0].src;
+                kep =kep.replace("https://store.playstation.com/store/api/chihiro/00_09_000/container/HU/en/19/","");
+                kep =kep.replace("image?w=124&h=124&bg_color=000000&opacity=100&_version=00_09_000","");
+                regiarplus = divek[i].getElementsByClassName("price-display__strikethrough--is-plus");
+                //console.log(regiarplus[0]);
+                if (regiarplus[0] === undefined) {
+                    régiardiv = divek[i].getElementsByClassName("price-display__strikethrough");
+                    //console.log(régiardiv);
+                    régiar = régiardiv[0].getElementsByClassName("price")[0].innerHTML;
+                    //console.log(régiar);
+                    ujar = divek[i].getElementsByClassName("price-display__price")[0].innerHTML;
+                    // console.log(ujar);
+
+                    ujar = ujar.split("&")[0];
+                    ujar = ujar.replace(".", "");
+                    régiar = régiar.split("&")[0];
+                    régiar = régiar.replace(".", "");
+                } else {
+                    régiardiv = divek[i].getElementsByClassName("price-display__strikethrough--is-plus");
+                    //console.log(régiardiv);
+                    régiar = régiardiv[0].getElementsByClassName("price")[0].innerHTML;
+                    //console.log(régiar);
+                    ujar = divek[i].getElementsByClassName("price-display__price--is-plus")[0].innerHTML;
+                    // console.log(ujar);
+                    ujar = ujar.split("&")[0];
+                    ujar = ujar.replace(".", "");
+                    régiar = régiar.split("&")[0];
+                    régiar = régiar.replace(".", "");
+
+                }
+
+                //console.log(régiar);
+                //console.log(ujar);
+                kulonbseg = régiar - ujar;
+                //console.log(kulonbseg);
+                szoveg += "<tr><td>" + cim + "</td><td>" + régiar + "</td><td>" + ujar + "</td><td>" + kulonbseg + "</td><td>"+kep+"</td></tr>";
+                
+            }else if((teljes==1||teljes==2)&&(old_plus_price[0] == undefined&&old_price[0] == undefined)){
+                
+                cimdiv = divek[i].getElementsByClassName("grid-cell__title");
+
+                // console.log(cimdiv);
+                cim = cimdiv[0].getElementsByTagName("span")[0].innerHTML;
+                kep = divek[i].getElementsByClassName("product-image__img product-image__img--main")[0].getElementsByTagName("img")[0].src;
+                kep= kep.replace("https://store.playstation.com/store/api/chihiro/00_09_000/container/HU/en/19/","");
+                kep= kep.replace("image?w=124&h=124&bg_color=000000&opacity=100&_version=00_09_000","");
+
+                //console.log(cim);
+               var megosztottar=divek[i].getElementsByClassName("price-display__price");
+               if(megosztottar[0]!= undefined){
+                ujar = divek[i].getElementsByClassName("price-display__price")[0].innerHTML;
+                    // console.log(ujar);
+                    
+                ujar = ujar.split("&")[0];
+                ujar = ujar.replace(".", "");
+            }
+            else{
+                ujar = -1;
+            }
+                        szoveg += "<tr><td>" + cim + "</td><td>"+ujar+"</td><td>" + ujar + "</td><td>0</td><td>"+kep+"</td></tr>";
+                    
+            }
+        }
+    }
+    //next_button.click();
+    //sleep(2000);
+    //next_button = document.getElementsByClassName("paginator-control__next paginator-control__arrow-navigation internal-app-link ember-view")[0];
+    
+    //}
+}
+function kezel(teljes){
+    var volt=false;
+    var timer =setInterval(function(){ 
+        
+    var next_button = document.getElementsByClassName("paginator-control__next paginator-control__arrow-navigation internal-app-link ember-view")[0];
+    volt=false;
+    if(!volt){
+        gyűjt(teljes);
+        volt=true;
+    }
+    if(next_button.className != "paginator-control__next paginator-control__arrow-navigation paginator-control__arrow-navigation--disabled internal-app-link ember-view"){
+        
+        next_button.click();
+    }else{
+        kiir();
+        clearInterval(timer);
+        
+    }
+    }, 3000);
+}
+function kiir() {
+    szoveg += "</table>"
+    console.log(szoveg);
+}
+function torol() {
+    szoveg = '<table id="myTable"><tr><th onclick="sortTable(0)">Cím</th><th onclick="sortTable(1)">régiár</th><th onclick="sortTable(2)">újár</th><th onclick="sortTable(3)">különbség</th></tr>'
+    console.log(szoveg);
+}
+//------------------------------------------------

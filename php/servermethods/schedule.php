@@ -32,11 +32,11 @@ function makeSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
-  if( $value[11][0]!='none'){
-    for ($index = 0; $index < count($value[11]); $index++) {
-        lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+    if ($value[11][0] != 'none') {
+        for ($index = 0; $index < count($value[11]); $index++) {
+            lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+        }
     }
-  }    
 }
 
 function makeUpdateSchedulePlan() {
@@ -54,17 +54,17 @@ function makeUpdateSchedulePlan() {
     lekapcsolodas(collectNeededDatesData(kapcsolodas()));
     echo ' //';
     collectNeededDatesBetweenStartAndEnd();
-  if( $value[11][0]!='none'){
-    for ($index = 0; $index < count($value[11]); $index++) {
-        lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+    if ($value[11][0] != 'none') {
+        for ($index = 0; $index < count($value[11]); $index++) {
+            lekapcsolodas(collectNeededModulsData(kapcsolodas(), $value[11][$index]));
+        }
     }
-  }
 }
 
 function searchTeacher($conn) {
     global $value;
     $sql = "select t.teacher_id as id, t.teacher_full_name as name"
-            . " from teachers t,studymaterials_teacher st where t.teacher_id = st.teacher and st.studymaterials=" . $value."  group by t.teacher_id";
+            . " from teachers t,studymaterials_teacher st where t.teacher_id = st.teacher and st.studymaterials=" . $value . "  group by t.teacher_id";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -77,10 +77,11 @@ function searchTeacher($conn) {
     }
     return $conn;
 }
+
 function searchTeacherExam($conn) {
     global $value;
     $sql = "select t.teacher_id as id, t.teacher_full_name as name"
-            . " from teachers t,studymaterials_teacher  st, studymaterials s where t.teacher_id = st.teacher and  st.studymaterials = s.studymaterials_id and s.modul_id=" . $value."  group by t.teacher_id";
+            . " from teachers t,studymaterials_teacher  st, studymaterials s where t.teacher_id = st.teacher and  st.studymaterials = s.studymaterials_id and s.modul_id=" . $value . "  group by t.teacher_id";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -171,7 +172,7 @@ function collectNeededModulsData($conn, $modulid) {
             echo $row["name"] . " ;" . $row["id"] . ";" . $row['inId'] . ";" . $row['d'] . ";" . $row['e'] . ";" . $row['vt'] . ";" . $row['wt'] . ";" . $row['pt'] . "/;/";
         }
     } else {
-     //   echo "none;/;/";
+        //   echo "none;/;/";
     }
     return $conn;
 }
@@ -218,18 +219,46 @@ function insertSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
-     if( $value[11][0]!='none'){
-    $used_finished_module = arraytoString($value[11]);
-    $used_finished_module_place = arraytoString($value[12]);
-    
-  }else{
-     $used_finished_module = '';
-    $used_finished_module_place = '';
-      
-  }
+    if ($value[11][0] != 'none' && checkNotUsedModulError($value[11])) {
+        $used_finished_module = arraytoString($value[11]);
+        $used_finished_module_place = arraytoString($value[12]);
+    } else {
+        $used_finished_module = '';
+        $used_finished_module_place = '';
+    }
+    $practiceBanDateStart = $value[13];
+    $practiceBanDateEnd = $value[14];
+
     $replace = $value[9];
-    $sql = "INSERT INTO schedule_plan_data (`name`,course_id,start_day,sign_day,exam_date,doctrine_week_plan,elearn_week_plan,exercise_week_plan,used_modul_id,used_modul_place,replace_days,used_finished_modul,used_finished_modul_place)
-VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[3] . "','" . $value[4] . "','" . $week_plan_doctrine . "','" . $week_plan_elearn . "','" . $week_plan_exercise . "','" . $used_moduls . "','" . $used_module_place . "'," . $replace . ",'" . $used_finished_module . "','" . $used_finished_module_place . "');";
+    $sql = "INSERT INTO schedule_plan_data (
+        `name`,
+        course_id,start_day,
+        sign_day,exam_date,
+        doctrine_week_plan,
+        elearn_week_plan,
+        exercise_week_plan,
+        used_modul_id,used_modul_place,
+        replace_days,
+        used_finished_modul,
+        used_finished_modul_place,
+        pract_ban_start_date, 
+        pract_ban_end_date)
+    VALUES (
+              '" . $value[0] . "',"
+            . "'" . $value[1] . "',"
+            . "'" . $value[2] . "',"
+            . "'" . $value[3] . "',"
+            . "'" . $value[4] . "',"
+            . "'" . $week_plan_doctrine . "',"
+            . "'" . $week_plan_elearn . "',"
+            . "'" . $week_plan_exercise . "',"
+            . "'" . $used_moduls . "',"
+            . "'" . $used_module_place . "',"
+            . " " . $replace . ","
+            . "'" . $used_finished_module . "',"
+            . "'" . $used_finished_module_place . "',"
+            . "'" . $practiceBanDateStart . "',"
+            . "'" . $practiceBanDateEnd . "');";
     if ($conn->query($sql) === TRUE) {
         // echo 'ok';
     } else {
@@ -249,6 +278,16 @@ VALUES ('" . $value[0] . "','" . $value[1] . "','" . $value[2] . "','" . $value[
     return $conn;
 }
 
+function checkNotUsedModulError($valueArray) {
+    $doesntHaveNullItem = true;
+    foreach ($array as $value) {
+        if ($value == NULL && trim($value) == "") {
+            $doesntHaveNullItem = false;
+        }
+    }
+    return $doesntHaveNullItem;
+}
+
 function updateSchedule($conn) {
     global $value;
     $week_plan_doctrine = arraytoString($value[5]);
@@ -256,27 +295,28 @@ function updateSchedule($conn) {
     $week_plan_elearn = arraytoString($value[10]);
     $used_moduls = arraytoString($value[7]);
     $used_module_place = arraytoString($value[8]);
-    if( $value[11][0]!='none'){
-     $used_finished_module = arraytoString($value[11]);
-    $used_finished_module_place = arraytoString($value[12]);
-    
-  }else{
-     $used_finished_module = '';
-    $used_finished_module_place = '';
-      
-  }
+    if ($value[11][0] != 'none') {
+        $used_finished_module = arraytoString($value[11]);
+        $used_finished_module_place = arraytoString($value[12]);
+    } else {
+        $used_finished_module = '';
+        $used_finished_module_place = '';
+    }
+    $practiceBanDateStart = $value[13];
+    $practiceBanDateEnd = $value[14];
+
     $replace = $value[9];
-    //var_dump($value);
-    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . ",,used_finished_modul='" . $used_finished_module . "',used_finished_modul_place='" . $used_finished_module_place . "'  where id = " . $value[13] . " ;";
-   // echo $sql ;
+    $sql = "UPDATE schedule_plan_data set name ='" . $value[0] . "',course_id='" . $value[1] . "',start_day='" . $value[2] . "',sign_day='" . $value[3] . "',exam_date='" . $value[4] . "',doctrine_week_plan='" . $week_plan_doctrine . "',elearn_week_plan='" . $week_plan_elearn . "',exercise_week_plan='" . $week_plan_exercise . "',used_modul_id='" . $used_moduls . "',used_modul_place='" . $used_module_place . "',replace_days=" . $replace . ",used_finished_modul='" . $used_finished_module . "',used_finished_modul_place='" . $used_finished_module_place . "', pract_ban_start_date='". $practiceBanDateStart ."',pract_ban_end_date='". $practiceBanDateEnd ."'  where id = " . $value[15] . " ;";
+    // echo $sql ;
     if ($conn->query($sql) === TRUE) {
         //  echo 'ok';
     } else {
-      //    echo 'error';
-      //    echo $conn->error;
+            //echo 'error';
+           // var_dump($sql);
+           // var_dump($conn->error);
     }
-    
-    echo $value[13] . "//";
+
+    echo $value[15] . "//";
     return $conn;
 }
 
@@ -320,13 +360,13 @@ function select_all_dataforAnActiveEducation($conn) {
     $moduls = '';
     $start = "";
     $end = "";
-    $fmodul ='';
-    $sql = "select sc.`name` as n,e.education_name as e,e.okj_number as o,sc.start_day as s,sc.sign_day as si, sc.used_modul_id as mi, sc.used_modul_place as mp, sc.replace_days as r,sc.exam_date as ex , sc.course_id as cid, sc.doctrine_week_plan as dp, sc.elearn_week_plan as elp, sc.exercise_week_plan as exp, used_finished_modul as ufm, used_finished_modul_place as ufmp  from schedule_plan_data sc, education e where e.education_id= sc.course_id and sc.id =" . $value;
+    $fmodul = '';
+    $sql = "select sc.`name` as n,e.education_name as e,e.okj_number as o,sc.start_day as s,sc.sign_day as si, sc.used_modul_id as mi, sc.used_modul_place as mp, sc.replace_days as r,sc.exam_date as ex , sc.course_id as cid, sc.doctrine_week_plan as dp, sc.elearn_week_plan as elp, sc.exercise_week_plan as exp, used_finished_modul as ufm, used_finished_modul_place as ufmp,pract_ban_start_date as prstr,pract_ban_end_date as prend  from schedule_plan_data sc, education e where e.education_id= sc.course_id and sc.id =" . $value;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo $row["n"] . ";,;" . $row["e"] . ";,;" . $row["o"] . ";,;" . $row["s"] . ";,;" . $row["si"] . ";,;" . $row["mi"] . ";,;" . $row["mp"] . ";,;" . $row["r"] . ";,;" . $row["ex"] . ";,;" . $row["cid"] . ";,;" . $row["dp"] . ";,;" . $row["elp"] . ";,;" . $row["exp"] . "//";
+            echo $row["n"] . ";,;" . $row["e"] . ";,;" . $row["o"] . ";,;" . $row["s"] . ";,;" . $row["si"] . ";,;" . $row["mi"] . ";,;" . $row["mp"] . ";,;" . $row["r"] . ";,;" . $row["ex"] . ";,;" . $row["cid"] . ";,;" . $row["dp"] . ";,;" . $row["elp"] . ";,;" . $row["exp"]. ";,;" . $row["prstr"] . ";,;" . $row["prend"]. "//";
             //0                 //1                 //2                 //3                 //4                 //5                     //6                 //7                 //8                 //9             //10                //11                //12
             $moduls = $row['mi'];
             $start = $row["s"];
@@ -363,7 +403,6 @@ function select_all_dataforAnActiveEducation($conn) {
         while ($row = $result->fetch_assoc()) {
             echo $row["d"] . ";,;" . $row["r"] . ";,;" . $row["si"] . ";,;" . $row["uh"] . ";,;" . $row["t"] . ";,;" . $row["e"] . ";,;" . $row["sh"] . ";,;" . $row["eh"] . ";,;" . $row["mi"] . ";,;" . $row["mn"] . ";,;" . $row["sn"] . ";,;" . $row["ti"] . ";,;" . $row["tn"] . "//";
             //     0                    1                   2                       3                      4                5                   6                       7               8                   9                       10                  11                  12                  
-            
         }
     } else {
         echo "none//";
@@ -392,7 +431,7 @@ function select_all_dataforAnActiveEducation($conn) {
     foreach ($period as $dt) {
         echo $dt->format("Y-m-d") . "//";
     }
-     echo '/;/';
+    echo '/;/';
     $spmoduls = explode(";", $fmodul);
 
     for ($index = 0; $index < count($spmoduls); $index++) {
@@ -430,7 +469,7 @@ SET `name` = '" . $value[1] . "', replace_days = " . $value[2] . ", exam_date='"
 
 function editschedule($conn) {
     global $value;
-    
+
     $sql = "select schedule_plan_data_id as id from schedule_plan  where schedule_plan_data_id =" . $value[10] . " and `date`='" . $value[0] . "'  and exam='" . $value[5] . "' and used_modul_id=" . $value[8] . " and used_hours_type=" . $value[6] . " and replace_day='" . $value[9] . "' and used_studymaterials_id=" . $value[1] . " and used_hours=" . $value[2] . " and modul_end_hour=" . $value[4] . " and modul_start_hour=" . $value[3] . ";";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -452,6 +491,6 @@ VALUES ('" . $value[10] . "','" . $value[0] . "','" . $value[2] . "','" . $value
             echo 'error';
         }
     }
-   
+
     return $conn;
 }

@@ -410,6 +410,11 @@ function getclock($value) {
     return $returnValue;
 }
 
+$out_doc="";
+$out_doc.="<table><tr><th rowspan='2'>Dátum</th><th colspan=''>Modul óraszám</th><th colspan='2'>Oktató</th></tr>";
+$out_doc.="<tr><th></th><th colspan='2'>Elmélet/E-learning<th><th>Gyakorlat</th><th>Modul</th><th></th></tr>";
+        
+
 require_once('../tfpdf.php');
 
 class PDF extends tFPDF {
@@ -483,12 +488,12 @@ $pdf->Cell(60, 10, "Oktató neve", "TRL", 0);
 
 $pdf->Ln();
 $pdf->Cell(20, 10, "", "LB", 0);
-$pdf->Cell(20, 10, "elmélet", "LB", 0);
-$pdf->Cell(20, 10, "e-learning", "LB", 0);
+//$pdf->Cell(20, 10, "elmélet/e-learning", "LB", 0);
+$pdf->Cell(60, 10, "elmélet/e-learning", "LC", 0);
 //$pdf->Cell(20, 10, "e-learning", "LB", 0);
 //$pdf->Cell(20, 10, "gyakorlat", "LB", 0);
 $pdf->Cell(20, 10, "gyakorlat", "LB", 0);
-$pdf->Cell(20, 10, "alkalmi", "LB", 0);
+//$pdf->Cell(20, 10, "alkalmi", "LB", 0);
 $pdf->Cell(20, 10, "száma", "LBR", 0);
 $pdf->Cell(60, 10, "", "LBR", 0);
 $pdf->Ln();
@@ -498,7 +503,7 @@ $pdf->SetTextColor(0);
 $fill = true;
 for ($index = 0; $index < count($maintable); $index++) {
     $pdf->Cell(20, 6, $maintable[$index][0], 1, 0, "", $fill);
-    $pdf->Cell(20, 6, $maintable[$index][1], 1, 0, "", $fill);//20 volt
+    $pdf->Cell(20, 6, $maintable[$index][1], 1, 0, "", $fill);
     $pdf->Cell(20, 6, $maintable[$index][2], 1, 0, "", $fill);
     $pdf->Cell(20, 6, $maintable[$index][3], 1, 0, "", $fill);
     $pdf->Cell(20, 6, $maintable[$index][4], 1, 0, "", $fill);

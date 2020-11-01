@@ -225,22 +225,24 @@ if ($muv == "new_modul") {
 }
 
 
-$szerverneve = "localhost"; //"mysql.nethely.hu";//";;
-    $felhasznalonev = 'root'; //"oktat";//
-    $password = ""; //'corvin2019';//
+$szerverneve = "mysql.nethely.hu";//"localhost"; //";;
+    $felhasznalonev = "oktat";//'root'; //
+    $password = 'corvin2019';//""; //
     $dbname = 'oktat';
     $conn1 = mysqli_connect($szerverneve, $felhasznalonev, $password, $dbname);
 
 
 
 function kapcsolodas() {
-       $szerverneve = "localhost"; //"mysql.nethely.hu";//";;
-    $felhasznalonev = 'root'; //"oktat";//
-    $password = ""; //'corvin2019';//
+       $szerverneve = "mysql.nethely.hu";//"localhost"; //";;
+    $felhasznalonev = "oktat";//'root'; //
+    $password = 'corvin2019';//""; //
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
-
     mysqli_query($conn, "SET NAMES 'UTF8'");
+ $chset=mysqli_query($conn,"SET CHARACTER SET 'utf8'");
+    $chset2=mysqli_query($conn,"SET SESSION collation_connection ='utf8_general_ci'");
+    
 // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -248,13 +250,15 @@ function kapcsolodas() {
     return $conn;
 }
 function kapcsolodas2() {
-    $szerverneve = "localhost"; //"mysql.nethely.hu";//";;
-    $felhasznalonev = 'root'; //"oktat";//
-    $password =""; //'corvin2019';// 
+    $szerverneve = "mysql.nethely.hu";//""localhost"; //;;
+    $felhasznalonev = "oktat";//'root'; //
+    $password ='corvin2019';//""; // 
     $dbname = 'oktat';
     $conn = new mysqli($szerverneve, $felhasznalonev, $password, $dbname);
-
     mysqli_query($conn, "SET NAMES 'UTF8'");
+ $chset=mysqli_query($conn,"SET CHARACTER SET 'utf8'");
+    $chset2=mysqli_query($conn,"SET SESSION collation_connection ='utf8_general_ci'");
+    
 // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);

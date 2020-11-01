@@ -8,6 +8,5 @@
         <formeditor xmlns="http://controlsjs.com/netbeans/tools/formeditor/">
             <formeditor_sourcefilter>"custom;system;wineight%20skin;"</formeditor_sourcefilter>
         </formeditor>
-        <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1"/>
     </configuration>
 </project>

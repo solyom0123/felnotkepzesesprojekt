@@ -65,6 +65,9 @@ function printForm() {
         case 13:
             echo 'edu_cont_print.php';
             break;
+        case 14:
+            echo 'attendance_missing_sc_printNoName.php';
+            break;
         default:
 
             break;

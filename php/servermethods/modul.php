@@ -6,7 +6,8 @@
  * and open the template in the editor.
  */
 
-function insertModul($conn) {
+function insertModul($conn)
+{
     global $value;
     $calcdoc = $value[3] - ($value[5] + $value[6]);
     $calcexe = $value[4] - ($value[7]);
@@ -23,9 +24,10 @@ function insertModul($conn) {
     return $conn;
 }
 
-function list_modul($conn) {
+function list_modul($conn)
+{
     $sql = "select modul_id as id, modul_name as name, education_id as eid"
-            . " from modul;  ";
+        . " from modul;  ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -39,10 +41,11 @@ function list_modul($conn) {
     return $conn;
 }
 
-function list_modul_filter($conn) {
+function list_modul_filter($conn)
+{
     global $value;
     $sql = "select modul_id as id, modul_name as name,modul_number as no, education_id as eid"
-            . " from modul where education_id=" . $value . " ;  ";
+        . " from modul where education_id=" . $value . " ;  ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -57,7 +60,8 @@ function list_modul_filter($conn) {
     return $conn;
 }
 
-function editModul($conn) {
+function editModul($conn)
+{
     global $value;
     $calcdoc = $value[3] - ($value[5] + $value[6]);
     $calcexe = $value[4] - ($value[7]);
@@ -69,13 +73,14 @@ function editModul($conn) {
         } else {
             echo 'error' . $conn->error;
         }
-    }else{
+    } else {
         echo 'error';
     }
     return $conn;
 }
 
-function passModul($conn) {
+function passModul($conn)
+{
     global $value;
     $sql = "UPDATE modul SET pass_date=NOW() where modul_id=" . $value;
 
@@ -88,7 +93,8 @@ function passModul($conn) {
     return $conn;
 }
 
-function editModulModDate($conn, $id) {
+function editModulModDate($conn, $id)
+{
 
     $sql = "UPDATE modul SET mod_date=NOW() where modul_id=" . $id;
 
@@ -101,7 +107,8 @@ function editModulModDate($conn, $id) {
     return $conn;
 }
 
-function ispassModul($id) {
+function ispassModul($id)
+{
     $conn = kapcsolodas();
     $pass = false;
     $sql = "select (select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $id . ";  ";
@@ -122,7 +129,8 @@ function ispassModul($id) {
     return $pass;
 }
 
-function getNameModul($id) {
+function getNameModul($id)
+{
     $conn = kapcsolodas();
     $pass = 'névtelen modul';
     $sql = "select modul_name as na from modul where modul_id=" . $id . ";  ";
@@ -141,7 +149,8 @@ function getNameModul($id) {
     return $pass;
 }
 
-function getModul($conn, $type) {
+function getModul($conn, $type)
+{
     global $value;
     if ($type == 0) {
         $sql = "select modul_name as nev,modul_number as okj,education_id as id,doct_origin as d, ex_origin as e, writting_test as w,verbal_test as v, practical_test as  p,mod_date as md, pass_date as pd,(select case when pass_date>=mod_date then 'true' else 'false' End) as state from modul where modul_id=" . $value . ";  ";
@@ -162,7 +171,8 @@ function getModul($conn, $type) {
     return $conn;
 }
 
-function getCalcModulNeeded($conn) {
+function getCalcModulNeeded($conn)
+{
     global $value;
 
     $sql = "select sum(doctrine) as d,sum(elearn) as e,sum(exercise) as ex from studymaterials where modul_id=" . $value . ";  ";
@@ -179,7 +189,8 @@ function getCalcModulNeeded($conn) {
     return $conn;
 }
 
-function list_modul_for_course_with_piece($conn) {
+function list_modul_for_course_with_piece($conn)
+{
     global $value;
     $sql = "select count(*) as darab from modul where education_id=" . $value . " or education_id=-1;  ";
     $result = $conn->query($sql);
@@ -205,9 +216,10 @@ function list_modul_for_course_with_piece($conn) {
     return $conn;
 }
 
-function enough_day($conn) {
+function enough_day($conn)
+{
     global $value;
-    // var_dump($value);
+    //var_dump($value);
     //$spValue= preg_split("(\/\/)", $value);
     $moduls_needed_plan_dec = 0;
     $moduls_needed_plan_exec = 0;
@@ -233,15 +245,17 @@ function enough_day($conn) {
         }
     }
     $haveFinished = false;
+    if(is_array($value[9])){
     if (count($value[9]) > 0) {
         $i = 0;
         $haveFinished = true;
         foreach ($value[9] as $modulnumber) {
             if (!ispassModul($modulnumber)) {
                 array_push($badmodul, $modulnumber);
-            }
+                }
 
-            $i++;
+                $i++;
+            }
         }
     }
 
@@ -396,9 +410,9 @@ function enough_day($conn) {
 
 
     //var_dump($unusedweekdays);
-    $sumgetnumberofclassdoc = sumclassnumber($unusedweekdays, $value, "doc", $haveFinished);
-    $sumgetnumberofclassexec = sumclassnumber($unusedweekdays, $value, "exec", $haveFinished);
-    $sumgetnumberofclassel = sumclassnumber($unusedweekdays, $value, "el", $haveFinished);
+    $sumgetnumberofclassdoc = sumNeededHoursNumber($unusedweekdays, $value, "doc", $haveFinished);
+    $sumgetnumberofclassexec = sumNeededHoursNumber($unusedweekdays, $value, "exec", $haveFinished);
+    $sumgetnumberofclassel = sumNeededHoursNumber($unusedweekdays, $value, "el", $haveFinished);
 
     if (($sumgetnumberofclassdoc) != $moduls_needed_plan_dec) {
         echo (($sumgetnumberofclassdoc) - $moduls_needed_plan_dec) . "//";
@@ -440,7 +454,7 @@ function enough_day($conn) {
         if ($result->num_rows > 0) {
             // output data of each row
             while ($row = $result->fetch_assoc()) {
-                
+
             }
         } else {
             $spdate = explode("-", $alma);
@@ -459,16 +473,22 @@ function enough_day($conn) {
     return $conn;
 }
 
-function enoughforExam($type, $array, $biggestExamHour) {
+function enoughforExam($type, $array, $biggestExamHour)
+{
     $enough = false;
     if ($type == "doc") {
-        for ($index = 0; $index < count($array); $index++) {
+        //echo 'hossz'. count($array[0]);
+        for ($index = 0; $index < count($array[0]); $index++) {
+            //echo $index;
+            //var_dump($array[0][$index]);
             if ($array[0][$index] >= $biggestExamHour) {
+                
                 $enough = true;
             }
         }
     } else {
-        for ($index = 0; $index < count($array); $index++) {
+        for ($index = 0; $index < count($array[0]); $index++) {
+
             if ($array[1][$index] >= $biggestExamHour) {
                 $enough = true;
             }
@@ -477,7 +497,8 @@ function enoughforExam($type, $array, $biggestExamHour) {
     return $enough;
 }
 
-function numberofday($sqldate) {
+function numberofday($sqldate)
+{
     $numberofday = 0;
     if ($sqldate == 1) {
         $numberofday = 7;
@@ -497,7 +518,8 @@ function numberofday($sqldate) {
     return $numberofday;
 }
 
-function calcNextDayNo($dayno) {
+function calcNextDayNo($dayno)
+{
     $calcdayno = 0;
     if ($dayno < 7) {
         $calcdayno = $dayno + 1;
@@ -507,7 +529,8 @@ function calcNextDayNo($dayno) {
     return $calcdayno;
 }
 
-function calcIndexType($type) {
+function calcIndexType($type)
+{
     $index = 0;
     if ($type == "doc") {
         $index = 0;
@@ -519,36 +542,56 @@ function calcIndexType($type) {
     return $index;
 }
 
-function sumclassnumber($unusedweekdays, $datedata, $type, $havefinished) {
+function sumNeededHoursNumber($unusedWeekDays, $datedata, $type, $havefinished)
+{
     $begin = new DateTime($datedata[3]);
     $end = new DateTime($datedata[5]);
     $used = false;
     $interval = DateInterval::createFromDateString('1 day');
     $period = new DatePeriod($begin, $interval, $end);
-    $actdayno = $datedata[4];
+    $actDayNO = $datedata[4];
     $sum = 0;
     $index = calcIndexType($type);
+    if(is_array($datedata[9])){
+      $banStart = date('Y-m-d', strtotime($datedata[10]));
+      $banEnd = date('Y-m-d', strtotime($datedata[11]));
+    }else{
+        $banStart = date('Y-m-d', strtotime($datedata[9]));
+        $banEnd = date('Y-m-d', strtotime($datedata[10]));
+    }
 
     foreach ($period as $dt) {
-        $actdat = $dt->format("Y-m-d");
-        if (!array_key_exists($actdat, $unusedweekdays)) {
+        $actDate = $dt->format("Y-m-d");
+        if (!array_key_exists($actDate, $unusedWeekDays)) {
             //var_dump($dt->format("Y-m-d"));
             if ($havefinished && !$used) {
                 $used = true;
             } else {
-                $sum += $datedata[$index][$actdayno - 1];
+
+                if (($actDate >= $banStart) && ($actDate <= $banEnd) && $type=="exec" && $datedata[calcIndexType("exec")][$actDayNO - 1]>0) {
+                    $docHoursNumber= $datedata[calcIndexType("doc")][$actDayNO - 1];
+                    $elHoursNumber= $datedata[calcIndexType("el")][$actDayNO - 1];
+                    if($docHoursNumber>0){
+                        $sum += $docHoursNumber;
+                    }else if($elHoursNumber>0){
+                        $sum += $elHoursNumber;
+                    }
+                } else{
+                    $sum += $datedata[$index][$actDayNO - 1];
+                }
             }
             //  var_dump($sum);
         }
-        $actdayno = calcNextDayNo($actdayno);
+        $actDayNO = calcNextDayNo($actDayNO);
     }
     return $sum;
 }
 
-function list_modul_filter_with_non_ordered($conn) {
+function list_modul_filter_with_non_ordered($conn)
+{
     global $value;
     $sql = "select modul_id as id, modul_name as name,modul_number as no, education_id as eid"
-            . " from modul where education_id=" . $value . " or education_id=-1;  ";
+        . " from modul where education_id=" . $value . " or education_id=-1;  ";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

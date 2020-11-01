@@ -13,7 +13,7 @@
     <div class="col-md-12 "id="resultTable">
     </div>
     <div class="form-group row">
-       <div class="option-button" onclick="passUpdateschedule(0)">Elfogad!</div>
+       <div class="option-button" onclick="passUpdateschedule(0)" id="pass-btn">Elfogad!</div>
     </div>
     <div class="form-group row">
          <div class="option-button" onclick="backLoadUpdateschedule()">Módosítás</div>
